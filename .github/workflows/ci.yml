@@ -65,7 +65,9 @@ jobs:
       - name: Install optional solver environment
         run: python -m pip install ".[ci,native,casadi,cp]"
       - name: Exercise full suite with native solvers
-        run: python -m pytest -ra --junitxml=optional-results.xml
+        run: |
+          python -m pytest -ra tests/test_mixed_native_runtime.py
+          python -m pytest -ra --junitxml=optional-results.xml
       - name: Preserve optional integration results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -103,7 +105,8 @@ jobs:
       - name: Audit runtime dependencies
         run: |
           python -m pip install --target audit-site dist/*.whl
-          python -m pip_audit --path audit-site --strict --format json --output dependency-audit.json
+          python tools/release_runtime_requirements.py --path audit-site --output runtime-requirements.txt
+          python -m pip_audit -r runtime-requirements.txt --strict --format json --output dependency-audit.json
       - name: Preserve build and audit evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -112,6 +115,7 @@ jobs:
           path: |
             dist/
             dependency-audit.json
+            runtime-requirements.txt
           if-no-files-found: warn
           retention-days: 14
 
