@@ -13,7 +13,7 @@ EXAMPLES = ROOT / "examples"
 
 
 def test_readme_covers_requested_public_user_path():
-    text = README.read_text()
+    text = README.read_text(encoding="utf-8")
     required = [
         "SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**",
         "Python **3.12, 3.13, or 3.14**",
@@ -38,23 +38,23 @@ def test_readme_covers_requested_public_user_path():
 
 
 def test_readme_installation_does_not_claim_pypi_is_already_live():
-    text = README.read_text()
+    text = README.read_text(encoding="utf-8")
     install = text.split("## Installation", 1)[1].split("## Quick Start", 1)[0]
     assert "After the first public release" in install
     assert "git clone <REPOSITORY_URL>" in install
 
 
 def test_readme_optional_extras_match_pyproject():
-    project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     extras = set(project["optional-dependencies"])
-    text = README.read_text()
+    text = README.read_text(encoding="utf-8")
     for extra in {"highs", "osqp", "scip", "nlopt", "casadi", "native", "open-source", "benchmark", "conic", "nlp", "minlp", "cp"}:
         assert extra in extras
         assert f"solverpilot[{extra}]" in text
 
 
 def test_readme_relative_links_resolve():
-    text = README.read_text()
+    text = README.read_text(encoding="utf-8")
     targets = re.findall(r"\[[^\]]+\]\(([^)]+)\)", text)
     missing: list[str] = []
     for target in targets:
@@ -104,13 +104,13 @@ def test_all_public_examples_execute_against_current_source():
 
 
 def test_ci_runs_public_examples_explicitly():
-    text = (ROOT / ".github/workflows/ci.yml").read_text()
+    text = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
     assert "Run public examples" in text
     assert "examples/[0-9][0-9]_*.py" in text
 
 
 def test_sdist_manifest_includes_integrated_public_examples_and_current_contracts():
-    text = (ROOT / "MANIFEST.in").read_text()
+    text = (ROOT / "MANIFEST.in").read_text(encoding="utf-8")
     assert "include PUBLIC-API-V0_1_0RC2.json" in text
     assert "include BACKEND-CONTRACT-V0_1_0RC2.json" in text
     assert "include docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.0RC2.md" in text
@@ -119,7 +119,7 @@ def test_sdist_manifest_includes_integrated_public_examples_and_current_contract
 
 
 def test_release_validator_requires_public_docs_and_all_examples():
-    text = (ROOT / "tools/release_dist_manifest.py").read_text()
+    text = (ROOT / "tools/release_dist_manifest.py").read_text(encoding="utf-8")
     assert 'f"docs/release/SOLVERPILOT-PUBLIC-DOCS-{CURRENT_RELEASE_DOC_VERSION}.md"' in text
     assert 'f"docs/release/README-CHECKLIST-{CURRENT_RELEASE_DOC_VERSION}.md"' in text
     for rel in [

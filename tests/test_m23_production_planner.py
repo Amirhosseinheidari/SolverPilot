@@ -101,14 +101,14 @@ def test_valid_comparative_evidence_can_override_only_eligible_backend():
     assert d.auto_performance_ranking_enabled
 
 
-def test_prove_optimal_qp_fails_when_only_noncertifying_routes_are_available():
-    reg = default_registry()
+def test_prove_optimal_qp_fails_when_only_noncertifying_routes_are_available(scipy_registry):
+    reg = scipy_registry
     with pytest.raises(NoCompatibleBackendError):
         plan_production_solve(qp_problem(), reg, intent=SolveIntent.PROVE_OPTIMAL)
 
 
-def test_balanced_qp_uses_available_conservative_route_but_does_not_claim_perf_model():
-    reg = default_registry()
+def test_balanced_qp_uses_available_conservative_route_but_does_not_claim_perf_model(scipy_registry):
+    reg = scipy_registry
     d = plan_production_solve(qp_problem(), reg, intent=SolveIntent.BALANCED)
     assert d.plan.selected_backend in {"scipy-slsqp-qp-bridge", "nlopt-slsqp-native"}
     assert not d.auto_performance_ranking_enabled

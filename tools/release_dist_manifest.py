@@ -14,7 +14,7 @@ from packaging.version import Version
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+PROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 EXPECTED_VERSION = PROJECT["version"]
 EXPECTED_NAME = PROJECT["name"]
 EXPECTED_REQUIRES_PYTHON = PROJECT["requires-python"]

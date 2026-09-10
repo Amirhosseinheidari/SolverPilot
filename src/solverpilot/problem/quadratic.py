@@ -26,6 +26,8 @@ def _canonicalize_hessian(
     consume the same matrix.
     """
     diff = (P - P.T).tocoo()
+    if diff.nnz == 0:
+        return _readonly_csr(P)
     if diff.nnz:
         rows = diff.row
         cols = diff.col
@@ -37,7 +39,7 @@ def _canonicalize_hessian(
         allowed = float(atol) + float(rtol) * scale
         if np.any(np.abs(diff.data) > allowed):
             raise ValueError("P must be symmetric within pairwise numerical tolerance")
-    return _readonly_csr(((P + P.T) * 0.5).tocsr())
+    return _readonly_csr((P * 0.5 + P.T * 0.5).tocsr())
 
 
 def _scaled_psd_matrix(P: sparse.csr_matrix) -> sparse.csr_matrix:
@@ -105,6 +107,8 @@ class QuadraticProblem:
     data_hash: str = field(init=False)
 
     def __post_init__(self) -> None:
+        if self.linear.objective_sense is not ObjectiveSense.MINIMIZE:
+            raise ValueError("v0.1 QuadraticProblem currently supports convex minimization only")
         if self.linear.has_integer_variables:
             raise ValueError("v0.1 QuadraticProblem supports continuous convex QP only")
         P_raw = _readonly_csr(self.P)

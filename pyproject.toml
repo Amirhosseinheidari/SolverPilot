@@ -34,6 +34,10 @@ solverpilot-backend-health = "solverpilot.cli.backend_health:main"
 solverpilot-bench = "solverpilot.cli.benchmark:main"
 solverpilot-capabilities = "solverpilot.cli.capabilities:main"
 
+[project.urls]
+Repository = "https://github.com/Amirhosseinheidari/SolverPilot"
+Issues = "https://github.com/Amirhosseinheidari/SolverPilot/issues"
+
 [project.optional-dependencies]
 quality = ["pytest-cov>=7,<8", "ruff>=0.12,<1", "mypy>=1.17,<2"]
 test = ["pytest>=8", "pyyaml>=6", "jsonschema>=4"]

@@ -172,7 +172,7 @@ def compile_vrp_milp(instance: VRPInstance) -> VRPMILPCompilation:
 
         if instance.has_time_constraints:
             if big_m is None:
-                raise CompileError("time-constrained routing model requires a computed finite big-M")
+                raise VRPCompileError("time-constrained routing model requires a computed finite big-M")
             start = vehicle.start_time
             for cid in customers:
                 customer = cmap[cid]

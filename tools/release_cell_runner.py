@@ -90,7 +90,7 @@ def main() -> int:
     if len(wheels) != 1:
         raise SystemExit(f"expected exactly one wheel in {dist}")
     wheel = wheels[0]
-    project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 
     work = Path.cwd()
     runtime_env = work / f".{ns.prefix}-runtime-venv"
@@ -154,7 +154,7 @@ def main() -> int:
         raise SystemExit(proc.returncode)
 
     if ns.minimum_deps:
-        resolved = json.loads(resolver_path.read_text())
+        resolved = json.loads(resolver_path.read_text(encoding="utf-8"))
         packages = resolved["packages"]
         if packages.get("numpy") != MIN_NUMPY or packages.get("scipy") != MIN_SCIPY:
             raise SystemExit(f"minimum dependency drift: {packages}")

@@ -5,7 +5,7 @@ from dataclasses import dataclass, replace
 import hashlib
 import json
 from time import perf_counter
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
 import numpy as np
 from scipy import sparse
@@ -22,6 +22,11 @@ from .errors import CompileError, ShapeError
 from .expression import ExprNode
 from .model import Constraint, IndicatorConstraint, Model
 from .sets import EqualTo, GreaterThan, Interval, LessThan
+
+if TYPE_CHECKING:
+    from solverpilot.conic.ir import ConicProblem
+    from solverpilot.nlp.ir import NLPProblem
+    from solverpilot.minlp.ir import MINLPProblem
 
 
 _CAPABILITY_SIGNATURE = "legacy-ir:p2:v1"

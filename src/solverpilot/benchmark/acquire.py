@@ -4,7 +4,7 @@ import hashlib
 import json
 import os
 from dataclasses import asdict
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import shutil
 import tarfile
 import tempfile
@@ -123,7 +123,12 @@ def _fetch_role(
     name = filename or Path(urlparse(url).path).name
     if not name:
         raise ValueError(f"cannot derive filename from URL for {role}")
+    if (name in {".", ".."} or "/" in name or "\\" in name or ":" in name
+            or PureWindowsPath(name).is_absolute()):
+        raise ValueError(f"download filename must be a single local filename: {name!r}")
     dest = target / name
+    _safe_member_path(target, name)
+    _safe_member_path(target, name + ".part")
     if force or not dest.exists():
         _download(url, dest, timeout_s=timeout_s, retries=retries)
     digest = sha256_file(dest)

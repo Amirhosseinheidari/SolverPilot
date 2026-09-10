@@ -70,8 +70,10 @@ class Session:
             revision_before=self._revision,
             revision_after=next_revision,
         )
+        # Descriptive updates do not change the mathematical hash/revision,
+        # but must still be visible to the caller.
+        self._problem = new
         if not record.is_noop:
-            self._problem = new
             self._revision = next_revision
             self._history.append(record)
         return record

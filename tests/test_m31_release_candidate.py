@@ -92,7 +92,10 @@ def test_publication_owner_fields_remain_uninvented():
     assert project["license-files"] == ["LICENSE"]
     assert project["authors"] == [{"name": "Amirhossein Heidari Rashtabad"}]
     assert project["maintainers"] == [{"name": "Amirhossein Heidari Rashtabad"}]
-    assert "urls" not in project
+    assert project["urls"] == {
+        "Repository": "https://github.com/Amirhosseinheidari/SolverPilot",
+        "Issues": "https://github.com/Amirhosseinheidari/SolverPilot/issues",
+    }
 
 
 def test_m31_compatibility_matrix_never_promotes_unexecuted_cells():

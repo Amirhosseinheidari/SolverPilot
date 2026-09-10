@@ -11,15 +11,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_release_candidate_identity_is_distinct_from_historical_rc2():
-    project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     assert project["version"] == solverpilot.__version__ == "0.1.0rc2"
     assert Version(project["version"]).pre == ("rc", 2)
     assert project["version"] != "0.0.40rc2"
 
 
 def test_current_release_snapshots_are_versioned_without_label_collision():
-    api = json.loads((ROOT / "PUBLIC-API-V0_1_0RC2.json").read_text())
-    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_1_0RC2.json").read_text())
+    api = json.loads((ROOT / "PUBLIC-API-V0_1_0RC2.json").read_text(encoding="utf-8"))
+    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_1_0RC2.json").read_text(encoding="utf-8"))
     assert api["package_version"] == "0.1.0rc2"
     assert backend["package_version"] == "0.1.0rc2"
     assert len(api["symbols"]) == 78
@@ -27,13 +27,13 @@ def test_current_release_snapshots_are_versioned_without_label_collision():
 
 
 def test_historical_track_p_provenance_remains_historical():
-    payload = json.loads((ROOT / "TRACK-P-MERGE-PROVENANCE.json").read_text())
+    payload = json.loads((ROOT / "TRACK-P-MERGE-PROVENANCE.json").read_text(encoding="utf-8"))
     assert payload["integration"]["version"] == "0.0.40rc2"
     assert payload["source_bundle"]["track_p_version"] == "0.0.40"
 
 
 def test_release_manifest_uses_full_semantic_version_label():
-    text = (ROOT / "tools/release_dist_manifest.py").read_text()
+    text = (ROOT / "tools/release_dist_manifest.py").read_text(encoding="utf-8")
     assert 'return f"V{parsed.major}_{parsed.minor}_{parsed.micro}RC{parsed.pre[1]}"' in text
     assert 'CURRENT_RELEASE_LABEL = _release_label(EXPECTED_VERSION)' in text
     assert 'f"PUBLIC-API-{CURRENT_RELEASE_LABEL}.json"' in text
@@ -42,7 +42,7 @@ def test_release_manifest_uses_full_semantic_version_label():
 
 
 def test_manifest_contains_current_release_contracts_not_historical_current_contracts():
-    text = (ROOT / "MANIFEST.in").read_text()
+    text = (ROOT / "MANIFEST.in").read_text(encoding="utf-8")
     for required in (
         "PUBLIC-API-V0_1_0RC2.json",
         "BACKEND-CONTRACT-V0_1_0RC2.json",
@@ -55,7 +55,7 @@ def test_manifest_contains_current_release_contracts_not_historical_current_cont
 
 
 def test_pre_public_audit_remains_fail_closed():
-    audit = json.loads((ROOT / "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json").read_text())
+    audit = json.loads((ROOT / "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json").read_text(encoding="utf-8"))
     assert audit["version"] == "0.1.0rc2"
     assert audit["pypi_name_check"]["result"] == "404_not_found_at_check_time"
     assert audit["pypi_public_release_authorized"] is False
@@ -63,7 +63,7 @@ def test_pre_public_audit_remains_fail_closed():
 
 
 def test_current_docs_describe_rc2_as_hardened_successor():
-    readme = (ROOT / "README.md").read_text()
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
     head = "\n".join(readme.splitlines()[:55])
     assert "0.1.0rc2" in head
     assert "supersedes `0.1.0rc1`" in head
@@ -72,17 +72,20 @@ def test_current_docs_describe_rc2_as_hardened_successor():
 
 
 def test_build_and_optional_runtime_pins_remain_exact_for_external_qualification():
-    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text())
+    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     assert pyproject["build-system"]["requires"] == ["setuptools==84.0.0", "wheel==0.48.0"]
     assert pyproject["project"]["optional-dependencies"]["cp"] == ["ortools==9.15.6755"]
-    workflow = (ROOT / ".github/workflows/release-qualification.yml").read_text()
+    workflow = (ROOT / ".github/workflows/release-qualification.yml").read_text(encoding="utf-8")
     for pin in ('"build==1.6.0"', '"twine==7.0.0"', '"packaging==26.0"'):
         assert pin in workflow
 
 
 def test_no_project_urls_are_invented_before_owner_approval():
-    project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
-    assert "urls" not in project
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    assert project["urls"] == {
+        "Repository": "https://github.com/Amirhosseinheidari/SolverPilot",
+        "Issues": "https://github.com/Amirhosseinheidari/SolverPilot/issues",
+    }
 
 
 def test_top_level_api_is_still_frozen():
@@ -102,7 +105,7 @@ def test_release_label_is_collision_resistant_across_major_minor_patch():
 
 
 def test_release_cell_runner_has_explicit_installed_wheel_example_gate():
-    text = (ROOT / "tools/release_cell_runner.py").read_text()
+    text = (ROOT / "tools/release_cell_runner.py").read_text(encoding="utf-8")
     assert "def clean_runtime_env" in text
     assert 'env.pop("PYTHONPATH", None)' in text
     assert 'env["PYTHONNOUSERSITE"] = "1"' in text
@@ -113,6 +116,6 @@ def test_release_cell_runner_has_explicit_installed_wheel_example_gate():
 
 
 def test_dist_manifest_requires_current_pre_public_evidence():
-    text = (ROOT / "tools/release_dist_manifest.py").read_text()
+    text = (ROOT / "tools/release_dist_manifest.py").read_text(encoding="utf-8")
     assert 'f"PRE-PUBLIC-RELEASE-AUDIT-{EXPECTED_VERSION}.json"' in text
     assert 'f"PRE-PUBLIC-RELEASE-VERIFICATION-{EXPECTED_VERSION}.md"' in text

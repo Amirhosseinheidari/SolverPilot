@@ -15,7 +15,7 @@ from solverpilot import LinearProblem, QuadraticProblem, solve, solve_production
 from solverpilot.cli.backend_health import build_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-PROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
+PROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 EXPECTED_VERSION = PROJECT["version"]
 EXPECTED_NAME = PROJECT["name"]
 

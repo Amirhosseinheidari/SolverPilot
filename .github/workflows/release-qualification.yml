@@ -101,13 +101,15 @@ jobs:
       - name: Install pinned audit tooling
         run: python -m pip install "pip-audit==2.10.1"
       - name: Materialize wheel dependency environment
-        run: python -m pip install --target audit-site dist/*.whl
+        run: |
+          python -m pip install --target audit-site dist/*.whl
+          python tools/release_runtime_requirements.py --path audit-site --output runtime-requirements.txt
       - name: Generate CycloneDX SBOM
         shell: bash
         run: |
-          python -m pip_audit --path audit-site --strict --format cyclonedx-json --output release-sbom.cdx.json || test -s release-sbom.cdx.json
+          python -m pip_audit -r runtime-requirements.txt --strict --format cyclonedx-json --output release-sbom.cdx.json || test -s release-sbom.cdx.json
       - name: Fail on known dependency vulnerabilities
-        run: python -m pip_audit --path audit-site --strict --format json --output security-audit.json
+        run: python -m pip_audit -r runtime-requirements.txt --strict --format json --output security-audit.json
       - name: Upload security evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

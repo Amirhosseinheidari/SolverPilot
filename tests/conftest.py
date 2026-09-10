@@ -7,6 +7,15 @@ _CONFIG=json.loads(Path(__file__).with_name('test-tiers.json').read_text(encodin
 _NATIVE_MODULES={Path(p).name for p in _CONFIG['native_files']}
 _EVIDENCE_NODES={(Path(n.split('::',1)[0]).name,n.split('::',1)[1]) for n in _CONFIG['evidence_nodes']}
 
+@pytest.fixture
+def scipy_registry():
+    """Deterministic base registry, independent of installed native extras."""
+    from solverpilot.backends import BackendRegistry, ScipyHighsLPBackend, ScipyHighsBackend, ScipySLSQPQPBackend
+    registry = BackendRegistry()
+    for backend in (ScipyHighsLPBackend('highs-ds'), ScipyHighsLPBackend('highs-ipm'), ScipyHighsBackend(), ScipySLSQPQPBackend()):
+        registry.register(backend)
+    return registry
+
 def pytest_collection_modifyitems(items:list[pytest.Item])->None:
     for item in items:
         basename=Path(str(item.fspath)).name

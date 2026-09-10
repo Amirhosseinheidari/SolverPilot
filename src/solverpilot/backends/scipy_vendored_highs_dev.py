@@ -341,6 +341,11 @@ class ScipyVendoredHighsDevBackend:
         if problem.has_integer_variables:
             raise NotImplementedError("M3 vendored IIS verifier is limited to continuous LP")
         core, h = self._rebuild(problem)
+        strategy = getattr(getattr(core, "IisStrategy", None), "kIisStrategyFromLpRowPriority", None)
+        if strategy is not None:
+            status = h.setOptionValue("iis_strategy", int(strategy))
+            if not _ok(core, status):
+                raise RuntimeError(f"HiGHS IIS strategy configuration failed: {status}")
         h.run()
         if h.getModelStatus() != core.HighsModelStatus.kInfeasible:
             raise ValueError("IIS requested for a model not classified infeasible by HiGHS")
@@ -356,4 +361,3 @@ class ScipyVendoredHighsDevBackend:
             col_bound_statuses=tuple(int(x) for x in iis.col_bound),
             strategy=int(iis.strategy),
         )
-

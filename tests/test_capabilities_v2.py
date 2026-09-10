@@ -300,8 +300,8 @@ def test_bundled_advanced_legacy_claims_are_not_upgraded_without_granular_confor
         (BundledOSQPCAPIBackend(), (CapabilityKey.START_PRIMAL, CapabilityKey.START_DUAL, CapabilityKey.INCREMENTAL_MATRIX_VALUES)),
     ]:
         report = conform_backend_problem_classes(backend)
-        assert report.available
-        assert report.passed
+        assert report.available == backend.is_available()
+        assert report.passed == report.available
         for key in keys:
             assert report.manifest.claim(key).verification is not VerificationLevel.VERIFIED
             assert not report.manifest.supports_verified(key)

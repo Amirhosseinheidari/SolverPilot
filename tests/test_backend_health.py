@@ -24,16 +24,24 @@ def test_probe_real_base_backends_are_healthy():
         ScipyHighsLPBackend(method="highs-ipm"),
         ScipyHighsBackend(),
         ScipySLSQPQPBackend(),
-        NLoptNativeBackend(),
     ]
     reports = probe_backends(backends)
-    assert len(reports) == 5
+    assert len(reports) == 4
     assert all(report.status is BackendProbeStatus.HEALTHY for report in reports)
     by_name = {r.backend: r for r in reports}
     assert [c.capability.value for c in by_name["scipy-highs-bridge"].checks] == ["lp", "milp"]
     assert [c.capability.value for c in by_name["scipy-slsqp-qp-bridge"].checks] == ["convex_qp"]
-    assert [c.capability.value for c in by_name["nlopt-slsqp-native"].checks] == ["lp", "convex_qp"]
     assert all(c.validation_valid for r in reports for c in r.checks)
+
+
+def test_probe_optional_nlopt_backend():
+    import pytest
+    backend = NLoptNativeBackend()
+    if not backend.is_available():
+        pytest.skip("optional NLopt is not installed")
+    report = probe_backend(backend)
+    assert report.status is BackendProbeStatus.HEALTHY
+    assert [c.capability.value for c in report.checks] == ["lp", "convex_qp"]
 
 
 def test_builtin_candidates_surface_unavailable_optional_adapters():
