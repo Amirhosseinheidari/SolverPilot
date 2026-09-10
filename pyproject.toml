@@ -36,7 +36,8 @@ solverpilot-capabilities = "solverpilot.cli.capabilities:main"
 
 [project.optional-dependencies]
 quality = ["pytest-cov>=7,<8", "ruff>=0.12,<1", "mypy>=1.17,<2"]
-test = ["pytest>=8", "pyyaml>=6"]
+test = ["pytest>=8", "pyyaml>=6", "jsonschema>=4"]
+ci = ["pytest>=8", "pyyaml>=6", "jsonschema>=4", "highspy>=1.15.1,<2", "osqp>=1.1.3,<2"]
 release = ["build>=1.6,<2", "twine>=7,<8", "packaging>=26,<27", "pip-audit==2.10.1"]
 highs = ["highspy>=1.15.1,<2"]
 osqp = ["osqp>=1.1.3,<2"]
