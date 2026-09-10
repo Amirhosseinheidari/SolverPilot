@@ -1,0 +1,10 @@
+{
+  "_linprog_highs_source_sha256": "6bc682fdf9baef6f12260130d94900e8777dc6935fc89b92f3723e8c9031cfe4",
+  "authority_for_performance_ranking": false,
+  "linprog_source_sha256": "341f316be763e183f9277409da609d6bdc88bed35b209a8e44f647a9b1f7fe7a",
+  "m28_interpretation": "SciPy method=highs is not treated as an independent DS-vs-IPM auto-selector in this environment.",
+  "private_highs_none_documented_as_simplex": true,
+  "public_highs_maps_to_solver_none": true,
+  "schema": "optimind.m28.scipy_highs_semantics.v1",
+  "scipy_version": "1.17.0"
+}

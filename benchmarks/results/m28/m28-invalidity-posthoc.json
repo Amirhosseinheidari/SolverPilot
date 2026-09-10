@@ -1,0 +1,220 @@
+{
+  "campaign_not_rerun": true,
+  "results": [
+    {
+      "backend_status": "limit_feasible",
+      "instance": "mzzv11.mps.gz",
+      "objective": -26109.16607773852,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.001991850998820155,
+        "effective_solver": "choose",
+        "highs_run_time_s": 1.0012595653533936,
+        "ipm_iteration_count": 0,
+        "matrix_values_changed": 0,
+        "model_status": 13,
+        "objective_internal": -26109.16607773852,
+        "requested_solver": "choose",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 4432,
+        "solve_wall_s": 1.0014493460002996,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "choose",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 1690.1173717233569,
+        "max_constraint_violation": 140008.11295207363,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "variable bound violation",
+          "constraint violation"
+        ]
+      }
+    },
+    {
+      "backend_status": "limit_feasible",
+      "instance": "mzzv42z.mps.gz",
+      "objective": -21830.0,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.0019272240006102948,
+        "effective_solver": "choose",
+        "highs_run_time_s": 1.0015099048614502,
+        "ipm_iteration_count": 0,
+        "matrix_values_changed": 0,
+        "model_status": 13,
+        "objective_internal": -21830.0,
+        "requested_solver": "choose",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 6994,
+        "solve_wall_s": 1.0016823280002427,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "choose",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 236.27889917820877,
+        "max_constraint_violation": 24223.631987167966,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "variable bound violation",
+          "constraint violation"
+        ]
+      }
+    },
+    {
+      "backend_status": "limit_feasible",
+      "instance": "neos-3216931-puriri.mps.gz",
+      "objective": 88966.91666666667,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.0010167559994442854,
+        "effective_solver": "choose",
+        "highs_run_time_s": 1.0005569458007812,
+        "ipm_iteration_count": 0,
+        "matrix_values_changed": 0,
+        "model_status": 13,
+        "objective_internal": 58491.562500000015,
+        "requested_solver": "choose",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 4907,
+        "solve_wall_s": 1.0006687850000162,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "choose",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 343.4645138888913,
+        "max_constraint_violation": 455.7672222222262,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "variable bound violation",
+          "constraint violation"
+        ]
+      }
+    },
+    {
+      "backend_status": "limit_feasible",
+      "instance": "trento1.mps.gz",
+      "objective": 5140838.020078674,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.0011338130007061409,
+        "effective_solver": "choose",
+        "highs_run_time_s": 1.0024101734161377,
+        "ipm_iteration_count": 0,
+        "matrix_values_changed": 0,
+        "model_status": 13,
+        "objective_internal": 5140838.020078672,
+        "requested_solver": "choose",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 5504,
+        "solve_wall_s": 1.002529824998419,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "choose",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 17.576902846845016,
+        "max_constraint_violation": 1.3013519839228411,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "variable bound violation",
+          "constraint violation"
+        ]
+      }
+    },
+    {
+      "backend_status": "optimal",
+      "instance": "leo2.mps.gz",
+      "objective": 386421293.2089189,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.0020938249999744585,
+        "effective_solver": "ipm",
+        "highs_run_time_s": 0.6340935230255127,
+        "ipm_iteration_count": 45,
+        "matrix_values_changed": 0,
+        "model_status": 7,
+        "objective_internal": 386421293.2089189,
+        "requested_solver": "ipm",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 0,
+        "solve_wall_s": 0.6343263500002649,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "ipm",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 1.1102230246251565e-16,
+        "max_constraint_violation": 1.8998980522155762e-07,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "constraint violation"
+        ]
+      }
+    },
+    {
+      "backend_status": "limit_feasible",
+      "instance": "mushroom-best.mps.gz",
+      "objective": 0.11977241747245895,
+      "raw_statistics": {
+        "basis_applied": false,
+        "basis_captured": false,
+        "build_wall_s": 0.010350994998589158,
+        "effective_solver": "ipm",
+        "highs_run_time_s": 1.0079524517059326,
+        "ipm_iteration_count": 28,
+        "matrix_values_changed": 0,
+        "model_status": 13,
+        "objective_internal": 0.11977241747245929,
+        "requested_solver": "ipm",
+        "reuse_applied": false,
+        "reuse_mode": "cold_capi_model_build",
+        "simplex_iteration_count": 0,
+        "solve_wall_s": 1.0081442090013297,
+        "solver_core_direct_c_api": true,
+        "update_wall_s": 0.0
+      },
+      "solver": "ipm",
+      "status": "invalid_solution",
+      "validation": {
+        "max_bound_violation": 0.0,
+        "max_constraint_violation": 5.8634572599702715,
+        "objective_consistent": true,
+        "objective_difference": 0.0,
+        "valid": false,
+        "warnings": [
+          "constraint violation"
+        ]
+      }
+    }
+  ],
+  "schema": "optimind.m28.invalidity_posthoc.v1"
+}

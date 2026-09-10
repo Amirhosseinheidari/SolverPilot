@@ -1,0 +1,1423 @@
+{
+  "benchmark": "M9 cross-library convex-QP correctness/timing: SciPy SLSQP vs NLopt SLSQP",
+  "instances": 48,
+  "rounds_per_backend_instance": 3,
+  "solver_calls": 288,
+  "portfolio_executions": 48,
+  "portfolio_backend_attempts": 96,
+  "failures": {
+    "scipy": 0,
+    "nlopt": 0
+  },
+  "max_x_inf_error_vs_constructed_kkt_solution": 2.4728265078377554e-06,
+  "max_objective_abs_error_vs_constructed_kkt_solution": 2.724220848904224e-11,
+  "timing_wins": {
+    "scipy": 48,
+    "nlopt": 0,
+    "ties": 0
+  },
+  "portfolio_valid_count": 48,
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "nlopt": "2.11.0",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "cpu_count": 5
+  },
+  "wall_s": 2.5537108670014277,
+  "rows": [
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 91500,
+      "reference_objective": -0.5255317868598726,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.0506311487468167e-07,
+      "scipy_objective_abs_error": 8.215650382226158e-15,
+      "scipy_median_s": 0.0006930370000191033,
+      "scipy_samples_s": [
+        0.0006930370000191033,
+        0.0007333580015256302,
+        0.0006291119989327854
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.1462820137531082e-09,
+      "nlopt_objective_abs_error": 0.0,
+      "nlopt_median_s": 0.0011019689991371706,
+      "nlopt_samples_s": [
+        0.001134608000938897,
+        0.0010093210003105924,
+        0.0011019689991371706
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 91501,
+      "reference_objective": -0.5937805478795725,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.5646719787737462e-06,
+      "scipy_objective_abs_error": 2.8671509610944668e-12,
+      "scipy_median_s": 0.0007023719990684185,
+      "scipy_samples_s": [
+        0.0007054559991956921,
+        0.0006364029995893361,
+        0.0007023719990684185
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.6569394806209559e-07,
+      "nlopt_objective_abs_error": 3.341771304121721e-14,
+      "nlopt_median_s": 0.0011654539994196966,
+      "nlopt_samples_s": [
+        0.0013280980001582066,
+        0.0011224700010643573,
+        0.0011654539994196966
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 91502,
+      "reference_objective": -0.2769683916820142,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.5508039575592463e-07,
+      "scipy_objective_abs_error": 2.3425705819590803e-13,
+      "scipy_median_s": 0.0006661170009465422,
+      "scipy_samples_s": [
+        0.0006661170009465422,
+        0.000667669000904425,
+        0.0006448450003517792
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.028368217832366e-08,
+      "nlopt_objective_abs_error": 1.6653345369377348e-16,
+      "nlopt_median_s": 0.0011005670003214618,
+      "nlopt_samples_s": [
+        0.001124282998716808,
+        0.001077913000699482,
+        0.0011005670003214618
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 91503,
+      "reference_objective": -0.2729547130477569,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.0467562459384738e-06,
+      "scipy_objective_abs_error": 1.0833556274292278e-12,
+      "scipy_median_s": 0.0007012490004854044,
+      "scipy_samples_s": [
+        0.0007012490004854044,
+        0.0006117359989730176,
+        0.0007905629991000751
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.9906415083844635e-08,
+      "nlopt_objective_abs_error": 4.440892098500626e-15,
+      "nlopt_median_s": 0.001211653998325346,
+      "nlopt_samples_s": [
+        0.0013897699991503032,
+        0.001211653998325346,
+        0.001179606000732747
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 91510,
+      "reference_objective": -0.5240397831267991,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.6735027180136974e-06,
+      "scipy_objective_abs_error": 1.5918377727075494e-12,
+      "scipy_median_s": 0.000910673001271789,
+      "scipy_samples_s": [
+        0.0010181840007135179,
+        0.000910673001271789,
+        0.0008683089999976801
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.3300344265120287e-08,
+      "nlopt_objective_abs_error": 6.661338147750939e-16,
+      "nlopt_median_s": 0.0011710730013874127,
+      "nlopt_samples_s": [
+        0.0013020080004935153,
+        0.001090301999283838,
+        0.0011710730013874127
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 91511,
+      "reference_objective": -0.009995135645532727,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 2.8561226828038855e-08,
+      "scipy_objective_abs_error": 1.1379786002407855e-15,
+      "scipy_median_s": 0.0008784550009295344,
+      "scipy_samples_s": [
+        0.0009262769999622833,
+        0.0007853550014260691,
+        0.0008784550009295344
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.4451170255179733e-10,
+      "nlopt_objective_abs_error": 2.7755575615628914e-17,
+      "nlopt_median_s": 0.0011553889999049716,
+      "nlopt_samples_s": [
+        0.0011553889999049716,
+        0.0011864759999298258,
+        0.001063401999999769
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 91512,
+      "reference_objective": -0.29384046336954234,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.1488938399459303e-06,
+      "scipy_objective_abs_error": 1.1902701047006303e-12,
+      "scipy_median_s": 0.0007963420011947164,
+      "scipy_samples_s": [
+        0.0007963420011947164,
+        0.0008192860004783142,
+        0.0007738079984846991
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 5.6397277958808445e-09,
+      "nlopt_objective_abs_error": 5.551115123125783e-17,
+      "nlopt_median_s": 0.0011969219995080493,
+      "nlopt_samples_s": [
+        0.001212265000503976,
+        0.0010783239995362237,
+        0.0011969219995080493
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 91513,
+      "reference_objective": -0.20627543144611002,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 2.4728265078377554e-06,
+      "scipy_objective_abs_error": 3.2432390106862385e-12,
+      "scipy_median_s": 0.0008633520010334905,
+      "scipy_samples_s": [
+        0.0008633520010334905,
+        0.0008044740006880602,
+        0.0009032319994730642
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.081555205979413e-10,
+      "nlopt_objective_abs_error": 5.551115123125783e-17,
+      "nlopt_median_s": 0.001271081999220769,
+      "nlopt_samples_s": [
+        0.001271081999220769,
+        0.0011362010009179357,
+        0.0014513229998556199
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 91520,
+      "reference_objective": -0.33330651331198136,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.7739072799560773e-07,
+      "scipy_objective_abs_error": 3.7969627442180354e-14,
+      "scipy_median_s": 0.0009358810002595419,
+      "scipy_samples_s": [
+        0.0009358810002595419,
+        0.0009590749996277736,
+        0.0008733270005905069
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.383009345408027e-09,
+      "nlopt_objective_abs_error": 0.0,
+      "nlopt_median_s": 0.0011961410000367323,
+      "nlopt_samples_s": [
+        0.0012057849999109749,
+        0.0011490099986986024,
+        0.0011961410000367323
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 91521,
+      "reference_objective": -0.24472202742801694,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 2.7089355392195813e-07,
+      "scipy_objective_abs_error": 6.705747068735946e-14,
+      "scipy_median_s": 0.0009917850002238993,
+      "scipy_samples_s": [
+        0.0012802759993064683,
+        0.0009137379984167637,
+        0.0009917850002238993
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.5676231701622356e-08,
+      "nlopt_objective_abs_error": 1.6653345369377348e-16,
+      "nlopt_median_s": 0.0011873969997395761,
+      "nlopt_samples_s": [
+        0.0011873969997395761,
+        0.0011832310010504443,
+        0.0012434010004653828
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 91522,
+      "reference_objective": -0.41783506021493705,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.040281314347641e-08,
+      "scipy_objective_abs_error": 5.828670879282072e-15,
+      "scipy_median_s": 0.0008685100001457613,
+      "scipy_samples_s": [
+        0.0008516449997841846,
+        0.0009391960011271294,
+        0.0008685100001457613
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.961019789417875e-10,
+      "nlopt_objective_abs_error": 3.3306690738754696e-16,
+      "nlopt_median_s": 0.0011698009984684177,
+      "nlopt_samples_s": [
+        0.0011609769990172936,
+        0.0012815579993912252,
+        0.0011698009984684177
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 91523,
+      "reference_objective": -0.01679461699887691,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.7400963431279948e-07,
+      "scipy_objective_abs_error": 4.807265696626928e-14,
+      "scipy_median_s": 0.0010175829993386287,
+      "scipy_samples_s": [
+        0.0010257750000164378,
+        0.0009388850012328476,
+        0.0010175829993386287
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 9.470045081449996e-09,
+      "nlopt_objective_abs_error": 1.1102230246251565e-16,
+      "nlopt_median_s": 0.0012063459998898907,
+      "nlopt_samples_s": [
+        0.0015661039997212356,
+        0.0012063459998898907,
+        0.0011511829998198664
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 91530,
+      "reference_objective": -1.5625900281327543,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.054817156460947e-07,
+      "scipy_objective_abs_error": 6.59694521232268e-13,
+      "scipy_median_s": 0.0006429330005630618,
+      "scipy_samples_s": [
+        0.0006405589992937166,
+        0.0007070989995554555,
+        0.0006429330005630618
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.611938625442846e-08,
+      "nlopt_objective_abs_error": 1.7763568394002505e-15,
+      "nlopt_median_s": 0.001081479000276886,
+      "nlopt_samples_s": [
+        0.0011291900009382516,
+        0.0010111130013683578,
+        0.001081479000276886
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 91531,
+      "reference_objective": -1.4792175538255445,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 7.32601084074691e-07,
+      "scipy_objective_abs_error": 2.3003821070233244e-13,
+      "scipy_median_s": 0.000690152999595739,
+      "scipy_samples_s": [
+        0.0007183149991760729,
+        0.0006147600015538046,
+        0.000690152999595739
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.7828927107176327e-08,
+      "nlopt_objective_abs_error": 8.881784197001252e-16,
+      "nlopt_median_s": 0.0011222100001759827,
+      "nlopt_samples_s": [
+        0.0011990250004600966,
+        0.0011222100001759827,
+        0.0010048840013041627
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 91532,
+      "reference_objective": -1.74748889030385,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 5.346153944818521e-07,
+      "scipy_objective_abs_error": 3.022027073029676e-13,
+      "scipy_median_s": 0.0006961920007597655,
+      "scipy_samples_s": [
+        0.0006961920007597655,
+        0.0007224710006994428,
+        0.0006642650005233008
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.7614603511906246e-08,
+      "nlopt_objective_abs_error": 4.440892098500626e-16,
+      "nlopt_median_s": 0.0010860550009965664,
+      "nlopt_samples_s": [
+        0.001125875000070664,
+        0.0010860550009965664,
+        0.0010750090004876256
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 91533,
+      "reference_objective": -2.155416925788166,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.736806019760124e-07,
+      "scipy_objective_abs_error": 3.6415315207705135e-13,
+      "scipy_median_s": 0.0006655270008195657,
+      "scipy_samples_s": [
+        0.0006572929996764287,
+        0.0006655270008195657,
+        0.0006847750009910669
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.8335259083522857e-08,
+      "nlopt_objective_abs_error": 4.440892098500626e-16,
+      "nlopt_median_s": 0.0011124749998998595,
+      "nlopt_samples_s": [
+        0.0011124749998998595,
+        0.0010773829999379814,
+        0.001163702001576894
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 93000,
+      "reference_objective": -1.0332304951299844,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.5230368717064096e-07,
+      "scipy_objective_abs_error": 4.767297667740422e-13,
+      "scipy_median_s": 0.001357901999654132,
+      "scipy_samples_s": [
+        0.001086606998796924,
+        0.001357901999654132,
+        0.0016480169997521443
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.3994731984379172e-07,
+      "nlopt_objective_abs_error": 3.863576125695545e-14,
+      "nlopt_median_s": 0.0023454099991795374,
+      "nlopt_samples_s": [
+        0.0024947040001279674,
+        0.0023454099991795374,
+        0.0022557459997187834
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 93001,
+      "reference_objective": -1.5439973172022958,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 6.242404733958207e-07,
+      "scipy_objective_abs_error": 2.2648549702353193e-12,
+      "scipy_median_s": 0.0009865369993349304,
+      "scipy_samples_s": [
+        0.0009955799996532733,
+        0.0009233720011252444,
+        0.0009865369993349304
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.242404733403095e-07,
+      "nlopt_objective_abs_error": 2.2646329256303943e-12,
+      "nlopt_median_s": 0.0021871640001336345,
+      "nlopt_samples_s": [
+        0.0021871640001336345,
+        0.002435996000713203,
+        0.0020591219999914756
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 93002,
+      "reference_objective": -1.6331871793850927,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 7.063295482390153e-07,
+      "scipy_objective_abs_error": 1.2092549184217205e-12,
+      "scipy_median_s": 0.000964704000580241,
+      "scipy_samples_s": [
+        0.000964704000580241,
+        0.0010051949993794551,
+        0.000941369000429404
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 7.063295482390153e-07,
+      "nlopt_objective_abs_error": 1.2101430968414206e-12,
+      "nlopt_median_s": 0.0020805640015169047,
+      "nlopt_samples_s": [
+        0.0020805640015169047,
+        0.002013823999732267,
+        0.002391329000602127
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 93003,
+      "reference_objective": -1.032942027209455,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.7290188429382874e-06,
+      "scipy_objective_abs_error": 3.388844760365828e-12,
+      "scipy_median_s": 0.0009963609991245903,
+      "scipy_samples_s": [
+        0.0009963609991245903,
+        0.0010095710003952263,
+        0.0009809279999899445
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 5.784132229430528e-07,
+      "nlopt_objective_abs_error": 3.672617765460018e-13,
+      "nlopt_median_s": 0.002138109999577864,
+      "nlopt_samples_s": [
+        0.002138109999577864,
+        0.0021608040005958173,
+        0.002022537000812008
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 93010,
+      "reference_objective": -1.153023437092766,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.9662677180898314e-07,
+      "scipy_objective_abs_error": 1.0458300891968975e-13,
+      "scipy_median_s": 0.0013916330008214572,
+      "scipy_samples_s": [
+        0.0013916330008214572,
+        0.0014422090007428778,
+        0.0013151279999874532
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.62839443887897e-08,
+      "nlopt_objective_abs_error": 7.993605777301127e-15,
+      "nlopt_median_s": 0.0025132720002147835,
+      "nlopt_samples_s": [
+        0.002536146001148154,
+        0.00242807399990852,
+        0.0025132720002147835
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 93011,
+      "reference_objective": -0.9749025060113666,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.3125539232716754e-06,
+      "scipy_objective_abs_error": 3.1386004906153175e-12,
+      "scipy_median_s": 0.0018110000000888249,
+      "scipy_samples_s": [
+        0.0018565489990578499,
+        0.0018110000000888249,
+        0.001560656000947347
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.8974643784263066e-07,
+      "nlopt_objective_abs_error": 8.848477506262498e-14,
+      "nlopt_median_s": 0.0026441780009918148,
+      "nlopt_samples_s": [
+        0.0026441780009918148,
+        0.0028145329997641966,
+        0.0023797510002623312
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 93012,
+      "reference_objective": -1.5557870736273476,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.77427785638973e-07,
+      "scipy_objective_abs_error": 7.334133300673784e-13,
+      "scipy_median_s": 0.001639313999476144,
+      "scipy_samples_s": [
+        0.001385634001053404,
+        0.0024988099994516233,
+        0.001639313999476144
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.9584840993402963e-07,
+      "nlopt_objective_abs_error": 1.028066520802895e-13,
+      "nlopt_median_s": 0.0026793000015459256,
+      "nlopt_samples_s": [
+        0.0026793000015459256,
+        0.0025287850003223866,
+        0.003040089999558404
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 93013,
+      "reference_objective": -0.13241913051077664,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.790697596401827e-07,
+      "scipy_objective_abs_error": 6.428746424091969e-13,
+      "scipy_median_s": 0.0014254029993026052,
+      "scipy_samples_s": [
+        0.0014254029993026052,
+        0.0013153580002835952,
+        0.0014622189992223866
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 9.975992792954358e-08,
+      "nlopt_objective_abs_error": 2.7977620220553945e-14,
+      "nlopt_median_s": 0.00257555500138551,
+      "nlopt_samples_s": [
+        0.00257555500138551,
+        0.002898478000133764,
+        0.002520633001040551
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 93020,
+      "reference_objective": -0.8272964321155537,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.2942135723947867e-06,
+      "scipy_objective_abs_error": 3.6365355171597002e-12,
+      "scipy_median_s": 0.0015387929997814354,
+      "scipy_samples_s": [
+        0.0015251929999067215,
+        0.0016575209992879536,
+        0.0015387929997814354
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 3.553644903897535e-07,
+      "nlopt_objective_abs_error": 1.4299672557172016e-13,
+      "nlopt_median_s": 0.002594984000097611,
+      "nlopt_samples_s": [
+        0.0025633259992901003,
+        0.002873021001505549,
+        0.002594984000097611
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 93021,
+      "reference_objective": -0.8228739667046323,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 5.334016988794987e-07,
+      "scipy_objective_abs_error": 3.3872904481313526e-13,
+      "scipy_median_s": 0.0015599150010530138,
+      "scipy_samples_s": [
+        0.0015599150010530138,
+        0.001662097000007634,
+        0.0015208660006464925
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 5.334016988239876e-07,
+      "nlopt_objective_abs_error": 3.3872904481313526e-13,
+      "nlopt_median_s": 0.0025032060002558865,
+      "nlopt_samples_s": [
+        0.0025032060002558865,
+        0.0026860010002565105,
+        0.002422707000732771
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 93022,
+      "reference_objective": -1.0424317107473224,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.4273954639792974e-06,
+      "scipy_objective_abs_error": 2.6476598691260733e-12,
+      "scipy_median_s": 0.0014767800003028242,
+      "scipy_samples_s": [
+        0.0016919329991651466,
+        0.0014767800003028242,
+        0.001439784999092808
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 3.032609726741353e-07,
+      "nlopt_objective_abs_error": 1.4055423491754482e-13,
+      "nlopt_median_s": 0.0023987000004126457,
+      "nlopt_samples_s": [
+        0.002474082999469829,
+        0.0023928819991851924,
+        0.0023987000004126457
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 93023,
+      "reference_objective": -1.1835640395298643,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.2497813826062298e-06,
+      "scipy_objective_abs_error": 4.7983839124299266e-12,
+      "scipy_median_s": 0.0014960490007069893,
+      "scipy_samples_s": [
+        0.001726403999782633,
+        0.0014960490007069893,
+        0.0014788429998588981
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.441096881415476e-07,
+      "nlopt_objective_abs_error": 6.850076061937216e-13,
+      "nlopt_median_s": 0.0029249979997985065,
+      "nlopt_samples_s": [
+        0.004230351998558035,
+        0.0029249979997985065,
+        0.002497789000699413
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 93030,
+      "reference_objective": -2.984265942002775,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.737601345232271e-07,
+      "scipy_objective_abs_error": 1.6342482922482304e-12,
+      "scipy_median_s": 0.0012322849997872254,
+      "scipy_samples_s": [
+        0.0015019780003058258,
+        0.0012322849997872254,
+        0.0010517950013309019
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 8.737601345787382e-07,
+      "nlopt_objective_abs_error": 1.6333601138285303e-12,
+      "nlopt_median_s": 0.0023823660012567416,
+      "nlopt_samples_s": [
+        0.0024640390001877677,
+        0.0023823660012567416,
+        0.0023794709995854646
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 93031,
+      "reference_objective": -2.8026678757468573,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.57853838120581e-07,
+      "scipy_objective_abs_error": 4.072298054325074e-13,
+      "scipy_median_s": 0.0010879289984586649,
+      "scipy_samples_s": [
+        0.0010879289984586649,
+        0.0009901319990603952,
+        0.0011763910006266087
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.578538167487878e-07,
+      "nlopt_objective_abs_error": 4.072298054325074e-13,
+      "nlopt_median_s": 0.0022487160003947793,
+      "nlopt_samples_s": [
+        0.002269716998853255,
+        0.0022487160003947793,
+        0.0022454209993156837
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 93032,
+      "reference_objective": -3.6946778045379904,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.4568829674150167e-07,
+      "scipy_objective_abs_error": 4.924949337237194e-13,
+      "scipy_median_s": 0.0010838630005309824,
+      "scipy_samples_s": [
+        0.0010838630005309824,
+        0.001232605000041076,
+        0.0010745380004664185
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.4568829700084283e-07,
+      "nlopt_objective_abs_error": 4.951594689828198e-13,
+      "nlopt_median_s": 0.00257898999916506,
+      "nlopt_samples_s": [
+        0.0029109070001140935,
+        0.00257898999916506,
+        0.0024424250004813075
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 93033,
+      "reference_objective": -1.700912047211561,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 1.0145515599857546e-06,
+      "scipy_objective_abs_error": 2.523981024182831e-12,
+      "scipy_median_s": 0.0011811980002676137,
+      "scipy_samples_s": [
+        0.0011811980002676137,
+        0.001325394001469249,
+        0.0010339869986637495
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 2.8602802415456097e-07,
+      "nlopt_objective_abs_error": 2.657873920952625e-13,
+      "nlopt_median_s": 0.002273662999868975,
+      "nlopt_samples_s": [
+        0.002273662999868975,
+        0.002479590999428183,
+        0.0021757969989266712
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 96000,
+      "reference_objective": -2.809213174009591,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 3.745251649922565e-07,
+      "scipy_objective_abs_error": 1.7128520823916915e-12,
+      "scipy_median_s": 0.0028686940004263306,
+      "scipy_samples_s": [
+        0.0028686940004263306,
+        0.014586651999707101,
+        0.0025264610012527555
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.8186160103128568e-06,
+      "nlopt_objective_abs_error": 2.724220848904224e-11,
+      "nlopt_median_s": 0.019470932998956414,
+      "nlopt_samples_s": [
+        0.019470932998956414,
+        0.019356041000719415,
+        0.020032272999742418
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 96001,
+      "reference_objective": -3.381020323702973,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 9.843400579079287e-07,
+      "scipy_objective_abs_error": 3.772093748466432e-12,
+      "scipy_median_s": 0.0025936719994206214,
+      "scipy_samples_s": [
+        0.0025936719994206214,
+        0.0022898669994901866,
+        0.002894137000112096
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 9.843400579634398e-07,
+      "nlopt_objective_abs_error": 3.770761480836882e-12,
+      "nlopt_median_s": 0.01926857999933418,
+      "nlopt_samples_s": [
+        0.01926857999933418,
+        0.019177103999027167,
+        0.03593609100062167
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 96002,
+      "reference_objective": -1.995184974310403,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.1397623934402716e-07,
+      "scipy_objective_abs_error": 1.560751528018045e-12,
+      "scipy_median_s": 0.0027209529998799553,
+      "scipy_samples_s": [
+        0.0024964969998109154,
+        0.0027209529998799553,
+        0.028362090000882745
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 3.389073008064347e-07,
+      "nlopt_objective_abs_error": 2.382538610845586e-13,
+      "nlopt_median_s": 0.020271159999538213,
+      "nlopt_samples_s": [
+        0.020271159999538213,
+        0.020040254999912577,
+        0.02048770399960631
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 96003,
+      "reference_objective": -3.047715541292937,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 6.237071324965981e-07,
+      "scipy_objective_abs_error": 2.1658230764387554e-12,
+      "scipy_median_s": 0.0030963950011937413,
+      "scipy_samples_s": [
+        0.0030963950011937413,
+        0.028623751999475644,
+        0.0027721990009013098
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.8833848738908365e-06,
+      "nlopt_objective_abs_error": 2.5841107031965294e-11,
+      "nlopt_median_s": 0.020255477000318933,
+      "nlopt_samples_s": [
+        0.020255477000318933,
+        0.02040344799934246,
+        0.019700996999745257
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 96010,
+      "reference_objective": -2.707793586041364,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 6.292939970231615e-07,
+      "scipy_objective_abs_error": 2.3230306567256775e-12,
+      "scipy_median_s": 0.003738876001079916,
+      "scipy_samples_s": [
+        0.003934087999368785,
+        0.0033169349990203045,
+        0.003738876001079916
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.292940020746762e-07,
+      "nlopt_objective_abs_error": 2.3230306567256775e-12,
+      "nlopt_median_s": 0.042936564999763505,
+      "nlopt_samples_s": [
+        0.05441826999958721,
+        0.024361281999517814,
+        0.042936564999763505
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 96011,
+      "reference_objective": -2.613013206711808,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 6.023060166726601e-07,
+      "scipy_objective_abs_error": 1.9984014443252818e-12,
+      "scipy_median_s": 0.007030042001133552,
+      "scipy_samples_s": [
+        0.007030042001133552,
+        0.009978975000194623,
+        0.006947838999622036
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.023060115656342e-07,
+      "nlopt_objective_abs_error": 1.9975132659055816e-12,
+      "nlopt_median_s": 0.021117537000463926,
+      "nlopt_samples_s": [
+        0.021098107999932836,
+        0.04757181300010416,
+        0.021117537000463926
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 96012,
+      "reference_objective": -2.2137112342978567,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.249586805782357e-07,
+      "scipy_objective_abs_error": 6.692424392440444e-13,
+      "scipy_median_s": 0.004526405000433442,
+      "scipy_samples_s": [
+        0.0049010950006049825,
+        0.004526405000433442,
+        0.00404823899953044
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.108573428276749e-06,
+      "nlopt_objective_abs_error": 8.209877222498108e-12,
+      "nlopt_median_s": 0.04143469700102287,
+      "nlopt_samples_s": [
+        0.04143469700102287,
+        0.023952711000674753,
+        0.05342646499957482
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 96013,
+      "reference_objective": -2.785224713550589,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 6.90585166496227e-07,
+      "scipy_objective_abs_error": 3.3733016380210756e-12,
+      "scipy_median_s": 0.004163682000580593,
+      "scipy_samples_s": [
+        0.004733794999992824,
+        0.003827529000773211,
+        0.004163682000580593
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 6.905851668848051e-07,
+      "nlopt_objective_abs_error": 3.3724134596013755e-12,
+      "nlopt_median_s": 0.022819435000201338,
+      "nlopt_samples_s": [
+        0.022757471999284462,
+        0.04907181800081162,
+        0.022819435000201338
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 96020,
+      "reference_objective": -3.041800431431273,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.57497045303068e-07,
+      "scipy_objective_abs_error": 2.164046719599355e-12,
+      "scipy_median_s": 0.0045058639989292715,
+      "scipy_samples_s": [
+        0.02965951199985284,
+        0.00404521400014346,
+        0.0045058639989292715
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.5749674587591826e-07,
+      "nlopt_objective_abs_error": 2.163158541179655e-12,
+      "nlopt_median_s": 0.021331128000383615,
+      "nlopt_samples_s": [
+        0.021460960999320378,
+        0.021331128000383615,
+        0.02103038700079196
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 96021,
+      "reference_objective": -4.740428099940451,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 7.39310398623072e-07,
+      "scipy_objective_abs_error": 2.1964652319184097e-12,
+      "scipy_median_s": 0.004322470000261092,
+      "scipy_samples_s": [
+        0.003950432001147419,
+        0.005009167000025627,
+        0.004322470000261092
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.571058978272477e-06,
+      "nlopt_objective_abs_error": 1.1524114995609125e-11,
+      "nlopt_median_s": 0.021167602999412338,
+      "nlopt_samples_s": [
+        0.021167602999412338,
+        0.04077538000092318,
+        0.018150497000533505
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 96022,
+      "reference_objective": -3.3458621476247217,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.6698865427408087e-07,
+      "scipy_objective_abs_error": 1.4308554341369017e-12,
+      "scipy_median_s": 0.004115960999115487,
+      "scipy_samples_s": [
+        0.003856933000861318,
+        0.004509430000325665,
+        0.004115960999115487
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.669886543851032e-07,
+      "nlopt_objective_abs_error": 1.4317436125566019e-12,
+      "nlopt_median_s": 0.02075037799841084,
+      "nlopt_samples_s": [
+        0.04640503600057855,
+        0.018755883000267204,
+        0.02075037799841084
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 96023,
+      "reference_objective": -3.2330563929041,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.6041295914678315e-07,
+      "scipy_objective_abs_error": 1.9544366125501256e-12,
+      "scipy_median_s": 0.003909441000359948,
+      "scipy_samples_s": [
+        0.003909441000359948,
+        0.0031213019992719637,
+        0.030290466998849297
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 4.60412959091272e-07,
+      "nlopt_objective_abs_error": 1.956212969389526e-12,
+      "nlopt_median_s": 0.02293020100114518,
+      "nlopt_samples_s": [
+        0.04720371199982765,
+        0.02293020100114518,
+        0.021536864998779492
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 96030,
+      "reference_objective": -4.185561561862973,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 4.850562886904441e-07,
+      "scipy_objective_abs_error": 1.7008616737257398e-12,
+      "scipy_median_s": 0.0023288659995159833,
+      "scipy_samples_s": [
+        0.0023288659995159833,
+        0.0031750420002936153,
+        0.0023269430002983427
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 1.107610019979166e-06,
+      "nlopt_objective_abs_error": 1.114042191829867e-11,
+      "nlopt_median_s": 0.01723371399930329,
+      "nlopt_samples_s": [
+        0.01723371399930329,
+        0.01705195200156595,
+        0.03906683300010627
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 96031,
+      "reference_objective": -3.396074318849269,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.556810555809813e-07,
+      "scipy_objective_abs_error": 3.2427394103251572e-12,
+      "scipy_median_s": 0.0024662920004629996,
+      "scipy_samples_s": [
+        0.0024662920004629996,
+        0.0021138539996172767,
+        0.003190706000168575
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 8.556810371374013e-07,
+      "nlopt_objective_abs_error": 3.242295321115307e-12,
+      "nlopt_median_s": 0.022411383999497048,
+      "nlopt_samples_s": [
+        0.022411383999497048,
+        0.04595939899991208,
+        0.02047201099958329
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 96032,
+      "reference_objective": -4.124689914013192,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 7.776296076303368e-07,
+      "scipy_objective_abs_error": 3.877786980410747e-12,
+      "scipy_median_s": 0.0029083629997330718,
+      "scipy_samples_s": [
+        0.0031677410006523132,
+        0.0029083629997330718,
+        0.0027512680007930612
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 7.77629609191588e-07,
+      "nlopt_objective_abs_error": 3.877786980410747e-12,
+      "nlopt_median_s": 0.020837668000240228,
+      "nlopt_samples_s": [
+        0.04283000600116793,
+        0.020837668000240228,
+        0.0198967399992398
+      ],
+      "portfolio_chosen_backend": "nlopt-slsqp-native",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 96033,
+      "reference_objective": -4.726048399798154,
+      "scipy_status": "valid_feasible",
+      "scipy_valid": true,
+      "scipy_x_inf_error": 8.767230554457273e-07,
+      "scipy_objective_abs_error": 6.009415187691047e-12,
+      "scipy_median_s": 0.002857527000742266,
+      "scipy_samples_s": [
+        0.002857527000742266,
+        0.002743817000009585,
+        0.02941229799944267
+      ],
+      "nlopt_status": "valid_feasible",
+      "nlopt_valid": true,
+      "nlopt_x_inf_error": 8.767230695178041e-07,
+      "nlopt_objective_abs_error": 6.0103033661107474e-12,
+      "nlopt_median_s": 0.021856964000107837,
+      "nlopt_samples_s": [
+        0.02202904200021294,
+        0.021856964000107837,
+        0.02157110699954501
+      ],
+      "portfolio_chosen_backend": "scipy-slsqp-qp-bridge",
+      "portfolio_chosen_valid": true,
+      "portfolio_attempts": 2
+    }
+  ]
+}

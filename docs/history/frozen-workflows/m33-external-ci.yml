@@ -1,0 +1,249 @@
+name: M33 exact-artifact external CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-dist:
+    name: build exact rc3 artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install release tooling
+        run: python -m pip install "build>=1.2,<2" "twine>=6,<7" "packaging>=24"
+      - name: Freeze reproducible-build timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> "$GITHUB_ENV"
+      - name: Build twice from the same source
+        run: |
+          python -m build --outdir dist-a
+          python -m build --outdir dist-b
+      - name: Reproducibility diagnostic
+        run: python tools/m33_repro_build_compare.py dist-a dist-b --output m33-repro-build.json
+      - name: Select exact release artifacts
+        shell: bash
+        run: |
+          mkdir dist
+          cp dist-a/* dist/
+      - name: Validate package metadata
+        run: python -m twine check --strict dist/*
+      - name: Freeze distribution digests
+        run: python tools/m33_dist_manifest.py dist --write
+      - name: Generate build provenance attestation
+        if: github.event_name != 'pull_request'
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: |
+            dist/*.whl
+            dist/*.tar.gz
+      - name: Verify build provenance attestation
+        if: github.event_name != 'pull_request'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for artifact in dist/*.whl dist/*.tar.gz; do
+            gh attestation verify "$artifact" --repo "${{ github.repository }}"
+          done
+      - name: Upload exact distribution
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: m33-dist
+          path: |
+            dist/
+            m33-repro-build.json
+          if-no-files-found: error
+          retention-days: 14
+
+  core-matrix:
+    name: core / ${{ matrix.os }} / py${{ matrix.python }}
+    needs: build-dist
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Download exact distribution
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: m33-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/m33_verify_dist.py dist
+      - name: Isolated exact-wheel core qualification
+        run: python tools/m33_cell_runner.py --dist dist --prefix m33-core
+      - name: Upload cell evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: core-${{ matrix.os }}-py${{ matrix.python }}
+          path: |
+            m33-core-*.json
+            m33-core-*.txt
+            m33-core-pytest.xml
+          if-no-files-found: warn
+
+  minimum-deps:
+    name: minimum deps / ubuntu / py3.12
+    needs: build-dist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: m33-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/m33_verify_dist.py dist
+      - name: Minimum dependency full qualification
+        run: python tools/m33_cell_runner.py --dist dist --prefix m33-min --minimum-deps
+      - name: Upload minimum-dependency evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: minimum-deps-py312
+          path: |
+            m33-min-*.json
+            m33-min-*.txt
+            m33-min-pytest.xml
+          if-no-files-found: warn
+
+  native-python-matrix:
+    name: native / ubuntu / py${{ matrix.python }} / ${{ matrix.extra }}
+    needs: build-dist
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+        extra: [highs, osqp, scip, nlopt, casadi]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: m33-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/m33_verify_dist.py dist
+      - name: Require exact optional backend in isolated environment
+        run: python tools/m33_cell_runner.py --dist dist --prefix m33-native --extra "${{ matrix.extra }}" --skip-regression
+      - name: Upload backend evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: native-ubuntu-py${{ matrix.python }}-${{ matrix.extra }}
+          path: |
+            m33-native-*.json
+            m33-native-*.txt
+          if-no-files-found: warn
+
+  native-os-matrix:
+    name: native / ${{ matrix.os }} / py3.14 / ${{ matrix.extra }}
+    needs: build-dist
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        extra: [highs, osqp, scip, nlopt, casadi]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: m33-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/m33_verify_dist.py dist
+      - name: Require exact optional backend in isolated environment
+        run: python tools/m33_cell_runner.py --dist dist --prefix m33-native-os --extra "${{ matrix.extra }}" --skip-regression
+      - name: Upload backend evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: native-${{ matrix.os }}-py3.14-${{ matrix.extra }}
+          path: |
+            m33-native-os-*.json
+            m33-native-os-*.txt
+          if-no-files-found: warn
+
+  technical-external-gate:
+    name: M33 technical external gate
+    if: always()
+    needs: [build-dist, core-matrix, minimum-deps, native-python-matrix, native-os-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every intended technical execution job to pass
+        env:
+          BUILD_RESULT: ${{ needs.build-dist.result }}
+          CORE_RESULT: ${{ needs.core-matrix.result }}
+          MIN_RESULT: ${{ needs.minimum-deps.result }}
+          NATIVE_PY_RESULT: ${{ needs.native-python-matrix.result }}
+          NATIVE_OS_RESULT: ${{ needs.native-os-matrix.result }}
+        run: |
+          python - <<'PY'
+          import json, os
+          keys=["BUILD_RESULT","CORE_RESULT","MIN_RESULT","NATIVE_PY_RESULT","NATIVE_OS_RESULT"]
+          results={k:os.environ[k] for k in keys}
+          ok=all(v=="success" for v in results.values())
+          print(json.dumps({"schema":"optimind.m33.ci_gate.v1","results":results,"technical_external_gate_passed":ok},sort_keys=True))
+          raise SystemExit(0 if ok else 2)
+          PY

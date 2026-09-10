@@ -1,0 +1,31 @@
+{
+  "miplib": {
+    "instance": "neos5",
+    "objective": 14.999999999999972,
+    "reference_match": true,
+    "reference_objective": 15.0,
+    "status": "feasible_limit",
+    "validation": {
+      "max_bound_violation": 9.969802761133906e-14,
+      "max_constraint_violation": 2.255973186038318e-13,
+      "max_integrality_violation": 9.969802761133906e-14
+    },
+    "validation_valid": true
+  },
+  "qplib": {
+    "instance": "QPLIB_8792",
+    "m": 0,
+    "meets_or_beats_best_known": true,
+    "model_status": 7,
+    "n": 15129,
+    "objective": 3593.5162939294355,
+    "read_s": 0.0782177020000745,
+    "reference_kind": "best_known",
+    "reference_objective": 3593.518355,
+    "run_rc": 0,
+    "solve_s": 4.31961000199999,
+    "state": "complete",
+    "status": "optimal",
+    "wall_s": 4.397911739999927
+  }
+}

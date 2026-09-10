@@ -1,0 +1,8 @@
+{
+  "benchmark": "M12 rerun attempt of M5 LP selector stability",
+  "command": "PYTHONPATH=<M12-src> python benchmarks/m5_lp_selector_stability.py",
+  "controller_timeout_s": 180,
+  "state": "timed_out",
+  "performance_evidence_used": false,
+  "note": "The run did not complete within the execution window. No partial timing result is used for M12 claims; prior M5/M11 results remain historical only."
+}

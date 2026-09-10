@@ -1,0 +1,37 @@
+{
+  "classification": "complete_verified_negative_result",
+  "milestone": "M24",
+  "production": {
+    "lp_baseline": "scipy-highs-ds",
+    "negative_comparative_evidence_cannot_authorize_override": true,
+    "performance_auto_routing_enabled": false
+  },
+  "public_ood": {
+    "ds_wins": 22,
+    "instances": 24,
+    "ipm_wins": 1,
+    "runs": 2,
+    "same_cohort": true,
+    "same_winner_pattern": true,
+    "selector_promoted": false,
+    "ties": 1
+  },
+  "raw_evidence": [
+    "benchmarks/results/m24-public-ood-lp-selector.json",
+    "benchmarks/results/m24-public-ood-lp-selector-run2.json",
+    "benchmarks/results/m24-public-ood-lp-selector-stability.json"
+  ],
+  "regression": {
+    "collected": 233,
+    "errors": 0,
+    "failures": 0,
+    "passed": 230,
+    "skipped": 3
+  },
+  "schema": "optimind.m24.release_manifest.v1",
+  "version": "0.0.29",
+  "wheel": {
+    "path": "dist/optimind_core_codename-0.0.29-py3-none-any.whl",
+    "sha256": "f9c907687ba8d7ddaf0873e156cd496715e69bf131183bbc661fb0585c70877e"
+  }
+}

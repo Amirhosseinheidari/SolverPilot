@@ -1,0 +1,37 @@
+{
+  "batches": {
+    "cli": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "core": {
+      "tests": 196,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "harness": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m13": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "totals": {
+    "tests": 221,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "unique_tests": 221,
+  "duplicate_test_ids": 0,
+  "passed": 218
+}

@@ -1,0 +1,213 @@
+{
+  "fixed_sbs_policy": {
+    "choices": {
+      "smoke-00": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-01": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-02": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-03": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-04": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-05": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-06": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-07": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-08": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-09": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-10": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-11": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-12": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-13": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-14": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-15": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-16": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-17": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      }
+    },
+    "cost_field": "wall_s",
+    "cutoff_s": 2.0,
+    "instances": 18,
+    "par_penalty": 10.0,
+    "policy_metrics": {
+      "gap_closure": 0.0,
+      "metric": "PAR10@2s",
+      "policy_cost": 0.0031742183611337773,
+      "policy_ties": 7,
+      "policy_to_sbs_ratio_bootstrap_95pct": {
+        "draws": 2000,
+        "high": 1.0,
+        "low": 1.0,
+        "median": 1.0,
+        "point": 1.0,
+        "seed": 11
+      },
+      "policy_wins": 5,
+      "sbs_cost": 0.0031742183611337773,
+      "sbs_solver": "scipy-highs-ds",
+      "solver_mean_costs": {
+        "casadi-highs-bridge": 0.0034734759722204623,
+        "scipy-highs-ds": 0.0031742183611337773,
+        "scipy-highs-ipm": 0.0036763971944601005
+      },
+      "vbs_cost": 0.0028895109167024202
+    },
+    "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+    "schema_version": "1.0"
+  },
+  "oracle_smoke_only": {
+    "choices": {
+      "smoke-00": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-01": {
+        "backend": "scipy-highs-ipm",
+        "overhead_s": 0.0
+      },
+      "smoke-02": {
+        "backend": "scipy-highs-ipm",
+        "overhead_s": 0.0
+      },
+      "smoke-03": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-04": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-05": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-06": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-07": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-08": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-09": {
+        "backend": "scipy-highs-ipm",
+        "overhead_s": 0.0
+      },
+      "smoke-10": {
+        "backend": "scipy-highs-ipm",
+        "overhead_s": 0.0
+      },
+      "smoke-11": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-12": {
+        "backend": "scipy-highs-ipm",
+        "overhead_s": 0.0
+      },
+      "smoke-13": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-14": {
+        "backend": "scipy-highs-ds",
+        "overhead_s": 0.0
+      },
+      "smoke-15": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-16": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      },
+      "smoke-17": {
+        "backend": "casadi-highs-bridge",
+        "overhead_s": 0.0
+      }
+    },
+    "cost_field": "wall_s",
+    "cutoff_s": 2.0,
+    "instances": 18,
+    "par_penalty": 10.0,
+    "policy_metrics": {
+      "gap_closure": 1.0,
+      "metric": "PAR10@2s",
+      "policy_cost": 0.0028895109167024202,
+      "policy_ties": 18,
+      "policy_to_sbs_ratio_bootstrap_95pct": {
+        "draws": 2000,
+        "high": 0.9514006890295613,
+        "low": 0.8696098843284334,
+        "median": 0.9111935243705525,
+        "point": 0.9103062826686995,
+        "seed": 11
+      },
+      "policy_wins": 16,
+      "sbs_cost": 0.0031742183611337773,
+      "sbs_solver": "scipy-highs-ds",
+      "solver_mean_costs": {
+        "casadi-highs-bridge": 0.0034734759722204623,
+        "scipy-highs-ds": 0.0031742183611337773,
+        "scipy-highs-ipm": 0.0036763971944601005
+      },
+      "vbs_cost": 0.0028895109167024202
+    },
+    "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+    "schema_version": "1.0"
+  },
+  "warning": "oracle uses test outcomes and is only a correctness smoke for the policy evaluator; it is not a deployable selector."
+}

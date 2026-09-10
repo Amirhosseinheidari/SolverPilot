@@ -1,0 +1,461 @@
+{
+  "backends": [
+    {
+      "available": false,
+      "backend": "highspy-native",
+      "checks": [],
+      "metadata": {
+        "native_adapter": true,
+        "reuse_claim": "none in M2 adapter",
+        "stateful": false
+      },
+      "status": "unavailable",
+      "version": null
+    },
+    {
+      "available": false,
+      "backend": "osqp-native",
+      "checks": [],
+      "metadata": {
+        "native_adapter": true,
+        "reuse_semantics": "same sparsity update + OSQP automatic warm start",
+        "stateful": true
+      },
+      "status": "unavailable",
+      "version": null
+    },
+    {
+      "available": false,
+      "backend": "pyscipopt-native",
+      "checks": [],
+      "metadata": {
+        "iis_method": "Model.generateIIS",
+        "native_adapter": true,
+        "reuse_claim": "none in M2 adapter"
+      },
+      "status": "unavailable",
+      "version": null
+    },
+    {
+      "available": true,
+      "backend": "scipy-highs-ds",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.00271539200002735,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "algorithm": "dual_simplex",
+        "development_bridge": true,
+        "underlying_solver": "HiGHS highs-ds via scipy.optimize.linprog"
+      },
+      "status": "healthy",
+      "version": "1.17.0"
+    },
+    {
+      "available": true,
+      "backend": "scipy-highs-ipm",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.001373704999423353,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "algorithm": "interior_point",
+        "development_bridge": true,
+        "underlying_solver": "HiGHS highs-ipm via scipy.optimize.linprog"
+      },
+      "status": "healthy",
+      "version": "1.17.0"
+    },
+    {
+      "available": true,
+      "backend": "scipy-highs-bridge",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.0010888349988817936,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "milp",
+          "duration_s": 0.0009912969999277266,
+          "error": null,
+          "expected_objective": 2.0,
+          "objective": 2.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "development_bridge": true,
+        "underlying_solver": "HiGHS via scipy.optimize.milp"
+      },
+      "status": "healthy",
+      "version": "1.17.0"
+    },
+    {
+      "available": true,
+      "backend": "scipy-slsqp-qp-bridge",
+      "checks": [
+        {
+          "capability": "convex_qp",
+          "duration_s": 0.00078797000060149,
+          "error": null,
+          "expected_objective": -4.0,
+          "objective": -4.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_feasible",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "development_bridge": true,
+        "no_optimality_certificate": true,
+        "underlying_solver": "scipy.optimize.minimize(method='SLSQP')"
+      },
+      "status": "healthy",
+      "version": "1.17.0"
+    },
+    {
+      "available": true,
+      "backend": "nlopt-slsqp-native",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.003120534000117914,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 0.999999999999995,
+          "objective_abs_error": 4.9960036108132044e-15,
+          "passed": true,
+          "public_status": "valid_feasible",
+          "validation_valid": true
+        },
+        {
+          "capability": "convex_qp",
+          "duration_s": 0.0010641179997037398,
+          "error": null,
+          "expected_objective": -4.0,
+          "objective": -4.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_feasible",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "continuous_only": true,
+        "cross_library_backend": true,
+        "native_adapter": true,
+        "no_optimality_certificate": true,
+        "underlying_solver": "NLopt LD_SLSQP"
+      },
+      "status": "healthy",
+      "version": "2.11.0"
+    },
+    {
+      "available": true,
+      "backend": "casadi-osqp-bridge",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.0054778840003564255,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "convex_qp",
+          "duration_s": 0.002341106001040316,
+          "error": null,
+          "expected_objective": -4.0,
+          "objective": -4.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "bridge_package": "casadi",
+        "bridge_package_version": "3.7.2",
+        "cross_library_backend": true,
+        "development_bridge": true,
+        "native_adapter": false,
+        "no_integer_support": true,
+        "supports_wall_time_budget": false,
+        "underlying_solver": "OSQP",
+        "verification_only": true,
+        "verified_bridge_package_versions": [
+          "3.7.2"
+        ]
+      },
+      "status": "healthy",
+      "version": "3.7.2"
+    },
+    {
+      "available": true,
+      "backend": "casadi-highs-bridge",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.004265573001248413,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "milp",
+          "duration_s": 0.0031281749998015584,
+          "error": null,
+          "expected_objective": 2.0,
+          "objective": 2.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "convex_qp",
+          "duration_s": 0.002712416999202105,
+          "error": null,
+          "expected_objective": -4.0,
+          "objective": -3.99999999999999,
+          "objective_abs_error": 1.021405182655144e-14,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "bridge_package": "casadi",
+        "bridge_package_version": "3.7.2",
+        "cross_library_backend": false,
+        "development_bridge": true,
+        "native_adapter": false,
+        "supports_wall_time_budget": true,
+        "underlying_solver": "HiGHS",
+        "verification_only": true,
+        "verified_bridge_package_versions": [
+          "3.7.2"
+        ]
+      },
+      "status": "healthy",
+      "version": "3.7.2"
+    },
+    {
+      "available": true,
+      "backend": "casadi-cbc-bridge",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.2448978550000902,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "milp",
+          "duration_s": 0.005188626999370172,
+          "error": null,
+          "expected_objective": 2.0,
+          "objective": 2.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "bridge_package": "casadi",
+        "bridge_package_version": "3.7.2",
+        "cross_library_backend": true,
+        "development_bridge": true,
+        "native_adapter": false,
+        "no_qp_support": true,
+        "supports_wall_time_budget": false,
+        "underlying_solver": "CBC",
+        "verification_only": true,
+        "verified_bridge_package_versions": [
+          "3.7.2"
+        ]
+      },
+      "status": "healthy",
+      "version": "3.7.2"
+    },
+    {
+      "available": true,
+      "backend": "bundled-osqp-capi",
+      "checks": [
+        {
+          "capability": "convex_qp",
+          "duration_s": 0.004393937000713777,
+          "error": null,
+          "expected_objective": -4.0,
+          "objective": -4.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "bridge_package_version": "3.7.2",
+        "bundled_by": "casadi",
+        "configure_header_sha256": "a1e5c0aebcaf4f727819c1114322bdb4e6ba7a625aea7a3a111f89d7cd7c4ed6",
+        "direct_c_api": true,
+        "expected_solver_version": "0.6.3",
+        "factorization_reuse_claimed": false,
+        "header_sha256": "fd7243e3907e26618f8965954a9cba3c29d16a3622ca96696bb8503972b3cc6b",
+        "library_sha256": "6e69e9bd09cd9db73d410e61af1f1eb409c161d892a61911b2b4fd1480a257a3",
+        "native_adapter": false,
+        "public_python_package": false,
+        "reuse_semantics": "persistent OSQP workspace + direct same-sparsity update API + warm_start=1",
+        "stateful": true,
+        "supports_wall_time_budget": false,
+        "types_header_sha256": "5d37d2351e5c604c3b7944c60a6d4f594b65bee89ecdacb573d2787a5fa913cc",
+        "verification_only": true,
+        "verified_abi_layout": {
+          "offset_info_obj": 56,
+          "offset_info_status": 8,
+          "offset_ws_info": 208,
+          "offset_ws_solution": 200,
+          "sizeof_OSQPData": 56,
+          "sizeof_OSQPInfo": 96,
+          "sizeof_OSQPSettings": 160,
+          "sizeof_OSQPSolution": 16,
+          "sizeof_OSQPWorkspace": 224,
+          "sizeof_c_float": 8,
+          "sizeof_c_int": 8,
+          "sizeof_csc": 56
+        },
+        "verified_bridge_package_versions": [
+          "3.7.2"
+        ],
+        "verified_solver_versions": [
+          "0.6.3"
+        ]
+      },
+      "status": "healthy",
+      "version": "0.6.3"
+    },
+    {
+      "available": true,
+      "backend": "bundled-highs-capi",
+      "checks": [
+        {
+          "capability": "lp",
+          "duration_s": 0.013505588998668827,
+          "error": null,
+          "expected_objective": 1.0,
+          "objective": 1.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        },
+        {
+          "capability": "milp",
+          "duration_s": 0.030035647001568577,
+          "error": null,
+          "expected_objective": 2.0,
+          "objective": 2.0,
+          "objective_abs_error": 0.0,
+          "passed": true,
+          "public_status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "metadata": {
+        "bridge_package_version": "3.7.2",
+        "bundled_by": "casadi",
+        "direct_c_api": true,
+        "expected_solver_version": "1.10.0",
+        "header_sha256": "b5384c3f1169c8cb09d21f9bc4e14c55bb3b62654c03ec87cd8ae47848365593",
+        "highs_int_bytes": 4,
+        "library_sha256": "bce96689405f83a849500fa3cf680d61b3eeb2ab179d358726e86526a047df4f",
+        "native_adapter": false,
+        "public_python_package": false,
+        "reuse_semantics": "persistent HiGHS instance + numerical edits + explicit LP basis hot start",
+        "stateful": true,
+        "supports_wall_time_budget": true,
+        "verification_only": true,
+        "verified_bridge_package_versions": [
+          "3.7.2"
+        ],
+        "verified_solver_versions": [
+          "1.10.0"
+        ]
+      },
+      "status": "healthy",
+      "version": "1.10.0"
+    }
+  ],
+  "environment": {
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "env_threads": {
+      "BLIS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null
+    },
+    "hostname": "localhost",
+    "logical_cpus": 5,
+    "machine": "x86_64",
+    "memory_bytes": 6236925952,
+    "packages": {
+      "benchopt": null,
+      "casadi": "3.7.2",
+      "highspy": null,
+      "nlopt": "2.11.0",
+      "numpy": "2.3.5",
+      "optimind-core-codename": "0.0.14",
+      "osqp": null,
+      "pyscipopt": null,
+      "scipy": "1.17.0"
+    },
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "python_executable": "/opt/pyvenv/bin/python"
+  }
+}

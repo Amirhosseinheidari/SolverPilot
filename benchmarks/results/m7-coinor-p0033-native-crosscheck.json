@@ -1,0 +1,19 @@
+{
+  "source_url": "https://github.com/coin-or-tools/Data-Sample/blob/master/p0033.mps",
+  "source_notes": "File comments publish BEST SOLN: 3089 (opt); reconstructed locally from public GitHub text for this benchmark only.",
+  "input_sha256": "9ff4d150cd5433778a7a90f45e80dfa032ed3d166dd1bf5a2059cf69c4c8a189",
+  "n_variables": 33,
+  "n_constraints": 16,
+  "n_integer": 33,
+  "published_optimum": 3089.0,
+  "canonical_status": "valid_optimal",
+  "canonical_objective": 3089.0000000000077,
+  "canonical_validation_valid": true,
+  "native_read_status": "HighsStatus.kOk",
+  "native_run_status": "HighsStatus.kOk",
+  "native_model_status": "Optimal",
+  "native_objective": 3089.0000000000077,
+  "canonical_native_abs_diff": 0.0,
+  "canonical_published_abs_diff": 7.73070496506989e-12,
+  "native_published_abs_diff": 7.73070496506989e-12
+}

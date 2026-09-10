@@ -1,0 +1,35 @@
+{
+  "integration": {
+    "brand": "SolverPilot",
+    "distribution": "solverpilot",
+    "namespace": "solverpilot",
+    "stable_top_level_api_preserved": true,
+    "strategy": "forward-port Track P P0-P9 feature delta onto SolverPilot 0.0.36rc8; do not overwrite M27-M33/pre-GitHub hardening",
+    "track_p_features_canonical_submodules": [
+      "solverpilot.model",
+      "solverpilot.bridges",
+      "solverpilot.capabilities.v2",
+      "solverpilot.session",
+      "solverpilot.conic",
+      "solverpilot.nlp",
+      "solverpilot.minlp",
+      "solverpilot.cp"
+    ],
+    "version": "0.0.40rc2"
+  },
+  "ortools_qualification": {
+    "source_evidence": "Track P P9 frozen bundle",
+    "version": "9.15.6755",
+    "wheel_sha256": "ebd5aea00374e3aad7a78de59058aca5e871a26a3c385cd0860ef1d685d03c9a"
+  },
+  "schema": "solverpilot.track_p_merge.v1",
+  "source_bundle": {
+    "filename": "OPTIMIND_TRACK_P_P0_P9_FINAL_FROZEN.zip",
+    "internal_checksum_mismatches": 0,
+    "internal_checksum_rows": 816,
+    "sha256": "6cc282b9428450ab7bbc39cd6c768de2da2fc092f8d7f79cbbf319f657df24a2",
+    "track_p_frozen": true,
+    "track_p_version": "0.0.40",
+    "zip_integrity": "pass"
+  }
+}

@@ -1,0 +1,2398 @@
+{
+  "benchmark": "M10 cross-solver convex QP",
+  "instances": 48,
+  "rounds": 3,
+  "direct_solver_calls": 576,
+  "portfolio_executions": 48,
+  "portfolio_backend_attempts": 192,
+  "failures": {
+    "osqp": 0,
+    "highs": 0,
+    "scipy_slsqp": 0,
+    "nlopt_slsqp": 0
+  },
+  "max_objective_abs_error": {
+    "osqp": 2.220446049250313e-15,
+    "highs": 2.708944180085382e-14,
+    "scipy_slsqp": 8.763212377971286e-12,
+    "nlopt_slsqp": 4.446221169018827e-11
+  },
+  "max_x_inf_error": {
+    "osqp": 6.661338147750939e-16,
+    "highs": 9.633298680977731e-08,
+    "scipy_slsqp": 1.9473423344129603e-06,
+    "nlopt_slsqp": 2.3310262109721425e-06
+  },
+  "timing_wins": {
+    "osqp": 7,
+    "highs": 6,
+    "scipy_slsqp": 32,
+    "nlopt_slsqp": 3,
+    "ties": 0
+  },
+  "portfolio_valid_count": 48,
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "nlopt": "2.11.0",
+    "casadi": "3.7.2",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "cpu_count": 5
+  },
+  "wall_s": 9.464786360999824,
+  "rows": [
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 101500,
+      "reference_objective": -0.1954337951409379,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.7755575615628914e-17,
+      "osqp_x_inf_error": 5.551115123125783e-17,
+      "osqp_median_s": 0.004360992999863811,
+      "osqp_samples_s": [
+        0.00509003000024677,
+        0.004170363999946858,
+        0.004360992999863811
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 9.43689570931383e-16,
+      "highs_x_inf_error": 2.635700743769398e-08,
+      "highs_median_s": 0.005982436000067537,
+      "highs_samples_s": [
+        0.00953092400004607,
+        0.004303085000174178,
+        0.005982436000067537
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.727573805178963e-14,
+      "scipy_slsqp_x_inf_error": 2.500080473477606e-07,
+      "scipy_slsqp_median_s": 0.0021958850002192776,
+      "scipy_slsqp_samples_s": [
+        0.0021958850002192776,
+        0.0020442439999897033,
+        0.0029338450003706384
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.7755575615628914e-17,
+      "nlopt_slsqp_x_inf_error": 5.379553691398087e-09,
+      "nlopt_slsqp_median_s": 0.001770529000168608,
+      "nlopt_slsqp_samples_s": [
+        0.001770529000168608,
+        0.0021194579999246344,
+        0.001739251000344666
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 101501,
+      "reference_objective": -0.06156639033068829,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.7755575615628914e-17,
+      "osqp_median_s": 0.007991798000148265,
+      "osqp_samples_s": [
+        0.022375480999926367,
+        0.007991798000148265,
+        0.002528219999931025
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.0816681711721685e-16,
+      "highs_x_inf_error": 1.298346083422608e-08,
+      "highs_median_s": 0.004628529000001436,
+      "highs_samples_s": [
+        0.007838935000108904,
+        0.004628529000001436,
+        0.0028988529998059676
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 9.287709490379825e-14,
+      "scipy_slsqp_x_inf_error": 3.919326368589937e-07,
+      "scipy_slsqp_median_s": 0.0020590280000760686,
+      "scipy_slsqp_samples_s": [
+        0.0022963169999457023,
+        0.0018847920000553131,
+        0.0020590280000760686
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 9.020562075079397e-17,
+      "nlopt_slsqp_x_inf_error": 1.0871992542349496e-08,
+      "nlopt_slsqp_median_s": 0.00230239700022139,
+      "nlopt_slsqp_samples_s": [
+        0.00230239700022139,
+        0.0031964039999365923,
+        0.0014233220003916358
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 101502,
+      "reference_objective": -0.2645537155590719,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.004796534999968571,
+      "osqp_samples_s": [
+        0.004796534999968571,
+        0.017837298999893392,
+        0.004230214999552118
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.3869795029440866e-15,
+      "highs_x_inf_error": 6.70938316571501e-08,
+      "highs_median_s": 0.003511482999783766,
+      "highs_samples_s": [
+        0.005780899000001227,
+        0.003511482999783766,
+        0.003071875999921758
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.774758283725532e-15,
+      "scipy_slsqp_x_inf_error": 4.7525298418893414e-08,
+      "scipy_slsqp_median_s": 0.0015729090000604629,
+      "scipy_slsqp_samples_s": [
+        0.001771270000062941,
+        0.0015729090000604629,
+        0.001396030000250903
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.551115123125783e-17,
+      "nlopt_slsqp_x_inf_error": 5.963383675755551e-10,
+      "nlopt_slsqp_median_s": 0.001887606999844138,
+      "nlopt_slsqp_samples_s": [
+        0.0016607120001026487,
+        0.006281099000261747,
+        0.001887606999844138
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "interior",
+      "seed": 101503,
+      "reference_objective": -0.19617362770464936,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.498001805406602e-16,
+      "osqp_median_s": 0.005796693000320374,
+      "osqp_samples_s": [
+        0.006699304999983724,
+        0.005796693000320374,
+        0.0031668890001128602
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 9.159339953157541e-16,
+      "highs_x_inf_error": 3.781779794875817e-08,
+      "highs_median_s": 0.004370657999970717,
+      "highs_samples_s": [
+        0.007097538999914832,
+        0.0038622960000793682,
+        0.004370657999970717
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 6.894484982922222e-14,
+      "scipy_slsqp_x_inf_error": 2.608254656109865e-07,
+      "scipy_slsqp_median_s": 0.0032198089998018986,
+      "scipy_slsqp_samples_s": [
+        0.0032198089998018986,
+        0.003231087000131083,
+        0.0010669700000107696
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.7755575615628914e-17,
+      "nlopt_slsqp_x_inf_error": 4.369217938837711e-09,
+      "nlopt_slsqp_median_s": 0.004380793000109406,
+      "nlopt_slsqp_samples_s": [
+        0.005482126000060816,
+        0.004380793000109406,
+        0.0029284679999364016
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 101510,
+      "reference_objective": -0.32582096537521654,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 5.551115123125783e-17,
+      "osqp_x_inf_error": 1.6653345369377348e-16,
+      "osqp_median_s": 0.004040725999857386,
+      "osqp_samples_s": [
+        0.004040725999857386,
+        0.015329671000017697,
+        0.003934105000098498
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.942091015256665e-15,
+      "highs_x_inf_error": 7.037475047155795e-08,
+      "highs_median_s": 0.005907722000301874,
+      "highs_samples_s": [
+        0.005907722000301874,
+        0.005772084999989602,
+        0.009939465000115888
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.1102230246251565e-15,
+      "scipy_slsqp_x_inf_error": 3.9283923947142085e-08,
+      "scipy_slsqp_median_s": 0.0031797589999769116,
+      "scipy_slsqp_samples_s": [
+        0.004605744999935268,
+        0.0017114789998231572,
+        0.0031797589999769116
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.1102230246251565e-16,
+      "nlopt_slsqp_x_inf_error": 4.659851948751736e-10,
+      "nlopt_slsqp_median_s": 0.003734461000021838,
+      "nlopt_slsqp_samples_s": [
+        0.0076529620000656,
+        0.0017795419998947182,
+        0.003734461000021838
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "nlopt-slsqp-native"
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 101511,
+      "reference_objective": -0.4171242737803455,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 1.6653345369377348e-16,
+      "osqp_x_inf_error": 1.1102230246251565e-16,
+      "osqp_median_s": 0.0030978240001786617,
+      "osqp_samples_s": [
+        0.00570244000027742,
+        0.0030978240001786617,
+        0.002759792000233574
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.27675647831893e-15,
+      "highs_x_inf_error": 3.150338401258779e-08,
+      "highs_median_s": 0.006856462000087049,
+      "highs_samples_s": [
+        0.0054268419999061734,
+        0.006856462000087049,
+        0.00702786300007574
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.0824674490095276e-14,
+      "scipy_slsqp_x_inf_error": 9.305724180119768e-08,
+      "scipy_slsqp_median_s": 0.002143564999641967,
+      "scipy_slsqp_samples_s": [
+        0.0036692920002678875,
+        0.002143564999641967,
+        0.001555783000185329
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.6653345369377348e-16,
+      "nlopt_slsqp_x_inf_error": 1.2394918424973866e-09,
+      "nlopt_slsqp_median_s": 0.0018787840003824385,
+      "nlopt_slsqp_samples_s": [
+        0.0018787840003824385,
+        0.0020475699998314667,
+        0.00185968400001002
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 101512,
+      "reference_objective": -0.17412838445030918,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.7755575615628914e-16,
+      "osqp_median_s": 0.005389825999827735,
+      "osqp_samples_s": [
+        0.003677265000078478,
+        0.005389825999827735,
+        0.005889084000045841
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 3.0531133177191805e-16,
+      "highs_x_inf_error": 1.5481895487834407e-08,
+      "highs_median_s": 0.005321771999660996,
+      "highs_samples_s": [
+        0.005321771999660996,
+        0.003525374000219017,
+        0.005890565999834507
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 8.987255384340642e-14,
+      "scipy_slsqp_x_inf_error": 3.6106486684187034e-07,
+      "scipy_slsqp_median_s": 0.0013905720002185262,
+      "scipy_slsqp_samples_s": [
+        0.0013905720002185262,
+        0.001379374999942229,
+        0.0037452170004144136
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.1102230246251565e-16,
+      "nlopt_slsqp_x_inf_error": 1.2166276222580485e-08,
+      "nlopt_slsqp_median_s": 0.0029483570001502812,
+      "nlopt_slsqp_samples_s": [
+        0.0029483570001502812,
+        0.001853534000019863,
+        0.0035134360000483866
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "equality",
+      "seed": 101513,
+      "reference_objective": -0.24643273918766917,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 5.551115123125783e-17,
+      "osqp_x_inf_error": 1.6653345369377348e-16,
+      "osqp_median_s": 0.004100978000224131,
+      "osqp_samples_s": [
+        0.006133996000244224,
+        0.004100978000224131,
+        0.0032539419999011443
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 4.274358644806853e-15,
+      "highs_x_inf_error": 6.42120310812011e-08,
+      "highs_median_s": 0.006259936999867932,
+      "highs_samples_s": [
+        0.020006744000056642,
+        0.006101537000176904,
+        0.006259936999867932
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.1649348980190553e-15,
+      "scipy_slsqp_x_inf_error": 5.2320468957312016e-08,
+      "scipy_slsqp_median_s": 0.0033549750000929635,
+      "scipy_slsqp_samples_s": [
+        0.004044582000005903,
+        0.0013039000000389933,
+        0.0033549750000929635
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.1102230246251565e-16,
+      "nlopt_slsqp_x_inf_error": 6.006853903173237e-10,
+      "nlopt_slsqp_median_s": 0.0040618979996907,
+      "nlopt_slsqp_samples_s": [
+        0.0040618979996907,
+        0.007881278999775532,
+        0.001648623999699339
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 101520,
+      "reference_objective": -0.35129484253520693,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 5.551115123125783e-17,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.0043345130002308,
+      "osqp_samples_s": [
+        0.003945871999803785,
+        0.0043345130002308,
+        0.007736358999864024
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 3.219646771412954e-15,
+      "highs_x_inf_error": 6.900195237413698e-08,
+      "highs_median_s": 0.004866720999871177,
+      "highs_samples_s": [
+        0.005101627999920311,
+        0.004365069999948901,
+        0.004866720999871177
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.2432832541264816e-12,
+      "scipy_slsqp_x_inf_error": 1.1113512339844256e-06,
+      "scipy_slsqp_median_s": 0.0025093699996432406,
+      "scipy_slsqp_samples_s": [
+        0.0017330820001006941,
+        0.002726790999986406,
+        0.0025093699996432406
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 3.885780586188048e-15,
+      "nlopt_slsqp_x_inf_error": 6.676511288272735e-08,
+      "nlopt_slsqp_median_s": 0.002690635999897495,
+      "nlopt_slsqp_samples_s": [
+        0.003484170999854541,
+        0.002690635999897495,
+        0.0021725100000367092
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 101521,
+      "reference_objective": 0.05322151485611212,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 6.938893903907228e-17,
+      "osqp_x_inf_error": 1.1102230246251565e-16,
+      "osqp_median_s": 0.0061456929997802945,
+      "osqp_samples_s": [
+        0.012470609000047261,
+        0.0034358679999968444,
+        0.0061456929997802945
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.7208456881689926e-15,
+      "highs_x_inf_error": 5.3581776071620624e-08,
+      "highs_median_s": 0.00740718899987769,
+      "highs_samples_s": [
+        0.004839480000100593,
+        0.00740718899987769,
+        0.008723317999738356
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.896968693237966e-12,
+      "scipy_slsqp_x_inf_error": 1.5871391300104065e-06,
+      "scipy_slsqp_median_s": 0.0021164340000723314,
+      "scipy_slsqp_samples_s": [
+        0.0021164340000723314,
+        0.0021072509998703026,
+        0.0021211210000728897
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.5265566588595902e-16,
+      "nlopt_slsqp_x_inf_error": 3.7549963138872045e-12,
+      "nlopt_slsqp_median_s": 0.0032546630000069854,
+      "nlopt_slsqp_samples_s": [
+        0.0031736300002194184,
+        0.003405642999950942,
+        0.0032546630000069854
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "nlopt-slsqp-native"
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 101522,
+      "reference_objective": -0.36940169232219805,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 5.551115123125783e-17,
+      "osqp_x_inf_error": 1.3877787807814457e-16,
+      "osqp_median_s": 0.0037848780002605054,
+      "osqp_samples_s": [
+        0.004015899000023637,
+        0.0037848780002605054,
+        0.002933133999704296
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 3.83026943495679e-15,
+      "highs_x_inf_error": 9.633298680977731e-08,
+      "highs_median_s": 0.00481316000013976,
+      "highs_samples_s": [
+        0.00442917700001999,
+        0.009698449000097753,
+        0.00481316000013976
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.875400000907803e-12,
+      "scipy_slsqp_x_inf_error": 1.9473423344129603e-06,
+      "scipy_slsqp_median_s": 0.0023417059996972966,
+      "scipy_slsqp_samples_s": [
+        0.0036489809999693534,
+        0.0023417059996972966,
+        0.0012927939997098292
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.551115123125783e-17,
+      "nlopt_slsqp_x_inf_error": 2.816099575753128e-10,
+      "nlopt_slsqp_median_s": 0.0015908159998616611,
+      "nlopt_slsqp_samples_s": [
+        0.002384582000104274,
+        0.0015908159998616611,
+        0.0015748910000183969
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "upper_active",
+      "seed": 101523,
+      "reference_objective": -0.5354973019240876,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 1.6653345369377348e-16,
+      "osqp_median_s": 0.003124955999737722,
+      "osqp_samples_s": [
+        0.004387602999941009,
+        0.0030181440001797455,
+        0.003124955999737722
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.9976021664879227e-15,
+      "highs_x_inf_error": 5.3464005278502924e-08,
+      "highs_median_s": 0.003682123000089632,
+      "highs_samples_s": [
+        0.005101999000089563,
+        0.003682123000089632,
+        0.0032046670003182953
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.8267167212779896e-12,
+      "scipy_slsqp_x_inf_error": 1.7972498835838735e-06,
+      "scipy_slsqp_median_s": 0.0013733860000684217,
+      "scipy_slsqp_samples_s": [
+        0.0015635849999853235,
+        0.0013733860000684217,
+        0.001245591000042623
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.2545520178264269e-14,
+      "nlopt_slsqp_x_inf_error": 1.2569237417547896e-07,
+      "nlopt_slsqp_median_s": 0.0015367539999715518,
+      "nlopt_slsqp_samples_s": [
+        0.003736945000127889,
+        0.0014192660000844626,
+        0.0015367539999715518
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 101530,
+      "reference_objective": -1.24366736995078,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.005120767000335036,
+      "osqp_samples_s": [
+        0.005453993000173796,
+        0.0043575370000326075,
+        0.005120767000335036
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.220446049250313e-15,
+      "highs_x_inf_error": 5.619695819802928e-08,
+      "highs_median_s": 0.005407372000263422,
+      "highs_samples_s": [
+        0.004745516999719257,
+        0.005407372000263422,
+        0.006652032000147301
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.1183055309847987e-13,
+      "scipy_slsqp_x_inf_error": 3.22317929513094e-07,
+      "scipy_slsqp_median_s": 0.0019639030001599167,
+      "scipy_slsqp_samples_s": [
+        0.0016618640001979657,
+        0.002024434000304609,
+        0.0019639030001599167
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 8.881784197001252e-16,
+      "nlopt_slsqp_x_inf_error": 2.623321349037866e-08,
+      "nlopt_slsqp_median_s": 0.00251115299988669,
+      "nlopt_slsqp_samples_s": [
+        0.0021121380000295176,
+        0.0032481629996254924,
+        0.00251115299988669
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 101531,
+      "reference_objective": -1.4093641297064725,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.0033538540001245565,
+      "osqp_samples_s": [
+        0.0033538540001245565,
+        0.004153368000061164,
+        0.0026818830001502647
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.4424906541753444e-15,
+      "highs_x_inf_error": 6.780226136093859e-08,
+      "highs_median_s": 0.003479204000086611,
+      "highs_samples_s": [
+        0.0029240410003694706,
+        0.003479204000086611,
+        0.0038381590002245503
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.220446049250313e-15,
+      "scipy_slsqp_x_inf_error": 6.461703552784748e-08,
+      "scipy_slsqp_median_s": 0.001240944000073796,
+      "scipy_slsqp_samples_s": [
+        0.0012047790000906389,
+        0.001240944000073796,
+        0.0012570489998324774
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 0.0,
+      "nlopt_slsqp_x_inf_error": 8.283399105524225e-10,
+      "nlopt_slsqp_median_s": 0.0015110250001271197,
+      "nlopt_slsqp_samples_s": [
+        0.0017828280001594976,
+        0.001425554999968881,
+        0.0015110250001271197
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "nlopt-slsqp-native"
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 101532,
+      "reference_objective": -1.7608513325157051,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 1.6653345369377348e-16,
+      "osqp_median_s": 0.00500594299955992,
+      "osqp_samples_s": [
+        0.0034112799999093113,
+        0.005227228999956424,
+        0.00500594299955992
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.661338147750939e-16,
+      "highs_x_inf_error": 2.981534136248243e-08,
+      "highs_median_s": 0.005405859999882523,
+      "highs_samples_s": [
+        0.003353853000135132,
+        0.005405859999882523,
+        0.008512117000009312
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.863576125695545e-14,
+      "scipy_slsqp_x_inf_error": 2.714078800175601e-07,
+      "scipy_slsqp_median_s": 0.0015041139999993902,
+      "scipy_slsqp_samples_s": [
+        0.001139048999903025,
+        0.0015041139999993902,
+        0.003366081999956805
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.220446049250313e-16,
+      "nlopt_slsqp_x_inf_error": 4.00522010002291e-09,
+      "nlopt_slsqp_median_s": 0.0022283540001808433,
+      "nlopt_slsqp_samples_s": [
+        0.0022283540001808433,
+        0.0015984169999683218,
+        0.003099216000009619
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 5,
+      "family": "box_active",
+      "seed": 101533,
+      "reference_objective": -0.9208939883378229,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 3.3306690738754696e-16,
+      "osqp_x_inf_error": 1.1102230246251565e-16,
+      "osqp_median_s": 0.005950536999989708,
+      "osqp_samples_s": [
+        0.006279125999753887,
+        0.005950536999989708,
+        0.005013153000163584
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 4.440892098500626e-16,
+      "highs_x_inf_error": 2.162037138209172e-08,
+      "highs_median_s": 0.005744284000229527,
+      "highs_samples_s": [
+        0.005501385000115988,
+        0.00575866600001973,
+        0.005744284000229527
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 7.216449660063518e-15,
+      "scipy_slsqp_x_inf_error": 8.8613494451939e-08,
+      "scipy_slsqp_median_s": 0.002249275999929523,
+      "scipy_slsqp_samples_s": [
+        0.002249275999929523,
+        0.003335214999879099,
+        0.001168974999927741
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.1102230246251565e-16,
+      "nlopt_slsqp_x_inf_error": 5.379064624277952e-10,
+      "nlopt_slsqp_median_s": 0.0027240470003562223,
+      "nlopt_slsqp_samples_s": [
+        0.002774563999992097,
+        0.0027240470003562223,
+        0.0026708059999691613
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "nlopt-slsqp-native"
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 103000,
+      "reference_objective": -1.7115406396050405,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 6.661338147750939e-16,
+      "osqp_x_inf_error": 2.7755575615628914e-16,
+      "osqp_median_s": 0.0039488769998570206,
+      "osqp_samples_s": [
+        0.006969895000111137,
+        0.0037316879997888464,
+        0.0039488769998570206
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.0658141036401503e-14,
+      "highs_x_inf_error": 7.120730849408119e-08,
+      "highs_median_s": 0.005057110000052489,
+      "highs_samples_s": [
+        0.005057110000052489,
+        0.004198787000404991,
+        0.010342206999666814
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.007949362337058e-12,
+      "scipy_slsqp_x_inf_error": 1.3737186431717063e-06,
+      "scipy_slsqp_median_s": 0.002626148000217654,
+      "scipy_slsqp_samples_s": [
+        0.002626148000217654,
+        0.0016930020001382218,
+        0.011512644000049477
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.1938006966593093e-13,
+      "nlopt_slsqp_x_inf_error": 5.898019007355426e-07,
+      "nlopt_slsqp_median_s": 0.0055216659998222895,
+      "nlopt_slsqp_samples_s": [
+        0.00874861600004806,
+        0.0032397100003436208,
+        0.0055216659998222895
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 103001,
+      "reference_objective": -1.156424915535964,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 2.7755575615628914e-16,
+      "osqp_median_s": 0.0037767759999951522,
+      "osqp_samples_s": [
+        0.004331357999944885,
+        0.0037767759999951522,
+        0.003256977000091865
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.8833827526759706e-15,
+      "highs_x_inf_error": 6.77419989547623e-08,
+      "highs_median_s": 0.0036236429996279185,
+      "highs_samples_s": [
+        0.004312188999847422,
+        0.0036236429996279185,
+        0.0035006670000257145
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.3111733920823099e-12,
+      "scipy_slsqp_x_inf_error": 9.318648100664628e-07,
+      "scipy_slsqp_median_s": 0.001857060000020283,
+      "scipy_slsqp_samples_s": [
+        0.001857060000020283,
+        0.0016406619997724192,
+        0.0019051630001740705
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.546851618490109e-13,
+      "nlopt_slsqp_x_inf_error": 3.3475221422607504e-07,
+      "nlopt_slsqp_median_s": 0.0033397619999959716,
+      "nlopt_slsqp_samples_s": [
+        0.0032115879998855235,
+        0.00371952900013639,
+        0.0033397619999959716
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 103002,
+      "reference_objective": -1.4789480903764864,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.00335396300033608,
+      "osqp_samples_s": [
+        0.0035056740002801234,
+        0.00335396300033608,
+        0.003249966000112181
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.176836406102666e-14,
+      "highs_x_inf_error": 8.462271194886739e-08,
+      "highs_median_s": 0.004042789999857632,
+      "highs_samples_s": [
+        0.004042789999857632,
+        0.004486012000143091,
+        0.003391670999917551
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.0320633236915455e-12,
+      "scipy_slsqp_x_inf_error": 8.253736776819842e-07,
+      "scipy_slsqp_median_s": 0.0016410419998464931,
+      "scipy_slsqp_samples_s": [
+        0.0016410419998464931,
+        0.0016838069996083505,
+        0.0016181480000341253
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.3988810110276972e-13,
+      "nlopt_slsqp_x_inf_error": 3.035081643232296e-07,
+      "nlopt_slsqp_median_s": 0.003878240000176447,
+      "nlopt_slsqp_samples_s": [
+        0.004189551999843388,
+        0.003878240000176447,
+        0.003137435000098776
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "interior",
+      "seed": 103003,
+      "reference_objective": -0.7225581340278967,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 1.1102230246251565e-16,
+      "osqp_x_inf_error": 6.106226635438361e-16,
+      "osqp_median_s": 0.0034741970002869493,
+      "osqp_samples_s": [
+        0.0034741970002869493,
+        0.00398580299997775,
+        0.0031859890000305313
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.0436096431476471e-14,
+      "highs_x_inf_error": 8.123568617790511e-08,
+      "highs_median_s": 0.003371359999619017,
+      "highs_samples_s": [
+        0.003371359999619017,
+        0.003943548999814084,
+        0.003320692999750463
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 5.416778137146139e-13,
+      "scipy_slsqp_x_inf_error": 6.543876141813093e-07,
+      "scipy_slsqp_median_s": 0.0017312189997937821,
+      "scipy_slsqp_samples_s": [
+        0.001585187999808113,
+        0.0020923779998156533,
+        0.0017312189997937821
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 3.1530333899354446e-14,
+      "nlopt_slsqp_x_inf_error": 1.3263211767755578e-07,
+      "nlopt_slsqp_median_s": 0.0029477470002348127,
+      "nlopt_slsqp_samples_s": [
+        0.0029349669998737227,
+        0.0030000060000929807,
+        0.0029477470002348127
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 103010,
+      "reference_objective": -0.7542499613745499,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.003430288999879849,
+      "osqp_samples_s": [
+        0.0033617149997553497,
+        0.003430288999879849,
+        0.004080607000105374
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 7.105427357601002e-15,
+      "highs_x_inf_error": 6.73750641944082e-08,
+      "highs_median_s": 0.005056880000211095,
+      "highs_samples_s": [
+        0.005712155000310304,
+        0.005056880000211095,
+        0.0042254370000591734
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.55440113505756e-12,
+      "scipy_slsqp_x_inf_error": 1.8602603956696662e-06,
+      "scipy_slsqp_median_s": 0.002356428999974014,
+      "scipy_slsqp_samples_s": [
+        0.002356428999974014,
+        0.002457241999763937,
+        0.002314594999916153
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.504663143554353e-13,
+      "nlopt_slsqp_x_inf_error": 6.037968739991406e-07,
+      "nlopt_slsqp_median_s": 0.003844387999833998,
+      "nlopt_slsqp_samples_s": [
+        0.003844387999833998,
+        0.00429839800017362,
+        0.0036928879999322817
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 103011,
+      "reference_objective": -1.5581825111465977,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 1.6653345369377348e-16,
+      "osqp_median_s": 0.0032546329998695,
+      "osqp_samples_s": [
+        0.0035575530000642175,
+        0.0032546329998695,
+        0.00318620899997768
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 9.769962616701378e-15,
+      "highs_x_inf_error": 7.119012418455029e-08,
+      "highs_median_s": 0.004617453000264504,
+      "highs_samples_s": [
+        0.004662110000026587,
+        0.004348033000042051,
+        0.004617453000264504
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 4.602984660095899e-13,
+      "scipy_slsqp_x_inf_error": 3.989964327821838e-07,
+      "scipy_slsqp_median_s": 0.002375026999743568,
+      "scipy_slsqp_samples_s": [
+        0.002375026999743568,
+        0.0024374820000048203,
+        0.00215721599988683
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 4.600764214046649e-13,
+      "nlopt_slsqp_x_inf_error": 3.989964328376949e-07,
+      "nlopt_slsqp_median_s": 0.003521107999858941,
+      "nlopt_slsqp_samples_s": [
+        0.003521107999858941,
+        0.003551993999735714,
+        0.0033110179997493105
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 103012,
+      "reference_objective": -0.8152059327485317,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 1.942890293094024e-16,
+      "osqp_median_s": 0.0032905170000958606,
+      "osqp_samples_s": [
+        0.003633718999935809,
+        0.0032905170000958606,
+        0.00323680500014234
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 5.551115123125783e-15,
+      "highs_x_inf_error": 4.490093830078479e-08,
+      "highs_median_s": 0.004032883999570913,
+      "highs_samples_s": [
+        0.004032883999570913,
+        0.004100796999864542,
+        0.0038989820000097097
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 4.333422509716911e-12,
+      "scipy_slsqp_x_inf_error": 1.1549220539364136e-06,
+      "scipy_slsqp_median_s": 0.0021415520000118704,
+      "scipy_slsqp_samples_s": [
+        0.0021415520000118704,
+        0.0022652899997410714,
+        0.0020347909999145486
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.4091839634365897e-13,
+      "nlopt_slsqp_x_inf_error": 3.312302277458379e-07,
+      "nlopt_slsqp_median_s": 0.0033029860001079214,
+      "nlopt_slsqp_samples_s": [
+        0.003297828000086156,
+        0.0034015159999398747,
+        0.0033029860001079214
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "equality",
+      "seed": 103013,
+      "reference_objective": -2.0635392343127688,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.0033590409998396353,
+      "osqp_samples_s": [
+        0.003510401000312413,
+        0.0033263919999626523,
+        0.0033590409998396353
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 4.884981308350689e-15,
+      "highs_x_inf_error": 4.60498646992491e-08,
+      "highs_median_s": 0.004099024999959511,
+      "highs_samples_s": [
+        0.004099024999959511,
+        0.004345509999893693,
+        0.004079214999819669
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 5.728750807065808e-13,
+      "scipy_slsqp_x_inf_error": 6.610788306216087e-07,
+      "scipy_slsqp_median_s": 0.002188564000334736,
+      "scipy_slsqp_samples_s": [
+        0.002188564000334736,
+        0.0022489650000352412,
+        0.0021490530002665764
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.724309914967307e-13,
+      "nlopt_slsqp_x_inf_error": 6.610788306216087e-07,
+      "nlopt_slsqp_median_s": 0.003530911999860109,
+      "nlopt_slsqp_samples_s": [
+        0.003530911999860109,
+        0.0035424699999566656,
+        0.003509148999910394
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 103020,
+      "reference_objective": -0.8010202566020371,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 4.996003610813204e-16,
+      "osqp_median_s": 0.0033856109998851025,
+      "osqp_samples_s": [
+        0.003339091000270855,
+        0.0098233280000386,
+        0.0033856109998851025
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 7.771561172376096e-15,
+      "highs_x_inf_error": 5.2145176065998555e-08,
+      "highs_median_s": 0.0041666679999252665,
+      "highs_samples_s": [
+        0.004013154999938706,
+        0.004654319000110263,
+        0.0041666679999252665
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.074096532884596e-12,
+      "scipy_slsqp_x_inf_error": 1.2650711544992532e-06,
+      "scipy_slsqp_median_s": 0.002401716999884229,
+      "scipy_slsqp_samples_s": [
+        0.002379443000336323,
+        0.002401716999884229,
+        0.0024240120001195464
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 3.290701044988964e-13,
+      "nlopt_slsqp_x_inf_error": 4.867188763690855e-07,
+      "nlopt_slsqp_median_s": 0.00370071099996494,
+      "nlopt_slsqp_samples_s": [
+        0.003480286000012711,
+        0.003856697000173881,
+        0.00370071099996494
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 103021,
+      "reference_objective": -1.076467237382286,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 2.498001805406602e-16,
+      "osqp_median_s": 0.003527556999870285,
+      "osqp_samples_s": [
+        0.004265107000264834,
+        0.0033590010002626514,
+        0.003527556999870285
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.1102230246251565e-14,
+      "highs_x_inf_error": 8.489433511726929e-08,
+      "highs_median_s": 0.0044151049996798974,
+      "highs_samples_s": [
+        0.0044151049996798974,
+        0.004513055000188615,
+        0.004323705999922822
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 9.71223101942087e-13,
+      "scipy_slsqp_x_inf_error": 7.021500448289864e-07,
+      "scipy_slsqp_median_s": 0.0025015090000124474,
+      "scipy_slsqp_samples_s": [
+        0.002556382999955531,
+        0.0025015090000124474,
+        0.0024415779998889775
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.0391687510491465e-13,
+      "nlopt_slsqp_x_inf_error": 3.114769276391094e-07,
+      "nlopt_slsqp_median_s": 0.003723714999978256,
+      "nlopt_slsqp_samples_s": [
+        0.0037922299998172093,
+        0.0037206609999884677,
+        0.003723714999978256
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 103022,
+      "reference_objective": -1.4075018927847935,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-16,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.003593687000375212,
+      "osqp_samples_s": [
+        0.00354862000040157,
+        0.004411218999848643,
+        0.003593687000375212
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 9.769962616701378e-15,
+      "highs_x_inf_error": 5.902417776759705e-08,
+      "highs_median_s": 0.004557200999897759,
+      "highs_samples_s": [
+        0.004199578000225301,
+        0.004604272000051424,
+        0.004557200999897759
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.6515677714323829e-12,
+      "scipy_slsqp_x_inf_error": 1.1146772207681552e-06,
+      "scipy_slsqp_median_s": 0.002454857999964588,
+      "scipy_slsqp_samples_s": [
+        0.00241258400001243,
+        0.002454857999964588,
+        0.0024973119998321636
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.1546319456101628e-13,
+      "nlopt_slsqp_x_inf_error": 2.995696061769415e-07,
+      "nlopt_slsqp_median_s": 0.004034988000057638,
+      "nlopt_slsqp_samples_s": [
+        0.004487974999847211,
+        0.004034988000057638,
+        0.0037855189998481364
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "upper_active",
+      "seed": 103023,
+      "reference_objective": -1.4098672890264814,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 4.996003610813204e-16,
+      "osqp_median_s": 0.0036683110001831665,
+      "osqp_samples_s": [
+        0.0037444070003402885,
+        0.0036683110001831665,
+        0.003402968000045803
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.217248937900877e-15,
+      "highs_x_inf_error": 7.126836132353986e-08,
+      "highs_median_s": 0.004338418999850546,
+      "highs_samples_s": [
+        0.0052018900000803114,
+        0.004338418999850546,
+        0.0042073399999935646
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.0805579481475434e-13,
+      "scipy_slsqp_x_inf_error": 2.969126215654483e-07,
+      "scipy_slsqp_median_s": 0.0025263069996981358,
+      "scipy_slsqp_samples_s": [
+        0.0025263069996981358,
+        0.002486645999852044,
+        0.0028629180001189525
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.0805579481475434e-13,
+      "nlopt_slsqp_x_inf_error": 2.9691262156891773e-07,
+      "nlopt_slsqp_median_s": 0.0037221420002424566,
+      "nlopt_slsqp_samples_s": [
+        0.003438000999722135,
+        0.00554416900013166,
+        0.0037221420002424566
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 103030,
+      "reference_objective": -3.0098429565782143,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.003296286000022519,
+      "osqp_samples_s": [
+        0.0032362339998144307,
+        0.003296286000022519,
+        0.004079316000115796
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.661338147750939e-15,
+      "highs_x_inf_error": 4.4301985524519694e-08,
+      "highs_median_s": 0.0038012129998605815,
+      "highs_samples_s": [
+        0.003550521999841294,
+        0.0038012129998605815,
+        0.003861584999867773
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.5566215811068105e-12,
+      "scipy_slsqp_x_inf_error": 1.4545257566167535e-06,
+      "scipy_slsqp_median_s": 0.0017471229998591298,
+      "scipy_slsqp_samples_s": [
+        0.0017272540003432368,
+        0.0017480249998698127,
+        0.0017471229998591298
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 3.241851231905457e-13,
+      "nlopt_slsqp_x_inf_error": 4.0685030922027465e-07,
+      "nlopt_slsqp_median_s": 0.003320363000057114,
+      "nlopt_slsqp_samples_s": [
+        0.003320363000057114,
+        0.0032976280003822467,
+        0.003401945999939926
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 103031,
+      "reference_objective": -2.5811401453420495,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 1.7763568394002505e-15,
+      "osqp_x_inf_error": 3.885780586188048e-16,
+      "osqp_median_s": 0.003525884999817208,
+      "osqp_samples_s": [
+        0.003525884999817208,
+        0.003558333999990282,
+        0.0033555149998392153
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 8.881784197001252e-15,
+      "highs_x_inf_error": 7.741430385621584e-08,
+      "highs_median_s": 0.003859771999941586,
+      "highs_samples_s": [
+        0.0035890200001631456,
+        0.003859771999941586,
+        0.004334382000251935
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.1621814621776139e-12,
+      "scipy_slsqp_x_inf_error": 1.1060644076188453e-06,
+      "scipy_slsqp_median_s": 0.001796818999991956,
+      "scipy_slsqp_samples_s": [
+        0.001765901999988273,
+        0.0023418270002366626,
+        0.001796818999991956
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.0347278589506459e-13,
+      "nlopt_slsqp_x_inf_error": 2.7108783734464126e-07,
+      "nlopt_slsqp_median_s": 0.003365972000210604,
+      "nlopt_slsqp_samples_s": [
+        0.0032779789999040077,
+        0.0038742540000384906,
+        0.003365972000210604
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 103032,
+      "reference_objective": -2.804987284808209,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 3.885780586188048e-16,
+      "osqp_median_s": 0.003339091000270855,
+      "osqp_samples_s": [
+        0.0033579400001144677,
+        0.003339091000270855,
+        0.0033367179999004293
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.217248937900877e-15,
+      "highs_x_inf_error": 5.89054712785142e-08,
+      "highs_median_s": 0.0035961819999101863,
+      "highs_samples_s": [
+        0.0035006670000257145,
+        0.0037272610002219153,
+        0.0035961819999101863
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.1266543253896089e-12,
+      "scipy_slsqp_x_inf_error": 1.1042953335371752e-06,
+      "scipy_slsqp_median_s": 0.0018255620002491924,
+      "scipy_slsqp_samples_s": [
+        0.001842147999923327,
+        0.0018255620002491924,
+        0.001697346999662841
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.127986593019159e-12,
+      "nlopt_slsqp_x_inf_error": 1.1042953333983974e-06,
+      "nlopt_slsqp_median_s": 0.00329408199968384,
+      "nlopt_slsqp_samples_s": [
+        0.00329408199968384,
+        0.003186199000083434,
+        0.004388674999972864
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 20,
+      "family": "box_active",
+      "seed": 103033,
+      "reference_objective": -2.4960556030901104,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.003514486999847577,
+      "osqp_samples_s": [
+        0.003514486999847577,
+        0.0037482530001398118,
+        0.0033004530000653176
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 6.661338147750939e-15,
+      "highs_x_inf_error": 4.6340334902694735e-08,
+      "highs_median_s": 0.003701812000144855,
+      "highs_samples_s": [
+        0.003701812000144855,
+        0.003957871000238811,
+        0.003536840999913693
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.5973888878306752e-12,
+      "scipy_slsqp_x_inf_error": 7.945611798509944e-07,
+      "scipy_slsqp_median_s": 0.0017636989996390184,
+      "scipy_slsqp_samples_s": [
+        0.001730708000195591,
+        0.0017636989996390184,
+        0.0018641510000634298
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.5969447986208252e-12,
+      "nlopt_slsqp_x_inf_error": 7.945611798509944e-07,
+      "nlopt_slsqp_median_s": 0.0033308480001323915,
+      "nlopt_slsqp_samples_s": [
+        0.003510151000227779,
+        0.0033308480001323915,
+        0.003156704000048194
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 106000,
+      "reference_objective": -2.7371116607458434,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 8.881784197001252e-16,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.004573065000386123,
+      "osqp_samples_s": [
+        0.004390257999602909,
+        0.004573065000386123,
+        0.004728721999981644
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.2648549702353193e-14,
+      "highs_x_inf_error": 7.011122771238831e-08,
+      "highs_median_s": 0.00390996800024368,
+      "highs_samples_s": [
+        0.0037725689999206224,
+        0.004418289000113873,
+        0.00390996800024368
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.687538997430238e-12,
+      "scipy_slsqp_x_inf_error": 5.391174607294325e-07,
+      "scipy_slsqp_median_s": 0.005967272999896522,
+      "scipy_slsqp_samples_s": [
+        0.11214453399998092,
+        0.005967272999896522,
+        0.005066574000011315
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.6870949082203879e-12,
+      "nlopt_slsqp_x_inf_error": 5.391174625335449e-07,
+      "nlopt_slsqp_median_s": 0.024286213000323187,
+      "nlopt_slsqp_samples_s": [
+        0.024286213000323187,
+        0.02249206900023637,
+        0.039360711999961495
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 106001,
+      "reference_objective": -3.16512448295594,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 8.881784197001252e-16,
+      "osqp_x_inf_error": 4.787836793695988e-16,
+      "osqp_median_s": 0.0068077330001869996,
+      "osqp_samples_s": [
+        0.0068077330001869996,
+        0.0388171310000871,
+        0.004735081000035279
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.1546319456101628e-14,
+      "highs_x_inf_error": 4.82153144909514e-08,
+      "highs_median_s": 0.004242584000166971,
+      "highs_samples_s": [
+        0.004242584000166971,
+        0.013238394999916636,
+        0.0041463269999439945
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.77280412572145e-12,
+      "scipy_slsqp_x_inf_error": 5.685265407895379e-07,
+      "scipy_slsqp_median_s": 0.19133697300003405,
+      "scipy_slsqp_samples_s": [
+        0.19133697300003405,
+        0.2023894020003354,
+        0.09367591500040362
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 4.288569499522055e-12,
+      "nlopt_slsqp_x_inf_error": 8.334723026193203e-07,
+      "nlopt_slsqp_median_s": 0.04285251999999673,
+      "nlopt_slsqp_samples_s": [
+        0.06056393800008664,
+        0.04285251999999673,
+        0.022412188000089373
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 106002,
+      "reference_objective": -2.592408265021709,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 2.220446049250313e-16,
+      "osqp_median_s": 0.006627005000154895,
+      "osqp_samples_s": [
+        0.005031821999637032,
+        0.013303543999882095,
+        0.006627005000154895
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.398081733190338e-14,
+      "highs_x_inf_error": 8.320576161402471e-08,
+      "highs_median_s": 0.006025431000125536,
+      "highs_samples_s": [
+        0.010593568999865965,
+        0.006025431000125536,
+        0.005265967000013916
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.2294167340296553e-12,
+      "scipy_slsqp_x_inf_error": 5.502843406779423e-07,
+      "scipy_slsqp_median_s": 0.02172905899988109,
+      "scipy_slsqp_samples_s": [
+        0.002868785999908141,
+        0.02172905899988109,
+        0.1825078140000187
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.2522430848966906e-12,
+      "nlopt_slsqp_x_inf_error": 1.5384610888569128e-06,
+      "nlopt_slsqp_median_s": 0.06458182000005763,
+      "nlopt_slsqp_samples_s": [
+        0.06458182000005763,
+        0.08734554099964953,
+        0.020399369999722694
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "interior",
+      "seed": 106003,
+      "reference_objective": -3.4033150588891417,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.01121060600007695,
+      "osqp_samples_s": [
+        0.01121060600007695,
+        0.016446356999949785,
+        0.004521730000305979
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.6201263381153694e-14,
+      "highs_x_inf_error": 7.17809400252456e-08,
+      "highs_median_s": 0.004715042000043468,
+      "highs_samples_s": [
+        0.004615239000031579,
+        0.005459150000206137,
+        0.004715042000043468
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 2.3243629243552277e-12,
+      "scipy_slsqp_x_inf_error": 5.683298411329751e-07,
+      "scipy_slsqp_median_s": 0.02022236199991312,
+      "scipy_slsqp_samples_s": [
+        0.02022236199991312,
+        0.00435433299981014,
+        0.18434515300032217
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 2.3234747459355276e-12,
+      "nlopt_slsqp_x_inf_error": 5.68329841077464e-07,
+      "nlopt_slsqp_median_s": 0.0439396609999676,
+      "nlopt_slsqp_samples_s": [
+        0.07586370399985753,
+        0.0439396609999676,
+        0.0250231459999668
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 106010,
+      "reference_objective": -3.4607373763612492,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.006155688000035298,
+      "osqp_samples_s": [
+        0.004874432999713463,
+        0.006155688000035298,
+        0.008892511999874841
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.9539925233402755e-14,
+      "highs_x_inf_error": 6.620611470165016e-08,
+      "highs_median_s": 0.013805473000047641,
+      "highs_samples_s": [
+        0.006894934000229114,
+        0.04493959999990693,
+        0.013805473000047641
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.5689671784002712e-12,
+      "scipy_slsqp_x_inf_error": 4.444260770543329e-07,
+      "scipy_slsqp_median_s": 0.09867494199988869,
+      "scipy_slsqp_samples_s": [
+        0.08399708800016015,
+        0.2072349340000983,
+        0.09867494199988869
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.5689671784002712e-12,
+      "nlopt_slsqp_x_inf_error": 4.444260772243358e-07,
+      "nlopt_slsqp_median_s": 0.051849940000010974,
+      "nlopt_slsqp_samples_s": [
+        0.051849940000010974,
+        0.02420109499962564,
+        0.05610763999993651
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 106011,
+      "reference_objective": -2.181547836559248,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 4.163336342344337e-16,
+      "osqp_median_s": 0.005895361000057164,
+      "osqp_samples_s": [
+        0.005895361000057164,
+        0.004226389999985258,
+        0.009294228000271687
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.9539925233402755e-14,
+      "highs_x_inf_error": 6.944313113432798e-08,
+      "highs_median_s": 0.006741386000157945,
+      "highs_samples_s": [
+        0.019543163999969693,
+        0.005296282999552204,
+        0.006741386000157945
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 8.890665981198254e-13,
+      "scipy_slsqp_x_inf_error": 4.506500526635371e-07,
+      "scipy_slsqp_median_s": 0.006052170999737427,
+      "scipy_slsqp_samples_s": [
+        0.004250957999829552,
+        0.006052170999737427,
+        0.007769796000047791
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.67235147741485e-12,
+      "nlopt_slsqp_x_inf_error": 8.089973285718699e-07,
+      "nlopt_slsqp_median_s": 0.021198965000166936,
+      "nlopt_slsqp_samples_s": [
+        0.020490519999839307,
+        0.021198965000166936,
+        0.047435240000140766
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 106012,
+      "reference_objective": -2.996887126664273,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 8.881784197001252e-16,
+      "osqp_x_inf_error": 5.551115123125783e-16,
+      "osqp_median_s": 0.007580668000173318,
+      "osqp_samples_s": [
+        0.007580668000173318,
+        0.007112137000149232,
+        0.028297421999923245
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.531308496145357e-14,
+      "highs_x_inf_error": 7.373611132788227e-08,
+      "highs_median_s": 0.01939072099958139,
+      "highs_samples_s": [
+        0.011859308000111923,
+        0.02310166000006575,
+        0.01939072099958139
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.2376766278521245e-12,
+      "scipy_slsqp_x_inf_error": 4.5144982616096563e-07,
+      "scipy_slsqp_median_s": 0.10595022600000448,
+      "scipy_slsqp_samples_s": [
+        0.2087497180000355,
+        0.07555879699975776,
+        0.10595022600000448
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.2712053631958042e-11,
+      "nlopt_slsqp_x_inf_error": 1.4569861282037744e-06,
+      "nlopt_slsqp_median_s": 0.06814924900027108,
+      "nlopt_slsqp_samples_s": [
+        0.06814924900027108,
+        0.0710375000003296,
+        0.06342588500001511
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "equality",
+      "seed": 106013,
+      "reference_objective": -2.7098884657011597,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.004680009000367136,
+      "osqp_samples_s": [
+        0.004680009000367136,
+        0.004366423000192299,
+        0.010659839999789256
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.708944180085382e-14,
+      "highs_x_inf_error": 8.455095706905169e-08,
+      "highs_median_s": 0.005821830000058981,
+      "highs_samples_s": [
+        0.00517522000018289,
+        0.005821830000058981,
+        0.008835792999889236
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.1938895972416503e-12,
+      "scipy_slsqp_x_inf_error": 1.2024194277621136e-06,
+      "scipy_slsqp_median_s": 0.005864243999894825,
+      "scipy_slsqp_samples_s": [
+        0.006027022000125726,
+        0.005864243999894825,
+        0.004273010999895632
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 9.761080832504376e-13,
+      "nlopt_slsqp_x_inf_error": 4.6221174210270277e-07,
+      "nlopt_slsqp_median_s": 0.02308179099964036,
+      "nlopt_slsqp_samples_s": [
+        0.02308179099964036,
+        0.023027999000078125,
+        0.04539585700013049
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 106020,
+      "reference_objective": -2.4816877862934406,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 8.881784197001252e-16,
+      "osqp_x_inf_error": 2.7755575615628914e-16,
+      "osqp_median_s": 0.005033505000028526,
+      "osqp_samples_s": [
+        0.005072724999990896,
+        0.004116813999644364,
+        0.005033505000028526
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.1760371282653068e-14,
+      "highs_x_inf_error": 7.940301671727212e-08,
+      "highs_median_s": 0.005708548999791674,
+      "highs_samples_s": [
+        0.011075419000007969,
+        0.005339669000022695,
+        0.005708548999791674
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.433075880186152e-12,
+      "scipy_slsqp_x_inf_error": 4.1446346704665515e-07,
+      "scipy_slsqp_median_s": 0.008732114999929763,
+      "scipy_slsqp_samples_s": [
+        0.006060843999875942,
+        0.010325240999918606,
+        0.008732114999929763
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.594191776481239e-12,
+      "nlopt_slsqp_x_inf_error": 1.0678141999787005e-06,
+      "nlopt_slsqp_median_s": 0.042388594999920315,
+      "nlopt_slsqp_samples_s": [
+        0.04570235600021988,
+        0.02093879999983983,
+        0.042388594999920315
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 106021,
+      "reference_objective": -3.1789638572574224,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 2.220446049250313e-15,
+      "osqp_x_inf_error": 6.661338147750939e-16,
+      "osqp_median_s": 0.004808413999853656,
+      "osqp_samples_s": [
+        0.0047278219999498106,
+        0.027563833999920462,
+        0.004808413999853656
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.8207657603852567e-14,
+      "highs_x_inf_error": 6.367403565521457e-08,
+      "highs_median_s": 0.0064295719998881395,
+      "highs_samples_s": [
+        0.005496547000348073,
+        0.0064295719998881395,
+        0.0067480550001164374
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.1930014188219502e-12,
+      "scipy_slsqp_x_inf_error": 5.251012591828141e-07,
+      "scipy_slsqp_median_s": 0.009469994000028237,
+      "scipy_slsqp_samples_s": [
+        0.029390505000264966,
+        0.005476886999986164,
+        0.009469994000028237
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 3.1916691511924e-12,
+      "nlopt_slsqp_x_inf_error": 5.251012638457508e-07,
+      "nlopt_slsqp_median_s": 0.026506045000132872,
+      "nlopt_slsqp_samples_s": [
+        0.030433701999754703,
+        0.026506045000132872,
+        0.025260684999921068
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 106022,
+      "reference_objective": -3.128313281473861,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 6.661338147750939e-16,
+      "osqp_median_s": 0.006981059000281675,
+      "osqp_samples_s": [
+        0.0154316669995751,
+        0.006981059000281675,
+        0.005476997999721789
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.220446049250313e-14,
+      "highs_x_inf_error": 7.778115573842115e-08,
+      "highs_median_s": 0.006741934999809018,
+      "highs_samples_s": [
+        0.01812973999994938,
+        0.00630333100025382,
+        0.006741934999809018
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 8.763212377971286e-12,
+      "scipy_slsqp_x_inf_error": 1.1779628241448403e-06,
+      "scipy_slsqp_median_s": 0.13400229099988792,
+      "scipy_slsqp_samples_s": [
+        0.13400229099988792,
+        0.4052876870000546,
+        0.032190616999741906
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 8.763212377971286e-12,
+      "nlopt_slsqp_x_inf_error": 1.177962823256662e-06,
+      "nlopt_slsqp_median_s": 0.03959943400013799,
+      "nlopt_slsqp_samples_s": [
+        0.11110215000007884,
+        0.03959943400013799,
+        0.028857101000085095
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "upper_active",
+      "seed": 106023,
+      "reference_objective": -2.4702167568619147,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 4.440892098500626e-16,
+      "osqp_x_inf_error": 3.608224830031759e-16,
+      "osqp_median_s": 0.005386229999658099,
+      "osqp_samples_s": [
+        0.005386229999658099,
+        0.011688308999964647,
+        0.005138313999850652
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.687538997430238e-14,
+      "highs_x_inf_error": 6.643758837521219e-08,
+      "highs_median_s": 0.006876389999888488,
+      "highs_samples_s": [
+        0.006204169999818987,
+        0.006876389999888488,
+        0.029938781000055315
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 5.6754601018838e-12,
+      "scipy_slsqp_x_inf_error": 7.983999007112746e-07,
+      "scipy_slsqp_median_s": 0.017138876999979402,
+      "scipy_slsqp_samples_s": [
+        0.017138876999979402,
+        0.005568987000060588,
+        0.13902218900011576
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 5.67501601267395e-12,
+      "nlopt_slsqp_x_inf_error": 7.983999007104073e-07,
+      "nlopt_slsqp_median_s": 0.06170114799988369,
+      "nlopt_slsqp_samples_s": [
+        0.02412236899999698,
+        0.08052169000029608,
+        0.06170114799988369
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 106030,
+      "reference_objective": -4.4952404955184,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.005694247000064934,
+      "osqp_samples_s": [
+        0.005694247000064934,
+        0.01057762400023421,
+        0.004729744000087521
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.5757174171303632e-14,
+      "highs_x_inf_error": 7.506750732133582e-08,
+      "highs_median_s": 0.004518874000041251,
+      "highs_samples_s": [
+        0.004518874000041251,
+        0.005360920999919472,
+        0.004322075999880326
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 4.2366110619695974e-13,
+      "scipy_slsqp_x_inf_error": 2.9461306483291594e-07,
+      "scipy_slsqp_median_s": 0.003700122999816813,
+      "scipy_slsqp_samples_s": [
+        0.003700122999816813,
+        0.003156388000206789,
+        0.004941946999679203
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 6.0325078266032506e-12,
+      "nlopt_slsqp_x_inf_error": 1.0741814296943986e-06,
+      "nlopt_slsqp_median_s": 0.04768186399996921,
+      "nlopt_slsqp_samples_s": [
+        0.04768186399996921,
+        0.02886519200001203,
+        0.05552503999979308
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 106031,
+      "reference_objective": -4.441305219944307,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 8.881784197001252e-16,
+      "osqp_x_inf_error": 3.3306690738754696e-16,
+      "osqp_median_s": 0.007100951000211353,
+      "osqp_samples_s": [
+        0.00465697400022691,
+        0.041455779999978404,
+        0.007100951000211353
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.042810365310288e-14,
+      "highs_x_inf_error": 8.097385417737968e-08,
+      "highs_median_s": 0.00474952399963513,
+      "highs_samples_s": [
+        0.004261563000000024,
+        0.00474952399963513,
+        0.007034039000245684
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 1.9904078385479806e-12,
+      "scipy_slsqp_x_inf_error": 6.214664261539049e-07,
+      "scipy_slsqp_median_s": 0.047361544000068534,
+      "scipy_slsqp_samples_s": [
+        0.047361544000068534,
+        0.003783388000101695,
+        0.0536894330002724
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 1.992184195387381e-12,
+      "nlopt_slsqp_x_inf_error": 6.21466426015127e-07,
+      "nlopt_slsqp_median_s": 0.022473508000075526,
+      "nlopt_slsqp_samples_s": [
+        0.022473508000075526,
+        0.022106662000169308,
+        0.05667995299972972
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 106032,
+      "reference_objective": -5.155985893906535,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.475586568020162e-16,
+      "osqp_median_s": 0.008502376000251388,
+      "osqp_samples_s": [
+        0.00518815999976141,
+        0.02834515399990778,
+        0.008502376000251388
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 1.7763568394002505e-14,
+      "highs_x_inf_error": 6.47867620662268e-08,
+      "highs_median_s": 0.004623713000000862,
+      "highs_samples_s": [
+        0.003993076999904588,
+        0.004623713000000862,
+        0.00662850399976378
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.205435916697752e-12,
+      "scipy_slsqp_x_inf_error": 6.079852126195107e-07,
+      "scipy_slsqp_median_s": 0.00402561600003537,
+      "scipy_slsqp_samples_s": [
+        0.0036154139997961465,
+        0.005564639999647625,
+        0.00402561600003537
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 4.446221169018827e-11,
+      "nlopt_slsqp_x_inf_error": 2.3310262109721425e-06,
+      "nlopt_slsqp_median_s": 0.022014291000232333,
+      "nlopt_slsqp_samples_s": [
+        0.02186618699988685,
+        0.022014291000232333,
+        0.02341450599988093
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    },
+    {
+      "n": 50,
+      "family": "box_active",
+      "seed": 106033,
+      "reference_objective": -4.427898583659384,
+      "osqp_status": "valid_optimal",
+      "osqp_valid": true,
+      "osqp_objective_abs_error": 0.0,
+      "osqp_x_inf_error": 4.440892098500626e-16,
+      "osqp_median_s": 0.004575830999783648,
+      "osqp_samples_s": [
+        0.004481346999909874,
+        0.004681100000198057,
+        0.004575830999783648
+      ],
+      "highs_status": "valid_optimal",
+      "highs_valid": true,
+      "highs_objective_abs_error": 2.042810365310288e-14,
+      "highs_x_inf_error": 7.7182788771335e-08,
+      "highs_median_s": 0.004299471000194899,
+      "highs_samples_s": [
+        0.004044804999921325,
+        0.004736634999972011,
+        0.004299471000194899
+      ],
+      "scipy_slsqp_status": "valid_feasible",
+      "scipy_slsqp_valid": true,
+      "scipy_slsqp_objective_abs_error": 3.5553782140596013e-12,
+      "scipy_slsqp_x_inf_error": 7.282501155447818e-07,
+      "scipy_slsqp_median_s": 0.004179580000254646,
+      "scipy_slsqp_samples_s": [
+        0.0031557070001326792,
+        0.0065899150004042895,
+        0.004179580000254646
+      ],
+      "nlopt_slsqp_status": "valid_feasible",
+      "nlopt_slsqp_valid": true,
+      "nlopt_slsqp_objective_abs_error": 7.542411140093463e-12,
+      "nlopt_slsqp_x_inf_error": 1.1258990821882975e-06,
+      "nlopt_slsqp_median_s": 0.02174304000027405,
+      "nlopt_slsqp_samples_s": [
+        0.02174304000027405,
+        0.043132291999882,
+        0.021455503000197496
+      ],
+      "portfolio_valid": true,
+      "portfolio_attempts": 4,
+      "portfolio_chosen_backend": "casadi-osqp-bridge"
+    }
+  ]
+}

@@ -1,0 +1,475 @@
+{
+  "milestone": "M33",
+  "package_version": "0.0.36rc3",
+  "schema": "optimind.public_api.v1",
+  "symbols": [
+    {
+      "module": "optimind.backends.base",
+      "name": "Backend",
+      "qualname": "Backend",
+      "signature": "(*args, **kwargs)"
+    },
+    {
+      "module": "optimind.backends.health",
+      "name": "BackendHealthReport",
+      "qualname": "BackendHealthReport",
+      "signature": "(backend: 'str', version: 'str | None', available: 'bool', status: 'BackendProbeStatus', checks: 'tuple[BackendProbeCheck, ...]', metadata: 'dict[str, object]') -> None"
+    },
+    {
+      "module": "optimind.capabilities.manifest",
+      "name": "BackendManifest",
+      "qualname": "BackendManifest",
+      "signature": "(name: 'str', version: 'str | None' = None, capabilities: 'dict[Capability, SupportLevel]' = <factory>, metadata: 'dict[str, object]' = <factory>) -> None"
+    },
+    {
+      "module": "optimind.backends.health",
+      "name": "BackendProbeCheck",
+      "qualname": "BackendProbeCheck",
+      "signature": "(capability: 'Capability', passed: 'bool', public_status: 'str | None', validation_valid: 'bool | None', objective: 'float | None', expected_objective: 'float', objective_abs_error: 'float | None', duration_s: 'float', error: 'str | None' = None) -> None"
+    },
+    {
+      "module": "optimind.backends.health",
+      "name": "BackendProbeStatus",
+      "qualname": "BackendProbeStatus",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.backends.registry",
+      "name": "BackendRegistry",
+      "qualname": "BackendRegistry",
+      "signature": "() -> 'None'"
+    },
+    {
+      "module": "optimind.backends.base",
+      "name": "BackendSolveResult",
+      "qualname": "BackendSolveResult",
+      "signature": "(backend_status: 'str', x: 'np.ndarray | None', objective_reported: 'float | None' = None, raw_statistics: 'dict[str, object] | None' = None) -> None"
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "BackendUnavailableError",
+      "qualname": "BackendUnavailableError",
+      "signature": null
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "BudgetNotSupportedError",
+      "qualname": "BudgetNotSupportedError",
+      "signature": null
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "CandidatePlan",
+      "qualname": "CandidatePlan",
+      "signature": "(backend: 'str', score: 'float', rationale: 'tuple[str, ...]', health_status: 'str | None' = None) -> None"
+    },
+    {
+      "module": "optimind.validate.result",
+      "name": "CandidateSolution",
+      "qualname": "CandidateSolution",
+      "signature": "(x: 'np.ndarray', objective_reported: 'float | None' = None) -> None"
+    },
+    {
+      "module": "optimind.capabilities.enums",
+      "name": "Capability",
+      "qualname": "Capability",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "CapabilityMismatchError",
+      "qualname": "CapabilityMismatchError",
+      "signature": null
+    },
+    {
+      "module": "optimind.capabilities.requirements",
+      "name": "CapabilityRequirements",
+      "qualname": "CapabilityRequirements",
+      "signature": "(required: 'frozenset[Capability]') -> None"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "ConflictAtom",
+      "qualname": "ConflictAtom",
+      "signature": "(kind: 'ViolationKind', index: 'int') -> None"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "ConflictSetResult",
+      "qualname": "ConflictSetResult",
+      "signature": "(atoms: 'tuple[ConflictAtom, ...]', irreducible: 'bool', complete: 'bool', checks: 'int', solver_status: 'str', message: 'str') -> None"
+    },
+    {
+      "module": "optimind.problem.enums",
+      "name": "ConvexityStatus",
+      "qualname": "ConvexityStatus",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "DiagnosticIssue",
+      "qualname": "DiagnosticIssue",
+      "signature": "(kind: 'ViolationKind', index: 'int', message: 'str', amount: 'float | None' = None) -> None"
+    },
+    {
+      "module": "optimind.inspect.fingerprint",
+      "name": "DistributionStats",
+      "qualname": "DistributionStats",
+      "signature": "(minimum: 'float', q25: 'float', median: 'float', mean: 'float', q75: 'float', maximum: 'float') -> None"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "ElasticRelaxationResult",
+      "qualname": "ElasticRelaxationResult",
+      "signature": "(feasible: 'bool', objective: 'float | None', x: 'np.ndarray | None', violations: 'tuple[RelaxationViolation, ...]', solver_status: 'str', message: 'str') -> None"
+    },
+    {
+      "module": "optimind.plan.production",
+      "name": "EvidenceClass",
+      "qualname": "EvidenceClass",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "EvidenceKind",
+      "qualname": "EvidenceKind",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "HealthPolicy",
+      "qualname": "HealthPolicy",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "InfeasibilityReport",
+      "qualname": "InfeasibilityReport",
+      "signature": "(confirmed_infeasible: 'bool', static_issues: 'tuple[DiagnosticIssue, ...]', iis: 'NormalizedIISEvidence | None', elastic: 'ElasticRelaxationResult | None', conflict: 'ConflictSetResult | None', evidence_order: 'tuple[EvidenceKind, ...]', warnings: 'tuple[str, ...]' = ()) -> None"
+    },
+    {
+      "module": "optimind.problem.linear",
+      "name": "LinearProblem",
+      "qualname": "LinearProblem",
+      "signature": "(A: 'sparse.csr_matrix', c: 'np.ndarray', variable_lower: 'np.ndarray', variable_upper: 'np.ndarray', constraint_lower: 'np.ndarray', constraint_upper: 'np.ndarray', domains: 'np.ndarray', objective_sense: 'ObjectiveSense' = <ObjectiveSense.MINIMIZE: 'minimize'>, objective_offset: 'float' = 0.0, name: 'str | None' = None, metadata: 'dict[str, object]' = <factory>) -> None"
+    },
+    {
+      "module": "optimind.problem.mps",
+      "name": "MPSParseError",
+      "qualname": "MPSParseError",
+      "signature": null
+    },
+    {
+      "module": "optimind.problem.mps",
+      "name": "MPSUnsupportedFeatureError",
+      "qualname": "MPSUnsupportedFeatureError",
+      "signature": null
+    },
+    {
+      "module": "optimind.session.mutations",
+      "name": "MutationKind",
+      "qualname": "MutationKind",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.session.mutations",
+      "name": "MutationRecord",
+      "qualname": "MutationRecord",
+      "signature": "(revision_before: 'int', revision_after: 'int', kinds: 'tuple[MutationKind, ...]', old_structural_hash: 'str', new_structural_hash: 'str', old_data_hash: 'str', new_data_hash: 'str') -> None"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "NormalizedIISEvidence",
+      "qualname": "NormalizedIISEvidence",
+      "signature": "(backend: 'str', valid: 'bool', row_indices: 'tuple[int, ...]' = (), variable_indices: 'tuple[int, ...]' = (), constraint_names: 'tuple[str, ...]' = (), variable_names: 'tuple[str, ...]' = (), irreducible: 'bool | None' = None, raw_type: 'str | None' = None) -> None"
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "NoCompatibleBackendError",
+      "qualname": "NoCompatibleBackendError",
+      "signature": null
+    },
+    {
+      "module": "optimind.problem.enums",
+      "name": "ObjectiveSense",
+      "qualname": "ObjectiveSense",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "OptiMindError",
+      "qualname": "OptiMindError",
+      "signature": null
+    },
+    {
+      "module": "optimind.exceptions",
+      "name": "UnknownBackendError",
+      "qualname": "UnknownBackendError",
+      "signature": null
+    },
+    {
+      "module": "optimind.plan.production",
+      "name": "PerformancePolicy",
+      "qualname": "PerformancePolicy",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.trace.schema",
+      "name": "PhaseTimings",
+      "qualname": "PhaseTimings",
+      "signature": "(inspect_s: 'float' = 0.0, plan_s: 'float' = 0.0, backend_build_s: 'float' = 0.0, solve_s: 'float' = 0.0, validate_s: 'float' = 0.0, diagnose_s: 'float' = 0.0, total_s: 'float' = 0.0) -> None"
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "PlannerContext",
+      "qualname": "PlannerContext",
+      "signature": "(previous_backend: 'str | None' = None, session_revision: 'int | None' = None) -> None"
+    },
+    {
+      "module": "optimind.runtime.portfolio",
+      "name": "PortfolioAttempt",
+      "qualname": "PortfolioAttempt",
+      "signature": "(backend: 'str', status: 'str | None', objective: 'float | None', validation_valid: 'bool | None', duration_s: 'float', error: 'str | None' = None, skipped_reason: 'str | None' = None) -> None"
+    },
+    {
+      "module": "optimind.runtime.portfolio",
+      "name": "PortfolioSolveResult",
+      "qualname": "PortfolioSolveResult",
+      "signature": "(chosen: 'SolveResult | None', attempts: 'tuple[PortfolioAttempt, ...]', total_s: 'float', stopped_reason: 'str', budget_exhausted: 'bool') -> None"
+    },
+    {
+      "module": "optimind.inspect.fingerprint",
+      "name": "ProblemFingerprint",
+      "qualname": "ProblemFingerprint",
+      "signature": "(problem_class: 'str', n_variables: 'int', n_constraints: 'int', nnz_a: 'int', density_a: 'float', binary_fraction: 'float', integer_fraction: 'float', equality_fraction: 'float', fully_bounded_variable_fraction: 'float', free_variable_fraction: 'float', objective_nnz_fraction: 'float', coefficient_dynamic_range_log10: 'float | None', objective_dynamic_range_log10: 'float | None', rhs_dynamic_range_log10: 'float | None', row_nnz: 'DistributionStats', col_nnz: 'DistributionStats', singleton_rows: 'int', singleton_cols: 'int', positive_coefficient_fraction: 'float', negative_coefficient_fraction: 'float', quadratic_nnz: 'int | None', quadratic_density: 'float | None', convexity_status: 'str | None', structural_hash: 'str', estimated_numeric_bytes: 'int') -> None"
+    },
+    {
+      "module": "optimind.plan.production",
+      "name": "ProductionDecision",
+      "qualname": "ProductionDecision",
+      "signature": "(plan: 'SolvePlan', auto_performance_ranking_enabled: 'bool', evidence: 'ProductionEvidence', conservative_baseline: 'str | None', rationale: 'tuple[str, ...]', rejected_performance_override_reason: 'str | None' = None) -> None"
+    },
+    {
+      "module": "optimind.plan.production",
+      "name": "ProductionEvidence",
+      "qualname": "ProductionEvidence",
+      "signature": "(evidence_class: 'EvidenceClass', source: 'str', corpus_integrity_passed: 'bool' = False, outcome_accounting_passed: 'bool' = False, independent_validation_passed: 'bool' = False, reference_crosscheck_passed: 'bool' = False, comparative_backends: 'tuple[str, ...]' = (), heldout: 'bool' = False, feature_cost_accounted: 'bool' = False, fixed_environment: 'bool' = False, public_ood: 'bool' = False, pre_registered_policy: 'bool' = False, selection_opportunity_validated: 'bool' = False, performance_ranking_validated: 'bool' = False, selector_name: 'str | None' = None, notes: 'tuple[str, ...]' = ()) -> None"
+    },
+    {
+      "module": "optimind.validate.result",
+      "name": "PublicStatus",
+      "qualname": "PublicStatus",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "RelaxationViolation",
+      "qualname": "RelaxationViolation",
+      "signature": "(kind: 'ViolationKind', index: 'int', amount: 'float', normalized_amount: 'float') -> None"
+    },
+    {
+      "module": "optimind.problem.quadratic",
+      "name": "QuadraticProblem",
+      "qualname": "QuadraticProblem",
+      "signature": "(linear: 'LinearProblem', P: 'sparse.csr_matrix', convexity_status: 'ConvexityStatus' = <ConvexityStatus.UNKNOWN: 'unknown'>, metadata: 'dict[str, object]' = <factory>) -> None"
+    },
+    {
+      "module": "optimind.session.reuse",
+      "name": "ReuseAssessment",
+      "qualname": "ReuseAssessment",
+      "signature": "(backend: 'str', considered: 'tuple[Capability, ...]', supported: 'tuple[Capability, ...]', safe_candidate: 'bool', applied: 'bool', reason: 'str') -> None"
+    },
+    {
+      "module": "optimind.session.session",
+      "name": "Session",
+      "qualname": "Session",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', *, registry: 'BackendRegistry | None' = None) -> 'None'"
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "SolveBudget",
+      "qualname": "SolveBudget",
+      "signature": "(wall_time_s: 'float | None' = None, memory_mb: 'int | None' = None, threads: 'int | None' = None) -> None"
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "SolveIntent",
+      "qualname": "SolveIntent",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.plan.model",
+      "name": "SolvePlan",
+      "qualname": "SolvePlan",
+      "signature": "(selected_backend: 'str', candidates: 'tuple[CandidatePlan, ...]', intent: 'SolveIntent', budget: 'SolveBudget', fingerprint: 'ProblemFingerprint', strategy: 'str', rationale: 'tuple[str, ...]', evidence_level: 'str' = 'capability_only', health_policy: 'HealthPolicy' = <HealthPolicy.IGNORE: 'ignore'>) -> None"
+    },
+    {
+      "module": "optimind.runtime.result",
+      "name": "SolveResult",
+      "qualname": "SolveResult",
+      "signature": "(status: 'PublicStatus', x: 'np.ndarray | None', objective: 'float | None', backend_status: 'str', validation: 'ValidationReport | None', trace: 'SolveTrace', raw_statistics: 'dict[str, object] | None' = None, plan: 'SolvePlan | None' = None, session_revision: 'int | None' = None, diagnostics: \"'InfeasibilityReport | None'\" = None) -> None"
+    },
+    {
+      "module": "optimind.trace.schema",
+      "name": "SolveTrace",
+      "qualname": "SolveTrace",
+      "signature": "(problem_structural_hash: 'str', problem_data_hash: 'str', problem_class: 'str', backend: 'str | None' = None, backend_version: 'str | None' = None, parameters: 'dict[str, Any]' = <factory>, fingerprint: 'dict[str, Any] | None' = None, planner_selected_backend: 'str | None' = None, planner_evidence_level: 'str | None' = None, planner_health_policy: 'str | None' = None, transformations: 'tuple[str, ...]' = (), seed: 'int | None' = None, threads: 'int | None' = None, timings: 'PhaseTimings' = <factory>, termination: 'str | None' = None, validation_valid: 'bool | None' = None, reuse_applied: 'bool | None' = None, reuse_mode: 'str | None' = None, warnings: 'tuple[str, ...]' = (), schema_version: 'str' = '0.3', created_at_utc: 'str' = <factory>) -> None"
+    },
+    {
+      "module": "optimind.capabilities.enums",
+      "name": "SupportLevel",
+      "qualname": "SupportLevel",
+      "signature": "(*values)"
+    },
+    {
+      "module": null,
+      "name": "TRACE_SCHEMA_VERSION",
+      "qualname": null,
+      "signature": null
+    },
+    {
+      "module": "optimind.validate.result",
+      "name": "ValidationReport",
+      "qualname": "ValidationReport",
+      "signature": "(valid: 'bool', max_bound_violation: 'float', max_constraint_violation: 'float', max_integrality_violation: 'float | None', objective_recomputed: 'float | None', objective_reported: 'float | None', objective_difference: 'float | None', objective_consistent: 'bool | None', warnings: 'tuple[str, ...]' = ()) -> None"
+    },
+    {
+      "module": "optimind.validate.result",
+      "name": "ValidationTolerances",
+      "qualname": "ValidationTolerances",
+      "signature": "(feasibility: 'float' = 1e-07, integrality: 'float' = 1e-06, objective_abs: 'float' = 1e-07, objective_rel: 'float' = 1e-07) -> None"
+    },
+    {
+      "module": "optimind.problem.enums",
+      "name": "VariableDomain",
+      "qualname": "VariableDomain",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.diagnose.model",
+      "name": "ViolationKind",
+      "qualname": "ViolationKind",
+      "signature": "(*values)"
+    },
+    {
+      "module": "optimind.runtime.auto",
+      "name": "builtin_backend_candidates",
+      "qualname": "builtin_backend_candidates",
+      "signature": "() -> 'tuple[Backend, ...]'"
+    },
+    {
+      "module": "optimind.capabilities.requirements",
+      "name": "compatible",
+      "qualname": "compatible",
+      "signature": "(manifest: 'BackendManifest', requirements: 'CapabilityRequirements', *, allow_risky_emulation: 'bool' = False) -> 'bool'"
+    },
+    {
+      "module": "optimind.runtime.auto",
+      "name": "default_registry",
+      "qualname": "default_registry",
+      "signature": "() -> 'BackendRegistry'"
+    },
+    {
+      "module": "optimind.diagnose.infeasibility",
+      "name": "deletion_filter_conflict",
+      "qualname": "deletion_filter_conflict",
+      "signature": "(problem: 'LinearProblem', *, max_checks: 'int' = 250, time_limit_s_per_check: 'float | None' = None) -> 'ConflictSetResult'"
+    },
+    {
+      "module": "optimind.diagnose.infeasibility",
+      "name": "diagnose_infeasibility",
+      "qualname": "diagnose_infeasibility",
+      "signature": "(problem: 'LinearProblem', *, backend: 'Any | None' = None, include_elastic: 'bool' = True, include_conflict: 'bool' = False, conflict_max_checks: 'int' = 250, time_limit_s: 'float | None' = None) -> 'InfeasibilityReport'"
+    },
+    {
+      "module": "optimind.diagnose.infeasibility",
+      "name": "elastic_relaxation",
+      "qualname": "elastic_relaxation",
+      "signature": "(problem: 'LinearProblem', *, time_limit_s: 'float | None' = None, relative_weighting: 'bool' = True, violation_tol: 'float' = 1e-09) -> 'ElasticRelaxationResult'"
+    },
+    {
+      "module": "optimind.runtime.executor",
+      "name": "execute",
+      "qualname": "execute",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', backend: 'Backend') -> 'SolveResult'"
+    },
+    {
+      "module": "optimind.runtime.portfolio",
+      "name": "execute_portfolio",
+      "qualname": "execute_portfolio",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', backends: 'Iterable[Backend]', *, budget: 'SolveBudget | None' = None, stop_on_valid_optimal: 'bool' = True, health_reports: 'Iterable[BackendHealthReport] | None' = None, require_healthy: 'bool' = False) -> 'PortfolioSolveResult'"
+    },
+    {
+      "module": "optimind.diagnose.infeasibility",
+      "name": "find_static_infeasibility",
+      "qualname": "find_static_infeasibility",
+      "signature": "(problem: 'LinearProblem', *, atol: 'float' = 1e-12) -> 'tuple[DiagnosticIssue, ...]'"
+    },
+    {
+      "module": "optimind.inspect.fingerprint",
+      "name": "inspect_problem",
+      "qualname": "inspect_problem",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem') -> 'ProblemFingerprint'"
+    },
+    {
+      "module": "optimind.problem.mps",
+      "name": "parse_mps",
+      "qualname": "parse_mps",
+      "signature": "(text: 'str') -> 'LinearProblem'"
+    },
+    {
+      "module": "optimind.plan.production",
+      "name": "plan_production_solve",
+      "qualname": "plan_production_solve",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', registry: 'BackendRegistry', *, evidence: 'ProductionEvidence' = ProductionEvidence(evidence_class=<EvidenceClass.CORPUS_VALIDATED: 'corpus_validated'>, source='M22 official MIPLIB/QPLIB/PACE fixed-host gate', corpus_integrity_passed=True, outcome_accounting_passed=True, independent_validation_passed=True, reference_crosscheck_passed=True, comparative_backends=(), heldout=False, feature_cost_accounted=False, fixed_environment=True, public_ood=True, pre_registered_policy=False, selection_opportunity_validated=False, performance_ranking_validated=False, selector_name=None, notes=('official-byte integrity and outcome accounting passed', 'M22 did not benchmark multiple candidate backends under a held-out comparative protocol', 'timeouts were explicit outcomes and no solver-superiority claim was made')), intent: 'SolveIntent | str' = <SolveIntent.BALANCED: 'balanced'>, budget: 'SolveBudget | None' = None, fingerprint: 'ProblemFingerprint | None' = None, context: 'PlannerContext | None' = None, health_reports: 'Iterable[BackendHealthReport] | None' = None, health_policy: 'HealthPolicy | str' = <HealthPolicy.PREFER_HEALTHY: 'prefer_healthy'>, performance_policy: 'PerformancePolicy | str' = <PerformancePolicy.REQUIRE_COMPARATIVE: 'require_comparative'>, performance_override: 'Mapping[str, str] | None' = None) -> 'ProductionDecision'"
+    },
+    {
+      "module": "optimind.plan.planner",
+      "name": "plan_solve",
+      "qualname": "plan_solve",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', registry: 'BackendRegistry', *, intent: 'SolveIntent | str' = <SolveIntent.BALANCED: 'balanced'>, budget: 'SolveBudget | None' = None, fingerprint: 'ProblemFingerprint | None' = None, context: 'PlannerContext | None' = None, health_reports: 'Iterable[BackendHealthReport] | None' = None, health_policy: 'HealthPolicy | str' = <HealthPolicy.IGNORE: 'ignore'>) -> 'SolvePlan'"
+    },
+    {
+      "module": "optimind.backends.health",
+      "name": "probe_backend",
+      "qualname": "probe_backend",
+      "signature": "(backend: 'Backend', *, atol: 'float' = 1e-06, rtol: 'float' = 1e-07) -> 'BackendHealthReport'"
+    },
+    {
+      "module": "optimind.backends.health",
+      "name": "probe_backends",
+      "qualname": "probe_backends",
+      "signature": "(backends: 'Iterable[Backend]', *, atol: 'float' = 1e-06, rtol: 'float' = 1e-07) -> 'tuple[BackendHealthReport, ...]'"
+    },
+    {
+      "module": "optimind.problem.mps",
+      "name": "read_mps",
+      "qualname": "read_mps",
+      "signature": "(path: 'str | Path') -> 'LinearProblem'"
+    },
+    {
+      "module": "optimind.capabilities.requirements",
+      "name": "requirements_for",
+      "qualname": "requirements_for",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem') -> 'CapabilityRequirements'"
+    },
+    {
+      "module": "optimind.runtime.auto",
+      "name": "solve",
+      "qualname": "solve",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', *, registry: 'BackendRegistry | None' = None, backend: 'str | Backend | None' = None, intent: 'SolveIntent | str' = <SolveIntent.BALANCED: 'balanced'>, budget: 'SolveBudget | None' = None, context: 'PlannerContext | None' = None, health_reports: 'tuple[BackendHealthReport, ...] | None' = None, health_policy: 'HealthPolicy | str' = <HealthPolicy.IGNORE: 'ignore'>, diagnose_infeasible: 'bool' = False) -> 'SolveResult'"
+    },
+    {
+      "module": "optimind.runtime.auto",
+      "name": "solve_production",
+      "qualname": "solve_production",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', *, registry: 'BackendRegistry | None' = None, intent: 'SolveIntent | str' = <SolveIntent.BALANCED: 'balanced'>, budget: 'SolveBudget | None' = None, context: 'PlannerContext | None' = None, health_reports: 'tuple[BackendHealthReport, ...] | None' = None, health_policy: 'HealthPolicy | str' = <HealthPolicy.PREFER_HEALTHY: 'prefer_healthy'>, evidence: 'ProductionEvidence' = ProductionEvidence(evidence_class=<EvidenceClass.CORPUS_VALIDATED: 'corpus_validated'>, source='M22 official MIPLIB/QPLIB/PACE fixed-host gate', corpus_integrity_passed=True, outcome_accounting_passed=True, independent_validation_passed=True, reference_crosscheck_passed=True, comparative_backends=(), heldout=False, feature_cost_accounted=False, fixed_environment=True, public_ood=True, pre_registered_policy=False, selection_opportunity_validated=False, performance_ranking_validated=False, selector_name=None, notes=('official-byte integrity and outcome accounting passed', 'M22 did not benchmark multiple candidate backends under a held-out comparative protocol', 'timeouts were explicit outcomes and no solver-superiority claim was made')), performance_policy: 'PerformancePolicy | str' = <PerformancePolicy.REQUIRE_COMPARATIVE: 'require_comparative'>, performance_override: 'dict[str, str] | None' = None, diagnose_infeasible: 'bool' = False) -> 'tuple[SolveResult, ProductionDecision]'"
+    },
+    {
+      "module": "optimind.validate.core",
+      "name": "validate_solution",
+      "qualname": "validate_solution",
+      "signature": "(problem: 'LinearProblem | QuadraticProblem', solution: 'CandidateSolution', *, tolerances: 'ValidationTolerances | None' = None) -> 'ValidationReport'"
+    }
+  ]
+}

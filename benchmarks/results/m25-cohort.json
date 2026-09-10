@@ -1,0 +1,644 @@
+{
+  "cohort_signature": "8d811058e5e60fd6ad3bcca140fcb4572fc4539df17c3f52038c0796b08f60a3",
+  "instances": 48,
+  "manifest_sha256": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+  "miplib_zip_sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+  "parse_exclusions": [
+    {
+      "error": "ValueError: inconsistent variable bounds at index 258: lower > upper",
+      "instance": "neos-3046615-murg.mps.gz"
+    }
+  ],
+  "schema": "optimind.m25.prepared_cohort.v1",
+  "selected": [
+    {
+      "cache": "/tmp/m25_cache/seymour1.mps.gz.pkl",
+      "instance": "seymour1.mps.gz",
+      "m": 4944,
+      "n": 1372,
+      "nnz": 33549
+    },
+    {
+      "cache": "/tmp/m25_cache/graphdraw-domain.mps.gz.pkl",
+      "instance": "graphdraw-domain.mps.gz",
+      "m": 865,
+      "n": 254,
+      "nnz": 2600
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-4954672-berkel.mps.gz.pkl",
+      "instance": "neos-4954672-berkel.mps.gz",
+      "m": 1848,
+      "n": 1533,
+      "nnz": 8007
+    },
+    {
+      "cache": "/tmp/m25_cache/csched007.mps.gz.pkl",
+      "instance": "csched007.mps.gz",
+      "m": 351,
+      "n": 1758,
+      "nnz": 6379
+    },
+    {
+      "cache": "/tmp/m25_cache/gen-ip002.mps.gz.pkl",
+      "instance": "gen-ip002.mps.gz",
+      "m": 24,
+      "n": 41,
+      "nnz": 922
+    },
+    {
+      "cache": "/tmp/m25_cache/eil33-2.mps.gz.pkl",
+      "instance": "eil33-2.mps.gz",
+      "m": 32,
+      "n": 4516,
+      "nnz": 44243
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-2657525-crna.mps.gz.pkl",
+      "instance": "neos-2657525-crna.mps.gz",
+      "m": 342,
+      "n": 524,
+      "nnz": 1690
+    },
+    {
+      "cache": "/tmp/m25_cache/supportcase26.mps.gz.pkl",
+      "instance": "supportcase26.mps.gz",
+      "m": 870,
+      "n": 436,
+      "nnz": 2492
+    },
+    {
+      "cache": "/tmp/m25_cache/lotsize.mps.gz.pkl",
+      "instance": "lotsize.mps.gz",
+      "m": 1920,
+      "n": 2985,
+      "nnz": 6565
+    },
+    {
+      "cache": "/tmp/m25_cache/sp150x300d.mps.gz.pkl",
+      "instance": "sp150x300d.mps.gz",
+      "m": 450,
+      "n": 600,
+      "nnz": 1200
+    },
+    {
+      "cache": "/tmp/m25_cache/neos859080.mps.gz.pkl",
+      "instance": "neos859080.mps.gz",
+      "m": 164,
+      "n": 160,
+      "nnz": 1280
+    },
+    {
+      "cache": "/tmp/m25_cache/beasleyC3.mps.gz.pkl",
+      "instance": "beasleyC3.mps.gz",
+      "m": 1750,
+      "n": 2500,
+      "nnz": 5000
+    },
+    {
+      "cache": "/tmp/m25_cache/mad.mps.gz.pkl",
+      "instance": "mad.mps.gz",
+      "m": 51,
+      "n": 220,
+      "nnz": 2808
+    },
+    {
+      "cache": "/tmp/m25_cache/markshare2.mps.gz.pkl",
+      "instance": "markshare2.mps.gz",
+      "m": 7,
+      "n": 74,
+      "nnz": 434
+    },
+    {
+      "cache": "/tmp/m25_cache/neos5.mps.gz.pkl",
+      "instance": "neos5.mps.gz",
+      "m": 63,
+      "n": 63,
+      "nnz": 2016
+    },
+    {
+      "cache": "/tmp/m25_cache/ran14x18-disj-8.mps.gz.pkl",
+      "instance": "ran14x18-disj-8.mps.gz",
+      "m": 447,
+      "n": 504,
+      "nnz": 10277
+    },
+    {
+      "cache": "/tmp/m25_cache/roll3000.mps.gz.pkl",
+      "instance": "roll3000.mps.gz",
+      "m": 2295,
+      "n": 1166,
+      "nnz": 29386
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-4387871-tavua.mps.gz.pkl",
+      "instance": "neos-4387871-tavua.mps.gz",
+      "m": 4554,
+      "n": 4004,
+      "nnz": 23496
+    },
+    {
+      "cache": "/tmp/m25_cache/cod105.mps.gz.pkl",
+      "instance": "cod105.mps.gz",
+      "m": 1024,
+      "n": 1024,
+      "nnz": 57344
+    },
+    {
+      "cache": "/tmp/m25_cache/peg-solitaire-a3.mps.gz.pkl",
+      "instance": "peg-solitaire-a3.mps.gz",
+      "m": 4587,
+      "n": 4552,
+      "nnz": 28387
+    },
+    {
+      "cache": "/tmp/m25_cache/neos17.mps.gz.pkl",
+      "instance": "neos17.mps.gz",
+      "m": 486,
+      "n": 535,
+      "nnz": 4931
+    },
+    {
+      "cache": "/tmp/m25_cache/bppc4-08.mps.gz.pkl",
+      "instance": "bppc4-08.mps.gz",
+      "m": 111,
+      "n": 1456,
+      "nnz": 23964
+    },
+    {
+      "cache": "/tmp/m25_cache/p200x1188c.mps.gz.pkl",
+      "instance": "p200x1188c.mps.gz",
+      "m": 1388,
+      "n": 2376,
+      "nnz": 4752
+    },
+    {
+      "cache": "/tmp/m25_cache/icir97_tension.mps.gz.pkl",
+      "instance": "icir97_tension.mps.gz",
+      "m": 1203,
+      "n": 2494,
+      "nnz": 22333
+    },
+    {
+      "cache": "/tmp/m25_cache/n5-3.mps.gz.pkl",
+      "instance": "n5-3.mps.gz",
+      "m": 1062,
+      "n": 2550,
+      "nnz": 9900
+    },
+    {
+      "cache": "/tmp/m25_cache/50v-10.mps.gz.pkl",
+      "instance": "50v-10.mps.gz",
+      "m": 233,
+      "n": 2013,
+      "nnz": 2745
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-1171737.mps.gz.pkl",
+      "instance": "neos-1171737.mps.gz",
+      "m": 4179,
+      "n": 2340,
+      "nnz": 58620
+    },
+    {
+      "cache": "/tmp/m25_cache/glass4.mps.gz.pkl",
+      "instance": "glass4.mps.gz",
+      "m": 396,
+      "n": 322,
+      "nnz": 1815
+    },
+    {
+      "cache": "/tmp/m25_cache/app1-1.mps.gz.pkl",
+      "instance": "app1-1.mps.gz",
+      "m": 4926,
+      "n": 2480,
+      "nnz": 18275
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-4338804-snowy.mps.gz.pkl",
+      "instance": "neos-4338804-snowy.mps.gz",
+      "m": 1701,
+      "n": 1344,
+      "nnz": 6342
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-3024952-loue.mps.gz.pkl",
+      "instance": "neos-3024952-loue.mps.gz",
+      "m": 3705,
+      "n": 3255,
+      "nnz": 17310
+    },
+    {
+      "cache": "/tmp/m25_cache/ic97_potential.mps.gz.pkl",
+      "instance": "ic97_potential.mps.gz",
+      "m": 1046,
+      "n": 728,
+      "nnz": 3138
+    },
+    {
+      "cache": "/tmp/m25_cache/b1c1s1.mps.gz.pkl",
+      "instance": "b1c1s1.mps.gz",
+      "m": 3904,
+      "n": 3872,
+      "nnz": 11408
+    },
+    {
+      "cache": "/tmp/m25_cache/assign1-5-8.mps.gz.pkl",
+      "instance": "assign1-5-8.mps.gz",
+      "m": 161,
+      "n": 156,
+      "nnz": 3720
+    },
+    {
+      "cache": "/tmp/m25_cache/gmu-35-40.mps.gz.pkl",
+      "instance": "gmu-35-40.mps.gz",
+      "m": 424,
+      "n": 1205,
+      "nnz": 4843
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-3754480-nidda.mps.gz.pkl",
+      "instance": "neos-3754480-nidda.mps.gz",
+      "m": 402,
+      "n": 253,
+      "nnz": 1488
+    },
+    {
+      "cache": "/tmp/m25_cache/mik-250-20-75-4.mps.gz.pkl",
+      "instance": "mik-250-20-75-4.mps.gz",
+      "m": 195,
+      "n": 270,
+      "nnz": 9270
+    },
+    {
+      "cache": "/tmp/m25_cache/uct-subprob.mps.gz.pkl",
+      "instance": "uct-subprob.mps.gz",
+      "m": 1973,
+      "n": 2256,
+      "nnz": 10147
+    },
+    {
+      "cache": "/tmp/m25_cache/cvs16r128-89.mps.gz.pkl",
+      "instance": "cvs16r128-89.mps.gz",
+      "m": 4633,
+      "n": 3472,
+      "nnz": 12528
+    },
+    {
+      "cache": "/tmp/m25_cache/wachplan.mps.gz.pkl",
+      "instance": "wachplan.mps.gz",
+      "m": 1553,
+      "n": 3361,
+      "nnz": 89361
+    },
+    {
+      "cache": "/tmp/m25_cache/binkar10_1.mps.gz.pkl",
+      "instance": "binkar10_1.mps.gz",
+      "m": 1026,
+      "n": 2298,
+      "nnz": 4496
+    },
+    {
+      "cache": "/tmp/m25_cache/neos-3627168-kasai.mps.gz.pkl",
+      "instance": "neos-3627168-kasai.mps.gz",
+      "m": 1655,
+      "n": 1462,
+      "nnz": 5158
+    },
+    {
+      "cache": "/tmp/m25_cache/reblock115.mps.gz.pkl",
+      "instance": "reblock115.mps.gz",
+      "m": 4735,
+      "n": 1150,
+      "nnz": 13724
+    },
+    {
+      "cache": "/tmp/m25_cache/timtab1.mps.gz.pkl",
+      "instance": "timtab1.mps.gz",
+      "m": 171,
+      "n": 397,
+      "nnz": 829
+    },
+    {
+      "cache": "/tmp/m25_cache/rococoB10-011000.mps.gz.pkl",
+      "instance": "rococoB10-011000.mps.gz",
+      "m": 1667,
+      "n": 4456,
+      "nnz": 16517
+    },
+    {
+      "cache": "/tmp/m25_cache/qap10.mps.gz.pkl",
+      "instance": "qap10.mps.gz",
+      "m": 1820,
+      "n": 4150,
+      "nnz": 18200
+    },
+    {
+      "cache": "/tmp/m25_cache/markshare_4_0.mps.gz.pkl",
+      "instance": "markshare_4_0.mps.gz",
+      "m": 4,
+      "n": 34,
+      "nnz": 123
+    },
+    {
+      "cache": "/tmp/m25_cache/csched008.mps.gz.pkl",
+      "instance": "csched008.mps.gz",
+      "m": 351,
+      "n": 1536,
+      "nnz": 5687
+    }
+  ],
+  "selection_protocol": {
+    "compressed_size_cap_bytes": 524288,
+    "hash_order": "sha256(filename)",
+    "max_m": 5000,
+    "max_n": 5000,
+    "max_nnz": 100000,
+    "outcome_independent": true,
+    "target_instances": 48
+  },
+  "structural_exclusions": [
+    {
+      "instance": "academictimetablesmall.mps.gz",
+      "m": 23294,
+      "n": 28926,
+      "nnz": 268350
+    },
+    {
+      "instance": "drayage-100-23.mps.gz",
+      "m": 4630,
+      "n": 11090,
+      "nnz": 41550
+    },
+    {
+      "instance": "neos-2978193-inde.mps.gz",
+      "m": 396,
+      "n": 20800,
+      "nnz": 41600
+    },
+    {
+      "instance": "rmatr100-p10.mps.gz",
+      "m": 7260,
+      "n": 7359,
+      "nnz": 21877
+    },
+    {
+      "instance": "fastxgemm-n2r6s0t2.mps.gz",
+      "m": 5998,
+      "n": 784,
+      "nnz": 19376
+    },
+    {
+      "instance": "ns1830653.mps.gz",
+      "m": 2932,
+      "n": 1629,
+      "nnz": 100933
+    },
+    {
+      "instance": "neos-3004026-krka.mps.gz",
+      "m": 12545,
+      "n": 17030,
+      "nnz": 41860
+    },
+    {
+      "instance": "irp.mps.gz",
+      "m": 39,
+      "n": 20315,
+      "nnz": 98254
+    },
+    {
+      "instance": "satellites2-40.mps.gz",
+      "m": 20916,
+      "n": 35378,
+      "nnz": 283668
+    },
+    {
+      "instance": "neos-3083819-nubu.mps.gz",
+      "m": 4725,
+      "n": 8644,
+      "nnz": 24048
+    },
+    {
+      "instance": "unitcal_7.mps.gz",
+      "m": 48939,
+      "n": 25755,
+      "nnz": 127595
+    },
+    {
+      "instance": "piperout-27.mps.gz",
+      "m": 18442,
+      "n": 11659,
+      "nnz": 54662
+    },
+    {
+      "instance": "supportcase18.mps.gz",
+      "m": 240,
+      "n": 13410,
+      "nnz": 28920
+    },
+    {
+      "instance": "istanbul-no-cutoff.mps.gz",
+      "m": 20346,
+      "n": 5282,
+      "nnz": 71477
+    },
+    {
+      "instance": "bnatt400.mps.gz",
+      "m": 5614,
+      "n": 3600,
+      "nnz": 21698
+    },
+    {
+      "instance": "buildingenergy.mps.gz",
+      "m": 277594,
+      "n": 154978,
+      "nnz": 788969
+    },
+    {
+      "instance": "comp07-2idx.mps.gz",
+      "m": 21235,
+      "n": 17264,
+      "nnz": 86577
+    },
+    {
+      "instance": "supportcase33.mps.gz",
+      "m": 20489,
+      "n": 20203,
+      "nnz": 211915
+    },
+    {
+      "instance": "neos-1445765.mps.gz",
+      "m": 2147,
+      "n": 20617,
+      "nnz": 40230
+    },
+    {
+      "instance": "dano3_5.mps.gz",
+      "m": 3202,
+      "n": 13873,
+      "nnz": 79655
+    },
+    {
+      "instance": "momentum1.mps.gz",
+      "m": 42680,
+      "n": 5174,
+      "nnz": 103198
+    },
+    {
+      "instance": "glass-sc.mps.gz",
+      "m": 6119,
+      "n": 214,
+      "nnz": 63918
+    },
+    {
+      "instance": "trento1.mps.gz",
+      "m": 1265,
+      "n": 7687,
+      "nnz": 93571
+    },
+    {
+      "instance": "satellites2-60-fs.mps.gz",
+      "m": 16516,
+      "n": 35378,
+      "nnz": 125048
+    },
+    {
+      "instance": "piperout-08.mps.gz",
+      "m": 14589,
+      "n": 10399,
+      "nnz": 44959
+    },
+    {
+      "instance": "neos-827175.mps.gz",
+      "m": 14187,
+      "n": 32504,
+      "nnz": 110790
+    },
+    {
+      "instance": "air05.mps.gz",
+      "m": 426,
+      "n": 7195,
+      "nnz": 52121
+    },
+    {
+      "instance": "net12.mps.gz",
+      "m": 14021,
+      "n": 14115,
+      "nnz": 80384
+    },
+    {
+      "instance": "traininstance2.mps.gz",
+      "m": 15603,
+      "n": 12890,
+      "nnz": 41531
+    },
+    {
+      "instance": "milo-v12-6-r2-40-1.mps.gz",
+      "m": 5628,
+      "n": 2688,
+      "nnz": 14604
+    },
+    {
+      "instance": "leo1.mps.gz",
+      "m": 593,
+      "n": 6731,
+      "nnz": 131218
+    },
+    {
+      "instance": "fiball.mps.gz",
+      "m": 3707,
+      "n": 34219,
+      "nnz": 104792
+    },
+    {
+      "instance": "neos-1456979.mps.gz",
+      "m": 6770,
+      "n": 4605,
+      "nnz": 36440
+    },
+    {
+      "instance": "dano3_3.mps.gz",
+      "m": 3202,
+      "n": 13873,
+      "nnz": 79655
+    },
+    {
+      "instance": "neos-860300.mps.gz",
+      "m": 850,
+      "n": 1385,
+      "nnz": 384329
+    },
+    {
+      "instance": "dws008-01.mps.gz",
+      "m": 6064,
+      "n": 11096,
+      "nnz": 56400
+    },
+    {
+      "instance": "neos-3216931-puriri.mps.gz",
+      "m": 5989,
+      "n": 3555,
+      "nnz": 91691
+    },
+    {
+      "instance": "neos-1582420.mps.gz",
+      "m": 10180,
+      "n": 10100,
+      "nnz": 24814
+    },
+    {
+      "instance": "graph20-20-1rand.mps.gz",
+      "m": 5587,
+      "n": 2183,
+      "nnz": 19277
+    },
+    {
+      "instance": "drayage-25-23.mps.gz",
+      "m": 4630,
+      "n": 11090,
+      "nnz": 41550
+    },
+    {
+      "instance": "nexp-150-20-8-5.mps.gz",
+      "m": 4620,
+      "n": 20115,
+      "nnz": 42465
+    },
+    {
+      "instance": "mzzv42z.mps.gz",
+      "m": 10460,
+      "n": 11717,
+      "nnz": 151261
+    },
+    {
+      "instance": "mzzv11.mps.gz",
+      "m": 9499,
+      "n": 10240,
+      "nnz": 134603
+    },
+    {
+      "instance": "h80x6320d.mps.gz",
+      "m": 6558,
+      "n": 12640,
+      "nnz": 31521
+    },
+    {
+      "instance": "neos-3656078-kumeu.mps.gz",
+      "m": 17656,
+      "n": 14870,
+      "nnz": 59292
+    },
+    {
+      "instance": "neos-950242.mps.gz",
+      "m": 34224,
+      "n": 5760,
+      "nnz": 104160
+    },
+    {
+      "instance": "neos-1354092.mps.gz",
+      "m": 3135,
+      "n": 13702,
+      "nnz": 187187
+    }
+  ]
+}

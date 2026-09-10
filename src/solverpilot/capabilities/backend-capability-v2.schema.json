@@ -1,0 +1,21 @@
+{
+  "$id": "solverpilot.backend-capability-v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "backend", "backend_version", "binding_version", "problem_classes", "incremental", "result_artifacts"],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "backend": {"type": "string", "minLength": 1},
+    "backend_version": {"type": "string"},
+    "binding_version": {"type": "string"},
+    "problem_classes": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "native_constraints": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "incremental": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "starts": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "callbacks": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "result_artifacts": {"type": "object", "additionalProperties": {"enum": ["unsupported", "supported", "restricted"]}},
+    "restrictions": {"type": "object"},
+    "verified_on": {"type": "object"}
+  }
+}

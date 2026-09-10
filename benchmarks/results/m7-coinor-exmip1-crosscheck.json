@@ -1,0 +1,18 @@
+{
+  "source_url": "https://github.com/coin-or-tools/Data-Sample/blob/master/exmip1.mps",
+  "input_sha256": "577fcbf1ec541fc8d42add21e49383f2527161a815913e77acf9169c5840dc02",
+  "n_variables": 8,
+  "n_constraints": 5,
+  "n_integer": 2,
+  "canonical_status": "valid_optimal",
+  "canonical_objective": 3.236842105263158,
+  "canonical_validation_valid": true,
+  "independent_equation_model_success": true,
+  "independent_equation_model_objective": 3.236842105263158,
+  "native_read_status": "HighsStatus.kOk",
+  "native_run_status": "HighsStatus.kOk",
+  "native_model_status": "Optimal",
+  "native_objective": 3.236842105263158,
+  "canonical_vs_equation_abs_diff": 0.0,
+  "canonical_vs_native_abs_diff": 0.0
+}

@@ -1,0 +1,735 @@
+{
+  "cohort_signature": "8d811058e5e60fd6ad3bcca140fcb4572fc4539df17c3f52038c0796b08f60a3",
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+  },
+  "full_cohort_names": [
+    "seymour1.mps.gz",
+    "graphdraw-domain.mps.gz",
+    "neos-4954672-berkel.mps.gz",
+    "csched007.mps.gz",
+    "gen-ip002.mps.gz",
+    "eil33-2.mps.gz",
+    "neos-2657525-crna.mps.gz",
+    "supportcase26.mps.gz",
+    "lotsize.mps.gz",
+    "sp150x300d.mps.gz",
+    "neos859080.mps.gz",
+    "beasleyC3.mps.gz",
+    "mad.mps.gz",
+    "markshare2.mps.gz",
+    "neos5.mps.gz",
+    "ran14x18-disj-8.mps.gz",
+    "roll3000.mps.gz",
+    "neos-4387871-tavua.mps.gz",
+    "cod105.mps.gz",
+    "peg-solitaire-a3.mps.gz",
+    "neos17.mps.gz",
+    "bppc4-08.mps.gz",
+    "p200x1188c.mps.gz",
+    "icir97_tension.mps.gz",
+    "n5-3.mps.gz",
+    "50v-10.mps.gz",
+    "neos-1171737.mps.gz",
+    "glass4.mps.gz",
+    "app1-1.mps.gz",
+    "neos-4338804-snowy.mps.gz",
+    "neos-3024952-loue.mps.gz",
+    "ic97_potential.mps.gz",
+    "b1c1s1.mps.gz",
+    "assign1-5-8.mps.gz",
+    "gmu-35-40.mps.gz",
+    "neos-3754480-nidda.mps.gz",
+    "mik-250-20-75-4.mps.gz",
+    "uct-subprob.mps.gz",
+    "cvs16r128-89.mps.gz",
+    "wachplan.mps.gz",
+    "binkar10_1.mps.gz",
+    "neos-3627168-kasai.mps.gz",
+    "reblock115.mps.gz",
+    "timtab1.mps.gz",
+    "rococoB10-011000.mps.gz",
+    "qap10.mps.gz",
+    "markshare_4_0.mps.gz",
+    "csched008.mps.gz"
+  ],
+  "manifest_sha256": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+  "miplib_zip_sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+  "official_corpus_integrity_passed": true,
+  "pre_registered_opportunity_gate": {
+    "bootstrap_upper_must_be_below": 1.0,
+    "cutoff_s": 1.0,
+    "decisive_ratio": 0.9,
+    "frozen_before_outcomes": true,
+    "min_decisive_non_sbs_wins": 2,
+    "min_non_sbs_wins": 3,
+    "min_relative_oracle_feature_gain": 0.02,
+    "min_relative_vbs_gain": 0.03,
+    "rounds": 2,
+    "target_instances": 48
+  },
+  "rows": [
+    {
+      "density": 0.004945919074980894,
+      "ds_median_cost_s": 0.7092529149999791,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0012567280000439496,
+      "instance": "seymour1.mps.gz",
+      "ipm_median_cost_s": 0.28973207900003217,
+      "ipm_over_ds": 0.4085031909950496,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 4944,
+      "m_over_n": 3.6034985422740524,
+      "n": 1372,
+      "nnz": 33549,
+      "objective_abs_diff": 5.684341886080802e-14,
+      "oracle_with_inspection_cost_s": 0.2909888070000761,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 403.846474125193,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.7039167039997665
+          },
+          {
+            "objective": 403.846474125193,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.7145891260001918
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 403.8464741251931,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.28640734300006443
+          },
+          {
+            "objective": 403.8464741251931,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.2930568149999999
+          }
+        ]
+      },
+      "vbs_cost_s": 0.28973207900003217,
+      "winner": "highs-ipm"
+    },
+    {
+      "density": 0.9369918699186992,
+      "ds_median_cost_s": 0.004769978999775049,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0008188500000869681,
+      "instance": "gen-ip002.mps.gz",
+      "ipm_median_cost_s": 0.005607832000123381,
+      "ipm_over_ds": 1.175651297497923,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 24,
+      "m_over_n": 0.5853658536585366,
+      "n": 41,
+      "nnz": 922,
+      "objective_abs_diff": 9.094947017729282e-13,
+      "oracle_with_inspection_cost_s": 0.005588828999862017,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -4840.541961300889,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.00504497799965975
+          },
+          {
+            "objective": -4840.541961300889,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.004494979999890347
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -4840.54196130089,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.0058855490001406
+          },
+          {
+            "objective": -4840.54196130089,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.0053301150001061615
+          }
+        ]
+      },
+      "vbs_cost_s": 0.004769978999775049,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.0011454843662758235,
+      "ds_median_cost_s": 0.05854339949996756,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0008509929998581356,
+      "instance": "lotsize.mps.gz",
+      "ipm_median_cost_s": 0.11072883199994976,
+      "ipm_over_ds": 1.891397372645077,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 1920,
+      "m_over_n": 0.6432160804020101,
+      "n": 2985,
+      "nnz": 6565,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.0593943924998257,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 348385.34655072977,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.05691878099969472
+          },
+          {
+            "objective": 348385.34655072977,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.06016801800024041
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 348385.34655072977,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.11071588499999052
+          },
+          {
+            "objective": 348385.34655072977,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.110741778999909
+          }
+        ]
+      },
+      "vbs_cost_s": 0.05854339949996756,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.25026737967914436,
+      "ds_median_cost_s": 0.007134008500088385,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0007571674998416711,
+      "instance": "mad.mps.gz",
+      "ipm_median_cost_s": 0.009891159000062544,
+      "ipm_over_ds": 1.386479845088494,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 51,
+      "m_over_n": 0.2318181818181818,
+      "n": 220,
+      "nnz": 2808,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.007891175999930056,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.007037077999939356
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.007230939000237413
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.010306047000085528
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.00947627100003956
+          }
+        ]
+      },
+      "vbs_cost_s": 0.007134008500088385,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.01098143850641076,
+      "ds_median_cost_s": 0.11595463799994832,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0010715944999901694,
+      "instance": "roll3000.mps.gz",
+      "ipm_median_cost_s": 0.19636776600009398,
+      "ipm_over_ds": 1.6934878102951043,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 2295,
+      "m_over_n": 1.9682675814751287,
+      "n": 1166,
+      "nnz": 29386,
+      "objective_abs_diff": 1.0913936421275139e-11,
+      "oracle_with_inspection_cost_s": 0.11702623249993849,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 11097.127676855096,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.11097625200000039
+          },
+          {
+            "objective": 11097.127676855096,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.12093302399989625
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 11097.127676855107,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.20415057900027023
+          },
+          {
+            "objective": 11097.127676855107,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.18858495299991773
+          }
+        ]
+      },
+      "vbs_cost_s": 0.11595463799994832,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.018964655205569017,
+      "ds_median_cost_s": 0.027380745000073148,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0009034220001922222,
+      "instance": "neos17.mps.gz",
+      "ipm_median_cost_s": 0.028031907500007947,
+      "ipm_over_ds": 1.0237817670751128,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 486,
+      "m_over_n": 0.908411214953271,
+      "n": 535,
+      "nnz": 4931,
+      "objective_abs_diff": 2.168404344971009e-19,
+      "oracle_with_inspection_cost_s": 0.02828416700026537,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 0.0006814985014985019,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.027185267000277236
+          },
+          {
+            "objective": 0.0006814985014985019,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.02757622299986906
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 0.0006814985014985021,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.02822964500001035
+          },
+          {
+            "objective": 0.0006814985014985021,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.027834170000005543
+          }
+        ]
+      },
+      "vbs_cost_s": 0.027380745000073148,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.0036556995679627785,
+      "ds_median_cost_s": 0.0454607714998474,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0009379235000324115,
+      "instance": "n5-3.mps.gz",
+      "ipm_median_cost_s": 0.0521855915001197,
+      "ipm_over_ds": 1.147925778168874,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 1062,
+      "m_over_n": 0.4164705882352941,
+      "n": 2550,
+      "nnz": 9900,
+      "objective_abs_diff": 4.547473508864641e-13,
+      "oracle_with_inspection_cost_s": 0.04639869499987981,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 2883.8235294117644,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.04292474299973037
+          },
+          {
+            "objective": 2883.8235294117644,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.047996799999964423
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 2883.823529411765,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.05126551900002596
+          },
+          {
+            "objective": 2883.823529411765,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.05310566400021344
+          }
+        ]
+      },
+      "vbs_cost_s": 0.0454607714998474,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.0014959300878812883,
+      "ds_median_cost_s": 0.137243219000311,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0010896114999923157,
+      "instance": "app1-1.mps.gz",
+      "ipm_median_cost_s": 0.1826540655001736,
+      "ipm_over_ds": 1.3308786170321443,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 4926,
+      "m_over_n": 1.9862903225806452,
+      "n": 2480,
+      "nnz": 18275,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.13833283050030332,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.12513877100036552
+          },
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.14934766700025648
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.18725209100011853
+          },
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.17805604000022868
+          }
+        ]
+      },
+      "vbs_cost_s": 0.137243219000311,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.0007546826310797995,
+      "ds_median_cost_s": 0.10303477449997445,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0009783390000848158,
+      "instance": "b1c1s1.mps.gz",
+      "ipm_median_cost_s": 0.17772170650005137,
+      "ipm_over_ds": 1.7248711162083967,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 3904,
+      "m_over_n": 1.0082644628099173,
+      "n": 3872,
+      "nnz": 11408,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.10401311350005926,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.10181133700007194
+          },
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.10425821199987695
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1703508470000088
+          },
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.18509256600009394
+          }
+        ]
+      },
+      "vbs_cost_s": 0.10303477449997445,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.17606837606837608,
+      "ds_median_cost_s": 0.013519753500077059,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0008641979998174065,
+      "instance": "mik-250-20-75-4.mps.gz",
+      "ipm_median_cost_s": 0.016095497000151227,
+      "ipm_over_ds": 1.190517046043738,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 195,
+      "m_over_n": 0.7222222222222222,
+      "n": 270,
+      "nnz": 9270,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.014383951499894465,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -61651.22709753319,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.013741796999966027
+          },
+          {
+            "objective": -61651.22709753319,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.01329771000018809
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -61651.22709753319,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.015309522000279685
+          },
+          {
+            "objective": -61651.22709753319,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.016881472000022768
+          }
+        ]
+      },
+      "vbs_cost_s": 0.013519753500077059,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.0019069043850318186,
+      "ds_median_cost_s": 0.0388431704998311,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0008174724998752936,
+      "instance": "binkar10_1.mps.gz",
+      "ipm_median_cost_s": 0.06028309599992099,
+      "ipm_over_ds": 1.5519612643407446,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 1026,
+      "m_over_n": 0.4464751958224543,
+      "n": 2298,
+      "nnz": 4496,
+      "objective_abs_diff": 0.0,
+      "oracle_with_inspection_cost_s": 0.0396606429997064,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 6637.1880269437515,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.03996784699984346
+          },
+          {
+            "objective": 6637.1880269437515,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.03771849399981875
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 6637.1880269437515,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.06231082600015725
+          },
+          {
+            "objective": 6637.1880269437515,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.05825536599968473
+          }
+        ]
+      },
+      "vbs_cost_s": 0.0388431704998311,
+      "winner": "highs-ds"
+    },
+    {
+      "density": 0.002223567853754204,
+      "ds_median_cost_s": 0.10061182099980215,
+      "ds_terminal_rounds": 2,
+      "ds_valid_rounds": 2,
+      "inspect_median_s": 0.0010057004999453056,
+      "instance": "rococoB10-011000.mps.gz",
+      "ipm_median_cost_s": 0.09473280600013823,
+      "ipm_over_ds": 0.9415673532071794,
+      "ipm_terminal_rounds": 2,
+      "ipm_valid_rounds": 2,
+      "m": 1667,
+      "m_over_n": 0.3741023339317774,
+      "n": 4456,
+      "nnz": 16517,
+      "objective_abs_diff": 1.8189894035458565e-12,
+      "oracle_with_inspection_cost_s": 0.09573850650008353,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 8350.19946847912,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.09568004999982804
+          },
+          {
+            "objective": 8350.19946847912,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.10554359199977625
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 8350.199468479119,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.09617094600025666
+          },
+          {
+            "objective": 8350.199468479119,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.09329466600001979
+          }
+        ]
+      },
+      "vbs_cost_s": 0.09473280600013823,
+      "winner": "highs-ipm"
+    }
+  ],
+  "schema": "optimind.m25.public_ood_lp_opportunity_shard.v2",
+  "selection_protocol": {
+    "compressed_size_cap_bytes": 524288,
+    "hash_order": "sha256(filename)",
+    "max_m": 5000,
+    "max_n": 5000,
+    "max_nnz": 100000,
+    "outcome_independent": true,
+    "target_instances": 48
+  },
+  "shard_count": 4,
+  "shard_index": 0,
+  "source": "MIPLIB 2017 benchmark-v2 derived continuous LP relaxations",
+  "wall_s": 23.582533201999922
+}

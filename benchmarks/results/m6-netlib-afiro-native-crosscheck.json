@@ -1,0 +1,11 @@
+{
+  "input_path": "/tmp/afiro.mps",
+  "input_sha256": "3f9d8c753987b6ebfe87834a18b771012c0a6348e265cb31858f321b57ebce48",
+  "read_status": "HighsStatus.kOk",
+  "run_status": "HighsStatus.kOk",
+  "native_model_status": "Optimal",
+  "native_objective": -464.75314285714285,
+  "canonical_ir_objective": -464.7531428571429,
+  "objective_abs_diff": 5.684341886080802e-14,
+  "canonical_validation_valid": true
+}

@@ -1,0 +1,421 @@
+{
+  "backends": [
+    "scipy-highs-ds",
+    "scipy-highs-ipm",
+    "casadi-highs-bridge",
+    "@auto"
+  ],
+  "bundle": {
+    "entries": [
+      {
+        "name": "shard-0.jsonl",
+        "sha256": "9a0eac251b28428d7d6aa07030deaebfcf02232d1909a468dc536a25cbb43306",
+        "size_bytes": 40291
+      },
+      {
+        "name": "shard-1.jsonl",
+        "sha256": "2ff0a65af5750e187ce12c4582d9b1d4f095b6b7ffa7be5f8a39b0b91bdee365",
+        "size_bytes": 53707
+      },
+      {
+        "name": "shard-2.jsonl",
+        "sha256": "fd6b8ac4eced7f6f8f0f32be15cd0f2802f63e460543586ae3d4325a48c0d8bb",
+        "size_bytes": 26837
+      },
+      {
+        "name": "summary.json",
+        "sha256": "515d7a51585d131391cde47d35ada85b22f6f186cf7c2a657affda885b955ec1",
+        "size_bytes": 3430
+      },
+      {
+        "name": "environment.json",
+        "sha256": "1e339926534871f99b6048b95d969cc9bb300cd8e567b19cbd66acb1d6009ebf",
+        "size_bytes": 619
+      },
+      {
+        "name": "miplib-array-example.sh",
+        "sha256": "44cb2daf240ce67ae8949f10fbc8ea9322d33b5cd817eb4d3845c71952e864ad",
+        "size_bytes": 597
+      }
+    ],
+    "path": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-bundle.zip",
+    "sha256": "55899b8048e3b784ee646d1c245416b7a0307d03cb2c0a3e7b5bd41a07d24733"
+  },
+  "expected_rows": 144,
+  "instances": 18,
+  "repetitions": 2,
+  "resume_summary": {
+    "backends": [
+      "scipy-highs-ds",
+      "scipy-highs-ipm",
+      "casadi-highs-bridge",
+      "@auto"
+    ],
+    "counters": {
+      "completed": 0,
+      "errors": 0,
+      "missing": 0,
+      "scheduled": 48,
+      "skipped_resume": 48
+    },
+    "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work",
+    "elapsed_s": 0.007040931000119599,
+    "environment": {
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "env_threads": {
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null
+      },
+      "hostname": "localhost",
+      "logical_cpus": 5,
+      "machine": "x86_64",
+      "memory_bytes": 6236925952,
+      "packages": {
+        "casadi": "3.7.2",
+        "highspy": null,
+        "nlopt": "2.11.0",
+        "numpy": "2.3.5",
+        "optimind-core-codename": "0.0.11",
+        "osqp": null,
+        "pyscipopt": null,
+        "scipy": "1.17.0"
+      },
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python"
+    },
+    "hard_timeout_s": null,
+    "manifest": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work/smoke.test",
+    "manifest_sha256": "42149a42fede8de0d47502c806955716545b0aa858caf6af19b1e99c3a731d52",
+    "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+    "reference": null,
+    "reference_sha256": null,
+    "repetitions": 2,
+    "schema_version": "1.1",
+    "shard": {
+      "count": 3,
+      "index": 0,
+      "instances": 6
+    },
+    "time_limit_s": null
+  },
+  "run_summaries": [
+    {
+      "backends": [
+        "scipy-highs-ds",
+        "scipy-highs-ipm",
+        "casadi-highs-bridge",
+        "@auto"
+      ],
+      "counters": {
+        "completed": 48,
+        "errors": 0,
+        "missing": 0,
+        "scheduled": 48,
+        "skipped_resume": 0
+      },
+      "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work",
+      "elapsed_s": 0.22432062799998675,
+      "environment": {
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "env_threads": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        },
+        "hostname": "localhost",
+        "logical_cpus": 5,
+        "machine": "x86_64",
+        "memory_bytes": 6236925952,
+        "packages": {
+          "casadi": "3.7.2",
+          "highspy": null,
+          "nlopt": "2.11.0",
+          "numpy": "2.3.5",
+          "optimind-core-codename": "0.0.11",
+          "osqp": null,
+          "pyscipopt": null,
+          "scipy": "1.17.0"
+        },
+        "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+        "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+        "python_executable": "/opt/pyvenv/bin/python"
+      },
+      "hard_timeout_s": null,
+      "manifest": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work/smoke.test",
+      "manifest_sha256": "42149a42fede8de0d47502c806955716545b0aa858caf6af19b1e99c3a731d52",
+      "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+      "reference": null,
+      "reference_sha256": null,
+      "repetitions": 2,
+      "schema_version": "1.1",
+      "shard": {
+        "count": 3,
+        "index": 0,
+        "instances": 6
+      },
+      "time_limit_s": null
+    },
+    {
+      "backends": [
+        "scipy-highs-ds",
+        "scipy-highs-ipm",
+        "casadi-highs-bridge",
+        "@auto"
+      ],
+      "counters": {
+        "completed": 64,
+        "errors": 0,
+        "missing": 0,
+        "scheduled": 64,
+        "skipped_resume": 0
+      },
+      "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work",
+      "elapsed_s": 0.27066553500003465,
+      "environment": {
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "env_threads": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        },
+        "hostname": "localhost",
+        "logical_cpus": 5,
+        "machine": "x86_64",
+        "memory_bytes": 6236925952,
+        "packages": {
+          "casadi": "3.7.2",
+          "highspy": null,
+          "nlopt": "2.11.0",
+          "numpy": "2.3.5",
+          "optimind-core-codename": "0.0.11",
+          "osqp": null,
+          "pyscipopt": null,
+          "scipy": "1.17.0"
+        },
+        "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+        "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+        "python_executable": "/opt/pyvenv/bin/python"
+      },
+      "hard_timeout_s": null,
+      "manifest": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work/smoke.test",
+      "manifest_sha256": "42149a42fede8de0d47502c806955716545b0aa858caf6af19b1e99c3a731d52",
+      "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+      "reference": null,
+      "reference_sha256": null,
+      "repetitions": 2,
+      "schema_version": "1.1",
+      "shard": {
+        "count": 3,
+        "index": 1,
+        "instances": 8
+      },
+      "time_limit_s": null
+    },
+    {
+      "backends": [
+        "scipy-highs-ds",
+        "scipy-highs-ipm",
+        "casadi-highs-bridge",
+        "@auto"
+      ],
+      "counters": {
+        "completed": 32,
+        "errors": 0,
+        "missing": 0,
+        "scheduled": 32,
+        "skipped_resume": 0
+      },
+      "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work",
+      "elapsed_s": 0.1494973479998407,
+      "environment": {
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "env_threads": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        },
+        "hostname": "localhost",
+        "logical_cpus": 5,
+        "machine": "x86_64",
+        "memory_bytes": 6236925952,
+        "packages": {
+          "casadi": "3.7.2",
+          "highspy": null,
+          "nlopt": "2.11.0",
+          "numpy": "2.3.5",
+          "optimind-core-codename": "0.0.11",
+          "osqp": null,
+          "pyscipopt": null,
+          "scipy": "1.17.0"
+        },
+        "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+        "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+        "python_executable": "/opt/pyvenv/bin/python"
+      },
+      "hard_timeout_s": null,
+      "manifest": "/mnt/data/m11_work/benchmarks/results/m11-harness-smoke-work/smoke.test",
+      "manifest_sha256": "42149a42fede8de0d47502c806955716545b0aa858caf6af19b1e99c3a731d52",
+      "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+      "reference": null,
+      "reference_sha256": null,
+      "repetitions": 2,
+      "schema_version": "1.1",
+      "shard": {
+        "count": 3,
+        "index": 2,
+        "instances": 4
+      },
+      "time_limit_s": null
+    }
+  ],
+  "schema_version": "1.0",
+  "summary": {
+    "auto_policy_metrics": {
+      "choices": [
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds"
+      ],
+      "eligible": true,
+      "gap_closure": -11.008430974569556,
+      "instances": 18,
+      "lower_is_better": true,
+      "metric": "PAR10@2s",
+      "policy_cost": 0.0063084006111024694,
+      "policy_ties": 7,
+      "policy_to_sbs_ratio_bootstrap_95pct": {
+        "draws": 10000,
+        "high": 2.2566669898100518,
+        "low": 1.8085865428884182,
+        "median": 1.9819843059529703,
+        "point": 1.987387096094175,
+        "seed": 0
+      },
+      "policy_wins": 5,
+      "sbs_cost": 0.0031742183611337773,
+      "sbs_solver": "scipy-highs-ds",
+      "solver_mean_costs": {
+        "casadi-highs-bridge": 0.0034734759722204623,
+        "scipy-highs-ds": 0.0031742183611337773,
+        "scipy-highs-ipm": 0.0036763971944601005
+      },
+      "vbs_cost": 0.0028895109167024202
+    },
+    "backends": [
+      "@auto",
+      "casadi-highs-bridge",
+      "scipy-highs-ds",
+      "scipy-highs-ipm"
+    ],
+    "bootstrap": {
+      "draws": 10000,
+      "seed": 0
+    },
+    "cost_field": "wall_s",
+    "cutoff_s": 2.0,
+    "instances": 18,
+    "par_penalty": 10.0,
+    "performance_profile": {
+      "fractions": {
+        "casadi-highs-bridge": [
+          0.3888888888888889,
+          0.4444444444444444,
+          0.5555555555555556,
+          0.8333333333333334,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "scipy-highs-ds": [
+          0.3333333333333333,
+          0.5555555555555556,
+          0.8888888888888888,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "scipy-highs-ipm": [
+          0.2777777777777778,
+          0.4444444444444444,
+          0.7222222222222222,
+          0.8333333333333334,
+          0.9444444444444444,
+          1.0,
+          1.0
+        ]
+      },
+      "taus": [
+        1.0,
+        1.1,
+        1.25,
+        1.5,
+        2.0,
+        5.0,
+        10.0
+      ]
+    },
+    "protocol_id": "35400eab77aa058a4cc7758fbe7ea3fe8aca7e340f47069d0ad2d884c6f248a9",
+    "rectangular_input": true,
+    "sbs_cost": 0.0031742183611337773,
+    "sbs_solver": "scipy-highs-ds",
+    "sbs_vbs_gap": 0.0002847074444313571,
+    "schema_version": "1.1",
+    "solver_stats": {
+      "@auto": {
+        "median_success_wall_s": 0.005963504499959527,
+        "par_cost_mean": 0.0063084006111024694,
+        "reference_ok_rows": 36,
+        "rows": 36,
+        "solved_rows": 36,
+        "validated_rows": 36
+      },
+      "casadi-highs-bridge": {
+        "median_success_wall_s": 0.003382788000067194,
+        "par_cost_mean": 0.0034734759722204623,
+        "reference_ok_rows": 36,
+        "rows": 36,
+        "solved_rows": 36,
+        "validated_rows": 36
+      },
+      "scipy-highs-ds": {
+        "median_success_wall_s": 0.00296212850014399,
+        "par_cost_mean": 0.0031742183611337773,
+        "reference_ok_rows": 36,
+        "rows": 36,
+        "solved_rows": 36,
+        "validated_rows": 36
+      },
+      "scipy-highs-ipm": {
+        "median_success_wall_s": 0.003220944499958023,
+        "par_cost_mean": 0.0036763971944601005,
+        "reference_ok_rows": 36,
+        "rows": 36,
+        "solved_rows": 36,
+        "validated_rows": 36
+      }
+    },
+    "vbs_cost": 0.0028895109167024202
+  }
+}

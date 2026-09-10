@@ -1,0 +1,11 @@
+{
+  "cases": 200,
+  "contract": "M29 canonical static features are invariant to positive independent row scaling plus positive objective scaling",
+  "failed": 0,
+  "failures": [],
+  "max_abs_difference": 2.2737367544323206e-13,
+  "max_relative_difference": 5.871199773580323e-16,
+  "passed": 200,
+  "schema": "optimind.m29.scaling_invariance_property.v1",
+  "seed": 20260906
+}

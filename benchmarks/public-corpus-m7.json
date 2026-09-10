@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "policy": "Third-party MPS inputs are not redistributed. Each entry records the public source, the SHA-256 of the exact locally benchmarked bytes, and the raw result artifact.",
+  "instances": [
+    {
+      "name": "AFIRO",
+      "class": "LP",
+      "source_url": "https://raw.githubusercontent.com/coin-or-tools/Data-Sample/master/afiro.mps",
+      "reference_url": "https://coap.math.ufl.edu/test-problems/",
+      "input_sha256": "3f9d8c753987b6ebfe87834a18b771012c0a6348e265cb31858f321b57ebce48",
+      "published_reference_objective": -464.75314286,
+      "result_file": "results/m6-netlib-afiro.json",
+      "native_crosscheck_file": "results/m6-netlib-afiro-native-crosscheck.json",
+      "evidence": "canonical parser/runtime vs published reference and native HiGHS direct MPS reader"
+    },
+    {
+      "name": "p0033",
+      "class": "0/1 MILP",
+      "source_url": "https://github.com/coin-or-tools/Data-Sample/blob/master/p0033.mps",
+      "input_sha256": "9ff4d150cd5433778a7a90f45e80dfa032ed3d166dd1bf5a2059cf69c4c8a189",
+      "published_reference_objective": 3089.0,
+      "result_file": "results/m7-coinor-p0033-native-crosscheck.json",
+      "evidence": "canonical parser/runtime vs published optimum and native HiGHS direct MPS reader"
+    },
+    {
+      "name": "exmip1",
+      "class": "MILP",
+      "source_url": "https://github.com/coin-or-tools/Data-Sample/blob/master/exmip1.mps",
+      "input_sha256": "577fcbf1ec541fc8d42add21e49383f2527161a815913e77acf9169c5840dc02",
+      "published_reference_objective": null,
+      "result_file": "results/m7-coinor-exmip1-crosscheck.json",
+      "evidence": "canonical parser/runtime vs independently transcribed equation model and native HiGHS direct MPS reader"
+    }
+  ]
+}

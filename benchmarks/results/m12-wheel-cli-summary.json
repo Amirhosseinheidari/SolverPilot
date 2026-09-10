@@ -1,0 +1,113 @@
+{
+  "auto_policy_metrics": {
+    "choices": [
+      "scipy-highs-ds",
+      "scipy-highs-ds"
+    ],
+    "eligible": true,
+    "gap_closure": 1.5162819888548826,
+    "instances": 2,
+    "lower_is_better": true,
+    "metric": "PAR10@2s",
+    "policy_cost": 0.0047391149998929905,
+    "policy_ties": 1,
+    "policy_to_sbs_ratio_bootstrap_95pct": {
+      "draws": 200,
+      "high": 1.3382639347597625,
+      "low": 0.41001846662182495,
+      "median": 0.7171710942687746,
+      "point": 0.7171710942687746,
+      "seed": 0
+    },
+    "policy_wins": 1,
+    "sbs_cost": 0.006608067499882964,
+    "sbs_solver": "scipy-highs-ipm",
+    "solver_mean_costs": {
+      "scipy-highs-ds": 0.008272288500165814,
+      "scipy-highs-ipm": 0.006608067499882964
+    },
+    "vbs_cost": 0.0053754785001274286
+  },
+  "backends": [
+    "@auto",
+    "scipy-highs-ds",
+    "scipy-highs-ipm"
+  ],
+  "bootstrap": {
+    "draws": 200,
+    "seed": 0
+  },
+  "cost_field": "wall_s",
+  "cutoff_s": 2.0,
+  "environment_ids": [
+    "4fad6d4998962b7a437708f99cca2316baa2df9f18c6e849e203b976f986e7d4"
+  ],
+  "instances": 2,
+  "mixed_environments_allowed": false,
+  "par_penalty": 10.0,
+  "performance_profile": {
+    "fractions": {
+      "scipy-highs-ds": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "scipy-highs-ipm": [
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "taus": [
+      1.0,
+      1.1,
+      1.25,
+      1.5,
+      2.0,
+      5.0,
+      10.0
+    ]
+  },
+  "protocol_id": "101ec36c20d9ddc4fd0ff86e6c5edf5c00818137cc8c33f1188ebc7e7a1e6c93",
+  "rectangular_input": true,
+  "relative_sbs_vbs_gap": 0.18652790695273097,
+  "sbs_cost": 0.006608067499882964,
+  "sbs_solver": "scipy-highs-ipm",
+  "sbs_vbs_gap": 0.001232588999755535,
+  "schema_version": "1.1",
+  "solver_stats": {
+    "@auto": {
+      "median_success_wall_s": 0.0047391149998929905,
+      "par_cost_mean": 0.0047391149998929905,
+      "reference_ok_rows": 2,
+      "rows": 2,
+      "solved_rows": 2,
+      "validated_rows": 2
+    },
+    "scipy-highs-ds": {
+      "median_success_wall_s": 0.008272288500165814,
+      "par_cost_mean": 0.008272288500165814,
+      "reference_ok_rows": 2,
+      "rows": 2,
+      "solved_rows": 2,
+      "validated_rows": 2
+    },
+    "scipy-highs-ipm": {
+      "median_success_wall_s": 0.006608067499882964,
+      "par_cost_mean": 0.006608067499882964,
+      "reference_ok_rows": 2,
+      "rows": 2,
+      "solved_rows": 2,
+      "validated_rows": 2
+    }
+  },
+  "vbs_cost": 0.0053754785001274286
+}

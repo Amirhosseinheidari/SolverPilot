@@ -1,0 +1,194 @@
+{
+  "50v-10.mps.gz": {
+    "group": "50v-10",
+    "split": "validation"
+  },
+  "app1-1.mps.gz": {
+    "group": "app1-1",
+    "split": "test"
+  },
+  "assign1-5-8.mps.gz": {
+    "group": "assign1-5-8",
+    "split": "train"
+  },
+  "b1c1s1.mps.gz": {
+    "group": "b1c1s1",
+    "split": "test"
+  },
+  "beasleyC3.mps.gz": {
+    "group": "beasleyC3",
+    "split": "test"
+  },
+  "binkar10_1.mps.gz": {
+    "group": "binkar10_1",
+    "split": "train"
+  },
+  "bppc4-08.mps.gz": {
+    "group": "bppc4-08",
+    "split": "validation"
+  },
+  "cod105.mps.gz": {
+    "group": "cod105",
+    "split": "validation"
+  },
+  "csched007.mps.gz": {
+    "group": "csched-family",
+    "split": "train"
+  },
+  "csched008.mps.gz": {
+    "group": "csched-family",
+    "split": "train"
+  },
+  "cvs16r128-89.mps.gz": {
+    "group": "cvs16r128-89",
+    "split": "test"
+  },
+  "eil33-2.mps.gz": {
+    "group": "eil33-2",
+    "split": "train"
+  },
+  "gen-ip002.mps.gz": {
+    "group": "gen-ip002",
+    "split": "validation"
+  },
+  "glass4.mps.gz": {
+    "group": "glass4",
+    "split": "test"
+  },
+  "gmu-35-40.mps.gz": {
+    "group": "gmu-35-40",
+    "split": "validation"
+  },
+  "graphdraw-domain.mps.gz": {
+    "group": "graphdraw-domain",
+    "split": "test"
+  },
+  "ic97_potential.mps.gz": {
+    "group": "ic97-family",
+    "split": "train"
+  },
+  "icir97_tension.mps.gz": {
+    "group": "ic97-family",
+    "split": "train"
+  },
+  "lotsize.mps.gz": {
+    "group": "lotsize",
+    "split": "train"
+  },
+  "mad.mps.gz": {
+    "group": "mad",
+    "split": "test"
+  },
+  "markshare2.mps.gz": {
+    "group": "markshare-family",
+    "split": "test"
+  },
+  "markshare_4_0.mps.gz": {
+    "group": "markshare-family",
+    "split": "test"
+  },
+  "mik-250-20-75-4.mps.gz": {
+    "group": "mik-250-20-75-4",
+    "split": "train"
+  },
+  "n5-3.mps.gz": {
+    "group": "n5-3",
+    "split": "train"
+  },
+  "neos-1171737.mps.gz": {
+    "group": "neos-1171737",
+    "split": "test"
+  },
+  "neos-2657525-crna.mps.gz": {
+    "group": "neos-2657525-crna",
+    "split": "validation"
+  },
+  "neos-3024952-loue.mps.gz": {
+    "group": "neos-3024952-loue",
+    "split": "test"
+  },
+  "neos-3627168-kasai.mps.gz": {
+    "group": "neos-3627168-kasai",
+    "split": "validation"
+  },
+  "neos-3754480-nidda.mps.gz": {
+    "group": "neos-3754480-nidda",
+    "split": "test"
+  },
+  "neos-4338804-snowy.mps.gz": {
+    "group": "neos-4338804-snowy",
+    "split": "validation"
+  },
+  "neos-4387871-tavua.mps.gz": {
+    "group": "neos-4387871-tavua",
+    "split": "train"
+  },
+  "neos-4954672-berkel.mps.gz": {
+    "group": "neos-4954672-berkel",
+    "split": "test"
+  },
+  "neos17.mps.gz": {
+    "group": "neos17",
+    "split": "train"
+  },
+  "neos5.mps.gz": {
+    "group": "neos5",
+    "split": "validation"
+  },
+  "neos859080.mps.gz": {
+    "group": "neos859080",
+    "split": "train"
+  },
+  "p200x1188c.mps.gz": {
+    "group": "p200x1188c",
+    "split": "train"
+  },
+  "peg-solitaire-a3.mps.gz": {
+    "group": "peg-solitaire-a3",
+    "split": "test"
+  },
+  "qap10.mps.gz": {
+    "group": "qap10",
+    "split": "train"
+  },
+  "ran14x18-disj-8.mps.gz": {
+    "group": "ran14x18-disj-8",
+    "split": "train"
+  },
+  "reblock115.mps.gz": {
+    "group": "reblock115",
+    "split": "validation"
+  },
+  "rococoB10-011000.mps.gz": {
+    "group": "rococoB10-011000",
+    "split": "train"
+  },
+  "roll3000.mps.gz": {
+    "group": "roll3000",
+    "split": "test"
+  },
+  "seymour1.mps.gz": {
+    "group": "seymour1",
+    "split": "validation"
+  },
+  "sp150x300d.mps.gz": {
+    "group": "sp150x300d",
+    "split": "train"
+  },
+  "supportcase26.mps.gz": {
+    "group": "supportcase26",
+    "split": "validation"
+  },
+  "timtab1.mps.gz": {
+    "group": "timtab1",
+    "split": "train"
+  },
+  "uct-subprob.mps.gz": {
+    "group": "uct-subprob",
+    "split": "test"
+  },
+  "wachplan.mps.gz": {
+    "group": "wachplan",
+    "split": "train"
+  }
+}

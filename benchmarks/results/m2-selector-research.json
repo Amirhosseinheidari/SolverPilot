@@ -1,0 +1,464 @@
+{
+  "benchmark": "M2 grouped synthetic selector research; not production evidence",
+  "feature_names": [
+    "log10_n",
+    "log10_m",
+    "log10_nnz",
+    "log10_density",
+    "equality_fraction",
+    "row_nnz_mean",
+    "col_nnz_mean",
+    "log10_estimated_bytes"
+  ],
+  "train_families": {
+    "small_sparse": [
+      220,
+      220,
+      0.02,
+      0.05
+    ],
+    "large_sparse_balanced": [
+      1000,
+      1000,
+      0.006,
+      0.1
+    ],
+    "large_sparse_tall": [
+      400,
+      1300,
+      0.012,
+      0.1
+    ],
+    "dense_mid": [
+      400,
+      400,
+      0.2,
+      0.25
+    ]
+  },
+  "test_families": {
+    "holdout_sparse_balanced": [
+      900,
+      900,
+      0.007,
+      0.1
+    ],
+    "holdout_sparse_wide": [
+      1300,
+      400,
+      0.012,
+      0.08
+    ],
+    "holdout_dense": [
+      450,
+      450,
+      0.18,
+      0.2
+    ],
+    "holdout_small_wide": [
+      500,
+      100,
+      0.015,
+      0.02
+    ]
+  },
+  "train_instances": 8,
+  "test_instances": 8,
+  "train_winners": {
+    "ds": 4,
+    "ipm": 4
+  },
+  "test_winners": {
+    "ds": 4,
+    "ipm": 4
+  },
+  "tree_rule": "|--- log10_m <= 2.80\n|   |--- class: 0\n|--- log10_m >  2.80\n|   |--- class: 1\n",
+  "current_auto": {
+    "metric": "wall_time_s",
+    "lower_is_better": true,
+    "solver_mean_costs": {
+      "scipy-highs-ds": 0.19208060637498647,
+      "scipy-highs-ipm": 0.27982878237497744
+    },
+    "sbs_solver": "scipy-highs-ds",
+    "sbs_cost": 0.19208060637498647,
+    "vbs_cost": 0.1755362332499999,
+    "policy_cost": 0.19578455137491346,
+    "gap_closure": -0.22387944057747391,
+    "policy_wins": 4,
+    "policy_ties": 4,
+    "instances": 8
+  },
+  "research_tree": {
+    "metric": "wall_time_s",
+    "lower_is_better": true,
+    "solver_mean_costs": {
+      "scipy-highs-ds": 0.19208060637498647,
+      "scipy-highs-ipm": 0.27982878237497744
+    },
+    "sbs_solver": "scipy-highs-ds",
+    "sbs_cost": 0.19208060637498647,
+    "vbs_cost": 0.1755362332499999,
+    "policy_cost": 0.18056610562501874,
+    "gap_closure": 0.6959768534582709,
+    "policy_wins": 6,
+    "policy_ties": 6,
+    "instances": 8
+  },
+  "performance_profile": {
+    "taus": [
+      1.0,
+      1.05,
+      1.1,
+      1.25,
+      1.5,
+      2.0,
+      3.0
+    ],
+    "fractions": {
+      "scipy-highs-ds": [
+        0.5,
+        0.5,
+        0.5,
+        0.625,
+        0.875,
+        1.0,
+        1.0
+      ],
+      "scipy-highs-ipm": [
+        0.5,
+        0.5,
+        0.5,
+        0.625,
+        0.625,
+        0.875,
+        1.0
+      ]
+    }
+  },
+  "train": [
+    {
+      "family": "small_sparse",
+      "seed": 51000,
+      "features": [
+        2.342422680822206,
+        2.342422680822206,
+        2.9867717342662448,
+        -1.6980736273781676,
+        0.05,
+        4.409090909090909,
+        4.409090909090909,
+        4.549052332076335
+      ],
+      "inspect_s": 0.0006270239996410965,
+      "ds_s": 0.012392121000175393,
+      "ipm_s": 0.014592419000109658,
+      "winner": "scipy-highs-ds"
+    },
+    {
+      "family": "small_sparse",
+      "seed": 51001,
+      "features": [
+        2.342422680822206,
+        2.342422680822206,
+        2.9863237770507656,
+        -1.6985215845936472,
+        0.05,
+        4.404545454545454,
+        4.404545454545454,
+        4.548905105288585
+      ],
+      "inspect_s": 0.00039896699991004425,
+      "ds_s": 0.012921825999910652,
+      "ipm_s": 0.014786725000249135,
+      "winner": "scipy-highs-ds"
+    },
+    {
+      "family": "large_sparse_balanced",
+      "seed": 51100,
+      "features": [
+        3.0,
+        3.0,
+        3.7785130117389247,
+        -2.2214869882610753,
+        0.1,
+        6.005,
+        6.005,
+        5.255426893473898
+      ],
+      "inspect_s": 0.00046845299993947265,
+      "ds_s": 0.1963366859999951,
+      "ipm_s": 0.12533068800030378,
+      "winner": "scipy-highs-ipm"
+    },
+    {
+      "family": "large_sparse_balanced",
+      "seed": 51101,
+      "features": [
+        3.0,
+        3.0,
+        3.7786576319473553,
+        -2.2213423680526447,
+        0.1,
+        6.007,
+        6.007,
+        5.255484774966052
+      ],
+      "inspect_s": 0.0005552349998652062,
+      "ds_s": 0.1583112240000446,
+      "ipm_s": 0.11229601000013645,
+      "winner": "scipy-highs-ipm"
+    },
+    {
+      "family": "large_sparse_tall",
+      "seed": 51200,
+      "features": [
+        2.6020599913279625,
+        3.113943352306837,
+        3.7958800173440754,
+        -1.920123326290724,
+        0.1,
+        4.8076923076923075,
+        15.625,
+        5.134189861999813
+      ],
+      "inspect_s": 0.000490736999836372,
+      "ds_s": 0.16035426300004474,
+      "ipm_s": 0.11212957599991569,
+      "winner": "scipy-highs-ipm"
+    },
+    {
+      "family": "large_sparse_tall",
+      "seed": 51201,
+      "features": [
+        2.6020599913279625,
+        3.113943352306837,
+        3.7960189693471493,
+        -1.91998437428765,
+        0.1,
+        4.809230769230769,
+        15.63,
+        5.134266380673042
+      ],
+      "inspect_s": 0.0004967459999534185,
+      "ds_s": 0.14808242600020094,
+      "ipm_s": 0.10755140900027982,
+      "winner": "scipy-highs-ipm"
+    },
+    {
+      "family": "dense_mid",
+      "seed": 51300,
+      "features": [
+        2.6020599913279625,
+        2.6020599913279625,
+        4.505149978319906,
+        -0.6989700043360187,
+        0.25,
+        80.0,
+        80.0,
+        5.630635310429196
+      ],
+      "inspect_s": 0.0006381610000971705,
+      "ds_s": 0.33457085299960454,
+      "ipm_s": 0.7607706020003207,
+      "winner": "scipy-highs-ds"
+    },
+    {
+      "family": "dense_mid",
+      "seed": 51301,
+      "features": [
+        2.6020599913279625,
+        2.6020599913279625,
+        4.505149978319906,
+        -0.6989700043360187,
+        0.25,
+        80.0,
+        80.0,
+        5.630635310429196
+      ],
+      "inspect_s": 0.0006456730002355471,
+      "ds_s": 0.400528292999752,
+      "ipm_s": 0.6873977499999455,
+      "winner": "scipy-highs-ds"
+    }
+  ],
+  "test": [
+    {
+      "family": "holdout_sparse_balanced",
+      "seed": 61000,
+      "features": [
+        2.9542425094393248,
+        2.9542425094393248,
+        3.7538893314598334,
+        -2.154595687418816,
+        0.1,
+        6.304444444444444,
+        6.304444444444444,
+        5.218251834576094
+      ],
+      "inspect_s": 0.00053906100038148,
+      "ds_s": 0.1714396239999587,
+      "ipm_s": 0.12903109399985624,
+      "winner": "scipy-highs-ipm",
+      "research_tree_choice": "scipy-highs-ipm",
+      "research_tree_predict_s": 0.00012471500031097094,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.1693135830000756
+    },
+    {
+      "family": "holdout_sparse_balanced",
+      "seed": 61001,
+      "features": [
+        2.9542425094393248,
+        2.9542425094393248,
+        3.7535830588929064,
+        -2.154901959985743,
+        0.1,
+        6.3,
+        6.3,
+        5.2181256992366585
+      ],
+      "inspect_s": 0.0005426759998954367,
+      "ds_s": 0.15810254600000917,
+      "ipm_s": 0.10346529999969789,
+      "winner": "scipy-highs-ipm",
+      "research_tree_choice": "scipy-highs-ipm",
+      "research_tree_predict_s": 6.291299996519228e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.15855277699984072
+    },
+    {
+      "family": "holdout_sparse_wide",
+      "seed": 61100,
+      "features": [
+        3.113943352306837,
+        2.6020599913279625,
+        3.795184589682424,
+        -1.9208187539523751,
+        0.08,
+        15.6,
+        4.8,
+        5.295091864808817
+      ],
+      "inspect_s": 0.0005348039999262255,
+      "ds_s": 0.08307319400000779,
+      "ipm_s": 0.0606167959999766,
+      "winner": "scipy-highs-ipm",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 4.62990001324215e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.08315031500023906
+    },
+    {
+      "family": "holdout_sparse_wide",
+      "seed": 61101,
+      "features": [
+        3.113943352306837,
+        2.6020599913279625,
+        3.795184589682424,
+        -1.9208187539523751,
+        0.08,
+        15.6,
+        4.8,
+        5.295091864808817
+      ],
+      "inspect_s": 0.0005383990001064376,
+      "ds_s": 0.0763588949998848,
+      "ipm_s": 0.06350608400043711,
+      "winner": "scipy-highs-ipm",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 4.184199997325777e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.07911175799972625
+    },
+    {
+      "family": "holdout_dense",
+      "seed": 61200,
+      "features": [
+        2.6532125137753435,
+        2.6532125137753435,
+        4.5616975326539935,
+        -0.744727494896694,
+        0.2,
+        81.0,
+        81.0,
+        5.6866398436877645
+      ],
+      "inspect_s": 0.0006888080001772323,
+      "ds_s": 0.5588047680003001,
+      "ipm_s": 0.8428375849998702,
+      "winner": "scipy-highs-ds",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 4.022000030090567e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.5743569779997415
+    },
+    {
+      "family": "holdout_dense",
+      "seed": 61201,
+      "features": [
+        2.6532125137753435,
+        2.6532125137753435,
+        4.5616975326539935,
+        -0.744727494896694,
+        0.2,
+        81.0,
+        81.0,
+        5.6866398436877645
+      ],
+      "inspect_s": 0.0007682000000386324,
+      "ds_s": 0.473866623000049,
+      "ipm_s": 1.01816997800006,
+      "winner": "scipy-highs-ds",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 8.202499975595856e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.4829633709996415
+    },
+    {
+      "family": "holdout_small_wide",
+      "seed": 61300,
+      "features": [
+        2.6989700043360187,
+        2.0,
+        2.8750612633917,
+        -1.8239087409443189,
+        0.02,
+        7.5,
+        1.5,
+        4.740394273398982
+      ],
+      "inspect_s": 0.0004404139999678591,
+      "ds_s": 0.007571496999844385,
+      "ipm_s": 0.011784028999954899,
+      "winner": "scipy-highs-ds",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 4.1524000153003726e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.010368111999923713
+    },
+    {
+      "family": "holdout_small_wide",
+      "seed": 61301,
+      "features": [
+        2.6989700043360187,
+        2.0,
+        2.8750612633917,
+        -1.8239087409443189,
+        0.02,
+        7.5,
+        1.5,
+        4.740394273398982
+      ],
+      "inspect_s": 0.0004019359998892469,
+      "ds_s": 0.007427703999837831,
+      "ipm_s": 0.009219392999966658,
+      "winner": "scipy-highs-ds",
+      "research_tree_choice": "scipy-highs-ds",
+      "research_tree_predict_s": 3.593399969759048e-05,
+      "current_auto_choice": "scipy-highs-ds",
+      "current_auto_cost_s": 0.008459517000119376
+    }
+  ],
+  "wall_s": 8.791697045999626
+}

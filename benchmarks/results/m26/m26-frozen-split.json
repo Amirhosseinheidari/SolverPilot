@@ -1,0 +1,257 @@
+{
+  "allocation_method": "sha256(group-id) order + deterministic largest-relative-deficit placement",
+  "cohort_signature": "8d811058e5e60fd6ad3bcca140fcb4572fc4539df17c3f52038c0796b08f60a3",
+  "records": [
+    {
+      "group": "50v-10",
+      "instance": "50v-10.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "app1-1",
+      "instance": "app1-1.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "assign1-5-8",
+      "instance": "assign1-5-8.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "b1c1s1",
+      "instance": "b1c1s1.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "beasleyC3",
+      "instance": "beasleyC3.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "binkar10_1",
+      "instance": "binkar10_1.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "bppc4-08",
+      "instance": "bppc4-08.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "cod105",
+      "instance": "cod105.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "csched-family",
+      "instance": "csched007.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "csched-family",
+      "instance": "csched008.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "cvs16r128-89",
+      "instance": "cvs16r128-89.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "eil33-2",
+      "instance": "eil33-2.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "gen-ip002",
+      "instance": "gen-ip002.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "glass4",
+      "instance": "glass4.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "gmu-35-40",
+      "instance": "gmu-35-40.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "graphdraw-domain",
+      "instance": "graphdraw-domain.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "ic97-family",
+      "instance": "ic97_potential.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "ic97-family",
+      "instance": "icir97_tension.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "lotsize",
+      "instance": "lotsize.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "mad",
+      "instance": "mad.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "markshare-family",
+      "instance": "markshare2.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "markshare-family",
+      "instance": "markshare_4_0.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "mik-250-20-75-4",
+      "instance": "mik-250-20-75-4.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "n5-3",
+      "instance": "n5-3.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "neos-1171737",
+      "instance": "neos-1171737.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "neos-2657525-crna",
+      "instance": "neos-2657525-crna.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "neos-3024952-loue",
+      "instance": "neos-3024952-loue.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "neos-3627168-kasai",
+      "instance": "neos-3627168-kasai.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "neos-3754480-nidda",
+      "instance": "neos-3754480-nidda.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "neos-4338804-snowy",
+      "instance": "neos-4338804-snowy.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "neos-4387871-tavua",
+      "instance": "neos-4387871-tavua.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "neos-4954672-berkel",
+      "instance": "neos-4954672-berkel.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "neos17",
+      "instance": "neos17.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "neos5",
+      "instance": "neos5.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "neos859080",
+      "instance": "neos859080.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "p200x1188c",
+      "instance": "p200x1188c.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "peg-solitaire-a3",
+      "instance": "peg-solitaire-a3.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "qap10",
+      "instance": "qap10.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "ran14x18-disj-8",
+      "instance": "ran14x18-disj-8.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "reblock115",
+      "instance": "reblock115.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "rococoB10-011000",
+      "instance": "rococoB10-011000.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "roll3000",
+      "instance": "roll3000.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "seymour1",
+      "instance": "seymour1.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "sp150x300d",
+      "instance": "sp150x300d.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "supportcase26",
+      "instance": "supportcase26.mps.gz",
+      "split": "validation"
+    },
+    {
+      "group": "timtab1",
+      "instance": "timtab1.mps.gz",
+      "split": "train"
+    },
+    {
+      "group": "uct-subprob",
+      "instance": "uct-subprob.mps.gz",
+      "split": "test"
+    },
+    {
+      "group": "wachplan",
+      "instance": "wachplan.mps.gz",
+      "split": "train"
+    }
+  ],
+  "schema": "optimind.m26.frozen_split.v1",
+  "source_run_sha256": [
+    "823d3d60495412a1f6cefec8724a9184c0eff4def38db0e80b703ec6e1d5883b",
+    "d121e51b4644ab85360b0efc821ffec7fac2ffec7be4e4abad1e96b2d1209986"
+  ],
+  "split_sha256": "6e94069451a07a8ec7ef786bff70ec844afeedd5282c93258fe47615ab0415e6",
+  "targets": {
+    "test": 16,
+    "train": 20,
+    "validation": 12
+  }
+}

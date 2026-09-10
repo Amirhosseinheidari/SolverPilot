@@ -1,0 +1,980 @@
+{
+  "claims_boundary": [
+    "this is the sole M27 held-out promotion evaluation",
+    "no post-test model, threshold, feature, or split changes are permitted inside M27",
+    "passing authorizes only compatible continuous-LP DS-vs-IPM performance routing"
+  ],
+  "controller_workers": 4,
+  "cutoff_s": 1.0,
+  "hard_timeout_s": 3.0,
+  "metrics": {
+    "bootstrap_policy_to_sbs": {
+      "draws": 20000,
+      "high": 1.0271805702487993,
+      "low": 0.9964287216147906,
+      "median": 1.0070522819766317,
+      "point": 1.0077010570787657,
+      "seed": 270027
+    },
+    "default_mean_s": 0.14422250996867092,
+    "expected_outcomes": 64,
+    "hard_timeouts": 0,
+    "harmful_switches": [
+      {
+        "instance": "uct-subprob.mps.gz",
+        "solver_regret_s": 0.015464057499684714
+      }
+    ],
+    "max_harmful_switch_regret_s": 0.015464057499684714,
+    "median_inspection_s": 0.00048216400000455906,
+    "model_default_backend": "scipy-highs-ipm",
+    "objective_mismatches": 0,
+    "outcomes": 64,
+    "p90_policy_to_default_route": 1.042569258626426,
+    "policy_mean_s": 0.1453331757499825,
+    "policy_to_sbs": 1.0077010570787657,
+    "switch_rate": 0.125,
+    "switches": 2,
+    "test_sbs_backend": "scipy-highs-ipm",
+    "test_sbs_mean_s": 0.14422250996867092,
+    "worker_errors": 0
+  },
+  "model_file_sha256": "3e095c328f401fb513a459b09caae3a6a94fa7c3641ef9cdc317f878a78a265f",
+  "model_sha256": "a78b586d4cb20f22e033806d5e31a8b972401bc4783c230f4f71b5e4926f1f2f",
+  "performance_ranking_validated": false,
+  "promotion_gates": {
+    "at_least_2_switches": true,
+    "bootstrap_upper_below_1": false,
+    "complete_64_outcomes": true,
+    "exact_16_test_instances": true,
+    "model_protocol_hashes_frozen": true,
+    "no_harmful_switch_over_0_10s": true,
+    "objective_mismatches_zero": true,
+    "p90_policy_to_default_le_1_25": true,
+    "policy_to_sbs_le_0_97": false,
+    "worker_errors_zero": true
+  },
+  "protocol_sha256": "2824ee0d21bf5c8e7b4bf1758b107ab569a62830032e1c11f8fb2eedee1a2ba3",
+  "rounds": 2,
+  "rows": [
+    {
+      "density": 0.0014959300878812883,
+      "ds_median_cost_s": 0.13776624499996615,
+      "group": "app1-1",
+      "inspect_median_s": 0.0009312984998359752,
+      "instance": "app1-1.mps.gz",
+      "ipm_median_cost_s": 0.18615567299957547,
+      "lower_saving_s": -0.23802968102497743,
+      "m": 4926,
+      "n": 2480,
+      "nnz": 18275,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.12997721543747787,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.14627446899976349,
+            "worker_error": false
+          },
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1292580210001688,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.18770787899939023,
+            "worker_error": false
+          },
+          {
+            "objective": -22.824355359110093,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1846034669997607,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 4,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.0007546826310797995,
+      "ds_median_cost_s": 0.11456972050063996,
+      "group": "b1c1s1",
+      "inspect_median_s": 0.000512209499902383,
+      "instance": "b1c1s1.mps.gz",
+      "ipm_median_cost_s": 0.17221836899989285,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 3904,
+      "n": 3872,
+      "nnz": 11408,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.12585214100090525,
+            "worker_error": false
+          },
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.10328730000037467,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1754247730004863,
+            "worker_error": false
+          },
+          {
+            "objective": 2866.85625,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.16901196499929938,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 2,
+      "selector_reason": "fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.001142857142857143,
+      "ds_median_cost_s": 0.04772218000061912,
+      "group": "beasleyC3",
+      "inspect_median_s": 0.00048141799970835564,
+      "instance": "beasleyC3.mps.gz",
+      "ipm_median_cost_s": 0.060946802999751526,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 1750,
+      "n": 2500,
+      "nnz": 5000,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 40.426829268292686,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.0470343220003997,
+            "worker_error": false
+          },
+          {
+            "objective": 40.426829268292686,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.04841003800083854,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 40.426829268292686,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.049304789999951026,
+            "worker_error": false
+          },
+          {
+            "objective": 40.426829268292686,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.07258881599955203,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 2,
+      "selector_reason": "fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.0007788247206724748,
+      "ds_median_cost_s": 1.0,
+      "group": "cvs16r128-89",
+      "inspect_median_s": 0.0005308475001584156,
+      "instance": "cvs16r128-89.mps.gz",
+      "ipm_median_cost_s": 0.17276992250026524,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 4633,
+      "n": 3472,
+      "nnz": 12528,
+      "objective_abs_diff": null,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": null,
+            "status": "error",
+            "terminal": false,
+            "valid": false,
+            "wall_s": 1.0906721940000352,
+            "worker_error": false
+          },
+          {
+            "objective": null,
+            "status": "error",
+            "terminal": false,
+            "valid": false,
+            "wall_s": 1.0912485199996809,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -127.99999999999999,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.17222703200059186,
+            "worker_error": false
+          },
+          {
+            "objective": -127.99999999999999,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.17331281299993861,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 2,
+      "selector_reason": "fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.014233954451345756,
+      "ds_median_cost_s": 0.019862567499785655,
+      "group": "glass4",
+      "inspect_median_s": 0.00034871900015787105,
+      "instance": "glass4.mps.gz",
+      "ipm_median_cost_s": 0.018674924000151805,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 396,
+      "n": 322,
+      "nnz": 1815,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 800002400.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.01868114299941226,
+            "worker_error": false
+          },
+          {
+            "objective": 800002400.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.02104399200015905,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 800002400.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.018641083000147773,
+            "worker_error": false
+          },
+          {
+            "objective": 800002400.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.018708765000155836,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.011833780892995312,
+      "ds_median_cost_s": 0.04003192100026354,
+      "group": "graphdraw-domain",
+      "inspect_median_s": 0.0003206410001439508,
+      "instance": "graphdraw-domain.mps.gz",
+      "ipm_median_cost_s": 0.0328087630000482,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 865,
+      "n": 254,
+      "nnz": 2600,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 12672.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.03403383800014126,
+            "worker_error": false
+          },
+          {
+            "objective": 12672.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.046030004000385816,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 12672.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.035547600999962015,
+            "worker_error": false
+          },
+          {
+            "objective": 12672.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.03006992500013439,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.25026737967914436,
+      "ds_median_cost_s": 0.00860060600007273,
+      "group": "mad",
+      "inspect_median_s": 0.00032719600039854413,
+      "instance": "mad.mps.gz",
+      "ipm_median_cost_s": 0.011134250999930373,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 51,
+      "n": 220,
+      "nnz": 2808,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.007248115000038524,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.009953097000106936,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.008525713999915752,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.013742787999944994,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.8378378378378378,
+      "ds_median_cost_s": 0.008726564499738743,
+      "group": "markshare-family",
+      "inspect_median_s": 0.0002904910002143879,
+      "instance": "markshare2.mps.gz",
+      "ipm_median_cost_s": 0.0069889354999759234,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 7,
+      "n": 74,
+      "nnz": 434,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.013459110999974655,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.00399401799950283,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.006788423999751103,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.007189447000200744,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin; fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.9044117647058824,
+      "ds_median_cost_s": 0.006103750499732996,
+      "group": "markshare-family",
+      "inspect_median_s": 0.00026848350034924806,
+      "instance": "markshare_4_0.mps.gz",
+      "ipm_median_cost_s": 0.006161538000014843,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 4,
+      "n": 34,
+      "nnz": 123,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.008701136000127008,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.0035063649993389845,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.00852247799957695,
+            "worker_error": false
+          },
+          {
+            "objective": 0.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.0038005980004527373,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin; fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.005994563783508507,
+      "ds_median_cost_s": 0.3265257169996403,
+      "group": "neos-1171737",
+      "inspect_median_s": 0.0007045285001368029,
+      "instance": "neos-1171737.mps.gz",
+      "ipm_median_cost_s": 0.37571142150000014,
+      "lower_saving_s": -0.23802968102497743,
+      "m": 4179,
+      "n": 2340,
+      "nnz": 58620,
+      "objective_abs_diff": 2.8421709430404007e-13,
+      "predicted_saving_s": -0.12997721543747787,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -195.00000000000028,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.31774249099998997,
+            "worker_error": false
+          },
+          {
+            "objective": -195.00000000000028,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.3353089429992906,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -195.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.38369894700008444,
+            "worker_error": false
+          },
+          {
+            "objective": -195.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.36772389599991584,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 4,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.00143535016200551,
+      "ds_median_cost_s": 0.44302321200029837,
+      "group": "neos-3024952-loue",
+      "inspect_median_s": 0.0005447630001071957,
+      "instance": "neos-3024952-loue.mps.gz",
+      "ipm_median_cost_s": 0.3077128994996201,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 3705,
+      "n": 3255,
+      "nnz": 17310,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 22882.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.4196188579999216,
+            "worker_error": false
+          },
+          {
+            "objective": 22882.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.46642756600067514,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 22882.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.2874278549998053,
+            "worker_error": false
+          },
+          {
+            "objective": 22882.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.32799794399943494,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 2,
+      "selector_reason": "fallback: query extrapolates outside observed leaf support",
+      "support_passed": false,
+      "switched": false
+    },
+    {
+      "density": 0.014630405285823845,
+      "ds_median_cost_s": 0.018731409000338317,
+      "group": "neos-3754480-nidda",
+      "inspect_median_s": 0.00030898400018486427,
+      "instance": "neos-3754480-nidda.mps.gz",
+      "ipm_median_cost_s": 0.030127557999549026,
+      "lower_saving_s": -0.003102837143726589,
+      "m": 402,
+      "n": 253,
+      "nnz": 1488,
+      "objective_abs_diff": 1.0710209608078003e-08,
+      "predicted_saving_s": -0.00010974503123861723,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": -1216923.2701043931,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.01770724100060761,
+            "worker_error": false
+          },
+          {
+            "objective": -1216923.2701043931,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.019755577000069025,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": -1216923.2701044038,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.02277342899924406,
+            "worker_error": false
+          },
+          {
+            "objective": -1216923.2701044038,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.03748168699985399,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 3,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.0028263484721410357,
+      "ds_median_cost_s": 0.055713535499762656,
+      "group": "neos-4954672-berkel",
+      "inspect_median_s": 0.0004441774999577319,
+      "instance": "neos-4954672-berkel.mps.gz",
+      "ipm_median_cost_s": 0.061038482499952806,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 1848,
+      "n": 1533,
+      "nnz": 8007,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 1150229.1752941175,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.06379472099979466,
+            "worker_error": false
+          },
+          {
+            "objective": 1150229.1752941175,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.04763234999973065,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 1150229.1752941175,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.059911801000453124,
+            "worker_error": false
+          },
+          {
+            "objective": 1150229.1752941175,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.06216516399945249,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ds",
+      "selector_leaf": 2,
+      "selector_reason": "alternate selected: leaf mean and one-sided empirical lower saving exceed margin within observed leaf support",
+      "support_passed": true,
+      "switched": true
+    },
+    {
+      "density": 0.0013595290886638828,
+      "ds_median_cost_s": 0.792628449500171,
+      "group": "peg-solitaire-a3",
+      "inspect_median_s": 0.0006393104999915522,
+      "instance": "peg-solitaire-a3.mps.gz",
+      "ipm_median_cost_s": 0.5319346490000498,
+      "lower_saving_s": -0.23802968102497743,
+      "m": 4587,
+      "n": 4552,
+      "nnz": 28387,
+      "objective_abs_diff": 2.353672812205332e-14,
+      "predicted_saving_s": -0.12997721543747787,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 1.000000000000024,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.7812749479999184,
+            "worker_error": false
+          },
+          {
+            "objective": 1.000000000000024,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.8039819510004236,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 1.0000000000000004,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.5329071440000916,
+            "worker_error": false
+          },
+          {
+            "objective": 1.0000000000000004,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.530962154000008,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 4,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.01098143850641076,
+      "ds_median_cost_s": 0.1152551410000342,
+      "group": "roll3000",
+      "inspect_median_s": 0.0004955644999427022,
+      "instance": "roll3000.mps.gz",
+      "ipm_median_cost_s": 0.19611518849978893,
+      "lower_saving_s": -0.23802968102497743,
+      "m": 2295,
+      "n": 1166,
+      "nnz": 29386,
+      "objective_abs_diff": 1.0913936421275139e-11,
+      "predicted_saving_s": -0.12997721543747787,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 11097.127676855096,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.11668206400008785,
+            "worker_error": false
+          },
+          {
+            "objective": 11097.127676855096,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.11382821799998055,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 11097.127676855107,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1887646909999603,
+            "worker_error": false
+          },
+          {
+            "objective": 11097.127676855107,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.20346568599961756,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ipm",
+      "selector_leaf": 4,
+      "selector_reason": "fallback: predicted leaf mean saving does not exceed margin; fallback: empirical lower saving does not exceed margin",
+      "support_passed": true,
+      "switched": false
+    },
+    {
+      "density": 0.002279667353240376,
+      "ds_median_cost_s": 0.15252483899985236,
+      "group": "uct-subprob",
+      "inspect_median_s": 0.0004829100003007625,
+      "instance": "uct-subprob.mps.gz",
+      "ipm_median_cost_s": 0.13706078150016765,
+      "lower_saving_s": 0.00921752631265349,
+      "m": 1973,
+      "n": 2256,
+      "nnz": 10147,
+      "objective_abs_diff": 0.0,
+      "predicted_saving_s": 0.016810700812612822,
+      "samples": {
+        "highs-ds": [
+          {
+            "objective": 242.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.15206675099943823,
+            "worker_error": false
+          },
+          {
+            "objective": 242.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.1529829270002665,
+            "worker_error": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "objective": 242.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.13708965000023454,
+            "worker_error": false
+          },
+          {
+            "objective": 242.0,
+            "status": "valid_optimal",
+            "terminal": true,
+            "valid": true,
+            "wall_s": 0.13703191300010076,
+            "worker_error": false
+          }
+        ]
+      },
+      "selected_backend": "scipy-highs-ds",
+      "selector_leaf": 2,
+      "selector_reason": "alternate selected: leaf mean and one-sided empirical lower saving exceed margin within observed leaf support",
+      "support_passed": true,
+      "switched": true
+    }
+  ],
+  "schema": "optimind.m27.one_time_heldout_test.v1",
+  "solver_threads": 1,
+  "source": "fresh process-isolated test over frozen 16 MIPLIB-derived LP relaxations",
+  "split_sha256": "6e94069451a07a8ec7ef786bff70ec844afeedd5282c93258fe47615ab0415e6",
+  "test_execution_is_one_time": true,
+  "test_was_sealed_until_this_execution": true,
+  "wall_s": 11.208905749999758
+}

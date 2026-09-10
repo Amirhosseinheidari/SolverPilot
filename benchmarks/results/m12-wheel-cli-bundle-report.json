@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "name": "summary.json",
+      "sha256": "4b3474910b7dc935c2c660e9056e3b2e0f6fe837d6e59fcf0a746f2d085077d4",
+      "size_bytes": 2586
+    },
+    {
+      "name": "policy-eval.json",
+      "sha256": "e41075a7ad6d815f1e9ebafb5f976ea1de1b8e6c031a86f10bc5d96bc0722530",
+      "size_bytes": 1080
+    },
+    {
+      "name": "results.jsonl",
+      "sha256": "78346ddb20472e0c645887392043b4a909c3d873ea2cec123f66f49139330648",
+      "size_bytes": 7236
+    }
+  ],
+  "path": "/mnt/data/m12_cli_smoke/bundle.zip",
+  "sha256": "7b1ac04b3c4a7720c34c23f52de0a650646b608ae5b03797f3a2a6d38a8c71cb"
+}

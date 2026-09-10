@@ -1,0 +1,118 @@
+{
+  "campaign_summary": {
+    "miplib": {
+      "attempted_runs": 720,
+      "controller_hard_timeout_s": 0.8,
+      "elapsed_s": 33.13787794113159,
+      "expected_runs": 720,
+      "hard_timeouts": 324,
+      "read_or_worker_errors": 0,
+      "reference_checks": 0,
+      "reference_mismatches": 0,
+      "solver_time_limit_s": 0.05,
+      "states": {
+        "hard_timeout": 324,
+        "time_limit": 396
+      },
+      "unique_instances": 240,
+      "workers": 12
+    },
+    "pace": {
+      "attempted_runs": 300,
+      "controller_hard_timeout_s": 1.2,
+      "elapsed_s": 14.700085163116455,
+      "expected_runs": 300,
+      "hard_timeouts": 32,
+      "invalid_solutions": 0,
+      "read_or_worker_errors": 0,
+      "solver_time_limit_s": 0.1,
+      "states": {
+        "hard_timeout": 32,
+        "time_limit": 268
+      },
+      "unique_instances": 100,
+      "validated_candidates": 81,
+      "workers": 12
+    },
+    "qplib": {
+      "attempted_runs": 57,
+      "controller_hard_timeout_s": 1.0,
+      "elapsed_s": 4.132469415664673,
+      "expected_runs": 57,
+      "hard_timeouts": 27,
+      "read_or_worker_errors": 0,
+      "reference_checks": 0,
+      "reference_mismatches": 0,
+      "solver_time_limit_s": 0.1,
+      "states": {
+        "hard_timeout": 27,
+        "time_limit": 30
+      },
+      "unique_instances": 19,
+      "workers": 12
+    }
+  },
+  "claim_boundary": "PASS means official-byte acquisition/integrity/outcome-accounting/fail-closed validation gate passed under the declared timeout-permitted protocol. It does not mean every instance was solved to optimality or that OptiMind is faster than other solvers.",
+  "fixed_host": {
+    "controller_workers": 12,
+    "fingerprint": "0a6b0ed535f7f11f8a32a2b790d562c093ff28af1a5558d637e73d6888e190e9",
+    "hostname": "localhost",
+    "machine": "x86_64",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "solver_threads": 1,
+    "thread_env_limit": 1
+  },
+  "gate_passed": true,
+  "integrity": {
+    "miplib_sha256_match": true,
+    "miplib_zip_test": null,
+    "pace_files": 100,
+    "pace_official_sha1_match": true,
+    "qplib_sha256_match": true,
+    "qplib_zip_test": null
+  },
+  "protocol": {
+    "controller_workers": 12,
+    "missing_outcomes_allowed": false,
+    "performance_superiority_claim": false,
+    "repetitions": 3,
+    "same_host": true,
+    "solver_threads": 1,
+    "thread_env_limit": 1,
+    "timeouts_are_explicit_outcomes": true
+  },
+  "reasons": [],
+  "reference_crosscheck": {
+    "miplib": {
+      "instance": "neos5",
+      "objective": 14.999999999999972,
+      "reference_match": true,
+      "reference_objective": 15.0,
+      "status": "feasible_limit",
+      "validation": {
+        "max_bound_violation": 9.969802761133906e-14,
+        "max_constraint_violation": 2.255973186038318e-13,
+        "max_integrality_violation": 9.969802761133906e-14
+      },
+      "validation_valid": true
+    },
+    "qplib": {
+      "instance": "QPLIB_8792",
+      "m": 0,
+      "meets_or_beats_best_known": true,
+      "model_status": 7,
+      "n": 15129,
+      "objective": 3593.5162939294355,
+      "read_s": 0.0782177020000745,
+      "reference_kind": "best_known",
+      "reference_objective": 3593.518355,
+      "run_rc": 0,
+      "solve_s": 4.31961000199999,
+      "state": "complete",
+      "status": "optimal",
+      "wall_s": 4.397911739999927
+    }
+  },
+  "schema": "optimind.m22.finalization_gate.official_corpora.v1"
+}

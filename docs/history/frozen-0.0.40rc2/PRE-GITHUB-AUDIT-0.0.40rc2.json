@@ -1,0 +1,121 @@
+{
+  "brand": {
+    "canonical_namespace": "solverpilot",
+    "distribution": "solverpilot",
+    "initial_web_pypi_github_clearance": "no obvious exact-name Python optimization package collision found; not legal trademark clearance",
+    "legacy_namespace": "absent from rc7 source/distribution; rc6 shim preserved only in historical provenance",
+    "public_brand": "SolverPilot"
+  },
+  "classification": "track_p_p0_p9_integrated_private_github_staging_eligible_public_release_fail_closed",
+  "fixed_high_findings": [
+    "committed_release_binaries_in_source_tree",
+    "contradictory_readme_release_state",
+    "floating_pep517_build_backend_versions",
+    "historical_workflows_active_on_push_pr",
+    "miplib_builtin_missing_verified_sha256",
+    "publish_template_not_bound_to_prior_qualified_run",
+    "rc6_optimind_nested_import_class_identity_duplication",
+    "rc6_release_tools_hardcoded_rc5",
+    "relative_acquisition_verification_path",
+    "stale_dataset_extraction_contamination",
+    "unpinned_download_false_verified_flag"
+  ],
+  "known_medium_design_debt": [
+    "high_level_solve_validation_tolerances_not_per_call_configurable",
+    "infeasible_unbounded_statuses_normally_backend_termination_not_independent_certificates"
+  ],
+  "license": {
+    "license_file": "LICENSE",
+    "owner_selected": true,
+    "spdx": "Apache-2.0"
+  },
+  "open_external_blockers": [
+    "exact_artifact_linux_macos_windows_python_312_314_qualification",
+    "minimum_dependency_qualification",
+    "required_optional_backend_qualification",
+    "github_repository_security_settings",
+    "pypi_trusted_publisher_and_protected_environment"
+  ],
+  "open_owner_blockers": [
+    "repository_documentation_issue_urls"
+  ],
+  "owner_metadata": {
+    "author": "Amirhossein Heidari Rashtabad",
+    "email": "intentionally omitted",
+    "maintainer": "Amirhossein Heidari Rashtabad",
+    "project_urls": "pending repository location"
+  },
+  "private_github_staging_source_authorized": true,
+  "public_1_0_authorized": false,
+  "public_docs": {
+    "api_reference_linked": true,
+    "examples_run_in_ci": true,
+    "executable_examples": 14,
+    "readme_relative_links_tested": true,
+    "readme_requested_path_complete": true
+  },
+  "public_github_open_source_authorized": false,
+  "pypi_public_release_authorized": false,
+  "recertification": {
+    "diagnostic_sdist": {
+      "release_qualified": false,
+      "sha256": "recorded_externally_in_release_dist_manifest"
+    },
+    "diagnostic_wheel": {
+      "release_qualified": false,
+      "sha256": "recorded_externally_in_release_dist_manifest"
+    },
+    "distribution_manifest": "pass",
+    "exact_pinned_build_backend": "pending_external_qualification",
+    "full_regression": {
+      "collected": 593,
+      "duplicate_collected_test_ids": 0,
+      "errors": 0,
+      "failures": 0,
+      "module_level_optional_integration_skips": 3,
+      "native_test_functions_unexecuted_due_missing_optional_dependencies": 6,
+      "passed": 591,
+      "skipped": 2
+    },
+    "public_examples_installed_wheel": {
+      "passed": 14,
+      "total": 14
+    },
+    "public_examples_source": {
+      "passed": 14,
+      "total": 14
+    },
+    "readme_relative_links": "pass",
+    "status": "rc2_hardening_local_verification_passed_external_gates_pending"
+  },
+  "schema": "solverpilot.pre_github_audit.v3",
+  "track_p_integration": {
+    "canonical_namespace": "solverpilot",
+    "cp_sat": {
+      "highs_then_cp_sat_regression": "pass",
+      "parent_revalidated": true,
+      "subprocess_isolated": true,
+      "verified_ortools_version": "9.15.6755"
+    },
+    "installed_wheel_examples": {
+      "failed": 0,
+      "passed": 14
+    },
+    "legacy_optimind_package_shipped": false,
+    "post_merge_regression": {
+      "collected": 593,
+      "duplicates": 0,
+      "errors": 0,
+      "failures": 0,
+      "module_level_optional_integration_skips": 3,
+      "native_test_functions_unexecuted_due_missing_optional_dependencies": 6,
+      "passed": 591,
+      "skipped": 2,
+      "test_accounting_complete_for_collected_suite": true
+    },
+    "stable_top_level_api_preserved": true,
+    "status": "integrated",
+    "strategy": "forward-port onto hardened SolverPilot rc8 baseline"
+  },
+  "version": "0.0.40rc2"
+}

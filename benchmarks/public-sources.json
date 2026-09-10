@@ -1,0 +1,46 @@
+{
+  "verified_on": "2026-08-31",
+  "native_packages": {
+    "highspy": {
+      "version": "1.15.1",
+      "release_date": "2026-07-02",
+      "source": "https://pypi.org/project/highspy/"
+    },
+    "osqp": {
+      "version": "1.1.3",
+      "release_date": "2026-06-12",
+      "source": "https://pypi.org/project/osqp/1.1.3/"
+    },
+    "pyscipopt": {
+      "version": "6.2.1",
+      "release_date": "2026-05-16",
+      "source": "https://pypi.org/project/PySCIPOpt/"
+    },
+    "benchopt": {
+      "version": "1.9.1",
+      "release_date": "2026-05-28",
+      "source": "https://pypi.org/project/benchopt/"
+    }
+  },
+  "miplib2017": {
+    "benchmark_set_instances": 240,
+    "benchmark_version": 2,
+    "benchmark_archive_size": "317.3 MB",
+    "solution_file": "miplib2017-v36.solu",
+    "solution_file_date": "2026-01-26",
+    "sources": [
+      "https://miplib.zib.de/set_benchmark.html",
+      "https://miplib.zib.de/download"
+    ]
+  },
+  "qplib": {
+    "continuous_instances": 134,
+    "continuous_convex_instances": 32,
+    "discrete_instances": 319,
+    "latest_site_update_seen": "2026-08-07",
+    "sources": [
+      "https://qplib.zib.de/",
+      "https://qplib.zib.de/statistics.html"
+    ]
+  }
+}

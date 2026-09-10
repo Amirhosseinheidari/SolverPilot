@@ -1,0 +1,42 @@
+{
+  "errors": 0,
+  "failures": 0,
+  "parts": [
+    {
+      "errors": 0,
+      "failures": 0,
+      "file": "benchmarks/results/m12-junit/benchmark_harness.xml",
+      "skipped": 0,
+      "tests": 11,
+      "time": 27.399
+    },
+    {
+      "errors": 0,
+      "failures": 0,
+      "file": "benchmarks/results/m12-junit/benchmark_misc.xml",
+      "skipped": 0,
+      "tests": 26,
+      "time": 2.205
+    },
+    {
+      "errors": 0,
+      "failures": 0,
+      "file": "benchmarks/results/m12-junit/casadi.xml",
+      "skipped": 0,
+      "tests": 9,
+      "time": 1.937
+    },
+    {
+      "errors": 0,
+      "failures": 0,
+      "file": "benchmarks/results/m12-junit/core.xml",
+      "skipped": 3,
+      "tests": 163,
+      "time": 2.112
+    }
+  ],
+  "passed": 206,
+  "skipped": 3,
+  "tests": 209,
+  "time": 33.653
+}

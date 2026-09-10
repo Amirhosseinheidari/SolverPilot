@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://solverpilot.local/schemas/persistent-session-trace-v1.json",
+  "title": "SolverPilot Persistent Session Trace v1",
+  "type": "object",
+  "required": [
+    "revision", "path", "decision", "compiler_cache_status", "compile_s", "dispatch_s", "total_s",
+    "backend", "backend_reuse_applied", "backend_reset", "semantic_hash", "data_hash", "compilation_hash",
+    "transformation_count"
+  ],
+  "properties": {
+    "revision": {"type": "integer", "minimum": 0},
+    "path": {"enum": ["cold_build", "native_patch", "safe_rebuild", "full_rebuild", "no_mutation_reuse"]},
+    "decision": {
+      "type": "object",
+      "required": ["path", "reason", "mutation_kinds", "required_capabilities", "missing_capabilities"],
+      "properties": {
+        "path": {"type": "string"},
+        "reason": {"type": "string"},
+        "mutation_kinds": {"type": "array", "items": {"type": "string"}},
+        "required_capabilities": {"type": "array", "items": {"type": "string"}},
+        "missing_capabilities": {"type": "array", "items": {"type": "string"}},
+        "semantic_changed": {"type": "boolean"},
+        "execution_structure_changed": {"type": "boolean"},
+        "compilation_plan_changed": {"type": "boolean"},
+        "certificate_changed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "compiler_cache_status": {"type": "string"},
+    "compile_s": {"type": "number", "minimum": 0},
+    "dispatch_s": {"type": "number", "minimum": 0},
+    "total_s": {"type": "number", "minimum": 0},
+    "backend": {"type": "string"},
+    "backend_reuse_applied": {"type": ["boolean", "null"]},
+    "backend_reuse_mode": {"type": ["string", "null"]},
+    "backend_reset": {"type": "boolean"},
+    "original_validation_valid": {"type": ["boolean", "null"]},
+    "semantic_hash": {"type": "string"},
+    "data_hash": {"type": "string"},
+    "compilation_hash": {"type": "string"},
+    "transformation_count": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": false
+}

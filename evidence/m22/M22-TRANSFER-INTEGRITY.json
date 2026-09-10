@@ -1,0 +1,103 @@
+{
+  "all_integrity_pass": true,
+  "archives": {
+    "miplib": {
+      "expected_sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+      "expected_size_bytes": 332664623,
+      "sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+      "sha256_match": true,
+      "size_bytes": 332664623,
+      "size_match": true,
+      "testzip": null,
+      "zip_entries": 240
+    },
+    "pace": {
+      "expected_sha256": "c78177cb5b2f7468bc652bd6e082f002495b26ba220bdc8eee9993ac6ff834c6",
+      "expected_size_bytes": 10695845,
+      "official_sha1": "e7ca305528a0257235a95c41742f2b3431e1e485",
+      "sha1": "e7ca305528a0257235a95c41742f2b3431e1e485",
+      "sha1_match": true,
+      "sha256": "c78177cb5b2f7468bc652bd6e082f002495b26ba220bdc8eee9993ac6ff834c6",
+      "sha256_match": true,
+      "size_bytes": 10695845,
+      "size_match": true,
+      "tar_entries": 101,
+      "tar_files": 100
+    },
+    "qplib": {
+      "expected_sha256": "b3596e1264ed57c5f6a44e822679f5c9138e1985fe74bc8341c3becbc666b9fd",
+      "expected_size_bytes": 774972035,
+      "sha256": "b3596e1264ed57c5f6a44e822679f5c9138e1985fe74bc8341c3becbc666b9fd",
+      "sha256_match": true,
+      "size_bytes": 774972035,
+      "size_match": true,
+      "testzip": null,
+      "zip_entries": 4069
+    }
+  },
+  "chunk_checks": [
+    {
+      "expected": "8d9a3999a5ce5df23f02b72edb0b70456e624a9a3a7f09369fa238d3113655a7",
+      "match": true,
+      "path": "MIPLIB/benchmark_chunks/benchmark.zip.part000",
+      "sha256": "8d9a3999a5ce5df23f02b72edb0b70456e624a9a3a7f09369fa238d3113655a7",
+      "size_bytes": 209715200
+    },
+    {
+      "expected": "e6c0d69d46d2a3b0ca1bd34535f7e7f49df0f901e04d47234b944eda56cc4512",
+      "match": true,
+      "path": "MIPLIB/benchmark_chunks/benchmark.zip.part001",
+      "sha256": "e6c0d69d46d2a3b0ca1bd34535f7e7f49df0f901e04d47234b944eda56cc4512",
+      "size_bytes": 122949423
+    },
+    {
+      "expected": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+      "match": true,
+      "path": "MIPLIB/benchmark-v2.test",
+      "sha256": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+      "size_bytes": 4703
+    },
+    {
+      "expected": "9236602294c1a5aca5248b6f7d03689a7533ea3cb3f3d92cff962e752e20af84",
+      "match": true,
+      "path": "MIPLIB/miplib2017-v36.solu",
+      "sha256": "9236602294c1a5aca5248b6f7d03689a7533ea3cb3f3d92cff962e752e20af84",
+      "size_bytes": 65903
+    },
+    {
+      "expected": "c78177cb5b2f7468bc652bd6e082f002495b26ba220bdc8eee9993ac6ff834c6",
+      "match": true,
+      "path": "PACE/pace2019-vc-exact-public-v2.tar.bz2",
+      "sha256": "c78177cb5b2f7468bc652bd6e082f002495b26ba220bdc8eee9993ac6ff834c6",
+      "size_bytes": 10695845
+    },
+    {
+      "expected": "45878224de3d8d88fcd05c30d1975a7afd0f2340b36a1a289012bad93d34b6b6",
+      "match": true,
+      "path": "QPLIB/qplib_chunks/qplib(1).zip.part000",
+      "sha256": "45878224de3d8d88fcd05c30d1975a7afd0f2340b36a1a289012bad93d34b6b6",
+      "size_bytes": 209715200
+    },
+    {
+      "expected": "b2a3c577eba571b5921cf5307032ac4011f04347ebfb53675153250e4b43c856",
+      "match": true,
+      "path": "QPLIB/qplib_chunks/qplib(1).zip.part001",
+      "sha256": "b2a3c577eba571b5921cf5307032ac4011f04347ebfb53675153250e4b43c856",
+      "size_bytes": 209715200
+    },
+    {
+      "expected": "d99dcd0c95b63dcce2f39d2b0d319f960c0838a3c76fd767dcdd9328f0d03787",
+      "match": true,
+      "path": "QPLIB/qplib_chunks/qplib(1).zip.part002",
+      "sha256": "d99dcd0c95b63dcce2f39d2b0d319f960c0838a3c76fd767dcdd9328f0d03787",
+      "size_bytes": 209715200
+    },
+    {
+      "expected": "bb4db83ed54048cefc6a376680d07da32a338f694a3452d78e760827e6bdd857",
+      "match": true,
+      "path": "QPLIB/qplib_chunks/qplib(1).zip.part003",
+      "sha256": "bb4db83ed54048cefc6a376680d07da32a338f694a3452d78e760827e6bdd857",
+      "size_bytes": 145826435
+    }
+  ]
+}

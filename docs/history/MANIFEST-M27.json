@@ -1,0 +1,44 @@
+{
+  "claims_boundary": "M27 is a negative one-time held-out selector result. It does not authorize learned LP performance routing. The consumed test cannot be reused for future promotion.",
+  "classification": "complete_verified_negative_heldout_result",
+  "milestone": "M27",
+  "provenance_hardening": {
+    "all_freeze_checks": true,
+    "group_leakage_zero": true,
+    "model_self_hash_revalidated_at_runtime": true,
+    "production_corpus_integrity_flag_from_m27_payload": false,
+    "production_fixed_environment_flag": false,
+    "raw_test_embedded_fixed_environment_provenance": false,
+    "solver_error_outcomes": 2
+  },
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 249,
+    "skipped": 3,
+    "tests": 252
+  },
+  "schema": "optimind.m27.release_manifest.v1",
+  "scientific_result": {
+    "bootstrap_95": {
+      "draws": 20000,
+      "high": 1.0271805702487993,
+      "low": 0.9964287216147906,
+      "median": 1.0070522819766317,
+      "point": 1.0077010570787657,
+      "seed": 270027
+    },
+    "development_gate_passed": true,
+    "heldout_performance_ranking_validated": false,
+    "policy_to_sbs": 1.0077010570787657,
+    "post_test_retuning_permitted": false,
+    "test_consumed": true
+  },
+  "version": "0.0.32",
+  "wheel": {
+    "isolated_smoke": true,
+    "offline_build": true,
+    "path": "dist/optimind_core_codename-0.0.32-py3-none-any.whl",
+    "sha256": "b69cb3092a3ad6b60ae1b9e938ea32e98fc04db83dfa1f73247db9f451cca397"
+  }
+}

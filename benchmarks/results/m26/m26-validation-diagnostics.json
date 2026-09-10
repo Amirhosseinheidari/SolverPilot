@@ -1,0 +1,153 @@
+{
+  "all_grid_candidates_worse_than_sbs": true,
+  "best_grid_policy_to_sbs": 1.1886926884265627,
+  "interpretation": [
+    "The low-capacity relative-log-cost model failed before test evaluation.",
+    "Validation mean cost is dominated by a small number of expensive mistakes; winner accuracy is not the deployment objective.",
+    "The sealed 16-instance test set remains untouched and is reserved for a future pre-registered model family."
+  ],
+  "largest_regret_instance": {
+    "actual_faster": "highs-ipm",
+    "actual_log_ipm_over_ds": -0.8312468592037481,
+    "choice": "highs-ds",
+    "excess_vs_sbs_s": 0.3927563222499657,
+    "instance": "seymour1.mps.gz",
+    "policy_cost_s": 0.6947826670000268,
+    "predicted_log_ipm_over_ds": 0.13129786866449528,
+    "sbs_route_cost_s": 0.30202634475006107
+  },
+  "largest_regret_share": 0.9918728196467977,
+  "leakage_audit": {
+    "model_test_outcomes_seen": false,
+    "test_names_in_trainval": [],
+    "test_rows_in_trainval": 0
+  },
+  "schema": "optimind.m26.validation_diagnostics.v1",
+  "total_positive_regret_s": 0.39597447824996834,
+  "total_savings_vs_sbs_s": 0.0653507989998161,
+  "validation_details": [
+    {
+      "actual_faster": "highs-ipm",
+      "actual_log_ipm_over_ds": -0.8312468592037481,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": 0.3927563222499657,
+      "instance": "seymour1.mps.gz",
+      "policy_cost_s": 0.6947826670000268,
+      "predicted_log_ipm_over_ds": 0.13129786866449528,
+      "sbs_route_cost_s": 0.30202634475006107
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.8535194139007725,
+      "choice": "highs-ipm",
+      "excess_vs_sbs_s": 0.0015148852500033172,
+      "instance": "bppc4-08.mps.gz",
+      "policy_cost_s": 0.07312222974996985,
+      "predicted_log_ipm_over_ds": -0.02179925277057466,
+      "sbs_route_cost_s": 0.07160734449996653
+    },
+    {
+      "actual_faster": "highs-ipm",
+      "actual_log_ipm_over_ds": -0.10430556980878235,
+      "choice": "highs-ipm",
+      "excess_vs_sbs_s": 0.001240598249978575,
+      "instance": "cod105.mps.gz",
+      "policy_cost_s": 0.9021905505001087,
+      "predicted_log_ipm_over_ds": -0.04914784247502921,
+      "sbs_route_cost_s": 0.9009499522501301
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.010494633541392557,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": 0.00046267250002074434,
+      "instance": "supportcase26.mps.gz",
+      "policy_cost_s": 0.0336046795001721,
+      "predicted_log_ipm_over_ds": 0.22969216317710786,
+      "sbs_route_cost_s": 0.03314200700015135
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.1506478974845861,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -3.885750288645795e-06,
+      "instance": "gen-ip002.mps.gz",
+      "policy_cost_s": 0.005674504499893374,
+      "predicted_log_ipm_over_ds": 0.23584813193947238,
+      "sbs_route_cost_s": 0.005678390250182019
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.12299961340811955,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.00011236024977279158,
+      "instance": "neos5.mps.gz",
+      "policy_cost_s": 0.007655113000168967,
+      "predicted_log_ipm_over_ds": 0.21297447999700625,
+      "sbs_route_cost_s": 0.007767473249941759
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.2695383035109825,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.003826865999712936,
+      "instance": "neos-2657525-crna.mps.gz",
+      "policy_cost_s": 0.015847721750105848,
+      "predicted_log_ipm_over_ds": 0.15130173160797927,
+      "sbs_route_cost_s": 0.019674587749818784
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.22849402563478674,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.003964948750081021,
+      "instance": "50v-10.mps.gz",
+      "policy_cost_s": 0.01966387749985188,
+      "predicted_log_ipm_over_ds": 0.08773158434725824,
+      "sbs_route_cost_s": 0.0236288262499329
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.2332312997293436,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.0065754077498922925,
+      "instance": "gmu-35-40.mps.gz",
+      "policy_cost_s": 0.02919255950018851,
+      "predicted_log_ipm_over_ds": 0.05103446587323692,
+      "sbs_route_cost_s": 0.0357679672500808
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.16979518742426067,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.00832770700014862,
+      "instance": "neos-4338804-snowy.mps.gz",
+      "policy_cost_s": 0.05049098824986231,
+      "predicted_log_ipm_over_ds": 0.09883745470855658,
+      "sbs_route_cost_s": 0.05881869525001093
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.33060573225908285,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.019467278999968585,
+      "instance": "neos-3627168-kasai.mps.gz",
+      "policy_cost_s": 0.0534362675000466,
+      "predicted_log_ipm_over_ds": 0.0993840473384033,
+      "sbs_route_cost_s": 0.07290354650001518
+    },
+    {
+      "actual_faster": "highs-ds",
+      "actual_log_ipm_over_ds": 0.1155225014051117,
+      "choice": "highs-ds",
+      "excess_vs_sbs_s": -0.023072344499951214,
+      "instance": "reblock115.mps.gz",
+      "policy_cost_s": 0.19714318000012554,
+      "predicted_log_ipm_over_ds": 0.21057455979560033,
+      "sbs_route_cost_s": 0.22021552450007675
+    }
+  ],
+  "validation_gate_passed": false,
+  "validation_policy_to_sbs": 1.1886926884265627,
+  "worst_grid_policy_to_sbs": 1.221760754316777
+}

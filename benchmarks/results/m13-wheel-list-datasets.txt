@@ -1,0 +1,54 @@
+{
+  "miplib2017-benchmark-v2": {
+    "archive_filename": "benchmark.zip",
+    "archive_sha256": null,
+    "archive_url": "https://miplib.zib.de/downloads/benchmark.zip",
+    "instance_suffixes": [
+      ".mps.gz",
+      ".mps"
+    ],
+    "kind": "miplib2017-mps",
+    "manifest_filename": "benchmark-v2.test",
+    "manifest_sha256": null,
+    "manifest_url": "https://miplib.zib.de/downloads/benchmark-v2.test",
+    "metadata": {
+      "benchmark_instances": 240,
+      "benchmark_version": 2,
+      "solution_file_release": "2026-01-26",
+      "solution_file_version": 36,
+      "source": "Zuse Institute Berlin / MIPLIB 2017"
+    },
+    "name": "miplib2017-benchmark-v2",
+    "reference_filename": "miplib2017-v36.solu",
+    "reference_sha256": null,
+    "reference_url": "https://miplib.zib.de/downloads/miplib2017-v36.solu"
+  },
+  "qplib-current": {
+    "archive_filename": "qplib.zip",
+    "archive_sha256": null,
+    "archive_url": "https://qplib.zib.de/qplib.zip",
+    "instance_suffixes": [
+      ".qplib"
+    ],
+    "kind": "qplib",
+    "manifest_filename": null,
+    "manifest_sha256": null,
+    "manifest_url": null,
+    "metadata": {
+      "archive_url_verified_from_official_site": true,
+      "continuous_convex_instances": 32,
+      "continuous_instances": 134,
+      "discrete_instances": 319,
+      "latest_site_update": "2026-08-07",
+      "license": "CC-BY-4.0",
+      "optimind_scope_note": "32 is the official continuous-convex count, not the supported count; current IR also requires linear constraints and must parse/filter before benchmarking",
+      "optimind_supported_subset_count": null,
+      "runner_support": "acquisition-only in M12; QPLIB parser/filter not yet implemented",
+      "source": "Zuse Institute Berlin / QPLIB"
+    },
+    "name": "qplib-current",
+    "reference_filename": null,
+    "reference_sha256": null,
+    "reference_url": null
+  }
+}

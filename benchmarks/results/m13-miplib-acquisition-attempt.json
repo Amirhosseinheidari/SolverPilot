@@ -1,0 +1,7 @@
+{
+  "attempted_at": "2026-08-31",
+  "dataset": "miplib2017-benchmark-v2",
+  "returncode": 2,
+  "stdout": "",
+  "stderr": "{\n  \"error_type\": \"URLError\",\n  \"error\": \"<urlopen error [Errno -3] Temporary failure in name resolution>\"\n}\n"
+}

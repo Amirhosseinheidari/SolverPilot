@@ -1,0 +1,34 @@
+{
+  "attempt_type": "network reachability only; no wheel was accepted without successful download+SHA256 verification",
+  "results": {
+    "highspy": {
+      "downloaded": false,
+      "elapsed_s": 0.01055772700055968,
+      "expected_sha256": "238b2ee88b974b21c7e9ef198139502a7d87451939cae143dce789bbda121182",
+      "returncode": 6,
+      "stderr_tail": "curl: (6) Could not resolve host: files.pythonhosted.org\n",
+      "stdout_tail": "",
+      "url": "https://files.pythonhosted.org/packages/ca/6e/f00e914f2bd88e2b73a8b3ea1b47171a85cfa23d1a06dc373ca797f43208/highspy-1.15.1-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    "osqp": {
+      "downloaded": false,
+      "elapsed_s": 5.0158895820004545,
+      "expected_sha256": "2d3ee63e8c65ef89fce979c068d05bfc3ed92b1bbc4246fbacc663f86cbe02b2",
+      "returncode": 6,
+      "stderr_tail": "curl: (6) Could not resolve host: files.pythonhosted.org\n",
+      "stdout_tail": "",
+      "url": "https://files.pythonhosted.org/packages/5f/dc/7c06a4ce4d1de3e5fbf294cf435ee351a39e44d534154647b2a1a18bc6a2/osqp-1.1.3-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    "pyscipopt": {
+      "downloaded": false,
+      "elapsed_s": 0.00971501099957095,
+      "expected_sha256": "725503ea90fd0962f1111a5b46ee3e271b7375e1b0dfda708ce223dbebaeff5e",
+      "returncode": 6,
+      "stderr_tail": "curl: (6) Could not resolve host: files.pythonhosted.org\n",
+      "stdout_tail": "",
+      "url": "https://files.pythonhosted.org/packages/57/76/59288c92b7ee914c351c6003b63249e0702d990d1fdd9ff97e65ffc1c57b/pyscipopt-6.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+    }
+  },
+  "schema_version": "1.0",
+  "target": "CPython 3.13 / Linux x86_64 / glibc >= 2.28"
+}

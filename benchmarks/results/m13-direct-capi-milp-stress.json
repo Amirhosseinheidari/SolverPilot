@@ -1,0 +1,2930 @@
+{
+  "benchmark": "M13 direct HiGHS C API MILP exact brute-force cross-check",
+  "claim_scope": "direct C-API binding correctness + independent CBC/brute-force reference",
+  "instances": 100,
+  "solver_calls": 300,
+  "failures": {
+    "direct_highs_capi": 0,
+    "scipy_highs": 0,
+    "cbc": 0
+  },
+  "max_objective_abs_error": {
+    "direct_highs_capi": 1.2789769243681803e-13,
+    "scipy_highs": 1.2789769243681803e-13,
+    "cbc": 0.0
+  },
+  "direct_manifest": {
+    "solver_version": "1.10.0",
+    "library_sha256": "bce96689405f83a849500fa3cf680d61b3eeb2ab179d358726e86526a047df4f",
+    "header_sha256": "b5384c3f1169c8cb09d21f9bc4e14c55bb3b62654c03ec87cd8ae47848365593",
+    "bridge_package_version": "3.7.2"
+  },
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "cpu_count": 5
+  },
+  "wall_s": 3.3217460739997478,
+  "rows": [
+    {
+      "seed": 140000,
+      "n": 8,
+      "m": 3,
+      "reference_objective": 57.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 57.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013917661999585107
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 57.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0023524019998149015
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 57.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.15586771800008137
+        }
+      }
+    },
+    {
+      "seed": 140001,
+      "n": 9,
+      "m": 7,
+      "reference_objective": 54.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014870090999465901
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0031603259994881228
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.008303751001221826
+        }
+      }
+    },
+    {
+      "seed": 140002,
+      "n": 6,
+      "m": 5,
+      "reference_objective": 14.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012172961000032956
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0018039490005321568
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.021007328999985475
+        }
+      }
+    },
+    {
+      "seed": 140003,
+      "n": 6,
+      "m": 6,
+      "reference_objective": 49.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 49.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012924108999868622
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 49.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0015090860015334329
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 49.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004189070999927935
+        }
+      }
+    },
+    {
+      "seed": 140004,
+      "n": 11,
+      "m": 7,
+      "reference_objective": 72.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015615201000400702
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0034397460003674496
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005335762998583959
+        }
+      }
+    },
+    {
+      "seed": 140005,
+      "n": 9,
+      "m": 6,
+      "reference_objective": 48.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013142787998731364
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001904890999867348
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004654880998714361
+        }
+      }
+    },
+    {
+      "seed": 140006,
+      "n": 9,
+      "m": 5,
+      "reference_objective": 64.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 64.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01273321299959207
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 64.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016680749995430233
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 64.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004678164999859291
+        }
+      }
+    },
+    {
+      "seed": 140007,
+      "n": 7,
+      "m": 7,
+      "reference_objective": 50.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.00000000000001,
+          "objective_abs_error": 7.105427357601002e-15,
+          "wall_s": 0.013168396000764915
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.00000000000001,
+          "objective_abs_error": 7.105427357601002e-15,
+          "wall_s": 0.0017846409991761902
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004071956000188948
+        }
+      }
+    },
+    {
+      "seed": 140008,
+      "n": 9,
+      "m": 6,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013692705000721617
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0021352969997678883
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004866737999691395
+        }
+      }
+    },
+    {
+      "seed": 140009,
+      "n": 6,
+      "m": 6,
+      "reference_objective": 29.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012749739000355476
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00132060400028422
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003899536000972148
+        }
+      }
+    },
+    {
+      "seed": 140010,
+      "n": 9,
+      "m": 4,
+      "reference_objective": 54.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015481110000109766
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003381348000402795
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.011438268000347307
+        }
+      }
+    },
+    {
+      "seed": 140011,
+      "n": 7,
+      "m": 6,
+      "reference_objective": 14.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013459943998896051
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0018081260004692012
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 14.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004258876000676537
+        }
+      }
+    },
+    {
+      "seed": 140012,
+      "n": 9,
+      "m": 4,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.00000000000001,
+          "objective_abs_error": 1.4210854715202004e-14,
+          "wall_s": 0.01467868500003533
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.00000000000001,
+          "objective_abs_error": 1.4210854715202004e-14,
+          "wall_s": 0.002373163999436656
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004853640000874293
+        }
+      }
+    },
+    {
+      "seed": 140013,
+      "n": 10,
+      "m": 5,
+      "reference_objective": 54.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013687044998732745
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001615465998838772
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 54.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0048049759989226
+        }
+      }
+    },
+    {
+      "seed": 140014,
+      "n": 10,
+      "m": 7,
+      "reference_objective": 56.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01774441799898341
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004941680999763776
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01057735599897569
+        }
+      }
+    },
+    {
+      "seed": 140015,
+      "n": 7,
+      "m": 7,
+      "reference_objective": 46.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013258881999718142
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002484802000253694
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004879087999142939
+        }
+      }
+    },
+    {
+      "seed": 140016,
+      "n": 10,
+      "m": 5,
+      "reference_objective": 56.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014622980999774882
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0021921320003457367
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 56.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004597574999934295
+        }
+      }
+    },
+    {
+      "seed": 140017,
+      "n": 10,
+      "m": 6,
+      "reference_objective": 84.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 84.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014617852999435854
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 84.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0030256239988375455
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 84.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004981151001629769
+        }
+      }
+    },
+    {
+      "seed": 140018,
+      "n": 10,
+      "m": 3,
+      "reference_objective": 72.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012133112000810797
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0012824860004911898
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 72.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003737082000952796
+        }
+      }
+    },
+    {
+      "seed": 140019,
+      "n": 8,
+      "m": 6,
+      "reference_objective": 38.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013424851998934173
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020818359989789315
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004040898998937337
+        }
+      }
+    },
+    {
+      "seed": 140020,
+      "n": 11,
+      "m": 4,
+      "reference_objective": 91.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014470992999122245
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0021026979993621353
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.006012739999277983
+        }
+      }
+    },
+    {
+      "seed": 140021,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 93.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012211479999677977
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0011163870003656484
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003543762000845163
+        }
+      }
+    },
+    {
+      "seed": 140022,
+      "n": 11,
+      "m": 7,
+      "reference_objective": 96.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012805631000446738
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0014523509998980444
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003969502000472858
+        }
+      }
+    },
+    {
+      "seed": 140023,
+      "n": 11,
+      "m": 6,
+      "reference_objective": 90.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 90.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014182320001054904
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 90.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0033571610001672525
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 90.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005332517999704578
+        }
+      }
+    },
+    {
+      "seed": 140024,
+      "n": 11,
+      "m": 5,
+      "reference_objective": 81.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 81.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014837063001323259
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 81.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002607667000120273
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 81.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004859148000832647
+        }
+      }
+    },
+    {
+      "seed": 140025,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 53.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 53.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013803980999000487
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 53.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0019895770001312485
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 53.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004428080001162016
+        }
+      }
+    },
+    {
+      "seed": 140026,
+      "n": 10,
+      "m": 4,
+      "reference_objective": 91.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012664500000028056
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016257510014838772
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 91.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004368590998637956
+        }
+      }
+    },
+    {
+      "seed": 140027,
+      "n": 8,
+      "m": 5,
+      "reference_objective": 46.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012164648998805205
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001349987000139663
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004451356000572559
+        }
+      }
+    },
+    {
+      "seed": 140028,
+      "n": 6,
+      "m": 6,
+      "reference_objective": 52.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.011632300000201212
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001212530998600414
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0041003480000654235
+        }
+      }
+    },
+    {
+      "seed": 140029,
+      "n": 12,
+      "m": 7,
+      "reference_objective": 82.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 82.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014691454000058002
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 82.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002819674000420491
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 82.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005576034000114305
+        }
+      }
+    },
+    {
+      "seed": 140030,
+      "n": 7,
+      "m": 5,
+      "reference_objective": 45.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012750779000270995
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013601230002677767
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003977312999268179
+        }
+      }
+    },
+    {
+      "seed": 140031,
+      "n": 6,
+      "m": 5,
+      "reference_objective": 33.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 33.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012769347000357811
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 33.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0010762370002339594
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 33.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0038881689997651847
+        }
+      }
+    },
+    {
+      "seed": 140032,
+      "n": 10,
+      "m": 4,
+      "reference_objective": 94.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 94.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015170362999924691
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 94.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003917183001249214
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 94.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.006511778999993112
+        }
+      }
+    },
+    {
+      "seed": 140033,
+      "n": 12,
+      "m": 5,
+      "reference_objective": 60.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012692521999269957
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016759070003899978
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005255633001070237
+        }
+      }
+    },
+    {
+      "seed": 140034,
+      "n": 10,
+      "m": 7,
+      "reference_objective": 71.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 71.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013248878000013065
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 71.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0017050409987859894
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 71.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005030315000112751
+        }
+      }
+    },
+    {
+      "seed": 140035,
+      "n": 12,
+      "m": 4,
+      "reference_objective": 67.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015142230000492418
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002716128999963985
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005186058000617777
+        }
+      }
+    },
+    {
+      "seed": 140036,
+      "n": 6,
+      "m": 3,
+      "reference_objective": 41.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 41.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012456016000214731
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 41.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0014512490015476942
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 41.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004024023999591009
+        }
+      }
+    },
+    {
+      "seed": 140037,
+      "n": 10,
+      "m": 5,
+      "reference_objective": 65.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013794796999718528
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0026669859998946777
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.008827246998407645
+        }
+      }
+    },
+    {
+      "seed": 140038,
+      "n": 10,
+      "m": 3,
+      "reference_objective": 101.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01338842700170062
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0019108489996142453
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004858146001424757
+        }
+      }
+    },
+    {
+      "seed": 140039,
+      "n": 6,
+      "m": 6,
+      "reference_objective": 22.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012337820000539068
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0012286860001040623
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00400877100037178
+        }
+      }
+    },
+    {
+      "seed": 140040,
+      "n": 7,
+      "m": 3,
+      "reference_objective": 65.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012863740001193946
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0015989820003596833
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 65.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0043075289995613275
+        }
+      }
+    },
+    {
+      "seed": 140041,
+      "n": 8,
+      "m": 3,
+      "reference_objective": 25.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 25.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012331039999480709
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 25.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016772090002632467
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 25.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004087659001015709
+        }
+      }
+    },
+    {
+      "seed": 140042,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01485094300005585
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0036812190010095946
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005028673000197159
+        }
+      }
+    },
+    {
+      "seed": 140043,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 99.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 99.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012584099000378046
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 99.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0015939940003590891
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 99.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004083562000232632
+        }
+      }
+    },
+    {
+      "seed": 140044,
+      "n": 10,
+      "m": 7,
+      "reference_objective": 88.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01373240400062059
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0027536449997569434
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004289603000870557
+        }
+      }
+    },
+    {
+      "seed": 140045,
+      "n": 12,
+      "m": 4,
+      "reference_objective": 97.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014981449001425062
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0019286959995952202
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004338044998803525
+        }
+      }
+    },
+    {
+      "seed": 140046,
+      "n": 9,
+      "m": 5,
+      "reference_objective": 45.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0186811960011255
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0018048700003419071
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003990822999185184
+        }
+      }
+    },
+    {
+      "seed": 140047,
+      "n": 11,
+      "m": 6,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013050118999672122
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002009838999583735
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005201592000958044
+        }
+      }
+    },
+    {
+      "seed": 140048,
+      "n": 11,
+      "m": 5,
+      "reference_objective": 60.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.000000000000036,
+          "objective_abs_error": 3.552713678800501e-14,
+          "wall_s": 0.015916743999696337
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.000000000000036,
+          "objective_abs_error": 3.552713678800501e-14,
+          "wall_s": 0.004131935000259546
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00646865499948035
+        }
+      }
+    },
+    {
+      "seed": 140049,
+      "n": 10,
+      "m": 7,
+      "reference_objective": 73.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 73.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012646672999835573
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 73.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0017489669990027323
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 73.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004807149000043864
+        }
+      }
+    },
+    {
+      "seed": 140050,
+      "n": 6,
+      "m": 7,
+      "reference_objective": 24.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 24.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012162756000179797
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 24.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013460410009429324
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 24.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0034624799991433974
+        }
+      }
+    },
+    {
+      "seed": 140051,
+      "n": 12,
+      "m": 3,
+      "reference_objective": 115.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 115.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015345726998930331
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 115.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0038125860010040924
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 115.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.006649155999184586
+        }
+      }
+    },
+    {
+      "seed": 140052,
+      "n": 12,
+      "m": 3,
+      "reference_objective": 108.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 108.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.016087059999335906
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 108.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020132939989707666
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 108.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004748200999529217
+        }
+      }
+    },
+    {
+      "seed": 140053,
+      "n": 8,
+      "m": 3,
+      "reference_objective": 45.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012424980001014774
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013853609998477623
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0037479880011233035
+        }
+      }
+    },
+    {
+      "seed": 140054,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 74.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012579532000017934
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013722610001423163
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003839135999442078
+        }
+      }
+    },
+    {
+      "seed": 140055,
+      "n": 7,
+      "m": 4,
+      "reference_objective": 37.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 37.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012325982001129887
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 37.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013890760001231683
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 37.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0037219589994492708
+        }
+      }
+    },
+    {
+      "seed": 140056,
+      "n": 6,
+      "m": 6,
+      "reference_objective": 46.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013547996999477618
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002173044000301161
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003964503999668523
+        }
+      }
+    },
+    {
+      "seed": 140057,
+      "n": 9,
+      "m": 5,
+      "reference_objective": 34.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013050960000327905
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002168065999285318
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0062862409995432245
+        }
+      }
+    },
+    {
+      "seed": 140058,
+      "n": 12,
+      "m": 7,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.00000000000013,
+          "objective_abs_error": 1.2789769243681803e-13,
+          "wall_s": 0.016850566000357503
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.00000000000013,
+          "objective_abs_error": 1.2789769243681803e-13,
+          "wall_s": 0.004615982999894186
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0056409509998047724
+        }
+      }
+    },
+    {
+      "seed": 140059,
+      "n": 10,
+      "m": 3,
+      "reference_objective": 101.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013347996000447893
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013249099993117852
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 101.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0037770330000057584
+        }
+      }
+    },
+    {
+      "seed": 140060,
+      "n": 8,
+      "m": 6,
+      "reference_objective": 51.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 51.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013471080999806873
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 51.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002122867999787559
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 51.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004801209999641287
+        }
+      }
+    },
+    {
+      "seed": 140061,
+      "n": 9,
+      "m": 7,
+      "reference_objective": 48.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014048648001335096
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0018087160005961778
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 48.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004877866000242648
+        }
+      }
+    },
+    {
+      "seed": 140062,
+      "n": 8,
+      "m": 4,
+      "reference_objective": 34.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013018711999393417
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001178540000182693
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 34.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005017104998842115
+        }
+      }
+    },
+    {
+      "seed": 140063,
+      "n": 8,
+      "m": 5,
+      "reference_objective": 67.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013134054999682121
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013925309995101998
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 67.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004831636000744766
+        }
+      }
+    },
+    {
+      "seed": 140064,
+      "n": 9,
+      "m": 7,
+      "reference_objective": 39.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01279624700146087
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013342940001166426
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0045266979996085865
+        }
+      }
+    },
+    {
+      "seed": 140065,
+      "n": 7,
+      "m": 5,
+      "reference_objective": 22.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012924410000778153
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001689557999270619
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 22.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005309473999659531
+        }
+      }
+    },
+    {
+      "seed": 140066,
+      "n": 9,
+      "m": 6,
+      "reference_objective": 46.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.015310663999116514
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0030112320000625914
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 46.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0062967459998617414
+        }
+      }
+    },
+    {
+      "seed": 140067,
+      "n": 12,
+      "m": 6,
+      "reference_objective": 104.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 104.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01315518699993845
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 104.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0019413150002947077
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 104.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004596422999384231
+        }
+      }
+    },
+    {
+      "seed": 140068,
+      "n": 12,
+      "m": 5,
+      "reference_objective": 107.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 107.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013509357999282656
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 107.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0022415860003093258
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 107.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00455736500043713
+        }
+      }
+    },
+    {
+      "seed": 140069,
+      "n": 7,
+      "m": 5,
+      "reference_objective": 50.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013317840999661712
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001510418000179925
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 50.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004937616000461276
+        }
+      }
+    },
+    {
+      "seed": 140070,
+      "n": 7,
+      "m": 3,
+      "reference_objective": 43.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 43.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012356286999420263
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 43.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001299752000704757
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 43.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0038706430004822323
+        }
+      }
+    },
+    {
+      "seed": 140071,
+      "n": 11,
+      "m": 3,
+      "reference_objective": 93.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012702555999567267
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001489846999902511
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 93.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0040285300001414726
+        }
+      }
+    },
+    {
+      "seed": 140072,
+      "n": 9,
+      "m": 3,
+      "reference_objective": 78.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 78.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012662455999816302
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 78.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0017211750000569737
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 78.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003978233999077929
+        }
+      }
+    },
+    {
+      "seed": 140073,
+      "n": 6,
+      "m": 5,
+      "reference_objective": 28.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 28.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012717898998744204
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 28.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001380743999106926
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 28.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004089471000042977
+        }
+      }
+    },
+    {
+      "seed": 140074,
+      "n": 11,
+      "m": 5,
+      "reference_objective": 70.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014925835999747505
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0030681580010423204
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004697324000517256
+        }
+      }
+    },
+    {
+      "seed": 140075,
+      "n": 10,
+      "m": 6,
+      "reference_objective": 63.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 63.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014057410999157582
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 63.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002548868000303628
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 63.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004709942999397754
+        }
+      }
+    },
+    {
+      "seed": 140076,
+      "n": 7,
+      "m": 7,
+      "reference_objective": 31.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 31.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01348725500065484
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 31.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016908389989112038
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 31.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00429247700049018
+        }
+      }
+    },
+    {
+      "seed": 140077,
+      "n": 8,
+      "m": 5,
+      "reference_objective": 44.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01381242299976293
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020690269993792754
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004864815999098937
+        }
+      }
+    },
+    {
+      "seed": 140078,
+      "n": 11,
+      "m": 7,
+      "reference_objective": 88.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013430520000838442
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0022855730003357166
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 88.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005132057000082568
+        }
+      }
+    },
+    {
+      "seed": 140079,
+      "n": 6,
+      "m": 7,
+      "reference_objective": 29.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.011778518999562948
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013102769989927765
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 29.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003879546000462142
+        }
+      }
+    },
+    {
+      "seed": 140080,
+      "n": 7,
+      "m": 4,
+      "reference_objective": 38.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012397188000250026
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001069846999598667
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0038904020002519246
+        }
+      }
+    },
+    {
+      "seed": 140081,
+      "n": 8,
+      "m": 5,
+      "reference_objective": 55.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 55.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012879101999715203
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 55.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013290459992276737
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 55.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004613488999893889
+        }
+      }
+    },
+    {
+      "seed": 140082,
+      "n": 7,
+      "m": 4,
+      "reference_objective": 44.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012339680999502889
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0013789310014544753
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 44.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0038331659998220857
+        }
+      }
+    },
+    {
+      "seed": 140083,
+      "n": 7,
+      "m": 5,
+      "reference_objective": 52.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.011809064999397378
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001327703999777441
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004738485999041586
+        }
+      }
+    },
+    {
+      "seed": 140084,
+      "n": 6,
+      "m": 7,
+      "reference_objective": 45.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012298871000893996
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00147233099960431
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 45.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.003829360999588971
+        }
+      }
+    },
+    {
+      "seed": 140085,
+      "n": 12,
+      "m": 5,
+      "reference_objective": 97.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01352547300120932
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0018690769993554568
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 97.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004690673998993589
+        }
+      }
+    },
+    {
+      "seed": 140086,
+      "n": 11,
+      "m": 6,
+      "reference_objective": 74.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013785692999590538
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020979509990866063
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 74.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005777907999799936
+        }
+      }
+    },
+    {
+      "seed": 140087,
+      "n": 10,
+      "m": 4,
+      "reference_objective": 70.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013101636999635957
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0017355470008624252
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 70.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00432211099905544
+        }
+      }
+    },
+    {
+      "seed": 140088,
+      "n": 11,
+      "m": 5,
+      "reference_objective": 75.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0162045359993499
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0027885180006705923
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 75.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004988472001059563
+        }
+      }
+    },
+    {
+      "seed": 140089,
+      "n": 12,
+      "m": 4,
+      "reference_objective": 114.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 114.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.017426450998755172
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 114.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005301332001181436
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 114.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005647562000376638
+        }
+      }
+    },
+    {
+      "seed": 140090,
+      "n": 12,
+      "m": 3,
+      "reference_objective": 96.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013957391998701496
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0021126419997017365
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 96.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005078477001006831
+        }
+      }
+    },
+    {
+      "seed": 140091,
+      "n": 6,
+      "m": 5,
+      "reference_objective": 39.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01310461100001703
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.001399691000187886
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 39.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0039054850003594765
+        }
+      }
+    },
+    {
+      "seed": 140092,
+      "n": 10,
+      "m": 6,
+      "reference_objective": 60.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013438961999781895
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00204629399922851
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 60.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.004862292998950579
+        }
+      }
+    },
+    {
+      "seed": 140093,
+      "n": 8,
+      "m": 4,
+      "reference_objective": 38.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.013609739000457921
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.002213144000052125
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 38.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0059793700002046535
+        }
+      }
+    },
+    {
+      "seed": 140094,
+      "n": 12,
+      "m": 3,
+      "reference_objective": 116.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 116.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012819473000490689
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 116.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020855530001426814
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 116.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.006120582000221475
+        }
+      }
+    },
+    {
+      "seed": 140095,
+      "n": 11,
+      "m": 6,
+      "reference_objective": 59.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 59.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.014203201000782428
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 59.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0029450630008795997
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 59.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.006230816999959643
+        }
+      }
+    },
+    {
+      "seed": 140096,
+      "n": 7,
+      "m": 7,
+      "reference_objective": 52.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.01617567900029826
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0020084259995201137
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 52.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005592929999693297
+        }
+      }
+    },
+    {
+      "seed": 140097,
+      "n": 8,
+      "m": 7,
+      "reference_objective": 35.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 35.000000000000036,
+          "objective_abs_error": 3.552713678800501e-14,
+          "wall_s": 0.013120164001520607
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 35.000000000000036,
+          "objective_abs_error": 3.552713678800501e-14,
+          "wall_s": 0.001787254001101246
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 35.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.005968754001514753
+        }
+      }
+    },
+    {
+      "seed": 140098,
+      "n": 11,
+      "m": 6,
+      "reference_objective": 98.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 98.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.017900272001497797
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 98.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00413174599998456
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 98.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00807217300098273
+        }
+      }
+    },
+    {
+      "seed": 140099,
+      "n": 8,
+      "m": 5,
+      "reference_objective": 58.0,
+      "solvers": {
+        "direct_highs_capi": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 58.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.012750238998705754
+        },
+        "scipy_highs": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 58.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.0016333929997927044
+        },
+        "cbc": {
+          "status": "valid_optimal",
+          "valid": true,
+          "objective": 58.0,
+          "objective_abs_error": 0.0,
+          "wall_s": 0.00609595500100113
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: ubuntu / py${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install test environment
+        run: python -m pip install ".[test]"
+      - name: Run regression
+        run: python -m pytest
+      - name: Run public examples
+        shell: bash
+        run: |
+          for example in examples/[0-9][0-9]_*.py; do
+            python "$example"
+          done
+
+  static-correctness:
+    name: static correctness / py3.13
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install pinned static checker
+        run: python -m pip install "ruff==0.16.6" "pytest>=8" "numpy>=2.2,<3" "scipy>=1.15,<2" "pyyaml>=6"
+      - name: Compile all Python sources
+        run: python -m compileall -q src tests tools benchmarks
+      - name: Run correctness-focused Ruff rules
+        run: ruff check --select E9,F63,F7,F82 src tests tools benchmarks
+      - name: Run release hardening contracts
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_final_release_hardening.py

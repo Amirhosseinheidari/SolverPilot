@@ -1,0 +1,30 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include SECURITY.md
+include CONTRIBUTING.md
+include KNOWN-LIMITATIONS.md
+include RELEASING.md
+include PUBLIC-API-V0_1_0RC2.json
+include BACKEND-CONTRACT-V0_1_0RC2.json
+include PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json
+include PRE-PUBLIC-RELEASE-VERIFICATION-0.1.0rc2.md
+include TRACK-P-MERGE-PROVENANCE.json
+include docs/api/PUBLIC-API-v1.md
+include docs/api/EXTENDED-MODELING-API.md
+include docs/release/PRE-GITHUB-HARDENING.md
+include docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.0RC2.md
+include docs/release/README-CHECKLIST-0.1.0RC2.md
+include docs/release/PRE-GITHUB-LICENSE-DECISION.md
+include docs/release/OWNER-PUBLICATION-DECISIONS.md
+prune docs/history
+prune docs/research
+prune docs/benchmarking
+prune benchmarks
+prune evidence
+prune verification
+prune tests
+prune .github
+prune tools
+global-exclude __pycache__ *.py[cod] *.egg-info *.whl *.tar.gz *.zip
+recursive-include examples *.py *.md

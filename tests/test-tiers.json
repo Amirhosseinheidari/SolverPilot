@@ -1,0 +1,23 @@
+{
+  "native_files": [
+    "tests/test_highspy_native_integration.py",
+    "tests/test_osqp_native_integration.py",
+    "tests/test_pyscipopt_native_integration.py",
+    "tests/test_nlopt_native.py",
+    "tests/test_m13_bundled_capi.py",
+    "tests/test_p7_conformance.py",
+    "tests/test_p5_persistent_session.py",
+    "tests/test_p6_superscs_backend.py",
+    "tests/test_p7_ipopt_backend.py",
+    "tests/test_m10_casadi_bridges.py",
+    "tests/test_p7_nlp_ir_ad.py",
+    "tests/test_p7_property.py",
+    "tests/test_p8_minlp.py",
+    "tests/test_scipy_vendored_highs_dev.py"
+  ],
+  "evidence_nodes": [
+    "tests/test_m23_production_planner.py::test_real_m22_gate_parser_preserves_noncomparative_boundary",
+    "tests/test_m24_public_ood_evidence.py::test_real_m24_result_is_negative_public_ood_evidence",
+    "tests/test_m27_selective_lp_model.py::test_m27_runtime_evaluator_falls_back_or_switches_without_sklearn_dependency"
+  ]
+}

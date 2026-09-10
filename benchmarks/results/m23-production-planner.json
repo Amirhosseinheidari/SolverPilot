@@ -1,0 +1,991 @@
+{
+  "claims_boundary": [
+    "M23 production planner does not claim learned or empirical solver-speed selection from M22 evidence.",
+    "M22 is classified as corpus-validation evidence because it did not compare multiple backends on held-out instances with feature-cost accounting.",
+    "Performance overrides require comparative held-out evidence and must still pass capability, intent, availability and health gates."
+  ],
+  "m22_evidence_audit": {
+    "fixed_host": {
+      "controller_workers": 12,
+      "fingerprint": "0a6b0ed535f7f11f8a32a2b790d562c093ff28af1a5558d637e73d6888e190e9",
+      "hostname": "localhost",
+      "machine": "x86_64",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5",
+      "solver_threads": 1,
+      "thread_env_limit": 1
+    },
+    "gate_passed": true,
+    "m23_interpretation": "corpus_validated correctness/robustness evidence; not comparative held-out solver-ranking evidence",
+    "miplib_reference_crosscheck": true,
+    "official_integrity": true,
+    "parsed_evidence_class": "corpus_validated",
+    "performance_auto_enable": false,
+    "performance_superiority_claim": false,
+    "qplib_reference_crosscheck": true,
+    "repetitions": 3
+  },
+  "passed": true,
+  "performance_override_guard": {
+    "rejected_reason": "performance override rejected: evidence is not comparative held-out evidence with feature-cost and fixed-environment accounting",
+    "requested": "scipy-highs-ipm",
+    "selected": "scipy-highs-ds"
+  },
+  "planning": {
+    "cases": 900,
+    "completed": 900,
+    "failures": [],
+    "max_plan_s": 0.007163778999938586,
+    "median_plan_s": 0.0021703745001104835,
+    "p95_plan_s": 0.0027410618999056165,
+    "performance_auto_enabled_count": 0,
+    "routing_counts": {
+      "scipy-highs-bridge": 300,
+      "scipy-highs-ds": 300,
+      "scipy-slsqp-qp-bridge": 300
+    }
+  },
+  "schema": "optimind.m23.production_planner_campaign.v1",
+  "seed": 23092026,
+  "solve_validation": {
+    "cases_per_family": 30,
+    "completed": 90,
+    "failures": [],
+    "milp_bruteforce_matches": 30,
+    "qp_target_matches": 30,
+    "rows": [
+      {
+        "backend": "scipy-highs-ds",
+        "case": 0,
+        "family": "lp",
+        "objective": -5.3578007732069794,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01864690399997926
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 1,
+        "family": "lp",
+        "objective": -9.216017612829308,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.018451640000193947
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 2,
+        "family": "lp",
+        "objective": -12.176611106414374,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017722033999916675
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 3,
+        "family": "lp",
+        "objective": -5.893474494754377,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017147030999922208
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 4,
+        "family": "lp",
+        "objective": -6.240849691342932,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.018595796999989034
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 5,
+        "family": "lp",
+        "objective": -7.926951343238779,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017609604999961448
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 6,
+        "family": "lp",
+        "objective": -1.3941935351079295,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01751097800001844
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 7,
+        "family": "lp",
+        "objective": -11.18054005636169,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.0182670629999393
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 8,
+        "family": "lp",
+        "objective": -4.991891788200538,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01796922599987738
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 9,
+        "family": "lp",
+        "objective": -2.278434491076153,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017630556999847613
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 10,
+        "family": "lp",
+        "objective": -12.790578478737155,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016827841000122135
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 11,
+        "family": "lp",
+        "objective": -7.03471129039664,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01777342100012902
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 12,
+        "family": "lp",
+        "objective": -6.966000607673305,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.018956247999994957
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 13,
+        "family": "lp",
+        "objective": -10.337257859888924,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.021649672999956238
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 14,
+        "family": "lp",
+        "objective": -7.413879634605301,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.019415187000049627
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 15,
+        "family": "lp",
+        "objective": -4.724794311311774,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017674782999847594
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 16,
+        "family": "lp",
+        "objective": -8.767167865909745,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01736960499988527
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 17,
+        "family": "lp",
+        "objective": -2.4672611493578036,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01776398800006973
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 18,
+        "family": "lp",
+        "objective": -8.188875830796283,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017022494000002553
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 19,
+        "family": "lp",
+        "objective": -2.133044237774027,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015768361000027653
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 20,
+        "family": "lp",
+        "objective": -13.959817070526396,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01698073099987596
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 21,
+        "family": "lp",
+        "objective": -4.013564992239874,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01645392999989781
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 22,
+        "family": "lp",
+        "objective": -0.0011775662628788267,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017449425000222618
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 23,
+        "family": "lp",
+        "objective": -3.3035372348207703,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01887101000011171
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 24,
+        "family": "lp",
+        "objective": -8.944378633411684,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017196124000065538
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 25,
+        "family": "lp",
+        "objective": -6.983560590865932,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01681279900003574
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 26,
+        "family": "lp",
+        "objective": -2.2297007518219147,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.018034763000059684
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 27,
+        "family": "lp",
+        "objective": -2.4771670809026647,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017741734000082943
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 28,
+        "family": "lp",
+        "objective": -8.461535496363297,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.017217445999904157
+      },
+      {
+        "backend": "scipy-highs-ds",
+        "case": 29,
+        "family": "lp",
+        "objective": -11.174862312989752,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01749325100013266
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 0,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015333378000150333
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 1,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016202042000031724
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -3.0,
+        "case": 2,
+        "family": "milp",
+        "objective": -3.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015003222000132155
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 3,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015699717000188684
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 4,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015029040000172245
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -3.0,
+        "case": 5,
+        "family": "milp",
+        "objective": -3.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014912005000041972
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -7.0,
+        "case": 6,
+        "family": "milp",
+        "objective": -7.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015302922000046237
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -5.0,
+        "case": 7,
+        "family": "milp",
+        "objective": -5.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014260876999969696
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -5.0,
+        "case": 8,
+        "family": "milp",
+        "objective": -5.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014049238999859881
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -8.0,
+        "case": 9,
+        "family": "milp",
+        "objective": -8.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015193307000117784
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -3.0,
+        "case": 10,
+        "family": "milp",
+        "objective": -3.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014722959999971863
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 11,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014855630000056408
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -6.0,
+        "case": 12,
+        "family": "milp",
+        "objective": -6.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015917143000024225
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": 1.0,
+        "case": 13,
+        "family": "milp",
+        "objective": 1.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01567605199988975
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -1.0,
+        "case": 14,
+        "family": "milp",
+        "objective": -1.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015150983000012275
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -4.0,
+        "case": 15,
+        "family": "milp",
+        "objective": -4.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016845308000029036
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -7.0,
+        "case": 16,
+        "family": "milp",
+        "objective": -7.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01611319900007402
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -11.0,
+        "case": 17,
+        "family": "milp",
+        "objective": -11.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.018378370000164068
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -9.0,
+        "case": 18,
+        "family": "milp",
+        "objective": -9.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.02011768200009101
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -14.0,
+        "case": 19,
+        "family": "milp",
+        "objective": -14.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015539156000158982
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -6.0,
+        "case": 20,
+        "family": "milp",
+        "objective": -6.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016015722000020105
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -12.0,
+        "case": 21,
+        "family": "milp",
+        "objective": -12.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016739238999889494
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": 0.0,
+        "case": 22,
+        "family": "milp",
+        "objective": 0.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014482028000202263
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -8.0,
+        "case": 23,
+        "family": "milp",
+        "objective": -8.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014913776999947004
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 24,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015361439000116661
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -3.0,
+        "case": 25,
+        "family": "milp",
+        "objective": -3.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.015264093000041612
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -2.0,
+        "case": 26,
+        "family": "milp",
+        "objective": -2.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.016095280999934403
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -3.0,
+        "case": 27,
+        "family": "milp",
+        "objective": -3.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.01506798900004469
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -7.0,
+        "case": 28,
+        "family": "milp",
+        "objective": -7.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014041576999943572
+      },
+      {
+        "backend": "scipy-highs-bridge",
+        "bruteforce_objective": -12.0,
+        "case": 29,
+        "family": "milp",
+        "objective": -12.0,
+        "objective_match": true,
+        "status": "valid_optimal",
+        "valid": true,
+        "wall_s": 0.014474997999968764
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 0,
+        "family": "qp",
+        "objective": -11.410814893639138,
+        "status": "valid_feasible",
+        "target_linf_error": 9.72679210509142e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.016049583000040002
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 1,
+        "family": "qp",
+        "objective": -6.888373191767026,
+        "status": "valid_feasible",
+        "target_linf_error": 1.0436096431476471e-14,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.01617319799993311
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 2,
+        "family": "qp",
+        "objective": -6.176885714957615,
+        "status": "valid_feasible",
+        "target_linf_error": 1.1625324614072952e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015368370000032883
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 3,
+        "family": "qp",
+        "objective": -4.803895649809046,
+        "status": "valid_feasible",
+        "target_linf_error": 1.7911356431365988e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.016518698000027143
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 4,
+        "family": "qp",
+        "objective": -10.744413154354337,
+        "status": "valid_feasible",
+        "target_linf_error": 1.0598641867476388e-06,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014707147000081022
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 5,
+        "family": "qp",
+        "objective": -10.418546519892372,
+        "status": "valid_feasible",
+        "target_linf_error": 1.8798576725265193e-06,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015125635000003967
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 6,
+        "family": "qp",
+        "objective": -7.8488448979333665,
+        "status": "valid_feasible",
+        "target_linf_error": 0.0,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014478994999990391
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 7,
+        "family": "qp",
+        "objective": -7.0490011963499395,
+        "status": "valid_feasible",
+        "target_linf_error": 5.551115123125783e-17,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015017092000107368
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 8,
+        "family": "qp",
+        "objective": -9.708599220378467,
+        "status": "valid_feasible",
+        "target_linf_error": 2.220446049250313e-16,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015262611000025572
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 9,
+        "family": "qp",
+        "objective": -10.475516347883367,
+        "status": "valid_feasible",
+        "target_linf_error": 1.3073380822348213e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.01591460999998162
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 10,
+        "family": "qp",
+        "objective": -8.878714946716718,
+        "status": "valid_feasible",
+        "target_linf_error": 1.0697656427360869e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.016932728000028874
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 11,
+        "family": "qp",
+        "objective": -5.046391149229958,
+        "status": "valid_feasible",
+        "target_linf_error": 2.6143445130966114e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.016673821000040334
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 12,
+        "family": "qp",
+        "objective": -7.7615366243834325,
+        "status": "valid_feasible",
+        "target_linf_error": 1.6145639070153095e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.01587937699991926
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 13,
+        "family": "qp",
+        "objective": -6.613034863391692,
+        "status": "valid_feasible",
+        "target_linf_error": 2.220446049250313e-16,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014753926999901523
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 14,
+        "family": "qp",
+        "objective": -7.355871732853167,
+        "status": "valid_feasible",
+        "target_linf_error": 1.2901121682062922e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015518284999870957
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 15,
+        "family": "qp",
+        "objective": -15.005183846434855,
+        "status": "valid_feasible",
+        "target_linf_error": 0.0,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.01485597000009875
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 16,
+        "family": "qp",
+        "objective": -7.028217491314721,
+        "status": "valid_feasible",
+        "target_linf_error": 1.1102230246251565e-16,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015436578000162626
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 17,
+        "family": "qp",
+        "objective": -9.77457676194118,
+        "status": "valid_feasible",
+        "target_linf_error": 2.215467638622126e-06,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014519906000032279
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 18,
+        "family": "qp",
+        "objective": -8.531805114776954,
+        "status": "valid_feasible",
+        "target_linf_error": 8.852456295782574e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015179886999931114
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 19,
+        "family": "qp",
+        "objective": -5.794278408433551,
+        "status": "valid_feasible",
+        "target_linf_error": 0.0,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014520846999857895
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 20,
+        "family": "qp",
+        "objective": -14.735380895254728,
+        "status": "valid_feasible",
+        "target_linf_error": 7.412399882777976e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015384834000087722
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 21,
+        "family": "qp",
+        "objective": -10.223016575032505,
+        "status": "valid_feasible",
+        "target_linf_error": 2.3306133412059893e-08,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014718053000024156
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 22,
+        "family": "qp",
+        "objective": -12.208115326630754,
+        "status": "valid_feasible",
+        "target_linf_error": 1.3322676295501878e-15,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014743881999947916
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 23,
+        "family": "qp",
+        "objective": -12.346827468913963,
+        "status": "valid_feasible",
+        "target_linf_error": 0.0,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014881659000138825
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 24,
+        "family": "qp",
+        "objective": -6.518234603401508,
+        "status": "valid_feasible",
+        "target_linf_error": 3.557831255718291e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014462098999956652
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 25,
+        "family": "qp",
+        "objective": -4.450451463110753,
+        "status": "valid_feasible",
+        "target_linf_error": 1.4172914009069615e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015506025999911799
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 26,
+        "family": "qp",
+        "objective": -17.95361713146917,
+        "status": "valid_feasible",
+        "target_linf_error": 6.661338147750939e-16,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014501999000003707
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 27,
+        "family": "qp",
+        "objective": -11.62660026332866,
+        "status": "valid_feasible",
+        "target_linf_error": 1.2656542480726785e-14,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015808000000106404
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 28,
+        "family": "qp",
+        "objective": -7.483622622843348,
+        "status": "valid_feasible",
+        "target_linf_error": 5.166533079470348e-06,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.014714027000081842
+      },
+      {
+        "backend": "scipy-slsqp-qp-bridge",
+        "case": 29,
+        "family": "qp",
+        "objective": -8.144015296271675,
+        "status": "valid_feasible",
+        "target_linf_error": 2.1884126399918102e-07,
+        "target_match": true,
+        "valid": true,
+        "wall_s": 0.015133426999909716
+      }
+    ],
+    "total": 90,
+    "valid_count": 90
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "all_external_actions_full_sha": true,
+  "build_once_test_many": true,
+  "ci_workflow": ".github/workflows/m32-external-compatibility.yml",
+  "claim_boundary": "Only executed exact-wheel cells can become executed_pass.",
+  "classification": "verified-supply-chain-and-external-compatibility-hardening-checkpoint-public-rc-fail-closed",
+  "core_executed_pass_count": 0,
+  "core_matrix": [
+    {
+      "os": "linux",
+      "python": "3.10",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "linux",
+      "python": "3.11",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "linux",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "linux",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.10",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.11",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.10",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.11",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    }
+  ],
+  "core_pending_count": 12,
+  "distribution_local_verification": {
+    "dist_manifest": "pass",
+    "dist_rehash": "pass",
+    "sdist_rebuilt_member_hashes_equal_except_record": true,
+    "sdist_roundtrip": "pass",
+    "twine_check": "not_executed_tool_unavailable_ci_gate_required",
+    "wheel_smoke": "pass"
+  },
+  "governance_blockers": [
+    "license/SPDX and license text",
+    "final public project/distribution name",
+    "author/maintainer metadata",
+    "project URLs / Trusted Publisher identity"
+  ],
+  "local_environment": {
+    "core_matrix_promotion": "not_promoted_fail_closed",
+    "evidence": "verification/2026-09-06/m32-linux-py313-exact-wheel-smoke.json",
+    "exact_wheel_sha256": "7720712415fbc773fdd088f1a3e46a67e2a515778d58ea6e265e09db0a51ad7c",
+    "exact_wheel_smoke": "executed_pass",
+    "numpy": "2.3.5",
+    "os": "linux",
+    "pip_check": "blocked_by_unrelated_host_conflict",
+    "pip_check_detail": "moviepy 2.2.1 requires pillow<12.0 but host has pillow 12.3.0",
+    "python": "3.13.5",
+    "scipy": "1.17.0"
+  },
+  "local_optional_backends": {
+    "casadi": {
+      "evidence": "verification/2026-09-06/m32-linux-py313-casadi-smoke.json",
+      "status": "executed_pass",
+      "version": "3.7.2"
+    },
+    "highspy": {
+      "local_blocker": "official_binary_download_unavailable",
+      "status": "pending_external_execution"
+    },
+    "nlopt": {
+      "evidence": "verification/2026-09-06/m32-linux-py313-nlopt-smoke.json",
+      "status": "executed_pass",
+      "version": "2.11.0"
+    },
+    "osqp": {
+      "local_blocker": "official_binary_download_unavailable",
+      "status": "pending_external_execution"
+    },
+    "pyscipopt": {
+      "local_blocker": "official_binary_download_unavailable",
+      "status": "pending_external_execution"
+    }
+  },
+  "milestone": "M32",
+  "package_version": "0.0.36rc2",
+  "protocol_sha256": "a0aa315e396ff983b6da472e75850dcf219d1c74d353a94efd1d5f09a18ffd29",
+  "public_1_0_authorized": false,
+  "public_rc_authorized": false,
+  "publish_workflow_enabled": false,
+  "regression": {
+    "collected": 303,
+    "errors": 0,
+    "failures": 0,
+    "passed": 299,
+    "skipped": 4
+  },
+  "schema": "optimind.m32.compatibility_matrix.v1",
+  "technical_external_compatibility_gate": false
+}

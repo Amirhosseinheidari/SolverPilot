@@ -1,0 +1,44 @@
+{
+  "choices": {
+    "a": {
+      "backend": "scipy-highs-ipm",
+      "overhead_s": 0.0
+    },
+    "b": {
+      "backend": "scipy-highs-ipm",
+      "overhead_s": 0.0
+    }
+  },
+  "cost_field": "wall_s",
+  "cutoff_s": 2.0,
+  "environment_ids": [
+    "4fad6d4998962b7a437708f99cca2316baa2df9f18c6e849e203b976f986e7d4"
+  ],
+  "instances": 2,
+  "mixed_environments_allowed": false,
+  "par_penalty": 10.0,
+  "policy_metrics": {
+    "gap_closure": 0.0,
+    "metric": "PAR10@2s",
+    "policy_cost": 0.006608067499882964,
+    "policy_ties": 1,
+    "policy_to_sbs_ratio_bootstrap_95pct": {
+      "draws": 200,
+      "high": 1.0,
+      "low": 1.0,
+      "median": 1.0,
+      "point": 1.0,
+      "seed": 0
+    },
+    "policy_wins": 1,
+    "sbs_cost": 0.006608067499882964,
+    "sbs_solver": "scipy-highs-ipm",
+    "solver_mean_costs": {
+      "scipy-highs-ds": 0.008272288500165814,
+      "scipy-highs-ipm": 0.006608067499882964
+    },
+    "vbs_cost": 0.0053754785001274286
+  },
+  "protocol_id": "101ec36c20d9ddc4fd0ff86e6c5edf5c00818137cc8c33f1188ebc7e7a1e6c93",
+  "schema_version": "1.0"
+}

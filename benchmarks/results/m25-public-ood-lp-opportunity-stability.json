@@ -1,0 +1,100 @@
+{
+  "changed_winner_count": 5,
+  "changed_winner_instances": [
+    "markshare_4_0.mps.gz",
+    "neos17.mps.gz",
+    "ran14x18-disj-8.mps.gz",
+    "sp150x300d.mps.gz",
+    "supportcase26.mps.gz"
+  ],
+  "environment_audit": {
+    "benchmark_environment_fingerprint": "19ff302531eb1818649d83c4f015d64cfedbe50a048f0ecf80c6513212d5efae",
+    "boundary": "post-run environment audit; raw shard records do not independently carry full fingerprints, so M25 opportunity evidence does not authorize production ranking",
+    "captured_in_same_active_container_session": true,
+    "environment": {
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "env_threads": {
+        "BLIS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "VECLIB_MAXIMUM_THREADS": null
+      },
+      "hostname": "localhost",
+      "logical_cpus": 5,
+      "machine": "x86_64",
+      "memory_bytes": 6236925952,
+      "packages": {
+        "numpy": "2.3.5",
+        "optimind-core-codename": null,
+        "scipy": "1.17.0"
+      },
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python"
+    },
+    "solver_threads": 1,
+    "thread_env_limit": 1,
+    "worker_python_mode": "no_site"
+  },
+  "interpretation": "Selection opportunity exists if both pre-registered opportunity gates pass; M25 still does not train or authorize a production selector.",
+  "opportunity_validated_both": true,
+  "run1": {
+    "metrics": {
+      "decisive_non_sbs_wins": 26,
+      "ds_terminal_rate": 0.9375,
+      "ds_wins": 37,
+      "ipm_terminal_rate": 1.0,
+      "ipm_wins": 11,
+      "median_inspection_s": 0.0009613485001409572,
+      "non_sbs_wins": 37,
+      "objective_mismatches": 0,
+      "oracle_with_inspection_mean_s": 0.10435621208337409,
+      "oracle_with_inspection_relative_gain": 0.10477694520677473,
+      "oracle_with_inspection_to_sbs_bootstrap": {
+        "draws": 20000,
+        "high": 0.9472903165780934,
+        "low": 0.8185773918709481,
+        "median": 0.8949644499758902,
+        "point": 0.8952230547932253
+      },
+      "sbs_backend": "scipy-highs-ipm",
+      "sbs_mean_s": 0.11657006767713085,
+      "ties": 0,
+      "vbs_mean_s": 0.1032789721250064,
+      "vbs_relative_gain": 0.11401808214555874
+    },
+    "validated": true
+  },
+  "run2": {
+    "metrics": {
+      "decisive_non_sbs_wins": 28,
+      "ds_terminal_rate": 0.9375,
+      "ds_wins": 34,
+      "ipm_terminal_rate": 1.0,
+      "ipm_wins": 13,
+      "median_inspection_s": 0.0009153444998446503,
+      "non_sbs_wins": 34,
+      "objective_mismatches": 0,
+      "oracle_with_inspection_mean_s": 0.10528602696876514,
+      "oracle_with_inspection_relative_gain": 0.10372350208190073,
+      "oracle_with_inspection_to_sbs_bootstrap": {
+        "draws": 20000,
+        "high": 0.9475911340341415,
+        "low": 0.81864817224373,
+        "median": 0.8960862126750917,
+        "point": 0.8962764979180993
+      },
+      "sbs_backend": "scipy-highs-ipm",
+      "sbs_mean_s": 0.11747047614584005,
+      "ties": 1,
+      "vbs_mean_s": 0.10430833604168299,
+      "vbs_relative_gain": 0.11204636718945629
+    },
+    "validated": true
+  },
+  "same_cohort": true,
+  "same_cohort_signature": true,
+  "schema": "optimind.m25.opportunity_stability.v1"
+}

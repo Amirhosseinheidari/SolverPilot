@@ -1,0 +1,1909 @@
+{
+  "schema": "optimind.m24.public_ood_lp_selector.v1",
+  "source": "MIPLIB 2017 benchmark-v2 derived continuous LP relaxations",
+  "miplib_zip_sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+  "manifest_sha256": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+  "official_corpus_integrity_passed": true,
+  "integrity_source": "/mnt/data/M22-TRANSFER-INTEGRITY.json",
+  "pre_registered_rule": {
+    "name": "ipm_if_m_over_n_ge_1.50",
+    "threshold": 1.5,
+    "origin": "M4/M5 synthetic LOFO/stability; frozen before M24 public OOD run"
+  },
+  "selection_protocol": {
+    "outcome_independent": true,
+    "compressed_size_cap_bytes": 262144,
+    "hash_order": "sha256(filename)",
+    "target_instances": 24,
+    "max_n": 2000,
+    "max_m": 2000,
+    "max_nnz": 80000
+  },
+  "instances": 24,
+  "parse_exclusions": [
+    {
+      "instance": "neos-3046615-murg.mps.gz",
+      "error": "ValueError: inconsistent variable bounds at index 258: lower > upper"
+    }
+  ],
+  "structural_exclusions": [
+    {
+      "instance": "academictimetablesmall.mps.gz",
+      "n": 28926,
+      "m": 23294,
+      "nnz": 268350
+    },
+    {
+      "instance": "seymour1.mps.gz",
+      "n": 1372,
+      "m": 4944,
+      "nnz": 33549
+    },
+    {
+      "instance": "drayage-100-23.mps.gz",
+      "n": 11090,
+      "m": 4630,
+      "nnz": 41550
+    },
+    {
+      "instance": "neos-2978193-inde.mps.gz",
+      "n": 20800,
+      "m": 396,
+      "nnz": 41600
+    },
+    {
+      "instance": "rmatr100-p10.mps.gz",
+      "n": 7359,
+      "m": 7260,
+      "nnz": 21877
+    },
+    {
+      "instance": "eil33-2.mps.gz",
+      "n": 4516,
+      "m": 32,
+      "nnz": 44243
+    },
+    {
+      "instance": "lotsize.mps.gz",
+      "n": 2985,
+      "m": 1920,
+      "nnz": 6565
+    },
+    {
+      "instance": "fastxgemm-n2r6s0t2.mps.gz",
+      "n": 784,
+      "m": 5998,
+      "nnz": 19376
+    },
+    {
+      "instance": "neos-3004026-krka.mps.gz",
+      "n": 17030,
+      "m": 12545,
+      "nnz": 41860
+    },
+    {
+      "instance": "neos-3083819-nubu.mps.gz",
+      "n": 8644,
+      "m": 4725,
+      "nnz": 24048
+    },
+    {
+      "instance": "beasleyC3.mps.gz",
+      "n": 2500,
+      "m": 1750,
+      "nnz": 5000
+    },
+    {
+      "instance": "unitcal_7.mps.gz",
+      "n": 25755,
+      "m": 48939,
+      "nnz": 127595
+    },
+    {
+      "instance": "supportcase18.mps.gz",
+      "n": 13410,
+      "m": 240,
+      "nnz": 28920
+    },
+    {
+      "instance": "bnatt400.mps.gz",
+      "n": 3600,
+      "m": 5614,
+      "nnz": 21698
+    },
+    {
+      "instance": "neos-1445765.mps.gz",
+      "n": 20617,
+      "m": 2147,
+      "nnz": 40230
+    },
+    {
+      "instance": "dano3_5.mps.gz",
+      "n": 13873,
+      "m": 3202,
+      "nnz": 79655
+    },
+    {
+      "instance": "roll3000.mps.gz",
+      "n": 1166,
+      "m": 2295,
+      "nnz": 29386
+    },
+    {
+      "instance": "neos-4387871-tavua.mps.gz",
+      "n": 4004,
+      "m": 4554,
+      "nnz": 23496
+    },
+    {
+      "instance": "glass-sc.mps.gz",
+      "n": 214,
+      "m": 6119,
+      "nnz": 63918
+    },
+    {
+      "instance": "peg-solitaire-a3.mps.gz",
+      "n": 4552,
+      "m": 4587,
+      "nnz": 28387
+    },
+    {
+      "instance": "p200x1188c.mps.gz",
+      "n": 2376,
+      "m": 1388,
+      "nnz": 4752
+    },
+    {
+      "instance": "icir97_tension.mps.gz",
+      "n": 2494,
+      "m": 1203,
+      "nnz": 22333
+    },
+    {
+      "instance": "n5-3.mps.gz",
+      "n": 2550,
+      "m": 1062,
+      "nnz": 9900
+    },
+    {
+      "instance": "50v-10.mps.gz",
+      "n": 2013,
+      "m": 233,
+      "nnz": 2745
+    },
+    {
+      "instance": "neos-1171737.mps.gz",
+      "n": 2340,
+      "m": 4179,
+      "nnz": 58620
+    },
+    {
+      "instance": "app1-1.mps.gz",
+      "n": 2480,
+      "m": 4926,
+      "nnz": 18275
+    },
+    {
+      "instance": "neos-3024952-loue.mps.gz",
+      "n": 3255,
+      "m": 3705,
+      "nnz": 17310
+    },
+    {
+      "instance": "piperout-08.mps.gz",
+      "n": 10399,
+      "m": 14589,
+      "nnz": 44959
+    },
+    {
+      "instance": "neos-827175.mps.gz",
+      "n": 32504,
+      "m": 14187,
+      "nnz": 110790
+    },
+    {
+      "instance": "b1c1s1.mps.gz",
+      "n": 3872,
+      "m": 3904,
+      "nnz": 11408
+    },
+    {
+      "instance": "air05.mps.gz",
+      "n": 7195,
+      "m": 426,
+      "nnz": 52121
+    },
+    {
+      "instance": "net12.mps.gz",
+      "n": 14115,
+      "m": 14021,
+      "nnz": 80384
+    },
+    {
+      "instance": "traininstance2.mps.gz",
+      "n": 12890,
+      "m": 15603,
+      "nnz": 41531
+    },
+    {
+      "instance": "milo-v12-6-r2-40-1.mps.gz",
+      "n": 2688,
+      "m": 5628,
+      "nnz": 14604
+    },
+    {
+      "instance": "uct-subprob.mps.gz",
+      "n": 2256,
+      "m": 1973,
+      "nnz": 10147
+    },
+    {
+      "instance": "fiball.mps.gz",
+      "n": 34219,
+      "m": 3707,
+      "nnz": 104792
+    },
+    {
+      "instance": "neos-1456979.mps.gz",
+      "n": 4605,
+      "m": 6770,
+      "nnz": 36440
+    },
+    {
+      "instance": "cvs16r128-89.mps.gz",
+      "n": 3472,
+      "m": 4633,
+      "nnz": 12528
+    },
+    {
+      "instance": "wachplan.mps.gz",
+      "n": 3361,
+      "m": 1553,
+      "nnz": 89361
+    },
+    {
+      "instance": "dano3_3.mps.gz",
+      "n": 13873,
+      "m": 3202,
+      "nnz": 79655
+    },
+    {
+      "instance": "binkar10_1.mps.gz",
+      "n": 2298,
+      "m": 1026,
+      "nnz": 4496
+    },
+    {
+      "instance": "dws008-01.mps.gz",
+      "n": 11096,
+      "m": 6064,
+      "nnz": 56400
+    },
+    {
+      "instance": "reblock115.mps.gz",
+      "n": 1150,
+      "m": 4735,
+      "nnz": 13724
+    },
+    {
+      "instance": "neos-1582420.mps.gz",
+      "n": 10100,
+      "m": 10180,
+      "nnz": 24814
+    },
+    {
+      "instance": "graph20-20-1rand.mps.gz",
+      "n": 2183,
+      "m": 5587,
+      "nnz": 19277
+    }
+  ],
+  "rounds": 3,
+  "cutoff_s": 0.75,
+  "metrics": {
+    "sbs_backend": "scipy-highs-ds",
+    "sbs_mean_s": 0.05246490470837747,
+    "vbs_mean_s": 0.05097973687505449,
+    "policy_mean_s": 0.053496059041700995,
+    "gap_closure": -0.6943015531223705,
+    "policy_to_sbs_bootstrap": {
+      "point": 1.0196541733765672,
+      "low": 1.0067882501472738,
+      "median": 1.021334468653412,
+      "high": 1.0784077678887984,
+      "draws": 10000
+    },
+    "ds_wins": 22,
+    "ipm_wins": 1,
+    "ties": 1,
+    "ds_terminal_rate": 0.9583333333333334,
+    "ipm_terminal_rate": 0.9583333333333334,
+    "objective_mismatches": 0
+  },
+  "promotion_gates": {
+    "minimum_instances": true,
+    "ds_terminal_rate_ge_0_90": true,
+    "ipm_terminal_rate_ge_0_90": true,
+    "objective_mismatches_zero": true,
+    "policy_beats_sbs_point": false,
+    "bootstrap_upper_below_1": false,
+    "gap_closure_ge_0_50": false
+  },
+  "selector_promoted": false,
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "cpu_count": 5
+  },
+  "wall_s": 8.346234207999714,
+  "rows": [
+    {
+      "instance": "graphdraw-domain.mps.gz",
+      "n": 254,
+      "m": 865,
+      "nnz": 2600,
+      "m_over_n": 3.405511811023622,
+      "inspect_median_s": 0.0004803909996553557,
+      "ds_median_cost_s": 0.02443245999984356,
+      "ipm_median_cost_s": 0.027565586000037,
+      "policy_choice": "highs-ipm",
+      "policy_cost_s": 0.028045976999692357,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.026116689999980736,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.024224408000009134,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02443245999984356,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.027327108000008593,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02811055399979523,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.027565586000037,
+            "status": "valid_optimal",
+            "objective": 12672.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos-4954672-berkel.mps.gz",
+      "n": 1533,
+      "m": 1848,
+      "nnz": 8007,
+      "m_over_n": 1.2054794520547945,
+      "inspect_median_s": 0.0006037160001142183,
+      "ds_median_cost_s": 0.0439184629999545,
+      "ipm_median_cost_s": 0.055640816999584786,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.04452217900006872,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.04419043200005035,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0429116420000355,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0439184629999545,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.06100465200006511,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.055640816999584786,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.054712093000034656,
+            "status": "valid_optimal",
+            "objective": 1150229.1752941175,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "csched007.mps.gz",
+      "n": 1758,
+      "m": 351,
+      "nnz": 6379,
+      "m_over_n": 0.19965870307167236,
+      "inspect_median_s": 0.0006089449998398777,
+      "ds_median_cost_s": 0.06945288899987645,
+      "ipm_median_cost_s": 0.033808861000125034,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.07006183399971633,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 5.684341886080802e-14,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.06999683599997297,
+            "status": "valid_optimal",
+            "objective": 269.25158730158716,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06922618899989175,
+            "status": "valid_optimal",
+            "objective": 269.25158730158716,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06945288899987645,
+            "status": "valid_optimal",
+            "objective": 269.25158730158716,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.032734267999785516,
+            "status": "valid_optimal",
+            "objective": 269.2515873015872,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.035839331000261154,
+            "status": "valid_optimal",
+            "objective": 269.2515873015872,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.033808861000125034,
+            "status": "valid_optimal",
+            "objective": 269.2515873015872,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "gen-ip002.mps.gz",
+      "n": 41,
+      "m": 24,
+      "nnz": 922,
+      "m_over_n": 0.5853658536585366,
+      "inspect_median_s": 0.0003967259999626549,
+      "ds_median_cost_s": 0.002594235000287881,
+      "ipm_median_cost_s": 0.003287105999788764,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.002990961000250536,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 9.094947017729282e-13,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.0026409060001242324,
+            "status": "valid_optimal",
+            "objective": -4840.541961300889,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.002594235000287881,
+            "status": "valid_optimal",
+            "objective": -4840.541961300889,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0024864440001692856,
+            "status": "valid_optimal",
+            "objective": -4840.541961300889,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.0035321350001140672,
+            "status": "valid_optimal",
+            "objective": -4840.54196130089,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.003287105999788764,
+            "status": "valid_optimal",
+            "objective": -4840.54196130089,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0032856940001693147,
+            "status": "valid_optimal",
+            "objective": -4840.54196130089,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos-2657525-crna.mps.gz",
+      "n": 524,
+      "m": 342,
+      "nnz": 1690,
+      "m_over_n": 0.6526717557251909,
+      "inspect_median_s": 0.00044253400028537726,
+      "ds_median_cost_s": 0.011721112000032008,
+      "ipm_median_cost_s": 0.015978625000116153,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.012163646000317385,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.011550907000128063,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.011721112000032008,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.011879490000410442,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.01554080799996882,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.016586497999924177,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.015978625000116153,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "supportcase26.mps.gz",
+      "n": 436,
+      "m": 870,
+      "nnz": 2492,
+      "m_over_n": 1.9954128440366972,
+      "inspect_median_s": 0.0005033659999753581,
+      "ds_median_cost_s": 0.0286594280000827,
+      "ipm_median_cost_s": 0.03039876100001493,
+      "policy_choice": "highs-ipm",
+      "policy_cost_s": 0.030902126999990287,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.029859930999919015,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02825700399989728,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0286594280000827,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.030548956000075123,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.029871710000406893,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.03039876100001493,
+            "status": "valid_optimal",
+            "objective": 1288.1021611356973,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "sp150x300d.mps.gz",
+      "n": 600,
+      "m": 450,
+      "nnz": 1200,
+      "m_over_n": 0.75,
+      "inspect_median_s": 0.0004669810000450525,
+      "ds_median_cost_s": 0.012630248000277788,
+      "ipm_median_cost_s": 0.01311768999994456,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.013097229000322841,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.012895415000002686,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.012630248000277788,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.012589846000082616,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.013405921999947168,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01291907099994205,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01311768999994456,
+            "status": "valid_optimal",
+            "objective": 4.891111839947524,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos859080.mps.gz",
+      "n": 160,
+      "m": 164,
+      "nnz": 1280,
+      "m_over_n": 1.025,
+      "inspect_median_s": 0.0004352329997345805,
+      "ds_median_cost_s": 0.005780050000339543,
+      "ipm_median_cost_s": 0.008651101999930688,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.006215283000074123,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 8.881784197001252e-16,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.005940650999946229,
+            "status": "valid_optimal",
+            "objective": 1.0000000000000004,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.005780050000339543,
+            "status": "valid_optimal",
+            "objective": 1.0000000000000004,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.005666450000262557,
+            "status": "valid_optimal",
+            "objective": 1.0000000000000004,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.008651101999930688,
+            "status": "valid_optimal",
+            "objective": 0.9999999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.008436589000211825,
+            "status": "valid_optimal",
+            "objective": 0.9999999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.008882049000021652,
+            "status": "valid_optimal",
+            "objective": 0.9999999999999996,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "mad.mps.gz",
+      "n": 220,
+      "m": 51,
+      "nnz": 2808,
+      "m_over_n": 0.2318181818181818,
+      "inspect_median_s": 0.0004084029997102334,
+      "ds_median_cost_s": 0.004091724999852886,
+      "ipm_median_cost_s": 0.0068441779999375285,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.004500127999563119,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.004004684000392444,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.004207778999898437,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.004091724999852886,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.009521168999981455,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0068441779999375285,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.006417677000172262,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "markshare2.mps.gz",
+      "n": 74,
+      "m": 7,
+      "nnz": 434,
+      "m_over_n": 0.0945945945945946,
+      "inspect_median_s": 0.000353501000063261,
+      "ds_median_cost_s": 0.0020709500004159054,
+      "ipm_median_cost_s": 0.0023246109999490727,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.0024244510004791664,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.0020709500004159054,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0020387110002957343,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0021416760000647628,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.0023680660001446086,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0023226079997584748,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0023246109999490727,
+            "status": "valid_optimal",
+            "objective": 0.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos5.mps.gz",
+      "n": 63,
+      "m": 63,
+      "nnz": 2016,
+      "m_over_n": 1.0,
+      "inspect_median_s": 0.0004028749999633874,
+      "ds_median_cost_s": 0.004797012999915751,
+      "ipm_median_cost_s": 0.005210024000007252,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.005199887999879138,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 3.552713678800501e-15,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.004956382999807829,
+            "status": "valid_optimal",
+            "objective": 13.000000000000002,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.004797012999915751,
+            "status": "valid_optimal",
+            "objective": 13.000000000000002,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.0045912049999969895,
+            "status": "valid_optimal",
+            "objective": 13.000000000000002,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.005259128000034252,
+            "status": "valid_optimal",
+            "objective": 12.999999999999998,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.005210024000007252,
+            "status": "valid_optimal",
+            "objective": 12.999999999999998,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.00509842600013144,
+            "status": "valid_optimal",
+            "objective": 12.999999999999998,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "ran14x18-disj-8.mps.gz",
+      "n": 504,
+      "m": 447,
+      "nnz": 10277,
+      "m_over_n": 0.8869047619047619,
+      "inspect_median_s": 0.0005617840001832519,
+      "ds_median_cost_s": 0.051317053999810014,
+      "ipm_median_cost_s": 0.05608670699984941,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.051878837999993266,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 4.893445293419063e-08,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.051317053999810014,
+            "status": "valid_optimal",
+            "objective": 3444.4210663893227,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.05108165999990888,
+            "status": "valid_optimal",
+            "objective": 3444.4210663893227,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.054259482999896136,
+            "status": "valid_optimal",
+            "objective": 3444.4210663893227,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.055653606000305444,
+            "status": "valid_optimal",
+            "objective": 3444.421066438257,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.05608670699984941,
+            "status": "valid_optimal",
+            "objective": 3444.421066438257,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.056854699999803415,
+            "status": "valid_optimal",
+            "objective": 3444.421066438257,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "cod105.mps.gz",
+      "n": 1024,
+      "m": 1024,
+      "nnz": 57344,
+      "m_over_n": 1.0,
+      "inspect_median_s": 0.0012586400002874143,
+      "ds_median_cost_s": 0.75,
+      "ipm_median_cost_s": 0.75,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.7512586400002874,
+      "ds_terminal_rounds": 0,
+      "ipm_terminal_rounds": 0,
+      "ds_valid_rounds": 0,
+      "ipm_valid_rounds": 0,
+      "objective_abs_diff": null,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.800437034999959,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          },
+          {
+            "wall_s": 0.7969785309996951,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          },
+          {
+            "wall_s": 0.8001718780001283,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.8228790420002952,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          },
+          {
+            "wall_s": 0.8580186969998067,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          },
+          {
+            "wall_s": 0.816780855000161,
+            "status": "error",
+            "objective": null,
+            "terminal": false,
+            "valid": false
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos17.mps.gz",
+      "n": 535,
+      "m": 486,
+      "nnz": 4931,
+      "m_over_n": 0.908411214953271,
+      "inspect_median_s": 0.0005002809998586599,
+      "ds_median_cost_s": 0.023597367000093072,
+      "ipm_median_cost_s": 0.026007185999787907,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.024097647999951732,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 2.168404344971009e-19,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.023704396999619348,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985019,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.023597367000093072,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985019,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.023069633999966754,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985019,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.02821436000022004,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985021,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.026007185999787907,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985021,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02504146599994783,
+            "status": "valid_optimal",
+            "objective": 0.0006814985014985021,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "bppc4-08.mps.gz",
+      "n": 1456,
+      "m": 111,
+      "nnz": 23964,
+      "m_over_n": 0.07623626373626374,
+      "inspect_median_s": 0.0006299159999798576,
+      "ds_median_cost_s": 0.02602291899984266,
+      "ipm_median_cost_s": 0.06307885600017471,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.026652834999822517,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 2.1316282072803006e-14,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.02592680499992639,
+            "status": "valid_optimal",
+            "objective": 51.58999999999998,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02602291899984266,
+            "status": "valid_optimal",
+            "objective": 51.58999999999998,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.026496930999655888,
+            "status": "valid_optimal",
+            "objective": 51.58999999999998,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.06319858699998804,
+            "status": "valid_optimal",
+            "objective": 51.59,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06307885600017471,
+            "status": "valid_optimal",
+            "objective": 51.59,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06220145899987983,
+            "status": "valid_optimal",
+            "objective": 51.59,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "glass4.mps.gz",
+      "n": 322,
+      "m": 396,
+      "nnz": 1815,
+      "m_over_n": 1.2298136645962734,
+      "inspect_median_s": 0.0004272520000085933,
+      "ds_median_cost_s": 0.013643288999901415,
+      "ipm_median_cost_s": 0.016002282000044943,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.014070540999910008,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.013553492999562877,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.013643288999901415,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01387939300002472,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.016317613999945024,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.015892456000074162,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.016002282000044943,
+            "status": "valid_optimal",
+            "objective": 800002400.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos-4338804-snowy.mps.gz",
+      "n": 1344,
+      "m": 1701,
+      "nnz": 6342,
+      "m_over_n": 1.265625,
+      "inspect_median_s": 0.0005516179999176529,
+      "ds_median_cost_s": 0.04255737899984524,
+      "ipm_median_cost_s": 0.04724571999986438,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.043108996999762894,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.043083719999685854,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.042524630000116304,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.04255737899984524,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.04724571999986438,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.047706901999845286,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.04689375199995993,
+            "status": "valid_optimal",
+            "objective": 1447.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "ic97_potential.mps.gz",
+      "n": 728,
+      "m": 1046,
+      "nnz": 3138,
+      "m_over_n": 1.4368131868131868,
+      "inspect_median_s": 0.0004674120000345283,
+      "ds_median_cost_s": 0.03109372400012944,
+      "ipm_median_cost_s": 0.034327249999932974,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.03156113600016397,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.03425009400007184,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.03076265699974101,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.03109372400012944,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.034327249999932974,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.03568554999992557,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.034318756999709876,
+            "status": "valid_optimal",
+            "objective": 3868.0,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "assign1-5-8.mps.gz",
+      "n": 156,
+      "m": 161,
+      "nnz": 3720,
+      "m_over_n": 1.0320512820512822,
+      "inspect_median_s": 0.0004731510002784489,
+      "ds_median_cost_s": 0.015782611000304314,
+      "ipm_median_cost_s": 0.016740779999963706,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.016255762000582763,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.015782611000304314,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01619615200024782,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.015734788999907323,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.016740779999963706,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.017584057000021858,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01667020400009278,
+            "status": "valid_optimal",
+            "objective": 183.3625549738219,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "gmu-35-40.mps.gz",
+      "n": 1205,
+      "m": 424,
+      "nnz": 4843,
+      "m_over_n": 0.3518672199170125,
+      "inspect_median_s": 0.0005320090003806399,
+      "ds_median_cost_s": 0.02089836400000422,
+      "ipm_median_cost_s": 0.030863859999954002,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.02143037300038486,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 4.656612873077393e-10,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.02089836400000422,
+            "status": "valid_optimal",
+            "objective": -2406943.5563428826,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02067111299993485,
+            "status": "valid_optimal",
+            "objective": -2406943.5563428826,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.021434659000078682,
+            "status": "valid_optimal",
+            "objective": -2406943.5563428826,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.03002508999998099,
+            "status": "valid_optimal",
+            "objective": -2406943.556342883,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.030894064999756665,
+            "status": "valid_optimal",
+            "objective": -2406943.556342883,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.030863859999954002,
+            "status": "valid_optimal",
+            "objective": -2406943.556342883,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos-3754480-nidda.mps.gz",
+      "n": 253,
+      "m": 402,
+      "nnz": 1488,
+      "m_over_n": 1.5889328063241106,
+      "inspect_median_s": 0.0004799309999725665,
+      "ds_median_cost_s": 0.012968626000201766,
+      "ipm_median_cost_s": 0.020490951999818208,
+      "policy_choice": "highs-ipm",
+      "policy_cost_s": 0.020970882999790774,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 1.0710209608078003e-08,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.01370396999982404,
+            "status": "valid_optimal",
+            "objective": -1216923.2701043931,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.012968626000201766,
+            "status": "valid_optimal",
+            "objective": -1216923.2701043931,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.012814893999802734,
+            "status": "valid_optimal",
+            "objective": -1216923.2701043931,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.021028318999924522,
+            "status": "valid_optimal",
+            "objective": -1216923.2701044038,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.020490951999818208,
+            "status": "valid_optimal",
+            "objective": -1216923.2701044038,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.02040219899981821,
+            "status": "valid_optimal",
+            "objective": -1216923.2701044038,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "mik-250-20-75-4.mps.gz",
+      "n": 270,
+      "m": 195,
+      "nnz": 9270,
+      "m_over_n": 0.7222222222222222,
+      "inspect_median_s": 0.0004896249997727864,
+      "ds_median_cost_s": 0.00898966000022483,
+      "ipm_median_cost_s": 0.010532337000313419,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.009479284999997617,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.009117582999806473,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.00898966000022483,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.00888510300001144,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.010865546999866638,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.01050194100025692,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.010532337000313419,
+            "status": "valid_optimal",
+            "objective": -61651.22709753319,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "neos-3627168-kasai.mps.gz",
+      "n": 1462,
+      "m": 1655,
+      "nnz": 5158,
+      "m_over_n": 1.1320109439124486,
+      "inspect_median_s": 0.0005117890000292391,
+      "ds_median_cost_s": 0.04600216199969509,
+      "ipm_median_cost_s": 0.060586685000089346,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.04651395099972433,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 6.984919309616089e-10,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.045819669000138674,
+            "status": "valid_optimal",
+            "objective": 945808.0955555551,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.04600216199969509,
+            "status": "valid_optimal",
+            "objective": 945808.0955555551,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.04602340500014179,
+            "status": "valid_optimal",
+            "objective": 945808.0955555551,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.060586685000089346,
+            "status": "valid_optimal",
+            "objective": 945808.0955555544,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06069677000004958,
+            "status": "valid_optimal",
+            "objective": 945808.0955555544,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.06019641800003228,
+            "status": "valid_optimal",
+            "objective": 945808.0955555544,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "instance": "timtab1.mps.gz",
+      "n": 397,
+      "m": 171,
+      "nnz": 829,
+      "m_over_n": 0.43073047858942065,
+      "inspect_median_s": 0.0003668399999696703,
+      "ds_median_cost_s": 0.00613598500012813,
+      "ipm_median_cost_s": 0.007316817999708292,
+      "policy_choice": "highs-ds",
+      "policy_cost_s": 0.0065028250000978005,
+      "ds_terminal_rounds": 3,
+      "ipm_terminal_rounds": 3,
+      "ds_valid_rounds": 3,
+      "ipm_valid_rounds": 3,
+      "objective_abs_diff": 0.0,
+      "samples": {
+        "highs-ds": [
+          {
+            "wall_s": 0.00613598500012813,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.006157366000024922,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.006119520000083867,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          }
+        ],
+        "highs-ipm": [
+          {
+            "wall_s": 0.007440182999744138,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.00728119500035973,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          },
+          {
+            "wall_s": 0.007316817999708292,
+            "status": "valid_optimal",
+            "objective": 28693.999999999996,
+            "terminal": true,
+            "valid": true
+          }
+        ]
+      }
+    }
+  ],
+  "claims_boundary": [
+    "public/OOD evidence uses continuous LP relaxations derived from official MIPLIB 2017 MILP models",
+    "this is within-HiGHS DS-vs-IPM algorithm selection, not cross-solver superiority",
+    "feature inspection cost is included in deployable policy cost",
+    "promotion requires all predeclared gates; failure leaves M23 conservative baseline unchanged"
+  ]
+}

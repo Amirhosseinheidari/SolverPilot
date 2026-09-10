@@ -1,0 +1,64 @@
+{
+  "claim_boundary": "post-outcome diagnostic only; cannot authorize M30 or production routing",
+  "interpretation": {
+    "opportunity_not_only_single_outlier_m25": true,
+    "opportunity_not_only_single_outlier_m28": true,
+    "target_noise_is_not_a_complete_explanation": true
+  },
+  "m25": {
+    "decisive_instances": 45,
+    "decisive_sign_agreement_fraction": 0.9333333333333333,
+    "delta_rank_spearman_run1_vs_run2": 0.9355188884064265,
+    "instances": 48,
+    "median_abs_robust_delta_s": 0.009408120250157026,
+    "opportunity_concentration": {
+      "positive_instances": 37,
+      "top10_share": 0.808910600568056,
+      "top1_share": 0.1542817038203277,
+      "top5_share": 0.5328137220645627,
+      "total_s": 0.6334295210010623
+    },
+    "sbs": "ipm",
+    "winner_sign_agreement_fraction": 0.9166666666666666,
+    "winner_sign_flip_count": 4,
+    "winner_sign_flip_instances": [
+      "markshare_4_0.mps.gz",
+      "ran14x18-disj-8.mps.gz",
+      "sp150x300d.mps.gz",
+      "supportcase26.mps.gz"
+    ]
+  },
+  "m28": {
+    "instances": 48,
+    "median_round_pair_delta_spearman": 0.9215154146765089,
+    "nonunanimous_instance_count": 9,
+    "opportunity_concentration": {
+      "positive_instances": 9,
+      "top10_share": 1.0,
+      "top1_share": 0.4276781957506812,
+      "top5_share": 0.9460847882614394,
+      "total_s": 0.9429007019898563
+    },
+    "round_pair_delta_spearman": [
+      {
+        "round_a": 0,
+        "round_b": 1,
+        "spearman_delta": 0.9417064698219714
+      },
+      {
+        "round_a": 0,
+        "round_b": 2,
+        "spearman_delta": 0.9006730351715155
+      },
+      {
+        "round_a": 1,
+        "round_b": 2,
+        "spearman_delta": 0.9215154146765089
+      }
+    ],
+    "rounds_per_instance_min": 3,
+    "sbs": "simplex",
+    "unanimous_round_winner_fraction": 0.8125
+  },
+  "schema": "optimind.m29.target_stability.v1"
+}

@@ -1,0 +1,24 @@
+{
+  "$id": "solverpilot.conic-ir.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema", "P", "q", "A", "variable_lower", "variable_upper", "constraint_lower", "constraint_upper", "cones", "objective_sense", "objective_offset", "structural_hash", "data_hash"],
+  "properties": {
+    "schema": {"const": "solverpilot.conic-ir.v1"},
+    "P": {"type": "object"},
+    "q": {"type": "array", "items": {"type": "number"}},
+    "A": {"type": "object"},
+    "variable_lower": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
+    "variable_upper": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
+    "constraint_lower": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
+    "constraint_upper": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
+    "cones": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["kind", "F", "g", "output_shape", "structural_hash", "data_hash"], "properties": {"kind": {"enum": ["second_order", "rotated_second_order", "positive_semidefinite"]}}}},
+    "objective_sense": {"const": "minimize"},
+    "objective_offset": {"type": "number"},
+    "name": {"type": ["string", "null"]},
+    "metadata": {"type": "object"},
+    "convexity_status": {"type": "string"},
+    "structural_hash": {"type": "string"},
+    "data_hash": {"type": "string"}
+  }
+}

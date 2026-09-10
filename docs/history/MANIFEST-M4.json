@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "milestone": "M4",
+  "version": "0.0.5",
+  "date": "2026-08-31",
+  "files_hashed": 102,
+  "pytest": "98 passed, 3 skipped",
+  "m4_selector_runs": 2,
+  "public_native_integrations_executed": false,
+  "miplib_executed": false,
+  "qplib_executed": false
+}

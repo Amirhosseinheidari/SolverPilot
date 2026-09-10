@@ -1,0 +1,319 @@
+name: Release qualification
+
+on:
+  workflow_dispatch:
+    inputs:
+      attest_artifacts:
+        description: "Generate and verify GitHub artifact attestations (requires repository/plan support)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-dist:
+    name: build exact release artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install pinned release tooling
+        run: python -m pip install "build==1.6.0" "twine==7.0.0" "packaging==26.0"
+      - name: Freeze reproducible-build timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> "$GITHUB_ENV"
+      - name: Build twice from the same source
+        run: |
+          python -m build --outdir dist-a
+          python -m build --outdir dist-b
+      - name: Reproducibility diagnostic
+        run: python tools/release_repro_build_compare.py dist-a dist-b --output release-repro-build.json
+      - name: Select exact release artifacts
+        shell: bash
+        run: |
+          mkdir dist
+          cp dist-a/* dist/
+      - name: Validate package metadata
+        run: python -m twine check --strict dist/*
+      - name: Freeze distribution digests
+        run: python tools/release_dist_manifest.py dist --write
+      - name: Upload exact distribution
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-dist
+          path: |
+            dist/
+            release-repro-build.json
+          if-no-files-found: error
+          retention-days: 14
+
+  static-correctness:
+    name: static correctness gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install pinned static checker
+        run: python -m pip install "ruff==0.16.6" "pytest>=8" "numpy>=2.2,<3" "scipy>=1.15,<2" "pyyaml>=6"
+      - name: Compile all Python sources
+        run: python -m compileall -q src tests tools benchmarks
+      - name: Run correctness-focused Ruff rules
+        run: ruff check --select E9,F63,F7,F82 src tests tools benchmarks
+      - name: Require hardening contract tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_final_release_hardening.py
+
+  security-sbom:
+    name: dependency audit + SBOM
+    needs: build-dist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/release_verify_dist.py dist
+      - name: Install pinned audit tooling
+        run: python -m pip install "pip-audit==2.10.1"
+      - name: Materialize wheel dependency environment
+        run: python -m pip install --target audit-site dist/*.whl
+      - name: Generate CycloneDX SBOM
+        shell: bash
+        run: |
+          python -m pip_audit --path audit-site --strict --format cyclonedx-json --output release-sbom.cdx.json || test -s release-sbom.cdx.json
+      - name: Fail on known dependency vulnerabilities
+        run: python -m pip_audit --path audit-site --strict --format json --output security-audit.json
+      - name: Upload security evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-security
+          path: |
+            security-audit.json
+            release-sbom.cdx.json
+          if-no-files-found: error
+          retention-days: 14
+
+  attest-dist:
+    name: attest exact artifacts
+    if: ${{ inputs.attest_artifacts }}
+    needs: [build-dist, security-sbom]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-security
+          path: security-download
+      - name: Generate build provenance attestation
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            dist/*.whl
+            dist/*.tar.gz
+      - name: Attest wheel SBOM
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: dist/*.whl
+          sbom-path: security-download/release-sbom.cdx.json
+      - name: Verify build provenance attestation
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for artifact in dist/*.whl dist/*.tar.gz; do
+            gh attestation verify "$artifact" --repo "${{ github.repository }}"
+          done
+
+  core-matrix:
+    name: core / ${{ matrix.os }} / py${{ matrix.python }}
+    needs: build-dist
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/release_verify_dist.py dist
+      - name: Isolated exact-wheel qualification
+        run: python tools/release_cell_runner.py --dist dist --prefix release-core
+      - name: Upload cell evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: core-${{ matrix.os }}-py${{ matrix.python }}
+          path: |
+            release-core-*.json
+            release-core-*.txt
+            release-core-pytest.xml
+          if-no-files-found: warn
+
+  minimum-deps:
+    name: minimum deps / ubuntu / py3.12
+    needs: build-dist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/release_verify_dist.py dist
+      - name: Minimum-dependency full qualification
+        run: python tools/release_cell_runner.py --dist dist --prefix release-min --minimum-deps
+
+  native-python-matrix:
+    name: optional / ubuntu / py${{ matrix.python }} / ${{ matrix.extra }}
+    needs: build-dist
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+        extra: [highs, osqp, scip, nlopt, casadi, conic, nlp, minlp, cp]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/release_verify_dist.py dist
+      - name: Require exact optional integration
+        run: python tools/release_cell_runner.py --dist dist --prefix release-native --extra "${{ matrix.extra }}" --skip-regression
+
+  native-os-matrix:
+    name: optional / ${{ matrix.os }} / py${{ matrix.python }} / ${{ matrix.extra }}
+    needs: build-dist
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+        python: ["3.12", "3.13", "3.14"]
+        extra: [highs, osqp, scip, nlopt, casadi, conic, nlp, minlp, cp]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+      - name: Normalize distribution path
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+      - name: Verify exact artifact digests
+        run: python tools/release_verify_dist.py dist
+      - name: Require exact optional integration
+        run: python tools/release_cell_runner.py --dist dist --prefix release-native-os --extra "${{ matrix.extra }}" --skip-regression
+
+  technical-gate:
+    name: technical release gate
+    if: always()
+    needs: [build-dist, static-correctness, security-sbom, attest-dist, core-matrix, minimum-deps, native-python-matrix, native-os-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require intended qualification jobs to pass
+        env:
+          ATTEST_REQUIRED: ${{ inputs.attest_artifacts }}
+          BUILD_RESULT: ${{ needs.build-dist.result }}
+          ATTEST_RESULT: ${{ needs.attest-dist.result }}
+          STATIC_RESULT: ${{ needs.static-correctness.result }}
+          SECURITY_RESULT: ${{ needs.security-sbom.result }}
+          CORE_RESULT: ${{ needs.core-matrix.result }}
+          MIN_RESULT: ${{ needs.minimum-deps.result }}
+          NATIVE_PY_RESULT: ${{ needs.native-python-matrix.result }}
+          NATIVE_OS_RESULT: ${{ needs.native-os-matrix.result }}
+        run: |
+          python - <<'PY'
+          import json, os
+          results={k:os.environ[k] for k in ["BUILD_RESULT","STATIC_RESULT","SECURITY_RESULT","CORE_RESULT","MIN_RESULT","NATIVE_PY_RESULT","NATIVE_OS_RESULT"]}
+          base_ok=all(v=="success" for v in results.values())
+          attest_required=os.environ["ATTEST_REQUIRED"].lower()=="true"
+          attest_result=os.environ["ATTEST_RESULT"]
+          attest_ok=(attest_result=="success") if attest_required else attest_result in {"skipped","success"}
+          passed=base_ok and attest_ok
+          print(json.dumps({"schema":"solverpilot.release.qualification_gate.v1","results":results,"attestation_required":attest_required,"attestation_result":attest_result,"passed":passed},sort_keys=True))
+          raise SystemExit(0 if passed else 2)
+          PY

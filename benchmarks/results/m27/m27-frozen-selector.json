@@ -1,0 +1,171 @@
+{
+  "alternate_backend": "scipy-highs-ds",
+  "claims_boundary": [
+    "development data were adaptively reused after M26; only the sealed M27 test can authorize production ranking",
+    "bootstrap leaf lower bounds are empirical safety statistics, not formal conformal coverage guarantees"
+  ],
+  "default_backend": "scipy-highs-ipm",
+  "development_gate_passed": true,
+  "development_gates": {
+    "all_32_oof_rows_accounted": true,
+    "group_leakage_zero": true,
+    "harmful_switches_zero": true,
+    "objective_mismatches_zero": true,
+    "oof_policy_to_sbs_le_0_99": true,
+    "p90_policy_to_default_le_1_10": true,
+    "switch_count_in_range": true,
+    "test_costs_absent": true
+  },
+  "development_instances": 32,
+  "development_metrics": {
+    "alternate_backend": "scipy-highs-ds",
+    "development_sbs_backend": "scipy-highs-ipm",
+    "development_sbs_mean_s": 0.1044860575625357,
+    "harmful_alternate_switches": 0,
+    "max_policy_minus_default_s": 0.0016833782499361405,
+    "mean_inspection_s": 0.0010006879375303868,
+    "oof_policy_mean_s": 0.10241602337505284,
+    "oof_policy_to_sbs": 0.9801884171364784,
+    "p90_policy_to_default_route": 1.0759208630918216,
+    "switch_rate": 0.1875,
+    "switches": 6
+  },
+  "feature_names": [
+    "log1p_n",
+    "log1p_m",
+    "log1p_nnz",
+    "log_density",
+    "log1p_m_over_n"
+  ],
+  "leaf_stats": {
+    "2": {
+      "bootstrap_one_sided_90_lower_mean_s": 0.00921752631265349,
+      "max_saving_s": 0.05061849275000441,
+      "mean_saving_s": 0.016810700812612822,
+      "min_saving_s": -0.009940301249912409,
+      "samples": 8,
+      "support_used_features": {
+        "2": {
+          "max": 9.712205974370661,
+          "min": 8.411165786770708
+        },
+        "3": {
+          "max": -5.611467803831674,
+          "min": -6.771927704111633
+        }
+      }
+    },
+    "3": {
+      "bootstrap_one_sided_90_lower_mean_s": -0.003102837143726589,
+      "max_saving_s": 0.007440796999844679,
+      "mean_saving_s": -0.00010974503123861723,
+      "min_saving_s": -0.03714564699942002,
+      "samples": 16,
+      "support_used_features": {
+        "2": {
+          "max": 9.237760967552175,
+          "min": 6.721425700790643
+        },
+        "3": {
+          "max": -0.06508067349565957,
+          "min": -5.491688759528576
+        }
+      }
+    },
+    "4": {
+      "bootstrap_one_sided_90_lower_mean_s": -0.23802968102497743,
+      "max_saving_s": 0.09772658575013793,
+      "mean_saving_s": -0.12997721543747787,
+      "min_saving_s": -0.578848780750036,
+      "samples": 8,
+      "support_used_features": {
+        "2": {
+          "max": 11.400450814871316,
+          "min": 9.809231816610408
+        },
+        "3": {
+          "max": -1.1836653822372876,
+          "min": -6.6542249141803405
+        }
+      }
+    }
+  },
+  "model_family": "selective_cart_absolute_saving",
+  "model_sha256": "a78b586d4cb20f22e033806d5e31a8b972401bc4783c230f4f71b5e4926f1f2f",
+  "protocol_sha256": "2824ee0d21bf5c8e7b4bf1758b107ab569a62830032e1c11f8fb2eedee1a2ba3",
+  "schema": "optimind.m27.selective_absolute_saving_tree.v1",
+  "selective_rule": {
+    "bootstrap_draws": 5000,
+    "bootstrap_lower_quantile": 0.1,
+    "require_in_leaf_support_for_tree_used_features": true,
+    "require_leaf_samples_at_least": 8,
+    "switch_margin_s": 0.005
+  },
+  "split_sha256": "6e94069451a07a8ec7ef786bff70ec844afeedd5282c93258fe47615ab0415e6",
+  "target": "default_backend_cost - alternate_backend_cost",
+  "test_instances": 16,
+  "test_outcomes_seen_during_fit": false,
+  "training_dependency": {
+    "runtime_dependency_required": false,
+    "scikit_learn": "1.8.0"
+  },
+  "trainval_sha256": "25371219af0e2b992b0447c0dbd3f4b9998f85b0693b2d86988075f8a8357dd0",
+  "tree_hyperparameters": {
+    "criterion": "squared_error",
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "random_state": 270027
+  },
+  "tree_nodes": [
+    {
+      "feature": 2,
+      "is_leaf": false,
+      "left": 1,
+      "node": 0,
+      "right": 4,
+      "samples": 32,
+      "threshold": 9.760718822479248,
+      "value": -0.02834650117183557
+    },
+    {
+      "feature": 3,
+      "is_leaf": false,
+      "left": 2,
+      "node": 1,
+      "right": 3,
+      "samples": 24,
+      "threshold": -5.5515782833099365,
+      "value": 0.005530403583378529
+    },
+    {
+      "feature": -2,
+      "is_leaf": true,
+      "left": -1,
+      "node": 2,
+      "right": -1,
+      "samples": 8,
+      "threshold": -2.0,
+      "value": 0.016810700812612822
+    },
+    {
+      "feature": -2,
+      "is_leaf": true,
+      "left": -1,
+      "node": 3,
+      "right": -1,
+      "samples": 16,
+      "threshold": -2.0,
+      "value": -0.00010974503123861723
+    },
+    {
+      "feature": -2,
+      "is_leaf": true,
+      "left": -1,
+      "node": 4,
+      "right": -1,
+      "samples": 8,
+      "threshold": -2.0,
+      "value": -0.12997721543747787
+    }
+  ]
+}

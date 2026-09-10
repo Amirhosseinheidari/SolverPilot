@@ -1,0 +1,29 @@
+{
+  "baseline_provenance": "verified M13 runtime source + separately preserved official M22 evidence; no reconstruction claim for missing M14-M22 source trees",
+  "benchmark": {
+    "milp_bruteforce_matches": 30,
+    "performance_auto_enabled_count": 0,
+    "planning_cases": 900,
+    "planning_failures": 0,
+    "qp_target_matches": 30,
+    "solve_cases": 90,
+    "solve_failures": 0
+  },
+  "claims_boundary": "M23 is production-safe evidence routing, not a learned or empirically superior solver selector.",
+  "classification": "verified_complete",
+  "m22_gate_sha256": "3604e6de32e053f2997a4eab7682ca614603e9f853b7767a4bfba33d0279632e",
+  "milestone": "M23",
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 226,
+    "skipped": 3,
+    "tests": 229
+  },
+  "schema": "optimind.m23.release_manifest.v1",
+  "version": "0.0.28",
+  "wheel": {
+    "path": "dist/optimind_core_codename-0.0.28-py3-none-any.whl",
+    "sha256": "f7cd9b31e4cbfa64f5eca1538a9b3aadee404592d2bfe1b5bbc6f9feb96d68b6"
+  }
+}

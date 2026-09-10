@@ -1,0 +1,57 @@
+{
+  "schema": "optimind.m24.public_ood_stability.v1",
+  "same_cohort": true,
+  "same_winner_pattern": true,
+  "instances": 24,
+  "run1": {
+    "sbs_backend": "scipy-highs-ds",
+    "sbs_mean_s": 0.05251471879169382,
+    "vbs_mean_s": 0.050969548750022874,
+    "policy_mean_s": 0.053539261875035514,
+    "gap_closure": -0.6630617056448747,
+    "policy_to_sbs_bootstrap": {
+      "point": 1.0195096366678773,
+      "low": 1.0066655532283866,
+      "median": 1.0211654420332952,
+      "high": 1.0774695904075937,
+      "draws": 10000
+    },
+    "ds_wins": 22,
+    "ipm_wins": 1,
+    "ties": 1,
+    "objective_mismatches": 0
+  },
+  "run2": {
+    "sbs_backend": "scipy-highs-ds",
+    "sbs_mean_s": 0.05246490470837747,
+    "vbs_mean_s": 0.05097973687505449,
+    "policy_mean_s": 0.053496059041700995,
+    "gap_closure": -0.6943015531223705,
+    "policy_to_sbs_bootstrap": {
+      "point": 1.0196541733765672,
+      "low": 1.0067882501472738,
+      "median": 1.021334468653412,
+      "high": 1.0784077678887984,
+      "draws": 10000
+    },
+    "ds_wins": 22,
+    "ipm_wins": 1,
+    "ties": 1,
+    "objective_mismatches": 0
+  },
+  "selector_promoted_both": false,
+  "failed_promotion_gates_both": [
+    "bootstrap_upper_below_1",
+    "gap_closure_ge_0_50",
+    "policy_beats_sbs_point"
+  ],
+  "policy_ipm_choices": [
+    "graphdraw-domain.mps.gz",
+    "supportcase26.mps.gz",
+    "neos-3754480-nidda.mps.gz"
+  ],
+  "actual_ipm_winner": [
+    "csched007.mps.gz"
+  ],
+  "interpretation": "M4/M5 synthetic selector is reproducibly falsified on this resource-bounded public/OOD MIPLIB-derived LP-relaxation cohort; keep production LP baseline on dual simplex."
+}

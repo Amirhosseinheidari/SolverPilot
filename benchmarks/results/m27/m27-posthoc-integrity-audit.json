@@ -1,0 +1,152 @@
+{
+  "classification": "post-hoc audit; does not alter or retune the consumed M27 test",
+  "environment_provenance": {
+    "claim_boundary": "A post-hoc environment capture with the same package key set matches M25 exactly, but M27 held-out result itself did not embed a test-time fingerprint. This supports same-session continuity but cannot retroactively certify test-time fixed-environment provenance; production evidence therefore keeps fixed_environment=false.",
+    "current_environment": {
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "env_threads": {
+        "BLIS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "VECLIB_MAXIMUM_THREADS": null
+      },
+      "hostname": "localhost",
+      "logical_cpus": 5,
+      "machine": "x86_64",
+      "memory_bytes": 6236925952,
+      "packages": {
+        "numpy": "2.3.5",
+        "scikit-learn": "1.8.0",
+        "scipy": "1.17.0"
+      },
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python"
+    },
+    "current_environment_m25_compatible": {
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "env_threads": {
+        "BLIS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "VECLIB_MAXIMUM_THREADS": null
+      },
+      "hostname": "localhost",
+      "logical_cpus": 5,
+      "machine": "x86_64",
+      "memory_bytes": 6236925952,
+      "packages": {
+        "numpy": "2.3.5",
+        "optimind-core-codename": null,
+        "scipy": "1.17.0"
+      },
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python"
+    },
+    "current_posthoc_environment_fingerprint": "5397c7d603b3a043fde52a478ff30f33f4ecd6d4df9d7de22879048de6e86f51",
+    "current_posthoc_environment_fingerprint_m25_compatible": "19ff302531eb1818649d83c4f015d64cfedbe50a048f0ecf80c6513212d5efae",
+    "m25_recorded_environment_fingerprint": "19ff302531eb1818649d83c4f015d64cfedbe50a048f0ecf80c6513212d5efae",
+    "posthoc_fingerprint_matches_m25": true
+  },
+  "freeze_checks": {
+    "model_internal_canonical_hash_valid": true,
+    "model_mtime_before_heldout_result": true,
+    "protocol_mtime_before_model": true,
+    "runner_mtime_before_heldout_result": true,
+    "saved_model_file_sha_matches_actual": true,
+    "saved_protocol_sha_matches_actual": true,
+    "test_model_hash_matches_frozen_model": true,
+    "test_protocol_hash_matches_frozen_protocol": true
+  },
+  "frozen_artifacts": {
+    "freeze_script": {
+      "mtime_utc": "2026-09-06T08:40:02.115714+00:00",
+      "sha256": "667620bed531b88366f901086d0db29d5e28200e5be2ff06f504ea3702366512",
+      "size_bytes": 9918
+    },
+    "heldout_result": {
+      "mtime_utc": "2026-09-06T08:41:49.577819+00:00",
+      "sha256": "37600c5f1d429c11cfbda6d7fbfc2a847783f3cadc8d20d9e74b25c37d039d6e",
+      "size_bytes": 30468
+    },
+    "heldout_runner": {
+      "mtime_utc": "2026-09-06T08:41:37.595659+00:00",
+      "sha256": "108b9007a78c33215a6c586bce8824ab957a0f076224ab1a74e19d3c4e996607",
+      "size_bytes": 9747
+    },
+    "model_file": {
+      "mtime_utc": "2026-09-06T08:40:03.199403+00:00",
+      "sha256": "3e095c328f401fb513a459b09caae3a6a94fa7c3641ef9cdc317f878a78a265f",
+      "size_bytes": 4862
+    },
+    "protocol": {
+      "mtime_utc": "2026-09-06T08:38:47.367030+00:00",
+      "sha256": "2824ee0d21bf5c8e7b4bf1758b107ab569a62830032e1c11f8fb2eedee1a2ba3",
+      "size_bytes": 5021
+    }
+  },
+  "heldout_outcome_audit": {
+    "objective_mismatches": 0,
+    "solver_error_outcomes": 2,
+    "status_counts": {
+      "error": 2,
+      "valid_optimal": 62
+    },
+    "status_counts_by_backend": {
+      "highs-ds": {
+        "error": 2,
+        "valid_optimal": 30
+      },
+      "highs-ipm": {
+        "valid_optimal": 32
+      }
+    },
+    "switches": [
+      {
+        "actual_default_minus_alternate_s": 0.00532494700019015,
+        "inspect_s": 0.0004441774999577319,
+        "instance": "neos-4954672-berkel.mps.gz",
+        "lower_saving_s": 0.00921752631265349,
+        "predicted_saving_s": 0.016810700812612822,
+        "support_passed": true
+      },
+      {
+        "actual_default_minus_alternate_s": -0.015464057499684714,
+        "inspect_s": 0.0004829100003007625,
+        "instance": "uct-subprob.mps.gz",
+        "lower_saving_s": 0.00921752631265349,
+        "predicted_saving_s": 0.016810700812612822,
+        "support_passed": true
+      }
+    ],
+    "worker_errors": 0
+  },
+  "one_time_boundary": {
+    "artifact_records_one_time_execution": true,
+    "claim_boundary": "Filesystem chronology, frozen hashes, and a write-once guard support the recorded one-time execution. They do not constitute an external append-only or cryptographic attestation that no unrecorded prior execution ever occurred.",
+    "write_once_runner_guard_present": true
+  },
+  "schema": "optimind.m27.posthoc_integrity_audit.v1",
+  "scientific_result_unchanged": {
+    "bootstrap_95_high": 1.0271805702487993,
+    "performance_ranking_validated": false,
+    "policy_to_sbs": 1.0077010570787657
+  },
+  "source_corpus_lineage": {
+    "m22_miplib_sha256_match": true,
+    "m22_official_gate_passed": true,
+    "m25_opportunity_validated_both": true
+  },
+  "split_audit": {
+    "group_leakage_zero": true,
+    "group_leaks": {},
+    "records": 48,
+    "test_instances": 16,
+    "unique_groups": 45
+  }
+}

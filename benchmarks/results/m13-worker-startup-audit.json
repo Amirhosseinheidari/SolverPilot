@@ -1,0 +1,22 @@
+{
+  "benchmark": "M13 Python worker startup audit",
+  "note": "platform-specific; demonstrates why benchmark worker startup mode is protocol-versioned",
+  "runs": [
+    {
+      "mode": "normal",
+      "state": "completed",
+      "returncode": 0,
+      "wall_s": 0.9298675350000849,
+      "stdout": "True True",
+      "stderr_tail": ""
+    },
+    {
+      "mode": "no_site",
+      "state": "completed",
+      "returncode": 0,
+      "wall_s": 0.4384290889993281,
+      "stdout": "True True",
+      "stderr_tail": ""
+    }
+  ]
+}

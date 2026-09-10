@@ -1,0 +1,51 @@
+{
+  "classification": "final_verified_engineering_closure_public_rc_fail_closed",
+  "core_compatibility": {
+    "executed_pass": 0,
+    "pending": 9,
+    "target_total": 9
+  },
+  "external_repository_settings": {
+    "allowed_actions_policy": "unverified_external_state",
+    "branch_protection": "unverified_external_state",
+    "publish_environment_required_reviewers": "unverified_external_state",
+    "trusted_publisher_identity": "unconfigured_or_unverified"
+  },
+  "milestone": "M33",
+  "milestone_closed": true,
+  "minimum_dependency_gate": "pending_external_execution",
+  "next_gate": "external GitHub-hosted compatibility/security execution plus owner publication decisions",
+  "owner_metadata_complete": false,
+  "protocol_sha256": "041dbc772f54a60d2dab451c4b34083e4d61c0e3bec6ee68c43cd54e0799921c",
+  "public_1_0_authorized": false,
+  "public_rc_authorized": false,
+  "publish_workflow_enabled": false,
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 312,
+    "schema": "optimind.m33.regression_recertification.v1",
+    "skipped": 4,
+    "tests": 316
+  },
+  "schema": "optimind.m33.final_closure.v1",
+  "sdist": {
+    "byte_reproducible_with_fixed_epoch": false,
+    "filename": "optimind_core_codename-0.0.36rc3.tar.gz",
+    "semantic_content_reproducible": true,
+    "sha256": "bee54fe3a4d1446aca88da6d1694324044da9426b228dfe1d676cfa93069739e"
+  },
+  "security_gate": {
+    "cyclonedx_sbom": true,
+    "ignore_list": [],
+    "pip_audit": "2.10.1",
+    "status": "pending_external_execution"
+  },
+  "version": "0.0.36rc3",
+  "wheel": {
+    "byte_reproducible_with_fixed_epoch": true,
+    "filename": "optimind_core_codename-0.0.36rc3-py3-none-any.whl",
+    "sha256": "ba77d1e284d22ed839eb9e88bff96dee436ec31ac144fb39e7aa6891f427ae0d"
+  },
+  "workflow_sha256": "09cfcf3cd593475460d45785fe12a8f9e4200c57b1a3e3b75673f9d722d8c19c"
+}

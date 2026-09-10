@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://solverpilot.local/schemas/transformation-tape-p4-v1.json",
+  "title": "SolverPilot P4 Transformation Tape",
+  "type": "object",
+  "required": ["schema_version", "steps"],
+  "properties": {
+    "schema_version": {"const": "solverpilot.transformation-tape.p4.v1"},
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step_id", "bridge_id", "bridge_version", "source_entity_ids",
+          "generated_target_ids", "exactness", "preconditions", "primal_mapping",
+          "dual_mapping", "certificate_mapping", "mutation_compatibility",
+          "size_delta", "numerical_risk", "notes"
+        ],
+        "properties": {
+          "step_id": {"type": "string", "minLength": 1},
+          "bridge_id": {"type": "string", "minLength": 1},
+          "bridge_version": {"type": "string", "minLength": 1},
+          "source_entity_ids": {"type": "array", "items": {"type": "string"}},
+          "generated_target_ids": {"type": "array", "items": {"type": "string"}},
+          "exactness": {"enum": ["exact_equivalent", "certified_relaxation", "heuristic"]},
+          "preconditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["kind", "payload", "certificate_version", "sha256"],
+              "properties": {
+                "kind": {"type": "string"},
+                "payload": {"type": "object"},
+                "certificate_version": {"type": "string"},
+                "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "primal_mapping": {"enum": ["identity", "available", "unavailable"]},
+          "dual_mapping": {"enum": ["identity", "available", "unavailable"]},
+          "certificate_mapping": {"enum": ["identity", "available", "unavailable"]},
+          "mutation_compatibility": {"type": "array", "items": {"type": "string"}},
+          "size_delta": {"type": "object", "additionalProperties": {"type": "integer"}},
+          "numerical_risk": {"type": "object"},
+          "notes": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

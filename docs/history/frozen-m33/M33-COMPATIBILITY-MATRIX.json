@@ -1,0 +1,167 @@
+{
+  "claim_boundary": "Pending workflow, upstream wheels, static syntax, and local single-environment smoke do not become public compatibility passes.",
+  "core_executed_pass_count": 0,
+  "core_matrix": [
+    {
+      "os": "linux",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "linux",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "linux",
+      "python": "3.14",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "macos",
+      "python": "3.14",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.12",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.13",
+      "status": "pending_external_execution"
+    },
+    {
+      "os": "windows",
+      "python": "3.14",
+      "status": "pending_external_execution"
+    }
+  ],
+  "core_pending_count": 9,
+  "external_repository_settings": {
+    "allowed_actions_policy": "unverified_external_state",
+    "branch_protection": "unverified_external_state",
+    "publish_environment_required_reviewers": "unverified_external_state",
+    "trusted_publisher_identity": "unconfigured_or_unverified"
+  },
+  "governance_blockers": [
+    "license/SPDX and license text",
+    "final public distribution/project name",
+    "author/maintainer metadata decision",
+    "project URLs and Trusted Publisher identity",
+    "OptiMind branding review"
+  ],
+  "local_non_promoting_evidence": {
+    "linux_python_3_13_casadi": {
+      "evidence": "verification/2026-09-06/m33-linux-py313-casadi-smoke.json",
+      "status": "executed_pass"
+    },
+    "linux_python_3_13_exact_wheel": {
+      "evidence": "verification/2026-09-06/m33-linux-py313-exact-wheel-smoke.json",
+      "promotion_blocker": "not a clean isolated resolver environment; pip check on host-backed environment failed due unrelated moviepy/Pillow conflict",
+      "status": "executed_pass"
+    },
+    "linux_python_3_13_nlopt": {
+      "evidence": "verification/2026-09-06/m33-linux-py313-nlopt-smoke.json",
+      "status": "executed_pass"
+    },
+    "pip_audit_local": {
+      "evidence": "verification/2026-09-06/m33-local-external-tooling-attempt.json",
+      "status": "not_executed_tool_unavailable_dns"
+    },
+    "python_3_12_3_14_materialization": {
+      "evidence": "verification/2026-09-06/m33-python-runtime-materialization.txt",
+      "status": "blocked_dns"
+    },
+    "sdist_roundtrip": {
+      "evidence": "verification/2026-09-06/m33-sdist-roundtrip.json",
+      "status": "executed_pass"
+    },
+    "twine_strict_local": {
+      "evidence": "verification/2026-09-06/m33-local-external-tooling-attempt.json",
+      "status": "not_executed_tool_unavailable_dns"
+    }
+  },
+  "milestone": "M33",
+  "optional_matrix": {
+    "cross_os_python": "3.14",
+    "extras": [
+      "highs",
+      "osqp",
+      "scip",
+      "nlopt",
+      "casadi"
+    ],
+    "linux_python": [
+      "3.12",
+      "3.13",
+      "3.14"
+    ],
+    "status": "pending_external_execution"
+  },
+  "package_version": "0.0.36rc3",
+  "protocol_sha256": "041dbc772f54a60d2dab451c4b34083e4d61c0e3bec6ee68c43cd54e0799921c",
+  "public_1_0_authorized": false,
+  "public_rc_authorized": false,
+  "publish_workflow_enabled": false,
+  "regression": {
+    "collected": 316,
+    "errors": 0,
+    "evidence": "verification/2026-09-06/m33-pytest-junit.xml",
+    "failures": 0,
+    "passed": 312,
+    "skipped": 4
+  },
+  "reproducibility_policy": "Same-source fixed-SOURCE_DATE_EPOCH double build is diagnostic; byte reproducibility is claimed only when observed on the final frozen docs/source snapshot.",
+  "runtime_dependency_floor": {
+    "minimum_execution_target": {
+      "numpy": "2.2.0",
+      "os": "linux",
+      "python": "3.12",
+      "scipy": "1.15.0",
+      "status": "pending_external_execution"
+    },
+    "numpy": ">=2.2",
+    "scipy": ">=1.15"
+  },
+  "schema": "optimind.m33.compatibility_matrix.v1",
+  "security_gate": {
+    "cyclonedx_sbom": true,
+    "ignore_list": [],
+    "pip_audit": "2.10.1",
+    "status": "pending_external_execution"
+  },
+  "supply_chain": {
+    "all_actions_full_sha_required": true,
+    "attestation_generate_and_verify": true,
+    "build_once_test_many": true,
+    "dependabot_actions": true,
+    "trusted_publishing_template_disabled": true
+  },
+  "support_policy": {
+    "core_cells": 9,
+    "os": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "python": [
+      "3.12",
+      "3.13",
+      "3.14"
+    ],
+    "requires_python": ">=3.12"
+  },
+  "technical_external_gate": false
+}

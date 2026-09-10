@@ -1,0 +1,255 @@
+{
+  "benchmark": "M10 CasADi-OSQP persistent solver object + explicit primal x0 warm-start",
+  "sizes": [
+    20,
+    60,
+    120
+  ],
+  "steps": 15,
+  "repeats": 5,
+  "summary": {
+    "20": {
+      "median_ratio": 1.03873526988472,
+      "median_speedup": 0.9627091993429481,
+      "reuse_counts": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "max_objective_diff": 3.3306690738754696e-16
+    },
+    "60": {
+      "median_ratio": 0.8984321855437221,
+      "median_speedup": 1.113050062197861,
+      "reuse_counts": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "max_objective_diff": 8.881784197001252e-16
+    },
+    "120": {
+      "median_ratio": 0.9188971046117481,
+      "median_speedup": 1.0882611284562915,
+      "reuse_counts": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "max_objective_diff": 2.220446049250313e-15
+    }
+  },
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "casadi": "3.7.2",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "cpu_count": 5
+  },
+  "wall_s": 5.2670711430000665,
+  "rows": [
+    {
+      "n": 20,
+      "rep": 0,
+      "steps": 15,
+      "stateful_s": 0.09456662899992807,
+      "cold_s": 0.0896517579999454,
+      "ratio": 1.0548218028249448,
+      "speedup": 0.9480274273075082,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 6.938893903907228e-17,
+      "all_valid": true
+    },
+    {
+      "n": 20,
+      "rep": 1,
+      "steps": 15,
+      "stateful_s": 0.08931642500010639,
+      "cold_s": 0.0859857440000269,
+      "ratio": 1.03873526988472,
+      "speedup": 0.9627091993429481,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 1.1102230246251565e-16,
+      "all_valid": true
+    },
+    {
+      "n": 20,
+      "rep": 2,
+      "steps": 15,
+      "stateful_s": 0.09790064599974357,
+      "cold_s": 0.1255725389996769,
+      "ratio": 0.7796342001175549,
+      "speedup": 1.2826528131388,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 3.3306690738754696e-16,
+      "all_valid": true
+    },
+    {
+      "n": 20,
+      "rep": 3,
+      "steps": 15,
+      "stateful_s": 0.1172622539997974,
+      "cold_s": 0.12305312799981039,
+      "ratio": 0.9529400504144688,
+      "speedup": 1.0493839560684464,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 1.3877787807814457e-16,
+      "all_valid": true
+    },
+    {
+      "n": 20,
+      "rep": 4,
+      "steps": 15,
+      "stateful_s": 0.12618014999998195,
+      "cold_s": 0.10763492200021574,
+      "ratio": 1.1722975002455898,
+      "speedup": 0.8530257889234648,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 1.1102230246251565e-16,
+      "all_valid": true
+    },
+    {
+      "n": 60,
+      "rep": 0,
+      "steps": 15,
+      "stateful_s": 0.11737025799993717,
+      "cold_s": 0.12726492599995254,
+      "ratio": 0.9222514143447578,
+      "speedup": 1.084303026751638,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 8.881784197001252e-16,
+      "all_valid": true
+    },
+    {
+      "n": 60,
+      "rep": 1,
+      "steps": 15,
+      "stateful_s": 0.10199591799982954,
+      "cold_s": 0.11647894600037034,
+      "ratio": 0.8756596921773764,
+      "speedup": 1.1419961532241418,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 5.551115123125783e-16,
+      "all_valid": true
+    },
+    {
+      "n": 60,
+      "rep": 2,
+      "steps": 15,
+      "stateful_s": 0.10556028400014839,
+      "cold_s": 0.12730672999987291,
+      "ratio": 0.8291807039600637,
+      "speedup": 1.206009733733702,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 4.440892098500626e-16,
+      "all_valid": true
+    },
+    {
+      "n": 60,
+      "rep": 3,
+      "steps": 15,
+      "stateful_s": 0.15397036199965441,
+      "cold_s": 0.1713767210003425,
+      "ratio": 0.8984321855437221,
+      "speedup": 1.113050062197861,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 4.440892098500626e-16,
+      "all_valid": true
+    },
+    {
+      "n": 60,
+      "rep": 4,
+      "steps": 15,
+      "stateful_s": 0.13558906399975967,
+      "cold_s": 0.1298159670000132,
+      "ratio": 1.0444713938751917,
+      "speedup": 0.9574221044865631,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 8.881784197001252e-16,
+      "all_valid": true
+    },
+    {
+      "n": 120,
+      "rep": 0,
+      "steps": 15,
+      "stateful_s": 0.31443331200034663,
+      "cold_s": 0.28137549700022646,
+      "ratio": 1.11748647395581,
+      "speedup": 0.8948654174399825,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 2.220446049250313e-15,
+      "all_valid": true
+    },
+    {
+      "n": 120,
+      "rep": 1,
+      "steps": 15,
+      "stateful_s": 0.23485305199983486,
+      "cold_s": 0.2759157820000837,
+      "ratio": 0.8511765811198274,
+      "speedup": 1.17484435331195,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 1.3322676295501878e-15,
+      "all_valid": true
+    },
+    {
+      "n": 120,
+      "rep": 2,
+      "steps": 15,
+      "stateful_s": 0.28500784600009865,
+      "cold_s": 0.2578326479997486,
+      "ratio": 1.105398591726741,
+      "speedup": 0.9046510530087629,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 8.881784197001252e-16,
+      "all_valid": true
+    },
+    {
+      "n": 120,
+      "rep": 3,
+      "steps": 15,
+      "stateful_s": 0.16855808199989042,
+      "cold_s": 0.27157594799973594,
+      "ratio": 0.6206664590196121,
+      "speedup": 1.6111713231283238,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 8.881784197001252e-16,
+      "all_valid": true
+    },
+    {
+      "n": 120,
+      "rep": 4,
+      "steps": 15,
+      "stateful_s": 0.29353087200024675,
+      "cold_s": 0.3194382379997478,
+      "ratio": 0.9188971046117481,
+      "speedup": 1.0882611284562915,
+      "reuse_count": 14,
+      "expected_reuse": 14,
+      "max_objective_diff": 1.3322676295501878e-15,
+      "all_valid": true
+    }
+  ],
+  "claim_boundary": "reuse evidence means same CasADi OSQP Function plus explicit x0 primal warm start; no factorization-reuse claim"
+}

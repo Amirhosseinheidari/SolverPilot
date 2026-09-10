@@ -1,0 +1,83 @@
+# DISABLED TEMPLATE — rename to publish.yml only after owner metadata/license and a qualified attested run are approved.
+name: Publish qualified release to PyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      qualified_run_id:
+        description: "Run ID of a successful Release qualification workflow executed with attest_artifacts=true"
+        required: true
+        type: string
+      qualified_commit_sha:
+        description: "Exact 40-character commit SHA qualified by that run"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      # url: https://pypi.org/p/OWNER_APPROVED_PROJECT_NAME
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.qualified_commit_sha }}
+          persist-credentials: false
+      - name: Validate qualified workflow run binding
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          QUALIFIED_RUN_ID: ${{ inputs.qualified_run_id }}
+          QUALIFIED_COMMIT_SHA: ${{ inputs.qualified_commit_sha }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${QUALIFIED_RUN_ID}" > qualified-run.json
+          python - <<'PY'
+          import json, os, re
+          run=json.load(open("qualified-run.json"))
+          expected=os.environ["QUALIFIED_COMMIT_SHA"]
+          checks={
+            "sha_format": bool(re.fullmatch(r"[0-9a-f]{40}", expected)),
+            "head_sha": run.get("head_sha")==expected,
+            "conclusion": run.get("conclusion")=="success",
+            "event": run.get("event")=="workflow_dispatch",
+            "workflow_path": str(run.get("path","")).endswith(".github/workflows/release-qualification.yml"),
+          }
+          print(json.dumps({"schema":"solverpilot.release.publish_binding.v1","checks":checks},sort_keys=True))
+          raise SystemExit(0 if all(checks.values()) else 2)
+          PY
+      - name: Download exact artifacts from qualified run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-dist
+          path: dist-download
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.qualified_run_id }}
+      - name: Normalize and verify exact qualified distribution
+        shell: bash
+        run: |
+          if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
+          python tools/release_verify_dist.py dist
+      - name: Install pinned metadata checker
+        run: python -m pip install "twine==7.0.0"
+      - name: Validate package metadata again
+        run: python -m twine check --strict dist/*.whl dist/*.tar.gz
+      - name: Require verified artifact attestation from qualified repository
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for artifact in dist/*.whl dist/*.tar.gz; do
+            gh attestation verify "$artifact" --repo "${{ github.repository }}"
+          done
+      - name: Publish via PyPI Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/

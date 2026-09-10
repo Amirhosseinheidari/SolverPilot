@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"solverpilot.cp-ir.v1",
+  "type":"object",
+  "required":["schema_version","variables","intervals","constraints","objective_sense"],
+  "properties":{
+    "schema_version":{"const":"solverpilot.cp-ir.v1"},
+    "variables":{"type":"array"},
+    "intervals":{"type":"array"},
+    "constraints":{"type":"array"},
+    "objective_sense":{"enum":["minimize","maximize"]}
+  }
+}

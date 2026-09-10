@@ -1,0 +1,13 @@
+{
+  "authorized_feature_families": [],
+  "learned_lp_routing_for_1_0": "closed",
+  "m30_selector_experiment_authorized": false,
+  "next_milestone": "release_consolidation_and_api_freeze",
+  "production_performance_routing_authorized": false,
+  "reason": "No pre-registered feature family passes cross-cohort stability, transfer, feature-cost, and policy gates; zero-cost counterfactual transfer also fails.",
+  "representation_audit_integrity_passed": true,
+  "schema": "optimind.m29.decision.v1",
+  "selection_opportunity_context_validated": true,
+  "stable_univariate_count": 1,
+  "version": "0.0.34"
+}

@@ -1,0 +1,37 @@
+{
+  "milestone": "M31",
+  "notes": [
+    "Backend IDs are part of the M31 compatibility contract for explicit solve(backend=...) calls.",
+    "Verification-only adapters are never admitted to the default solving registry.",
+    "Availability of optional public backends remains environment-dependent."
+  ],
+  "package_version": "0.0.36rc1",
+  "production_baseline_policy": {
+    "convex_qp": "osqp-native when available; otherwise scipy-slsqp-qp-bridge for non-proof intents",
+    "learned_lp_performance_routing": false,
+    "lp": "scipy-highs-ds",
+    "milp": "scipy-highs-bridge"
+  },
+  "schema": "optimind.backend_contract.v1",
+  "stable_backend_ids": {
+    "base_runtime": [
+      "scipy-highs-ds",
+      "scipy-highs-ipm",
+      "scipy-highs-bridge",
+      "scipy-slsqp-qp-bridge"
+    ],
+    "optional_public": [
+      "highspy-native",
+      "osqp-native",
+      "pyscipopt-native",
+      "nlopt-slsqp-native"
+    ],
+    "verification_only": [
+      "casadi-osqp-bridge",
+      "casadi-highs-bridge",
+      "casadi-cbc-bridge",
+      "bundled-osqp-capi",
+      "bundled-highs-capi"
+    ]
+  }
+}

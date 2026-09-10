@@ -1,0 +1,13 @@
+{
+  "row_conflicts": {
+    "passed": 100,
+    "total": 100
+  },
+  "integer_bound_conflicts": {
+    "passed": 100,
+    "total": 100
+  },
+  "total_passed": 200,
+  "total": 200,
+  "max_deletion_filter_checks": 11
+}

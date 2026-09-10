@@ -1,0 +1,165 @@
+{
+  "forced_timeout": {
+    "rows": [
+      {
+        "backend": "scipy-highs-ds",
+        "complete": true,
+        "error": "Command '['/opt/pyvenv/bin/python', '-m', 'optimind.cli.benchmark_worker', '--path', '/mnt/data/m11_work/benchmarks/results/m11-isolation-work/instances/i.mps', '--backend', 'scipy-highs-ds', '--portfolio', 'scipy-highs-ds']' timed out after 1e-06 seconds",
+        "error_type": "TimeoutExpired",
+        "filename": "i.mps",
+        "instance": "i",
+        "instance_sha256": "fdd176d5e6be915d0fd2c60eb2f1bd33a19863b8cff67696ef2523fff6b1cba0",
+        "parse_s": 0.0008578739999620666,
+        "protocol_id": "4e02f8a6d7f215baeca5ec95ff51d2ed044c72fc10101dfcd8fdf84bed6d36d2",
+        "repetition": 0,
+        "run_id": "b9abf7fa35eec313927b1002",
+        "schema_version": "1.1",
+        "state": "hard_timeout",
+        "wall_s": 0.0004426819999707732
+      }
+    ],
+    "summary": {
+      "backends": [
+        "scipy-highs-ds"
+      ],
+      "counters": {
+        "completed": 0,
+        "errors": 1,
+        "missing": 0,
+        "scheduled": 1,
+        "skipped_resume": 0
+      },
+      "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-isolation-work",
+      "elapsed_s": 0.0016498100000035265,
+      "environment": {
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "env_threads": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        },
+        "hostname": "localhost",
+        "logical_cpus": 5,
+        "machine": "x86_64",
+        "memory_bytes": 6236925952,
+        "packages": {
+          "casadi": "3.7.2",
+          "highspy": null,
+          "nlopt": "2.11.0",
+          "numpy": "2.3.5",
+          "optimind-core-codename": "0.0.11",
+          "osqp": null,
+          "pyscipopt": null,
+          "scipy": "1.17.0"
+        },
+        "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+        "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+        "python_executable": "/opt/pyvenv/bin/python"
+      },
+      "hard_timeout_s": 1e-06,
+      "manifest": "/mnt/data/m11_work/benchmarks/results/m11-isolation-work/m.test",
+      "manifest_sha256": "4b235a993d844646a7110dc9d98c08578fa372d1161a0d87e04d2442132896dd",
+      "protocol_id": "4e02f8a6d7f215baeca5ec95ff51d2ed044c72fc10101dfcd8fdf84bed6d36d2",
+      "reference": null,
+      "reference_sha256": null,
+      "repetitions": 1,
+      "schema_version": "1.1",
+      "shard": {
+        "count": 1,
+        "index": 0,
+        "instances": 1
+      },
+      "time_limit_s": null
+    }
+  },
+  "success": {
+    "rows": [
+      {
+        "backend": "scipy-highs-ds",
+        "complete": true,
+        "filename": "i.mps",
+        "instance": "i",
+        "instance_sha256": "fdd176d5e6be915d0fd2c60eb2f1bd33a19863b8cff67696ef2523fff6b1cba0",
+        "objective": 1.0,
+        "parse_s": 0.0011666479999803414,
+        "protocol_id": "04204d42049622648ded3bf37954ef6724507115df1da07efa5b33641d222224",
+        "public_status": "valid_optimal",
+        "reference_check": "not_checkable",
+        "reference_objective": null,
+        "reference_status": null,
+        "repetition": 0,
+        "run_id": "fe98b99bbdd6786235a99fd9",
+        "schema_version": "1.1",
+        "state": "solved",
+        "trace": {
+          "backend_version": "1.17.0",
+          "planner_evidence_level": null,
+          "planner_selected_backend": null,
+          "reuse_applied": null,
+          "reuse_mode": null,
+          "solve_s": 0.0026266190000114875,
+          "total_s": 0.0036787090000416356
+        },
+        "validated": true,
+        "wall_s": 1.0308746130000372,
+        "worker_parse_s": 0.0014635650001082467,
+        "worker_solve_wall_s": 0.003729532999955154
+      }
+    ],
+    "summary": {
+      "backends": [
+        "scipy-highs-ds"
+      ],
+      "counters": {
+        "completed": 1,
+        "errors": 0,
+        "missing": 0,
+        "scheduled": 1,
+        "skipped_resume": 0
+      },
+      "dataset_dir": "/mnt/data/m11_work/benchmarks/results/m11-isolation-work",
+      "elapsed_s": 1.0325377509999498,
+      "environment": {
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "env_threads": {
+          "MKL_NUM_THREADS": null,
+          "NUMEXPR_NUM_THREADS": null,
+          "OMP_NUM_THREADS": null,
+          "OPENBLAS_NUM_THREADS": null
+        },
+        "hostname": "localhost",
+        "logical_cpus": 5,
+        "machine": "x86_64",
+        "memory_bytes": 6236925952,
+        "packages": {
+          "casadi": "3.7.2",
+          "highspy": null,
+          "nlopt": "2.11.0",
+          "numpy": "2.3.5",
+          "optimind-core-codename": "0.0.11",
+          "osqp": null,
+          "pyscipopt": null,
+          "scipy": "1.17.0"
+        },
+        "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+        "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+        "python_executable": "/opt/pyvenv/bin/python"
+      },
+      "hard_timeout_s": 10.0,
+      "manifest": "/mnt/data/m11_work/benchmarks/results/m11-isolation-work/m.test",
+      "manifest_sha256": "4b235a993d844646a7110dc9d98c08578fa372d1161a0d87e04d2442132896dd",
+      "protocol_id": "04204d42049622648ded3bf37954ef6724507115df1da07efa5b33641d222224",
+      "reference": null,
+      "reference_sha256": null,
+      "repetitions": 1,
+      "schema_version": "1.1",
+      "shard": {
+        "count": 1,
+        "index": 0,
+        "instances": 1
+      },
+      "time_limit_s": null
+    }
+  }
+}

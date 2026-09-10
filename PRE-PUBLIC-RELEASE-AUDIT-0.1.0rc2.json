@@ -1,0 +1,30 @@
+{
+  "external_facts_verified": {
+    "build_1_6_0_on_pypi": true,
+    "ortools_9_15_6755_has_cpython_3_12_3_14_wheels": true,
+    "packaging_26_0_on_pypi": true,
+    "setuptools_84_0_0_on_pypi": true,
+    "twine_7_0_0_on_pypi": true,
+    "wheel_0_48_0_on_pypi": true
+  },
+  "private_github_staging_source_authorized": true,
+  "public_1_0_authorized": false,
+  "public_github_open_source_authorized": false,
+  "publication_blockers": [
+    "exact-artifact GitHub qualification has not been executed for this 0.1.0rc2 commit",
+    "artifact attestation has not been generated/verified for this 0.1.0rc2 commit",
+    "protected pypi environment / Trusted Publisher / repository settings require owner-side configuration",
+    "project URLs are intentionally not invented in pyproject.toml"
+  ],
+  "pypi_name_check": {
+    "authorization_effect": "informational_only",
+    "checked_on": "2026-09-08",
+    "project": "solverpilot",
+    "result": "404_not_found_at_check_time"
+  },
+  "pypi_public_release_authorized": false,
+  "schema": "solverpilot.pre_public_release_audit.v2",
+  "source_baseline": "0.1.0rc1 pre-public source + correctness/trust hardening",
+  "top_level_api_symbols": 78,
+  "version": "0.1.0rc2"
+}

@@ -1,0 +1,5 @@
+{
+  "returncode": 2,
+  "stdout": "",
+  "stderr": "{\n  \"error_type\": \"URLError\",\n  \"error\": \"<urlopen error [Errno -3] Temporary failure in name resolution>\"\n}\n"
+}

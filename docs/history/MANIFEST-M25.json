@@ -1,0 +1,86 @@
+{
+  "classification": "complete_verified_opportunity_audit",
+  "key_evidence": [
+    "benchmarks/results/m25-public-ood-lp-opportunity-run1.json",
+    "benchmarks/results/m25-public-ood-lp-opportunity-run2.json",
+    "benchmarks/results/m25-public-ood-lp-opportunity-stability.json",
+    "benchmarks/results/m25-cohort.json",
+    "verification/2026-09-06/m25-regression-summary.json",
+    "verification/2026-09-06/m25-wheel-smoke.json"
+  ],
+  "milestone": "M25",
+  "production_boundary": {
+    "lp_baseline": "scipy-highs-ds",
+    "next_allowed_step": "build and pre-register a held-out cost/regret selector; deployment still requires a separate promotion gate",
+    "selection_opportunity_validated": true,
+    "selector_deployed": false,
+    "supports_performance_ranking": false
+  },
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 234,
+    "shards": [
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 78,
+        "shard": 1,
+        "skipped": 0,
+        "tests": 78
+      },
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 78,
+        "shard": 2,
+        "skipped": 0,
+        "tests": 78
+      },
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 78,
+        "shard": 3,
+        "skipped": 0,
+        "tests": 78
+      }
+    ],
+    "skipped": 0,
+    "tests": 234
+  },
+  "schema": "optimind.m25.release_manifest.v1",
+  "scientific_result": {
+    "changed_winner_count": 5,
+    "objective_mismatches_run1": 0,
+    "objective_mismatches_run2": 0,
+    "run1_bootstrap_high": 0.9472903165780934,
+    "run1_oracle_with_inspection_relative_gain": 0.10477694520677473,
+    "run2_bootstrap_high": 0.9475911340341415,
+    "run2_oracle_with_inspection_relative_gain": 0.10372350208190073,
+    "same_cohort": true,
+    "same_cohort_signature": true,
+    "selection_opportunity_validated_both_runs": true
+  },
+  "version": "0.0.30",
+  "wheel": {
+    "isolated_smoke": {
+      "import_file": "/mnt/data/m25_work/wheel_target_final/optimind/__init__.py",
+      "metadata_version_ok": true,
+      "override_rejected": true,
+      "performance_ranking_validated": false,
+      "selected_backend": "scipy-highs-ds",
+      "selection_opportunity_validated": true,
+      "solve_backend": "scipy-highs-ds",
+      "solve_status": "valid_optimal",
+      "solve_valid": true,
+      "supports_performance_ranking": false,
+      "version": "0.0.30",
+      "wheel_files": 75,
+      "wheel_sha256": "7756b3a28548aed3c1d54926864c6ca8b2168aaa37ca92d7e2918980845ee6cd",
+      "wheel_testzip": null
+    },
+    "path": "dist/optimind_core_codename-0.0.30-py3-none-any.whl",
+    "sha256": "7756b3a28548aed3c1d54926864c6ca8b2168aaa37ca92d7e2918980845ee6cd"
+  }
+}

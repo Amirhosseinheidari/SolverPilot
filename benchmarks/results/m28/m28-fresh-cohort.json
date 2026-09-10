@@ -1,0 +1,1232 @@
+{
+  "candidate_count": 156,
+  "cohort_signature": "800c50ea8bb68c87283902d34fb6e0677a730f2fec7ca423b56643ff11ab3327",
+  "exclusions": [
+    {
+      "instance": "academictimetablesmall.mps.gz",
+      "m": 23294,
+      "n": 28926,
+      "nnz": 268350,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "blp-ar98.mps.gz",
+      "m": 1128,
+      "n": 16021,
+      "nnz": 200601,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-2978193-inde.mps.gz",
+      "m": 396,
+      "n": 20800,
+      "nnz": 41600,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "highschool1-aigio.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "nursesched-medium-hint03.mps.gz",
+      "m": 14062,
+      "n": 34248,
+      "nnz": 622800,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "triptim1.mps.gz",
+      "m": 15706,
+      "n": 30055,
+      "nnz": 515436,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-1122047.mps.gz",
+      "m": 57791,
+      "n": 5100,
+      "nnz": 163640,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "thor50dday.mps.gz",
+      "m": 53360,
+      "n": 106261,
+      "nnz": 212060,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "cryptanalysiskb128n5obj14.mps.gz",
+      "m": 98021,
+      "n": 48950,
+      "nnz": 292875,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "bab6.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "neos-3004026-krka.mps.gz",
+      "m": 12545,
+      "n": 17030,
+      "nnz": 41860,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "irp.mps.gz",
+      "m": 39,
+      "n": 20315,
+      "nnz": 98254,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "satellites2-40.mps.gz",
+      "m": 20916,
+      "n": 35378,
+      "nnz": 283668,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "netdiversion.mps.gz",
+      "m": 119589,
+      "n": 129180,
+      "nnz": 615282,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "rocII-5-11.mps.gz",
+      "m": 26897,
+      "n": 11523,
+      "nnz": 303291,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "unitcal_7.mps.gz",
+      "m": 48939,
+      "n": 25755,
+      "nnz": 127595,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-631710.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "piperout-27.mps.gz",
+      "m": 18442,
+      "n": 11659,
+      "nnz": 54662,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "supportcase18.mps.gz",
+      "m": 240,
+      "n": 13410,
+      "nnz": 28920,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "rail01.mps.gz",
+      "m": 46843,
+      "n": 117527,
+      "nnz": 392086,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "hypothyroid-k1.mps.gz",
+      "m": 5195,
+      "n": 2602,
+      "nnz": 433884,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "ns1952667.mps.gz",
+      "m": 41,
+      "n": 13264,
+      "nnz": 335643,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "radiationm40-10-02.mps.gz",
+      "m": 173603,
+      "n": 172013,
+      "nnz": 406825,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "ns1116954.mps.gz",
+      "m": 131991,
+      "n": 12648,
+      "nnz": 410582,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "sing326.mps.gz",
+      "m": 50781,
+      "n": 55156,
+      "nnz": 268173,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "istanbul-no-cutoff.mps.gz",
+      "m": 20346,
+      "n": 5282,
+      "nnz": 71477,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos8.mps.gz",
+      "m": 46324,
+      "n": 23228,
+      "nnz": 313180,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "buildingenergy.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "k1mushroom.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "comp07-2idx.mps.gz",
+      "m": 21235,
+      "n": 17264,
+      "nnz": 86577,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "supportcase33.mps.gz",
+      "m": 20489,
+      "n": 20203,
+      "nnz": 211915,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-1445765.mps.gz",
+      "m": 2147,
+      "n": 20617,
+      "nnz": 40230,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-5093327-huahum.mps.gz",
+      "m": 51840,
+      "n": 40640,
+      "nnz": 784768,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-4647030-tutaki.mps.gz",
+      "ok": false,
+      "reason": "parse_error",
+      "stderr": ""
+    },
+    {
+      "instance": "dano3_5.mps.gz",
+      "m": 3202,
+      "n": 13873,
+      "nnz": 79655,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "momentum1.mps.gz",
+      "m": 42680,
+      "n": 5174,
+      "nnz": 103198,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-933966.mps.gz",
+      "m": 12047,
+      "n": 31762,
+      "nnz": 180618,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "sp97ar.mps.gz",
+      "m": 1761,
+      "n": 14101,
+      "nnz": 290968,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "supportcase42.mps.gz",
+      "m": 18439,
+      "n": 19466,
+      "nnz": 435653,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "rd-rplusc-21.mps.gz",
+      "m": 125899,
+      "n": 622,
+      "nnz": 852384,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "satellites2-60-fs.mps.gz",
+      "m": 16516,
+      "n": 35378,
+      "nnz": 125048,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "tbfp-network.mps.gz",
+      "m": 2436,
+      "n": 72747,
+      "nnz": 215837,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "piperout-08.mps.gz",
+      "m": 14589,
+      "n": 10399,
+      "nnz": 44959,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-827175.mps.gz",
+      "m": 14187,
+      "n": 32504,
+      "nnz": 110790,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-2987310-joes.mps.gz",
+      "m": 29015,
+      "n": 27837,
+      "nnz": 580291,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "var-smallemery-m6j6.mps.gz",
+      "m": 13416,
+      "n": 5608,
+      "nnz": 850623,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-4532248-waihi.mps.gz",
+      "m": 167322,
+      "n": 86842,
+      "nnz": 525339,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "chromaticindex1024-7.mps.gz",
+      "m": 67583,
+      "n": 73728,
+      "nnz": 270324,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "net12.mps.gz",
+      "m": 14021,
+      "n": 14115,
+      "nnz": 80384,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "supportcase10.mps.gz",
+      "m": 165684,
+      "n": 14770,
+      "nnz": 555082,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-873061.mps.gz",
+      "m": 93360,
+      "n": 175288,
+      "nnz": 350576,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "traininstance2.mps.gz",
+      "m": 15603,
+      "n": 12890,
+      "nnz": 41531,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "irish-electricity.mps.gz",
+      "m": 104259,
+      "n": 61728,
+      "nnz": 523257,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "blp-ic98.mps.gz",
+      "m": 717,
+      "n": 13640,
+      "nnz": 191947,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "fiball.mps.gz",
+      "m": 3707,
+      "n": 34219,
+      "nnz": 104792,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-787933.mps.gz",
+      "m": 1897,
+      "n": 236376,
+      "nnz": 298320,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "proteindesign122trx11p8.mps.gz",
+      "m": 254,
+      "n": 127326,
+      "nnz": 503427,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "dano3_3.mps.gz",
+      "m": 3202,
+      "n": 13873,
+      "nnz": 79655,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "sing44.mps.gz",
+      "m": 54745,
+      "n": 59708,
+      "nnz": 281260,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-860300.mps.gz",
+      "m": 850,
+      "n": 1385,
+      "nnz": 384329,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "sp98ar.mps.gz",
+      "m": 1435,
+      "n": 15085,
+      "nnz": 426148,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "cryptanalysiskb128n5obj16.mps.gz",
+      "m": 98021,
+      "n": 48950,
+      "nnz": 292875,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-3046615-murg.mps.gz",
+      "ok": false,
+      "reason": "parse_error",
+      "stderr": "Traceback (most recent call last):\n  File \"/mnt/data/m28_work/optimind_m28/benchmarks/m28_parse_worker.py\", line 25, in <module>\n    if __name__=='__main__': main()\n                             ~~~~^^\n  File \"/mnt/data/m28_work/optimind_m28/benchmarks/m28_parse_worker.py\", line 21, in main\n    p=relax(parse_mps(raw),Path(args.instance).name.removesuffix('.mps.gz'))\n            ~~~~~~~~~^^^^^\n  File \"/mnt/data/m28_work/optimind_m28/src/optimind/problem/mps.py\", line 425, in parse_mps\n    return _parse_stream(text.splitlines())\n  File \"/mnt/data/m28_work/optimind_m28/src/optimind/problem/mps.py\", line 393, in _parse_stream\n    return LinearProblem.from_data(\n           ~~~~~~~~~~~~~~~~~~~~~~~^\n        A=A,\n        ^^^^\n    ...<17 lines>...\n        },\n        ^^\n    )\n    ^\n  File \"/mnt/data/m28_work/optimind_m28/src/optimind/problem/linear.py\", line 164, in from_data\n    return cls(\n        A=A,\n    ...<9 lines>...\n        metadata={} if metadata is None else metadata,\n    )\n  File \"<string>\", line 14, in __init__\n  File \"/mnt/data/m28_work/optimind_m28/src/optimind/problem/linear.py\", line 86, in __post_init__\n    raise ValueError(f\"inconsistent variable bounds at index {idx}: lower > upper\")\nValueError: inconsistent variable bounds at index 258: lower > upper\n"
+    },
+    {
+      "instance": "rail507.mps.gz",
+      "m": 509,
+      "n": 63019,
+      "nnz": 468878,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "chromaticindex512-7.mps.gz",
+      "m": 33791,
+      "n": 36864,
+      "nnz": 135156,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "nexp-150-20-8-5.mps.gz",
+      "m": 4620,
+      "n": 20115,
+      "nnz": 42465,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "h80x6320d.mps.gz",
+      "m": 6558,
+      "n": 12640,
+      "nnz": 31521,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-3656078-kumeu.mps.gz",
+      "m": 17656,
+      "n": 14870,
+      "nnz": 59292,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-957323.mps.gz",
+      "m": 3757,
+      "n": 57756,
+      "nnz": 499656,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "nw04.mps.gz",
+      "m": 36,
+      "n": 87482,
+      "nnz": 636666,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-950242.mps.gz",
+      "m": 34224,
+      "n": 5760,
+      "nnz": 104160,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-1354092.mps.gz",
+      "m": 3135,
+      "n": 13702,
+      "nnz": 187187,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "snp-02-004-104.mps.gz",
+      "m": 126512,
+      "n": 228350,
+      "nnz": 463941,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "ns1644855.mps.gz",
+      "ok": false,
+      "reason": "parse_hard_timeout"
+    },
+    {
+      "instance": "neos-1171448.mps.gz",
+      "m": 13206,
+      "n": 4914,
+      "nnz": 131859,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "traininstance6.mps.gz",
+      "m": 12309,
+      "n": 10218,
+      "nnz": 32785,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-4300652-rahue.mps.gz",
+      "m": 76992,
+      "n": 33003,
+      "nnz": 183616,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "radiationm18-12-05.mps.gz",
+      "m": 40935,
+      "n": 40623,
+      "nnz": 96149,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "brazil3.mps.gz",
+      "m": 14646,
+      "n": 23968,
+      "nnz": 133184,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "atlanta-ip.mps.gz",
+      "m": 21732,
+      "n": 48738,
+      "nnz": 257532,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-960392.mps.gz",
+      "m": 4744,
+      "n": 59376,
+      "nnz": 189503,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "uccase9.mps.gz",
+      "m": 49565,
+      "n": 33242,
+      "nnz": 332316,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "supportcase40.mps.gz",
+      "m": 38192,
+      "n": 16440,
+      "nnz": 104420,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "app1-2.mps.gz",
+      "m": 53467,
+      "n": 26871,
+      "nnz": 199175,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "ex9.mps.gz",
+      "m": 40962,
+      "n": 10404,
+      "nnz": 517112,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-2746589-doon.mps.gz",
+      "m": 31530,
+      "n": 50936,
+      "nnz": 271072,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "lectsched-5-obj.mps.gz",
+      "m": 38884,
+      "n": 21805,
+      "nnz": 239608,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "comp21-2idx.mps.gz",
+      "m": 14038,
+      "n": 10863,
+      "nnz": 57301,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "n3div36.mps.gz",
+      "m": 4484,
+      "n": 22120,
+      "nnz": 340740,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "30n20b8.mps.gz",
+      "m": 576,
+      "n": 18380,
+      "nnz": 109706,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "fast0507.mps.gz",
+      "m": 507,
+      "n": 63009,
+      "nnz": 409349,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "cmflsp50-24-8-8.mps.gz",
+      "m": 3520,
+      "n": 16392,
+      "nnz": 158622,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "opm2-z10-s4.mps.gz",
+      "m": 160633,
+      "n": 6250,
+      "nnz": 371240,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "rmatr200-p5.mps.gz",
+      "m": 37617,
+      "n": 37816,
+      "nnz": 113048,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "decomp2.mps.gz",
+      "m": 10765,
+      "n": 14387,
+      "nnz": 64073,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "CMS750_4.mps.gz",
+      "m": 16381,
+      "n": 11697,
+      "nnz": 44903,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "physiciansched6-2.mps.gz",
+      "m": 168336,
+      "n": 111827,
+      "nnz": 480259,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "uccase12.mps.gz",
+      "m": 121161,
+      "n": 62529,
+      "nnz": 419447,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-5195221-niemur.mps.gz",
+      "m": 42256,
+      "n": 14546,
+      "nnz": 176586,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "cbs-cta.mps.gz",
+      "m": 10112,
+      "n": 24793,
+      "nnz": 64388,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-3988577-wolgan.mps.gz",
+      "m": 44662,
+      "n": 25870,
+      "nnz": 350350,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-4722843-widden.mps.gz",
+      "m": 113555,
+      "n": 77723,
+      "nnz": 311529,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "n2seq36q.mps.gz",
+      "m": 2565,
+      "n": 22480,
+      "nnz": 183292,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-5188808-nattai.mps.gz",
+      "m": 29452,
+      "n": 14544,
+      "nnz": 133686,
+      "ok": false,
+      "reason": "structural_cap"
+    },
+    {
+      "instance": "neos-662469.mps.gz",
+      "m": 1085,
+      "n": 18235,
+      "nnz": 200055,
+      "ok": false,
+      "reason": "structural_cap"
+    }
+  ],
+  "fresh_overlap_count": 0,
+  "instances": 48,
+  "manifest_sha256": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+  "miplib_zip_sha256": "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+  "prior_cohort_file_sha256": "8ff4ea9d488978ecdfd11f1bc713385399959ade1739f98cfd0e7fb2d0e52c78",
+  "prior_cohort_instances": 48,
+  "prior_cohort_signature": "8d811058e5e60fd6ad3bcca140fcb4572fc4539df17c3f52038c0796b08f60a3",
+  "schema": "optimind.m28.fresh_public_ood_cohort.v2",
+  "selected": [
+    {
+      "cache": "/tmp/optimind_m28_cache/drayage-100-23.mps.gz.pkl",
+      "cache_sha256": "b3e21afec5bd42309c405ec2d838078d2ad8d27b28b7fdbad7d454a22862502a",
+      "instance": "drayage-100-23.mps.gz",
+      "m": 4630,
+      "n": 11090,
+      "nnz": 41550
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/rmatr100-p10.mps.gz.pkl",
+      "cache_sha256": "d0d00650dd28c353e53e39ce77d39a61fc12580fbce07aa7991e485e94c3a2ca",
+      "instance": "rmatr100-p10.mps.gz",
+      "m": 7260,
+      "n": 7359,
+      "nnz": 21877
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/fastxgemm-n2r6s0t2.mps.gz.pkl",
+      "cache_sha256": "3718f021b8c1902c058815e664eb4d4ce3e3b822f97503eec75cfea3bd2d7f90",
+      "instance": "fastxgemm-n2r6s0t2.mps.gz",
+      "m": 5998,
+      "n": 784,
+      "nnz": 19376
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/ns1830653.mps.gz.pkl",
+      "cache_sha256": "a852303cac7013749762673cbdce766d182616f22cb3bf2ad5b2c81e49905672",
+      "instance": "ns1830653.mps.gz",
+      "m": 2932,
+      "n": 1629,
+      "nnz": 100933
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-3083819-nubu.mps.gz.pkl",
+      "cache_sha256": "9251f5504076c4f60ce825e810751c22d89d131ecc3d014e3200e0327edb0aa8",
+      "instance": "neos-3083819-nubu.mps.gz",
+      "m": 4725,
+      "n": 8644,
+      "nnz": 24048
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/bnatt400.mps.gz.pkl",
+      "cache_sha256": "05303a3e88943c8fac8f116f4245b8bd0c5b61141df5db2e981b4532f18892a2",
+      "instance": "bnatt400.mps.gz",
+      "m": 5614,
+      "n": 3600,
+      "nnz": 21698
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/glass-sc.mps.gz.pkl",
+      "cache_sha256": "f83723cf414f60853ccfdc2040be04f9af73e25aee3ce89a49a8fc1a6264105a",
+      "instance": "glass-sc.mps.gz",
+      "m": 6119,
+      "n": 214,
+      "nnz": 63918
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/trento1.mps.gz.pkl",
+      "cache_sha256": "4febaaa213ccd4dbaf52b70acabbd7b24756fd76b251265193b229ed91397dd7",
+      "instance": "trento1.mps.gz",
+      "m": 1265,
+      "n": 7687,
+      "nnz": 93571
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/air05.mps.gz.pkl",
+      "cache_sha256": "233449b068fc1a9ff0294a56f56588e3792a46083cd41134b6996a4a1c1aa4ae",
+      "instance": "air05.mps.gz",
+      "m": 426,
+      "n": 7195,
+      "nnz": 52121
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/milo-v12-6-r2-40-1.mps.gz.pkl",
+      "cache_sha256": "5e69fcbad702971e5e3e616c8626630204d8981282bfe20ada0366c9260d1864",
+      "instance": "milo-v12-6-r2-40-1.mps.gz",
+      "m": 5628,
+      "n": 2688,
+      "nnz": 14604
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/leo1.mps.gz.pkl",
+      "cache_sha256": "0a9fa6cd0c59bbf4bf66b09f216ce7e0c5c082134994e9b5b456fb6d7edc7005",
+      "instance": "leo1.mps.gz",
+      "m": 593,
+      "n": 6731,
+      "nnz": 131218
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-1456979.mps.gz.pkl",
+      "cache_sha256": "96f9b854dad9702cd4baa5870e86ea4077c8de728a1a9151289f40e9c35698c1",
+      "instance": "neos-1456979.mps.gz",
+      "m": 6770,
+      "n": 4605,
+      "nnz": 36440
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/dws008-01.mps.gz.pkl",
+      "cache_sha256": "bea9b7ac23ed26eebd81ab1aac643cd57ef112dafd8f3b3fa1b9dd9ed00fa7ad",
+      "instance": "dws008-01.mps.gz",
+      "m": 6064,
+      "n": 11096,
+      "nnz": 56400
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-3216931-puriri.mps.gz.pkl",
+      "cache_sha256": "d928759b391b9bcda53e00185c72f472ef248a0554d4a0ba4db0f62e15f445fa",
+      "instance": "neos-3216931-puriri.mps.gz",
+      "m": 5989,
+      "n": 3555,
+      "nnz": 91691
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-1582420.mps.gz.pkl",
+      "cache_sha256": "0fdcfac44a99f0dd460ce4408da8b17b401d59740711419e38ca8fde1d2ab90b",
+      "instance": "neos-1582420.mps.gz",
+      "m": 10180,
+      "n": 10100,
+      "nnz": 24814
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/graph20-20-1rand.mps.gz.pkl",
+      "cache_sha256": "f947d12333d42bb835fcbd17eac4636516e8cf6a68a09398382cd3a31492c107",
+      "instance": "graph20-20-1rand.mps.gz",
+      "m": 5587,
+      "n": 2183,
+      "nnz": 19277
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/drayage-25-23.mps.gz.pkl",
+      "cache_sha256": "46b0bbd7583da6be7cc5728123cf405dbf5a902ae87812308badd2e36a1c3f12",
+      "instance": "drayage-25-23.mps.gz",
+      "m": 4630,
+      "n": 11090,
+      "nnz": 41550
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mzzv42z.mps.gz.pkl",
+      "cache_sha256": "26db6421da8ebcd061b4db899fa1fb3e1e7731a1b026d07d839f81c5dc5bf455",
+      "instance": "mzzv42z.mps.gz",
+      "m": 10460,
+      "n": 11717,
+      "nnz": 151261
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mzzv11.mps.gz.pkl",
+      "cache_sha256": "70f67955ddf7d483c948290c6c5c973c249ca05011bcdb020f9b2553254041e9",
+      "instance": "mzzv11.mps.gz",
+      "m": 9499,
+      "n": 10240,
+      "nnz": 134603
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/fhnw-binpack4-4.mps.gz.pkl",
+      "cache_sha256": "8d5ef6369ed415628e4103a601831e79c7a07befe336deb3f4163adb1cecf8aa",
+      "instance": "fhnw-binpack4-4.mps.gz",
+      "m": 620,
+      "n": 520,
+      "nnz": 2332
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-911970.mps.gz.pkl",
+      "cache_sha256": "0d121bf66a34793707e3b7efb7e0235f7698c9b75ef59e8c7c779810383dbf2f",
+      "instance": "neos-911970.mps.gz",
+      "m": 107,
+      "n": 888,
+      "nnz": 3408
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mcsched.mps.gz.pkl",
+      "cache_sha256": "1c601a8f275d09e0904271def39b00fd0e5e3e2890cb8942a0d25d6a4ff287aa",
+      "instance": "mcsched.mps.gz",
+      "m": 2107,
+      "n": 1747,
+      "nnz": 8088
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mas74.mps.gz.pkl",
+      "cache_sha256": "708f07b8cb681d1160c16a5ae609e4b82821475ba5cce00a3fb32b884e1cc5db",
+      "instance": "mas74.mps.gz",
+      "m": 13,
+      "n": 151,
+      "nnz": 1706
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/swath1.mps.gz.pkl",
+      "cache_sha256": "5be1079f8d9d1b5a4c842ed32ad8cb3a136332ac4c53f6c99a81bd27ae379068",
+      "instance": "swath1.mps.gz",
+      "m": 884,
+      "n": 6805,
+      "nnz": 34965
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/bnatt500.mps.gz.pkl",
+      "cache_sha256": "891b05a68f4048f72bcbd4a03ae10bf3c4d40a7d24a456df283f6f50d8a828a8",
+      "instance": "bnatt500.mps.gz",
+      "m": 7029,
+      "n": 4500,
+      "nnz": 27203
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/gmu-35-50.mps.gz.pkl",
+      "cache_sha256": "c350ee6e7681a2d05a3658cf78c205a11a83db5f4b53a4768a8f21d60e7878b4",
+      "instance": "gmu-35-50.mps.gz",
+      "m": 435,
+      "n": 1919,
+      "nnz": 8643
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-5107597-kakapo.mps.gz.pkl",
+      "cache_sha256": "239acf1a43dd0d2140c9a22064c0bebea43a58eddf6b1c2927606c0f055b9124",
+      "instance": "neos-5107597-kakapo.mps.gz",
+      "m": 6498,
+      "n": 3114,
+      "nnz": 19392
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/swath3.mps.gz.pkl",
+      "cache_sha256": "675f30beb156adea4d6aef39ceb9057c99c795fe4f2441201c21daf4d520f93d",
+      "instance": "swath3.mps.gz",
+      "m": 884,
+      "n": 6805,
+      "nnz": 34965
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/leo2.mps.gz.pkl",
+      "cache_sha256": "3666566a474d66b41df948c87a1206a5af8493d57d11caa5ca36dcf8cff17b1e",
+      "instance": "leo2.mps.gz",
+      "m": 593,
+      "n": 11100,
+      "nnz": 219959
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/sct2.mps.gz.pkl",
+      "cache_sha256": "7658bc8cca1d014292135a6338928a17a26e1dec77827fa5ac08d783ccbbf98f",
+      "instance": "sct2.mps.gz",
+      "m": 2151,
+      "n": 5885,
+      "nnz": 23643
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/nu25-pr12.mps.gz.pkl",
+      "cache_sha256": "92cf1e6919870b25ad711905f7e86737c06624ad05ee75ff1e4ac9edec6f2a85",
+      "instance": "nu25-pr12.mps.gz",
+      "m": 2313,
+      "n": 5868,
+      "nnz": 17712
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/pg.mps.gz.pkl",
+      "cache_sha256": "9bf41ff4a7ad06d75ac905c73d8da4c576ea559f31f1941077d130fecc496c11",
+      "instance": "pg.mps.gz",
+      "m": 125,
+      "n": 2700,
+      "nnz": 5200
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/exp-1-500-5-5.mps.gz.pkl",
+      "cache_sha256": "78091e0424efd4fe0a01fb1543ca1ea8747675a27b5e790ae5522b087d4aeb8c",
+      "instance": "exp-1-500-5-5.mps.gz",
+      "m": 550,
+      "n": 990,
+      "nnz": 1980
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/tr12-30.mps.gz.pkl",
+      "cache_sha256": "ef5d3281e621dec80e1932aeddb8748da45525dda63369f42e8bb8fce74db269",
+      "instance": "tr12-30.mps.gz",
+      "m": 750,
+      "n": 1080,
+      "nnz": 2508
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/rocI-4-11.mps.gz.pkl",
+      "cache_sha256": "0c7b6e35b17ab626551b6bc7c123ef75723c1433b5b57084343b9b46c2fcb349",
+      "instance": "rocI-4-11.mps.gz",
+      "m": 10883,
+      "n": 6839,
+      "nnz": 27383
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/fhnw-binpack4-48.mps.gz.pkl",
+      "cache_sha256": "a4c8d96be0d94cbe7d7cb56fc7a050d1624d72abdcec1986022b7bb574257925",
+      "instance": "fhnw-binpack4-48.mps.gz",
+      "m": 4480,
+      "n": 3710,
+      "nnz": 17290
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mas76.mps.gz.pkl",
+      "cache_sha256": "5fc1480afc9b814c345c66ba521f002c2418e3e01b3e14660bb5fca1b076bb79",
+      "instance": "mas76.mps.gz",
+      "m": 12,
+      "n": 151,
+      "nnz": 1640
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mc11.mps.gz.pkl",
+      "cache_sha256": "b3c3d108da38e6cbdbd6ebfe3951ad8ad22bf07840b05a1f664d1f1e0b77c715",
+      "instance": "mc11.mps.gz",
+      "m": 1920,
+      "n": 3040,
+      "nnz": 6080
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/mushroom-best.mps.gz.pkl",
+      "cache_sha256": "9b1d322c92b27e4da6fa7a8855e631a309659f161b53d1cc66db3ef35c8da784",
+      "instance": "mushroom-best.mps.gz",
+      "m": 8580,
+      "n": 8468,
+      "nnz": 188735
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/neos-4738912-atrato.mps.gz.pkl",
+      "cache_sha256": "724633e59eaf63006c2cd2e1a7716ecaea89272e354dc342c53b5a197740ca88",
+      "instance": "neos-4738912-atrato.mps.gz",
+      "m": 1947,
+      "n": 6216,
+      "nnz": 19521
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/rococoC10-001000.mps.gz.pkl",
+      "cache_sha256": "142ffec5f66fd9605bb9353fd77eaae51f4a1931354a7e48a2bb0a24ef3aa3ac",
+      "instance": "rococoC10-001000.mps.gz",
+      "m": 1293,
+      "n": 3117,
+      "nnz": 11751
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/seymour.mps.gz.pkl",
+      "cache_sha256": "e61f5fc25a47d7dab2cad8dbbc631d6e6be7bc2c1bf751b9b5d66cb5dbf49df4",
+      "instance": "seymour.mps.gz",
+      "m": 4944,
+      "n": 1372,
+      "nnz": 33549
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/cost266-UUE.mps.gz.pkl",
+      "cache_sha256": "d57145df2463f785bc4e5dacffe20639f34b514fbfa7d12671b8c4416e6ee9f0",
+      "instance": "cost266-UUE.mps.gz",
+      "m": 1446,
+      "n": 4161,
+      "nnz": 12312
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/gen-ip054.mps.gz.pkl",
+      "cache_sha256": "9ae91a512fe3f509b4889ab3e2e0463e8f9ffc215f8fad39dc5f434736237ec4",
+      "instance": "gen-ip054.mps.gz",
+      "m": 27,
+      "n": 30,
+      "nnz": 532
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/pk1.mps.gz.pkl",
+      "cache_sha256": "f706632ca9d189ff003c6fe951dae23650abba58300e0e4b18b2ec1d8d4d444e",
+      "instance": "pk1.mps.gz",
+      "m": 45,
+      "n": 86,
+      "nnz": 915
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/pg5_34.mps.gz.pkl",
+      "cache_sha256": "a3d7ea414ef0471af79882f50d0dee61f1e4d2036bdc4a0fbaaa3560a38bb93f",
+      "instance": "pg5_34.mps.gz",
+      "m": 225,
+      "n": 2600,
+      "nnz": 7700
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/ns1208400.mps.gz.pkl",
+      "cache_sha256": "7c001762806d50e8f421162412506dc5f0a1570faf3edb54e29e4aa9c8c64a45",
+      "instance": "ns1208400.mps.gz",
+      "m": 4289,
+      "n": 2883,
+      "nnz": 81746
+    },
+    {
+      "cache": "/tmp/optimind_m28_cache/enlight_hard.mps.gz.pkl",
+      "cache_sha256": "0e93aedd80f0a209b7366a15cf4f9a91a6b86bbb06184c9b8971b842d549c7a6",
+      "instance": "enlight_hard.mps.gz",
+      "m": 100,
+      "n": 200,
+      "nnz": 560
+    }
+  ],
+  "selection_protocol": {
+    "compressed_size_cap_bytes": 2097152,
+    "exclude_all_m25_instances": true,
+    "hash_order": "sha256(filename)",
+    "max_m": 12000,
+    "max_n": 12000,
+    "max_nnz": 300000,
+    "outcome_independent": true,
+    "parse_hard_timeout_s": 8.0,
+    "parse_process_isolated": true,
+    "parse_workers": 8,
+    "target_instances": 48
+  },
+  "source": "MIPLIB 2017 benchmark-v2 continuous LP relaxations"
+}

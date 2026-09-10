@@ -1,0 +1,151 @@
+{
+  "capability_only_invalid": 100,
+  "cases": 100,
+  "elapsed_s": 0.43007361799936916,
+  "health_aware_valid": 100,
+  "health_reports": {
+    "poisoned-lp": "unhealthy",
+    "scipy-highs-ds": "healthy"
+  },
+  "interpretation": "Fault-injection resilience test. It validates health gating and failure isolation; it is not a solver-performance benchmark.",
+  "portfolio_invalid_selected": 0,
+  "portfolio_recovered_after_exception": 100,
+  "sample_cases": [
+    {
+      "capability_only_status": "invalid_solution",
+      "health_aware_backend": "scipy-highs-ds",
+      "health_aware_status": "valid_optimal",
+      "portfolio_attempts": [
+        {
+          "backend": "raising-lp",
+          "duration_s": 1.3819999367115088e-05,
+          "error": "RuntimeError: injected backend failure",
+          "objective": null,
+          "skipped_reason": null,
+          "status": null,
+          "validation_valid": null
+        },
+        {
+          "backend": "scipy-highs-ds",
+          "duration_s": 0.0016063250004663132,
+          "error": null,
+          "objective": 4.104482405789632,
+          "skipped_reason": null,
+          "status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "portfolio_backend": "scipy-highs-ds",
+      "seed": 0
+    },
+    {
+      "capability_only_status": "invalid_solution",
+      "health_aware_backend": "scipy-highs-ds",
+      "health_aware_status": "valid_optimal",
+      "portfolio_attempts": [
+        {
+          "backend": "raising-lp",
+          "duration_s": 1.2378999599604867e-05,
+          "error": "RuntimeError: injected backend failure",
+          "objective": null,
+          "skipped_reason": null,
+          "status": null,
+          "validation_valid": null
+        },
+        {
+          "backend": "scipy-highs-ds",
+          "duration_s": 0.0014493999988189898,
+          "error": null,
+          "objective": -7.076595455469183,
+          "skipped_reason": null,
+          "status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "portfolio_backend": "scipy-highs-ds",
+      "seed": 1
+    },
+    {
+      "capability_only_status": "invalid_solution",
+      "health_aware_backend": "scipy-highs-ds",
+      "health_aware_status": "valid_optimal",
+      "portfolio_attempts": [
+        {
+          "backend": "raising-lp",
+          "duration_s": 1.2579001122503541e-05,
+          "error": "RuntimeError: injected backend failure",
+          "objective": null,
+          "skipped_reason": null,
+          "status": null,
+          "validation_valid": null
+        },
+        {
+          "backend": "scipy-highs-ds",
+          "duration_s": 0.0014906409996910952,
+          "error": null,
+          "objective": -5.14535488805958,
+          "skipped_reason": null,
+          "status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "portfolio_backend": "scipy-highs-ds",
+      "seed": 2
+    },
+    {
+      "capability_only_status": "invalid_solution",
+      "health_aware_backend": "scipy-highs-ds",
+      "health_aware_status": "valid_optimal",
+      "portfolio_attempts": [
+        {
+          "backend": "raising-lp",
+          "duration_s": 1.2008000339847058e-05,
+          "error": "RuntimeError: injected backend failure",
+          "objective": null,
+          "skipped_reason": null,
+          "status": null,
+          "validation_valid": null
+        },
+        {
+          "backend": "scipy-highs-ds",
+          "duration_s": 0.0014338670007418841,
+          "error": null,
+          "objective": -6.491134438223795,
+          "skipped_reason": null,
+          "status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "portfolio_backend": "scipy-highs-ds",
+      "seed": 3
+    },
+    {
+      "capability_only_status": "invalid_solution",
+      "health_aware_backend": "scipy-highs-ds",
+      "health_aware_status": "valid_optimal",
+      "portfolio_attempts": [
+        {
+          "backend": "raising-lp",
+          "duration_s": 1.187799898616504e-05,
+          "error": "RuntimeError: injected backend failure",
+          "objective": null,
+          "skipped_reason": null,
+          "status": null,
+          "validation_valid": null
+        },
+        {
+          "backend": "scipy-highs-ds",
+          "duration_s": 0.0016206160016736249,
+          "error": null,
+          "objective": 0.052478200733352284,
+          "skipped_reason": null,
+          "status": "valid_optimal",
+          "validation_valid": true
+        }
+      ],
+      "portfolio_backend": "scipy-highs-ds",
+      "seed": 4
+    }
+  ],
+  "schema_version": "1.0"
+}

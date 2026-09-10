@@ -1,0 +1,26 @@
+﻿{
+    "schema":  "optimind-m22-transfer-1.0",
+    "created":  "2026-09-06T08:31:49.2968219+03:30",
+    "miplib":  {
+                   "filename":  "benchmark.zip",
+                   "size_bytes":  332664623,
+                   "sha256":  "c756eefd544d83b31809306b45d3549a1a5b9378e6aa78b68738b1a3b6a418fa",
+                   "chunks":  2,
+                   "chunk_size_mb":  200
+               },
+    "qplib":  {
+                  "filename":  "qplib(1).zip",
+                  "size_bytes":  774972035,
+                  "sha256":  "b3596e1264ed57c5f6a44e822679f5c9138e1985fe74bc8341c3becbc666b9fd",
+                  "chunks":  4,
+                  "chunk_size_mb":  200
+              },
+    "pace":  {
+                 "filename":  "pace2019-vc-exact-public-v2.tar.bz2",
+                 "size_bytes":  10695845,
+                 "sha1":  "e7ca305528a0257235a95c41742f2b3431e1e485",
+                 "sha256":  "c78177cb5b2f7468bc652bd6e082f002495b26ba220bdc8eee9993ac6ff834c6",
+                 "official_sha1":  "e7ca305528a0257235a95c41742f2b3431e1e485",
+                 "official_sha1_match":  true
+             }
+}

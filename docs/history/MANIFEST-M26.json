@@ -1,0 +1,37 @@
+{
+  "classification": "verified_negative_result_selector_validation",
+  "leakage_audit": {
+    "model_test_outcomes_seen": false,
+    "test_names_in_trainval": [],
+    "test_rows_in_trainval": 0
+  },
+  "milestone": "M26",
+  "next_boundary": "sealed 16-instance test may only be opened by a new pre-registered model family; M26 ridge cannot be retuned against it",
+  "production": {
+    "lp_baseline": "scipy-highs-ds",
+    "performance_ranking_validated": false,
+    "selection_opportunity_validated": true,
+    "supports_performance_ranking": false
+  },
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 240,
+    "skipped": 3,
+    "tests": 243
+  },
+  "schema": "optimind.m26.manifest.v1",
+  "selector": {
+    "model_family": "ridge_log_cost_ratio",
+    "model_sha256": "ac065c6e69f99d758d8aedfa2365a6f86427de3e20053e51db5ad1b580a7f35e",
+    "test_evaluated": false,
+    "test_outcomes_seen_during_fit": false,
+    "validation_gate_passed": false,
+    "validation_policy_to_sbs": 1.1886926884265627
+  },
+  "version": "0.0.31",
+  "wheel": {
+    "path": "dist/optimind_core_codename-0.0.31-py3-none-any.whl",
+    "sha256": "5a389b4ee5f712aa43d2a9f03f104075064f32a5eb1e5a96e8485f81f55b5286"
+  }
+}

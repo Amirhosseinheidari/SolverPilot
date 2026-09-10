@@ -1,0 +1,66 @@
+{
+  "claims_boundary": [
+    "M28 compares one bundled HiGHS 1.10.0 core; it is not current highspy 1.15.x performance evidence.",
+    "Native choose did not close the forced simplex/IPM VBS gap and never authorizes OptiMind performance ranking.",
+    "Independent invalid candidates remain fail-closed; campaign was not rerun with relaxed tolerances."
+  ],
+  "classification": "verified_negative_native_choose_baseline_audit",
+  "cohort_sha256": "e1a5cd1d040e0af9499c59d229162f0853cd58c65a94b2adff61c1c25769cd68",
+  "milestone": "M28",
+  "primary_benchmark": {
+    "instances": 48,
+    "native_choose_closes_portfolio_opportunity": false,
+    "path": "benchmarks/results/m28/m28-native-choose-audit.json",
+    "rounds": 3,
+    "routes": [
+      "choose",
+      "simplex",
+      "ipm"
+    ],
+    "sha256": "aa1e3f0ed737196d82c2bf0bef425f94d860e18a309c582c1c7c41173ca5f39d"
+  },
+  "production_performance_routing_enabled": false,
+  "protocol_sha256": "67617118340b23b23fa767c6856ab6d491768f00cef6cfc6f5ca7b7f472b7b20",
+  "regression": {
+    "errors": 0,
+    "failures": 0,
+    "passed": 256,
+    "shards": [
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 76,
+        "path": "/mnt/data/m28_work/optimind_m28/verification/2026-09-06/m28-pytest-shard1.xml",
+        "skipped": 1,
+        "tests": 77
+      },
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 84,
+        "path": "/mnt/data/m28_work/optimind_m28/verification/2026-09-06/m28-pytest-shard2.xml",
+        "skipped": 2,
+        "tests": 86
+      },
+      {
+        "errors": 0,
+        "failures": 0,
+        "passed": 96,
+        "path": "/mnt/data/m28_work/optimind_m28/verification/2026-09-06/m28-pytest-shard3.xml",
+        "skipped": 0,
+        "tests": 96
+      }
+    ],
+    "skipped": 3,
+    "tests": 259
+  },
+  "runner_sha256": "94efc598a0b231c37c47b7a6a695dfb4d7209bc61187f160a762f88441ca47db",
+  "schema": "optimind.release-manifest.m28.v1",
+  "scipy_semantics_sha256": "1ffb5524ccca275b54ded51694ed027bc072cfd77b305ecc65dd063f7b55da99",
+  "version": "0.0.33",
+  "wheel": {
+    "path": "dist/optimind_core_codename-0.0.33-py3-none-any.whl",
+    "sha256": "36cc819e7c97fc5c6541bd5bb942903c8ff3f9c004f35b8c02b57fbc484a7392"
+  },
+  "worker_sha256": "d94cc95ce12b953c8dc0e38cf4dffc19e689a43f1ba21de29fabe245f1a5750a"
+}

@@ -1,0 +1,198 @@
+{
+  "claim_boundary": "diagnostic only; not part of M30 authorization gate",
+  "covariate_shift_base_features": [
+    {
+      "feature": "A:density",
+      "ks_p": 0.16140443523241427,
+      "ks_statistic": 0.22916666666666666,
+      "standardized_mean_difference_m28_minus_m25": -0.15212833834101963
+    },
+    {
+      "feature": "A:log1p_m",
+      "ks_p": 0.009231216099774306,
+      "ks_statistic": 0.3333333333333333,
+      "standardized_mean_difference_m28_minus_m25": 0.4855585097772032
+    },
+    {
+      "feature": "A:log1p_n",
+      "ks_p": 6.38004158410171e-05,
+      "ks_statistic": 0.4583333333333333,
+      "standardized_mean_difference_m28_minus_m25": 0.7170867524690834
+    },
+    {
+      "feature": "A:log1p_nnz",
+      "ks_p": 0.0009557840074232257,
+      "ks_statistic": 0.3958333333333333,
+      "standardized_mean_difference_m28_minus_m25": 0.7104219198727921
+    },
+    {
+      "feature": "A:m_over_n",
+      "ks_p": 0.5220694941428086,
+      "ks_statistic": 0.16666666666666666,
+      "standardized_mean_difference_m28_minus_m25": 0.18538204155797955
+    }
+  ],
+  "schema": "optimind.m29.posthoc_diagnostics.v1",
+  "stable_feature_residualization": [
+    {
+      "cohort": "m25",
+      "feature": "C:row_degree_max_over_mean",
+      "raw_rho": 0.2988493269648285,
+      "residual_rho_after_base_A": -0.011398176291793311
+    },
+    {
+      "cohort": "m28",
+      "feature": "C:row_degree_max_over_mean",
+      "raw_rho": 0.45230986440893634,
+      "residual_rho_after_base_A": 0.1966563537609103
+    }
+  ],
+  "within_cohort_oof": [
+    {
+      "cohort": "m25",
+      "decisive_bacc": 0.43709677419354837,
+      "family": "A",
+      "features": 5,
+      "oof_spearman": -0.04656969170646982,
+      "policy_to_sbs_no_feature_cost": 1.338725971216076,
+      "policy_to_sbs_with_feature_cost": 1.3392155884832895,
+      "sbs": "ipm"
+    },
+    {
+      "cohort": "m25",
+      "decisive_bacc": 0.6387096774193548,
+      "family": "AB",
+      "features": 148,
+      "oof_spearman": 0.25586191923577944,
+      "policy_to_sbs_no_feature_cost": 1.0069785252461778,
+      "policy_to_sbs_with_feature_cost": 1.0835294881989177,
+      "sbs": "ipm"
+    },
+    {
+      "cohort": "m25",
+      "decisive_bacc": 0.5887096774193548,
+      "family": "ABC",
+      "features": 155,
+      "oof_spearman": 0.21645679548415112,
+      "policy_to_sbs_no_feature_cost": 1.1029925855382632,
+      "policy_to_sbs_with_feature_cost": 1.209083403760859,
+      "sbs": "ipm"
+    },
+    {
+      "cohort": "m25",
+      "decisive_bacc": 0.5887096774193548,
+      "family": "ABCD",
+      "features": 161,
+      "oof_spearman": 0.196048632218845,
+      "policy_to_sbs_no_feature_cost": 1.006552184496688,
+      "policy_to_sbs_with_feature_cost": 1.2566768078565345,
+      "sbs": "ipm"
+    },
+    {
+      "cohort": "m28",
+      "decisive_bacc": 0.5714285714285714,
+      "family": "A",
+      "features": 5,
+      "oof_spearman": 0.4290522227000553,
+      "policy_to_sbs_no_feature_cost": 0.9960180650307187,
+      "policy_to_sbs_with_feature_cost": 0.9967911583325554,
+      "sbs": "simplex"
+    },
+    {
+      "cohort": "m28",
+      "decisive_bacc": 0.4933035714285714,
+      "family": "AB",
+      "features": 148,
+      "oof_spearman": 0.26055802997979066,
+      "policy_to_sbs_no_feature_cost": 1.0959942157347398,
+      "policy_to_sbs_with_feature_cost": 1.1686519208273463,
+      "sbs": "simplex"
+    },
+    {
+      "cohort": "m28",
+      "decisive_bacc": 0.5089285714285714,
+      "family": "ABC",
+      "features": 155,
+      "oof_spearman": 0.3418738485026503,
+      "policy_to_sbs_no_feature_cost": 1.018838629060799,
+      "policy_to_sbs_with_feature_cost": 1.1258317068170642,
+      "sbs": "simplex"
+    },
+    {
+      "cohort": "m28",
+      "decisive_bacc": 0.4933035714285714,
+      "family": "ABCD",
+      "features": 161,
+      "oof_spearman": 0.3402453608152766,
+      "policy_to_sbs_no_feature_cost": 1.0205609707330991,
+      "policy_to_sbs_with_feature_cost": 1.4051806721572944,
+      "sbs": "simplex"
+    }
+  ],
+  "zero_feature_cost_transfer": [
+    {
+      "decisive_balanced_accuracy": 0.7723214285714286,
+      "family": "A",
+      "policy_to_sbs_without_feature_cost": 1.2160282463453047,
+      "source": "m25",
+      "target": "m28",
+      "target_spearman": -0.06563161618703842
+    },
+    {
+      "decisive_balanced_accuracy": 0.3709677419354839,
+      "family": "A",
+      "policy_to_sbs_without_feature_cost": 1.3300063902603696,
+      "source": "m28",
+      "target": "m25",
+      "target_spearman": -0.052540165002171076
+    },
+    {
+      "decisive_balanced_accuracy": 0.7723214285714286,
+      "family": "AB",
+      "policy_to_sbs_without_feature_cost": 1.053802800938271,
+      "source": "m25",
+      "target": "m28",
+      "target_spearman": 0.2505767725376712
+    },
+    {
+      "decisive_balanced_accuracy": 0.5532258064516129,
+      "family": "AB",
+      "policy_to_sbs_without_feature_cost": 1.2550263139150044,
+      "source": "m28",
+      "target": "m25",
+      "target_spearman": 0.08521493703864524
+    },
+    {
+      "decisive_balanced_accuracy": 0.7723214285714286,
+      "family": "ABC",
+      "policy_to_sbs_without_feature_cost": 1.053802800938271,
+      "source": "m25",
+      "target": "m28",
+      "target_spearman": 0.27457047562728354
+    },
+    {
+      "decisive_balanced_accuracy": 0.5532258064516129,
+      "family": "ABC",
+      "policy_to_sbs_without_feature_cost": 1.254910483868476,
+      "source": "m28",
+      "target": "m25",
+      "target_spearman": 0.07392531480677378
+    },
+    {
+      "decisive_balanced_accuracy": 0.7410714285714286,
+      "family": "ABCD",
+      "policy_to_sbs_without_feature_cost": 1.1151646159849768,
+      "source": "m25",
+      "target": "m28",
+      "target_spearman": 0.13495100878003696
+    },
+    {
+      "decisive_balanced_accuracy": 0.5370967741935484,
+      "family": "ABCD",
+      "policy_to_sbs_without_feature_cost": 1.2553832764162722,
+      "source": "m28",
+      "target": "m25",
+      "target_spearman": 0.0570994355188884
+    }
+  ]
+}

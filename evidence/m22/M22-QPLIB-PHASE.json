@@ -1,0 +1,601 @@
+{
+  "attempted_runs": 57,
+  "controller_hard_timeout_s": 1.0,
+  "elapsed_s": 4.132469415664673,
+  "expected_runs": 57,
+  "hard_timeouts": 27,
+  "read_or_worker_errors": 0,
+  "reference_checks": 0,
+  "reference_mismatches": 0,
+  "rows": [
+    {
+      "instance": "QPLIB_8495",
+      "m": 8000,
+      "model_status": 13,
+      "n": 27543,
+      "objective": 0.0,
+      "read_s": 0.5380732520000038,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.13752163300000575,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.6756805730000224
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8500",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8515",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8547",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8559",
+      "m": 5000,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.27211653699998806,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.10159318899991376,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.3737842379999847
+    },
+    {
+      "instance": "QPLIB_8567",
+      "m": 7500,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.4814224680000052,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.11409660699996493,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5955919849999418
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8602",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8616",
+      "m": 10404,
+      "model_status": 13,
+      "n": 13870,
+      "objective": 33799.70299117578,
+      "read_s": 0.18986295399997744,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.21812804700005017,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.4080747870000323
+    },
+    {
+      "instance": "QPLIB_8785",
+      "m": 11362,
+      "model_status": 13,
+      "n": 10399,
+      "objective": 0.0,
+      "read_s": 0.21243885699993825,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.178699660999996,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.39120466899998974
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8790",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8792",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8845",
+      "m": 777,
+      "model_status": 13,
+      "n": 1546,
+      "objective": 0.0,
+      "read_s": 0.2432708089999096,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.1234813320000967,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.3668385500000113
+    },
+    {
+      "instance": "QPLIB_8906",
+      "m": 838,
+      "model_status": 13,
+      "n": 5223,
+      "objective": 2903656.2963865763,
+      "read_s": 0.2028748650000125,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.10570408199998838,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.3086671710000246
+    },
+    {
+      "instance": "QPLIB_8938",
+      "m": 11999,
+      "model_status": 13,
+      "n": 4001,
+      "objective": 1.358592e-05,
+      "read_s": 0.08657668599994395,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.20571637299997292,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.2923642959999597
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8991",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_9002",
+      "m": 1649,
+      "model_status": 13,
+      "n": 2890,
+      "objective": 1.3299520427265529e+23,
+      "read_s": 0.04939598599992223,
+      "rep": 0,
+      "run_rc": 1,
+      "solve_s": 0.10644655800001601,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.15591141800007335
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_9008",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_10034",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_10038",
+      "rep": 0,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8495",
+      "m": 8000,
+      "model_status": 13,
+      "n": 27543,
+      "objective": 132060790.0,
+      "read_s": 0.3963617299999669,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.24898806500004866,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.6454331800000546
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8500",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8515",
+      "m": 8002,
+      "model_status": 13,
+      "n": 16002,
+      "objective": 8009.00002496874,
+      "read_s": 0.47516341399989415,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.1613611719999426,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.6366063990000157
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8547",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8559",
+      "m": 5000,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.4383964849999984,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.11324089199990794,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5517188889999716
+    },
+    {
+      "instance": "QPLIB_8567",
+      "m": 7500,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.4960959320000029,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.1032215579999729,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5994262640000443
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8602",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8616",
+      "m": 10404,
+      "model_status": 13,
+      "n": 13870,
+      "objective": 33799.70299117578,
+      "read_s": 0.18951161000006778,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.27791962600008446,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.46752152199997
+    },
+    {
+      "instance": "QPLIB_8785",
+      "m": 11362,
+      "model_status": 13,
+      "n": 10399,
+      "objective": 0.0,
+      "read_s": 0.19213410899999417,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.18244624900000872,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.374653336999927
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8790",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8792",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8845",
+      "m": 777,
+      "model_status": 13,
+      "n": 1546,
+      "objective": 0.0,
+      "read_s": 0.2742248329999484,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.10395723999999973,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.37826157099993907
+    },
+    {
+      "instance": "QPLIB_8906",
+      "m": 838,
+      "model_status": 13,
+      "n": 5223,
+      "objective": 2797991.64988444,
+      "read_s": 0.294850064000002,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.10127741500002685,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.3962062870000409
+    },
+    {
+      "instance": "QPLIB_8938",
+      "m": 11999,
+      "model_status": 13,
+      "n": 4001,
+      "objective": 1.358592e-05,
+      "read_s": 0.09064233799995236,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.16845762499997363,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.2591967889999296
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8991",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_9002",
+      "m": 1649,
+      "model_status": 13,
+      "n": 2890,
+      "objective": 1.3277573429411214e+23,
+      "read_s": 0.02680465700007062,
+      "rep": 1,
+      "run_rc": 1,
+      "solve_s": 0.10196381599996585,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.12885158800008867
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_9008",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_10034",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_10038",
+      "rep": 1,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8495",
+      "m": 8000,
+      "model_status": 13,
+      "n": 27543,
+      "objective": 132060790.0,
+      "read_s": 0.3607611029999589,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.234754548000069,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5956060380000281
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8500",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8515",
+      "m": 8002,
+      "model_status": 13,
+      "n": 16002,
+      "objective": 8009.00002496874,
+      "read_s": 0.35528981599998133,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.17147437999994963,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5268448179999723
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8547",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8559",
+      "m": 5000,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.25160741900003813,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.10161467999989782,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.353317322999942
+    },
+    {
+      "instance": "QPLIB_8567",
+      "m": 7500,
+      "model_status": 13,
+      "n": 10000,
+      "objective": 0.0,
+      "read_s": 0.4351886880000393,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.11041769200005547,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5456859189999932
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8602",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8616",
+      "m": 10404,
+      "model_status": 13,
+      "n": 13870,
+      "objective": 33799.70299117578,
+      "read_s": 0.29954054800009544,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.26671666099991853,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.5663381809999919
+    },
+    {
+      "instance": "QPLIB_8785",
+      "m": 11362,
+      "model_status": 13,
+      "n": 10399,
+      "objective": 0.0,
+      "read_s": 0.227382528000021,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.16593160599995826,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.39341221999995923
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8790",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8792",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_8845",
+      "m": 777,
+      "model_status": 13,
+      "n": 1546,
+      "objective": 0.0,
+      "read_s": 0.1813085300000239,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.10070910099989305,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.2820962690000215
+    },
+    {
+      "instance": "QPLIB_8906",
+      "m": 838,
+      "model_status": 13,
+      "n": 5223,
+      "objective": 2778722.106238923,
+      "read_s": 0.18809577400008948,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.10351031799996235,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.29167179099999885
+    },
+    {
+      "instance": "QPLIB_8938",
+      "m": 11999,
+      "model_status": 13,
+      "n": 4001,
+      "objective": 1.358592e-05,
+      "read_s": 0.08688789400002861,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.15409670199994707,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.24106832099994335
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_8991",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_9002",
+      "m": 1649,
+      "model_status": 13,
+      "n": 2890,
+      "objective": 3.8738464245928034e+19,
+      "read_s": 0.030325245000085488,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.1766579659999934,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.20707539800002905
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_9008",
+      "rep": 2,
+      "state": "hard_timeout"
+    },
+    {
+      "instance": "QPLIB_10034",
+      "m": 40200,
+      "model_status": 13,
+      "n": 40400,
+      "objective": 0.0,
+      "read_s": 0.5661396729999524,
+      "rep": 2,
+      "run_rc": 1,
+      "solve_s": 0.22090186599996287,
+      "state": "complete",
+      "status": "time_limit",
+      "wall_s": 0.7871278989999837
+    },
+    {
+      "hard_timeout_s": 1.0,
+      "instance": "QPLIB_10038",
+      "rep": 2,
+      "state": "hard_timeout"
+    }
+  ],
+  "solver_time_limit_s": 0.1,
+  "states": {
+    "hard_timeout": 27,
+    "time_limit": 30
+  },
+  "unique_instances": 19,
+  "workers": 12
+}

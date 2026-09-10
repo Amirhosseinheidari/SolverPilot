@@ -1,0 +1,47 @@
+[
+  {
+    "highspy-native": "unavailable",
+    "osqp-native": "unavailable",
+    "pyscipopt-native": "unavailable",
+    "scipy-highs-ds": "healthy",
+    "scipy-highs-ipm": "healthy",
+    "scipy-highs-bridge": "healthy",
+    "scipy-slsqp-qp-bridge": "healthy",
+    "nlopt-slsqp-native": "healthy",
+    "casadi-osqp-bridge": "healthy",
+    "casadi-highs-bridge": "healthy",
+    "casadi-cbc-bridge": "healthy",
+    "bundled-osqp-capi": "healthy",
+    "bundled-highs-capi": "healthy"
+  },
+  {
+    "highspy-native": "unavailable",
+    "osqp-native": "unavailable",
+    "pyscipopt-native": "unavailable",
+    "scipy-highs-ds": "healthy",
+    "scipy-highs-ipm": "healthy",
+    "scipy-highs-bridge": "healthy",
+    "scipy-slsqp-qp-bridge": "healthy",
+    "nlopt-slsqp-native": "healthy",
+    "casadi-osqp-bridge": "healthy",
+    "casadi-highs-bridge": "healthy",
+    "casadi-cbc-bridge": "healthy",
+    "bundled-osqp-capi": "healthy",
+    "bundled-highs-capi": "healthy"
+  },
+  {
+    "highspy-native": "unavailable",
+    "osqp-native": "unavailable",
+    "pyscipopt-native": "unavailable",
+    "scipy-highs-ds": "healthy",
+    "scipy-highs-ipm": "healthy",
+    "scipy-highs-bridge": "healthy",
+    "scipy-slsqp-qp-bridge": "healthy",
+    "nlopt-slsqp-native": "healthy",
+    "casadi-osqp-bridge": "healthy",
+    "casadi-highs-bridge": "healthy",
+    "casadi-cbc-bridge": "healthy",
+    "bundled-osqp-capi": "healthy",
+    "bundled-highs-capi": "healthy"
+  }
+]

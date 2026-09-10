@@ -1,0 +1,52 @@
+{
+  "claim_boundary": "Official-byte integrity and execution-accounting gate only; no all-instances-optimal or performance-superiority claim.",
+  "files": [
+    {
+      "path": "M22-FINALIZATION-GATE.json",
+      "sha256": "3604e6de32e053f2997a4eab7682ca614603e9f853b7767a4bfba33d0279632e",
+      "size_bytes": 3458
+    },
+    {
+      "path": "M22-GATE-PASSED.md",
+      "sha256": "dad7019589a055c6fc4cdcefba1924a4dbefba6fee8a400814394f1ad6882dda",
+      "size_bytes": 2442
+    },
+    {
+      "path": "M22-MIPLIB-PHASE.json",
+      "sha256": "e59159427f6ae69886d24bc08189af3940e0e7745b25dac2e5707b997dc2dcd0",
+      "size_bytes": 202991
+    },
+    {
+      "path": "M22-PACE-PHASE.json",
+      "sha256": "da6e4a379163fc415bf25ace1e103089b8c342026c9d581ba4ae854d5594dbda",
+      "size_bytes": 99421
+    },
+    {
+      "path": "M22-QPLIB-PHASE.json",
+      "sha256": "78fafa38f014ccb8b86b27b82756aaca73e7fa24709df5d967e75f3d8264c6ea",
+      "size_bytes": 13769
+    },
+    {
+      "path": "M22-REFERENCE-CROSSCHECK.json",
+      "sha256": "eab3309d047f946747504f2c5ba7157d16633a36d87729e8ea74da539972c73d",
+      "size_bytes": 817
+    },
+    {
+      "path": "M22-TRANSFER-INTEGRITY.json",
+      "sha256": "fdc4539d49dcca5bb4fc0898d1b1649811efb1f44fe384ff8aa55f36530893de",
+      "size_bytes": 3938
+    },
+    {
+      "path": "TRANSFER-MANIFEST.json",
+      "sha256": "7ea1f0572e3476b928c23dfbb7c8f9da941b18adbb71ba19414ccf004ae09b35",
+      "size_bytes": 1156
+    },
+    {
+      "path": "TRANSFER-SHA256SUMS.txt",
+      "sha256": "5ac1fd9662e3eb82a8ff8023c2f6579c959da144eb6e2e0e98559d58a20a3047",
+      "size_bytes": 1038
+    }
+  ],
+  "gate_passed": true,
+  "schema": "optimind.m22.official_gate_evidence.v1"
+}

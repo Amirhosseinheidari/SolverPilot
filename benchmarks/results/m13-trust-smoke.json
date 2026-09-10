@@ -1,0 +1,202 @@
+{
+  "benchmark": "M12 benchmark trust/accounting smoke",
+  "expected_rows": 48,
+  "fixed_sbs_policy_ci": {
+    "draws": 500,
+    "high": 1.0,
+    "low": 1.0,
+    "median": 1.0,
+    "point": 1.0,
+    "seed": 12013
+  },
+  "fixed_sbs_policy_ratio": 1.0,
+  "mixed_environment_rejected": true,
+  "rows": 48,
+  "run": {
+    "backends": [
+      "scipy-highs-ds",
+      "scipy-highs-ipm",
+      "@auto"
+    ],
+    "counters": {
+      "completed": 48,
+      "errors": 0,
+      "missing": 0,
+      "scheduled": 48,
+      "skipped_resume": 0
+    },
+    "dataset_dir": "/tmp/optimind-m12-trust-t9us3tzx/data",
+    "elapsed_s": 0.103271522999421,
+    "environment": {
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "env_threads": {
+        "BLIS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "VECLIB_MAXIMUM_THREADS": null
+      },
+      "hostname": "localhost",
+      "logical_cpus": 5,
+      "machine": "x86_64",
+      "memory_bytes": 6236925952,
+      "packages": {
+        "benchopt": null,
+        "casadi": "3.7.2",
+        "highspy": null,
+        "nlopt": "2.11.0",
+        "numpy": "2.3.5",
+        "optimind-core-codename": "0.0.14",
+        "osqp": null,
+        "pyscipopt": null,
+        "scipy": "1.17.0"
+      },
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python"
+    },
+    "environment_id": "a4c4ee9489d883b1f6dd2f2f79398a613e5f43dd39101c6c14baf0fc933e5180",
+    "hard_timeout_s": null,
+    "manifest": "/tmp/optimind-m12-trust-t9us3tzx/trust.test",
+    "manifest_sha256": "a064b03ad6f7dd62f1d6ce50005c19292d4ec2270e0d061109765e3740e11865",
+    "protocol_id": "6f94645c2464b4bcab5eb29433fdf4592bb1b0920903ae404642b1c7e3e52799",
+    "reference": null,
+    "reference_sha256": null,
+    "repetitions": 2,
+    "schema_version": "1.3",
+    "shard": {
+      "count": 1,
+      "index": 0,
+      "instances": 8
+    },
+    "thread_policy": {
+      "backend_thread_control": "not_requested",
+      "env_control": "none",
+      "solver_threads": null,
+      "thread_env_limit": null,
+      "worker_python_mode": "no_site"
+    },
+    "time_limit_s": null
+  },
+  "scope_note": "Synthetic short LP smoke for harness trust mechanics only; not solver-performance evidence.",
+  "summary": {
+    "auto_policy_metrics": {
+      "choices": [
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds",
+        "scipy-highs-ds"
+      ],
+      "eligible": true,
+      "gap_closure": -6.333277023701224,
+      "instances": 8,
+      "lower_is_better": true,
+      "metric": "PAR10@1s",
+      "policy_cost": 0.002045255812618052,
+      "policy_ties": 4,
+      "policy_to_sbs_ratio_bootstrap_95pct": {
+        "draws": 2000,
+        "high": 1.307373498087115,
+        "low": 1.0218625501388903,
+        "median": 1.124651182099436,
+        "point": 1.1278542006870371,
+        "seed": 12013
+      },
+      "policy_wins": 4,
+      "sbs_cost": 0.0018134044377120517,
+      "sbs_solver": "scipy-highs-ds",
+      "solver_mean_costs": {
+        "scipy-highs-ds": 0.0018134044377120517,
+        "scipy-highs-ipm": 0.0018320313128015187
+      },
+      "vbs_cost": 0.0017767960003993721
+    },
+    "backends": [
+      "@auto",
+      "scipy-highs-ds",
+      "scipy-highs-ipm"
+    ],
+    "bootstrap": {
+      "draws": 2000,
+      "seed": 12013
+    },
+    "cost_field": "wall_s",
+    "cutoff_s": 1.0,
+    "environment_ids": [
+      "a4c4ee9489d883b1f6dd2f2f79398a613e5f43dd39101c6c14baf0fc933e5180"
+    ],
+    "instances": 8,
+    "mixed_environments_allowed": false,
+    "par_penalty": 10.0,
+    "performance_profile": {
+      "fractions": {
+        "scipy-highs-ds": [
+          0.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "scipy-highs-ipm": [
+          0.5,
+          0.875,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "taus": [
+        1.0,
+        1.1,
+        1.25,
+        1.5,
+        2.0,
+        5.0,
+        10.0
+      ]
+    },
+    "protocol_id": "6f94645c2464b4bcab5eb29433fdf4592bb1b0920903ae404642b1c7e3e52799",
+    "rectangular_input": true,
+    "relative_sbs_vbs_gap": 0.02018768486023337,
+    "sbs_cost": 0.0018134044377120517,
+    "sbs_solver": "scipy-highs-ds",
+    "sbs_vbs_gap": 3.66084373126796e-05,
+    "schema_version": "1.1",
+    "solver_stats": {
+      "@auto": {
+        "median_success_wall_s": 0.0018697585001063999,
+        "par_cost_mean": 0.002045255812618052,
+        "reference_ok_rows": 16,
+        "rows": 16,
+        "solved_rows": 16,
+        "validated_rows": 16
+      },
+      "scipy-highs-ds": {
+        "median_success_wall_s": 0.001795106501049304,
+        "par_cost_mean": 0.0018134044377120517,
+        "reference_ok_rows": 16,
+        "rows": 16,
+        "solved_rows": 16,
+        "validated_rows": 16
+      },
+      "scipy-highs-ipm": {
+        "median_success_wall_s": 0.0017994975014516967,
+        "par_cost_mean": 0.0018320313128015187,
+        "reference_ok_rows": 16,
+        "rows": 16,
+        "solved_rows": 16,
+        "validated_rows": 16
+      }
+    },
+    "vbs_cost": 0.0017767960003993721
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "benchmark": "M12 MIPLIB acquisition attempt",
+  "state": "failed_external_network",
+  "returncode": 2,
+  "performance_evidence_used": false,
+  "stdout": "",
+  "stderr": "{\n  \"error_type\": \"URLError\",\n  \"error\": \"<urlopen error [Errno -3] Temporary failure in name resolution>\"\n}\n"
+}

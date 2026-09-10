@@ -1,0 +1,112 @@
+{
+  "report": {
+    "schema_version": "1.3",
+    "protocol_id": "b2ebebf0070477327a2b4f77e8b0a58ac826a1f59d4fb04cf8a07fc2b9f31479",
+    "environment_id": "59eee3503c113d6a8c365ca9410093520fb38fb4362e2e5b81a1581c70e786f1",
+    "manifest": "/mnt/data/m13_wheel_smoke_final/bench.test",
+    "manifest_sha256": "dca4a1790578b248383f2acb6056bb315d5b2c7dcc22515a72c3463e235d030d",
+    "reference": "/mnt/data/m13_wheel_smoke_final/bench.solu",
+    "reference_sha256": "e1ffc925afe967e4d5d117034309df7f8e7ce03031d9073dd8c4455f6c7737cc",
+    "dataset_dir": "/mnt/data/m13_wheel_smoke_final/data",
+    "backends": [
+      "bundled-highs-capi"
+    ],
+    "repetitions": 1,
+    "time_limit_s": null,
+    "hard_timeout_s": 20,
+    "thread_policy": {
+      "thread_env_limit": 1,
+      "solver_threads": null,
+      "worker_python_mode": "no_site",
+      "env_control": "process_start",
+      "backend_thread_control": "not_requested"
+    },
+    "shard": {
+      "index": 0,
+      "count": 1,
+      "instances": 1
+    },
+    "counters": {
+      "scheduled": 1,
+      "skipped_resume": 0,
+      "missing": 0,
+      "completed": 1,
+      "errors": 0
+    },
+    "elapsed_s": 0.4467225030002737,
+    "environment": {
+      "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+      "python_executable": "/opt/pyvenv/bin/python",
+      "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+      "machine": "x86_64",
+      "hostname": "localhost",
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "logical_cpus": 5,
+      "memory_bytes": 6236925952,
+      "packages": {
+        "optimind-core-codename": "0.0.14",
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "highspy": null,
+        "osqp": null,
+        "pyscipopt": null,
+        "nlopt": "2.11.0",
+        "casadi": "3.7.2",
+        "benchopt": null
+      },
+      "env_threads": {
+        "OMP_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null,
+        "VECLIB_MAXIMUM_THREADS": null,
+        "BLIS_NUM_THREADS": null
+      }
+    }
+  },
+  "row": {
+    "backend": "bundled-highs-capi",
+    "complete": true,
+    "environment_id": "59eee3503c113d6a8c365ca9410093520fb38fb4362e2e5b81a1581c70e786f1",
+    "filename": "a.mps",
+    "instance": "a",
+    "instance_sha256": "e8a5d95d110a5c48de419a0e2b6d1b70eba723d0a85803df9ff540d8b35d1f29",
+    "objective": 1.0,
+    "parse_s": 0.0012642889996641316,
+    "protocol_id": "b2ebebf0070477327a2b4f77e8b0a58ac826a1f59d4fb04cf8a07fc2b9f31479",
+    "public_status": "valid_optimal",
+    "reference_check": "objective_matches_optimum",
+    "reference_objective": 1.0,
+    "reference_status": "optimal",
+    "repetition": 0,
+    "run_id": "68bd4a2bdded02e22a8e02b1",
+    "schema_version": "1.3",
+    "state": "solved",
+    "thread_policy": {
+      "backend_thread_control": "not_requested",
+      "env_control": "process_start",
+      "solver_threads": null,
+      "thread_env_limit": 1,
+      "worker_python_mode": "no_site"
+    },
+    "trace": {
+      "backend_build_s": 0.0,
+      "backend_version": "1.10.0",
+      "diagnose_s": 0.0,
+      "inspect_s": 0.0008737200005271006,
+      "plan_s": 0.0,
+      "planner_evidence_level": null,
+      "planner_selected_backend": null,
+      "reuse_applied": false,
+      "reuse_mode": "cold_capi_model_build",
+      "runtime_overhead_s": 0.013210148998041404,
+      "solve_s": 0.0013613660012197215,
+      "total_s": 0.014571514999261126,
+      "validate_s": 0.00017842000124801416
+    },
+    "validated": true,
+    "wall_s": 0.44478948500000115,
+    "worker_parse_s": 0.0011985399996774504,
+    "worker_solve_wall_s": 0.014625285999500193
+  }
+}
