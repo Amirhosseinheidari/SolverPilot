@@ -171,6 +171,15 @@ class CasadiConicBackend:
         return opts
 
     def solve(self, problem: LinearProblem | QuadraticProblem) -> BackendSolveResult:
+        if self.plugin == "highs":
+            # CasADi's bundled HiGHS and highspy may expose incompatible native
+            # ABIs under the same library name. A fresh process keeps the plugin
+            # loader away from libraries already loaded by other backends.
+            from ._casadi_highs_worker import solve_isolated
+            return solve_isolated(self, problem)
+        return self._solve_in_process(problem)
+
+    def _solve_in_process(self, problem: LinearProblem | QuadraticProblem) -> BackendSolveResult:
         if not self.is_available():
             raise BackendUnavailableError(f"CasADi conic plugin is unavailable: {self.plugin}")
         import casadi as ca
@@ -180,7 +189,7 @@ class CasadiConicBackend:
             if self.plugin == "cbc":
                 raise ValueError("CBC bridge does not support QP")
             linear = problem.linear
-            P = ((problem.P + problem.P.T) * 0.5).tocsc()
+            P = problem.P.tocsc()
         elif isinstance(problem, LinearProblem):
             linear = problem
             P = sparse.csc_matrix((linear.n_variables, linear.n_variables), dtype=np.float64)
