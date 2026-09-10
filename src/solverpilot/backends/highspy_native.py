@@ -93,7 +93,17 @@ class HighspyNativeBackend:
         )
 
     def is_available(self) -> bool:
-        return importlib.util.find_spec("highspy") is not None
+        if importlib.util.find_spec("highspy") is None:
+            return False
+        try:
+            # Finding package metadata is insufficient: the extension may not
+            # load, or another HiGHS ABI may already occupy its library name.
+            # Resolve the dedicated native adapter before verification bridges
+            # are examined by the default registry.
+            importlib.import_module("highspy")
+        except (ImportError, OSError):
+            return False
+        return True
 
     def solve(self, problem: LinearProblem | QuadraticProblem) -> BackendSolveResult:
         if not self.is_available():
