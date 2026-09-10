@@ -5,13 +5,13 @@ from solverpilot import LinearProblem, VariableDomain, solve
 from solverpilot.validate import PublicStatus
 
 
-def test_auto_solve_lp_produces_plan_and_timings():
+def test_auto_solve_lp_produces_plan_and_timings(scipy_registry):
     problem = LinearProblem.from_data(
         A=[[1.0, 1.0]], c=[1.0, 2.0],
         variable_lower=[0.0, 0.0], variable_upper=[1.0, 1.0],
         constraint_lower=[1.0], constraint_upper=[np.inf],
     )
-    result = solve(problem)
+    result = solve(problem, registry=scipy_registry)
     assert result.status is PublicStatus.VALID_OPTIMAL
     assert result.plan is not None
     assert result.plan.selected_backend == "scipy-highs-ds"
@@ -20,14 +20,14 @@ def test_auto_solve_lp_produces_plan_and_timings():
     assert result.trace.timings.total_s >= result.trace.timings.solve_s
 
 
-def test_auto_solve_milp_routes_to_milp_capable_backend():
+def test_auto_solve_milp_routes_to_milp_capable_backend(scipy_registry):
     problem = LinearProblem.from_data(
         A=[[1.0, 1.0]], c=[-2.0, -1.0],
         variable_lower=[0.0, 0.0], variable_upper=[1.0, 1.0],
         constraint_lower=[-np.inf], constraint_upper=[1.0],
         domains=[VariableDomain.BINARY, VariableDomain.BINARY],
     )
-    result = solve(problem)
+    result = solve(problem, registry=scipy_registry)
     assert result.status is PublicStatus.VALID_OPTIMAL
     assert result.plan is not None
     assert result.plan.selected_backend == "scipy-highs-bridge"
@@ -57,7 +57,7 @@ def test_wall_time_budget_is_applied_only_when_backend_can_enforce_it():
     assert result.status is PublicStatus.VALID_OPTIMAL
 
 
-def test_unsupported_thread_budget_is_not_silently_ignored():
+def test_unsupported_thread_budget_is_not_silently_ignored(scipy_registry):
     from solverpilot import SolveBudget
     problem = LinearProblem.from_data(
         A=[[1.0]], c=[1.0],
@@ -65,7 +65,7 @@ def test_unsupported_thread_budget_is_not_silently_ignored():
         constraint_lower=[0.0], constraint_upper=[1.0],
     )
     with pytest.raises(NotImplementedError, match="thread budget"):
-        solve(problem, budget=SolveBudget(threads=2))
+        solve(problem, registry=scipy_registry, budget=SolveBudget(threads=2))
 
 
 def test_auto_trace_records_fingerprint_and_planner_evidence():

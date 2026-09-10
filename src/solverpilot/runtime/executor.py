@@ -101,9 +101,11 @@ def execute(
     evidence = OptimalityEvidence(
         backend_reported_optimal=backend_result.backend_status == "optimal",
         primal_validated=bool(validation is not None and validation.valid),
-        dual_verified=bool(raw_stats.get("dual_optimality_verified", False)),
-        gap_verified=bool(raw_stats.get("optimality_gap_verified", False)),
-        certificate_verified=bool(raw_stats.get("optimality_certificate_verified", False)),
+        # Backend statistics are claims, not an independently checked proof.
+        # Keep them in raw_stats, but only a canonical verifier may promote them.
+        dual_verified=False,
+        gap_verified=False,
+        certificate_verified=False,
     )
     raw_stats["solverpilot_trust"] = {
         "backend_reported_optimal": evidence.backend_reported_optimal,

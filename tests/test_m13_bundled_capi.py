@@ -193,6 +193,7 @@ def test_clean_pythonpath_excludes_platform_hook_paths():
 
 
 def test_direct_highs_capi_survives_repeated_mixed_health_probes():
+    _available()
     from solverpilot import builtin_backend_candidates
     from solverpilot.backends import BackendProbeStatus, probe_backends
 

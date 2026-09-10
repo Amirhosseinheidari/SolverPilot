@@ -24,13 +24,13 @@ def test_qp_bridge_unconstrained_box_optimum():
     assert result.x == pytest.approx([1.0, -0.5], abs=1e-6)
 
 
-def test_auto_qp_routes_to_development_qp_bridge_without_optimality_claim():
+def test_auto_qp_routes_to_development_qp_bridge_without_optimality_claim(scipy_registry):
     problem = QuadraticProblem.from_data(
         P=[[2.0]], A=[[1.0]], q=[-2.0],
         variable_lower=[0.0], variable_upper=[3.0],
         constraint_lower=[-np.inf], constraint_upper=[2.0],
     )
-    result = solve(problem)
+    result = solve(problem, registry=scipy_registry)
     assert result.plan is not None
     assert result.plan.selected_backend == "scipy-slsqp-qp-bridge"
     assert result.status is PublicStatus.VALID_FEASIBLE

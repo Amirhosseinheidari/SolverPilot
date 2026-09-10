@@ -32,7 +32,7 @@ def main() -> int:
         names.append(EXTRA_PACKAGE[ns.extra])
     lines = [exact(name) for name in names]
     ns.output.write_text("\n".join(lines) + "\n")
-    print(ns.output.read_text(), end="")
+    print(ns.output.read_text(encoding="utf-8"), end="")
     return 0
 
 

@@ -71,7 +71,7 @@ def test_budget_validation():
         SolveBudget(wall_time_s=0)
 
 
-def test_prove_optimal_intent_rejects_candidate_only_qp_backends():
+def test_prove_optimal_intent_rejects_candidate_only_qp_backends(scipy_registry):
     import numpy as np
     import pytest
     from solverpilot import QuadraticProblem
@@ -84,13 +84,12 @@ def test_prove_optimal_intent_rejects_candidate_only_qp_backends():
         variable_lower=[0.0], variable_upper=[3.0],
         constraint_lower=[], constraint_upper=[],
     )
-    # In the current test environment highspy/OSQP are absent. The remaining QP
-    # backends (SciPy/NLopt SLSQP) explicitly lack an optimality certificate.
+    # An explicit registry isolates the candidate-only QP contract from optional installations.
     with pytest.raises(NoCompatibleBackendError, match="rejected by solve intent"):
-        plan_solve(p, default_registry(), intent=SolveIntent.PROVE_OPTIMAL)
+        plan_solve(p, scipy_registry, intent=SolveIntent.PROVE_OPTIMAL)
 
 
-def test_prove_optimal_intent_still_allows_highs_lp_backend():
+def test_prove_optimal_intent_still_allows_highs_lp_backend(scipy_registry):
     from solverpilot import LinearProblem
     from solverpilot.plan import SolveIntent
     from solverpilot.runtime import default_registry
@@ -101,6 +100,6 @@ def test_prove_optimal_intent_still_allows_highs_lp_backend():
         variable_lower=[0.0], variable_upper=[2.0],
         constraint_lower=[1.0], constraint_upper=[float("inf")],
     )
-    plan = plan_solve(p, default_registry(), intent=SolveIntent.PROVE_OPTIMAL)
+    plan = plan_solve(p, scipy_registry, intent=SolveIntent.PROVE_OPTIMAL)
     assert plan.selected_backend == "scipy-highs-ds"
     assert any("hard intent gate" in r for r in plan.rationale)

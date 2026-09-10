@@ -55,6 +55,8 @@ def _readonly_csr(A: sparse.spmatrix | np.ndarray) -> sparse.csr_matrix:
     if np.isnan(matrix.data).any() or np.isinf(matrix.data).any():
         raise ValueError("A coefficients must be finite")
     matrix.sum_duplicates()
+    if not np.isfinite(matrix.data).all():
+        raise ValueError("A coefficients must be finite after summing duplicates")
     matrix.eliminate_zeros()
     matrix.sort_indices()
     matrix.data.flags.writeable = False
@@ -125,6 +127,7 @@ class LinearProblem:
         object.__setattr__(self, "constraint_upper", cu)
         object.__setattr__(self, "domains", domains)
         object.__setattr__(self, "objective_sense", sense)
+        object.__setattr__(self, "objective_offset", float(self.objective_offset))
         object.__setattr__(self, "metadata", dict(self.metadata))
         object.__setattr__(self, "structural_hash", structural_hash_linear(A, domains))
         object.__setattr__(

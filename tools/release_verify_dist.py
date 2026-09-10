@@ -19,7 +19,7 @@ def main() -> int:
     ap.add_argument("dist", type=Path)
     ns = ap.parse_args()
     dist = ns.dist.resolve()
-    manifest = json.loads((dist / "RELEASE-DIST-MANIFEST.json").read_text())
+    manifest = json.loads((dist / "RELEASE-DIST-MANIFEST.json").read_text(encoding="utf-8"))
     problems: list[str] = []
     for key in ("wheel", "sdist"):
         row = manifest[key]

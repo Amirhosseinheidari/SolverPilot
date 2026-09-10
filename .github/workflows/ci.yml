@@ -9,13 +9,19 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
-    name: ubuntu / py${{ matrix.python }}
-    runs-on: ubuntu-latest
+    name: ${{ matrix.os }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python: ["3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -28,17 +34,91 @@ jobs:
       - name: Install test environment
         run: python -m pip install ".[ci]"
       - name: Run regression
-        run: python -m pytest
+        run: python -m pytest -ra --junitxml=test-results.xml
       - name: Run public examples
         shell: bash
         run: |
           for example in examples/[0-9][0-9]_*.py; do
             python "$example"
           done
+      - name: Preserve regression results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: tests-${{ matrix.os }}-py${{ matrix.python }}
+          path: test-results.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+  optional-integrations:
+    name: optional integrations / ubuntu / py3.12
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install optional solver environment
+        run: python -m pip install ".[ci,native,casadi,cp]"
+      - name: Exercise full suite with native solvers
+        run: python -m pytest -ra --junitxml=optional-results.xml
+      - name: Preserve optional integration results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: optional-integration-results
+          path: optional-results.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+  distribution:
+    name: build and verify installed wheel
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install build and audit tools
+        run: python -m pip install "build>=1.6,<2" "twine>=7,<8" "packaging>=26,<27" "pip-audit==2.10.1"
+      - name: Build wheel and source distribution
+        run: python -m build
+      - name: Validate release artifacts
+        run: |
+          python -m twine check --strict dist/*
+          python tools/release_dist_manifest.py dist --write
+          python tools/release_verify_dist.py dist
+      - name: Install and smoke-test the exact wheel
+        run: |
+          python -m pip install dist/*.whl
+          python tools/release_smoke.py --forbid-source-root "$GITHUB_WORKSPACE"
+      - name: Audit runtime dependencies
+        run: |
+          python -m pip install --target audit-site dist/*.whl
+          python -m pip_audit --path audit-site --strict --format json --output dependency-audit.json
+      - name: Preserve build and audit evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verified-distribution
+          path: |
+            dist/
+            dependency-audit.json
+          if-no-files-found: warn
+          retention-days: 14
 
   static-correctness:
     name: static correctness / py3.13
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

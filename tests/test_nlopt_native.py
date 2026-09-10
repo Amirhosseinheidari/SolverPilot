@@ -94,7 +94,7 @@ def test_default_planner_does_not_prefer_nlopt_over_native_highs_for_lp():
     )
     r = solve(p)
     assert r.plan is not None
-    assert r.plan.selected_backend == "scipy-highs-ds"
+    assert r.plan.selected_backend in {"scipy-highs-ds", "highspy-native"}
 
 
 def test_nlopt_does_not_claim_infeasibility_without_certificate():

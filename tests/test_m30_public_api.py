@@ -155,10 +155,14 @@ def test_pyproject_metadata_matches_frozen_runtime_version_and_readme():
     assert project["optional-dependencies"]["native"] == project["optional-dependencies"]["open-source"]
 
 
-def test_release_source_does_not_embed_generated_distribution_metadata():
-    assert not list((ROOT / "src").glob("*.egg-info"))
-    assert not (ROOT / "build").exists()
-    assert not (ROOT / "dist").exists()
+def test_package_tree_does_not_embed_generated_distribution_metadata():
+    # pip/build legitimately create sibling egg-info, build and dist folders.
+    # They must not be embedded in the importable package. The release manifest
+    # checker separately inspects the contents of the actual built wheel.
+    package = ROOT / "src" / "solverpilot"
+    assert not list(package.rglob("*.egg-info"))
+    assert not (package / "build").exists()
+    assert not (package / "dist").exists()
 
 
 def test_prepublic_optimind_namespace_is_not_shipped_in_current_source():

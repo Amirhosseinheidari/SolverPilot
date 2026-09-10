@@ -12,6 +12,11 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
+    # These versions are coupled to runtime/ABI conformance evidence. Upgrade
+    # them in a dedicated qualification PR, not a grouped dependency bump.
+    ignore:
+      - dependency-name: casadi
+      - dependency-name: ortools
     groups:
       python-dependencies:
         patterns:

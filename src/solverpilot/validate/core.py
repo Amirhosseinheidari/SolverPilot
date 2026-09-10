@@ -10,6 +10,8 @@ _FEASIBILITY_REL = 1e-9
 
 
 def _max_violation(values: np.ndarray, lower: np.ndarray, upper: np.ndarray) -> float:
+    if not np.isfinite(values).all():
+        return float("inf")
     below = np.maximum(lower - values, 0.0)
     above = np.maximum(values - upper, 0.0)
     v = np.maximum(below, above)
@@ -31,22 +33,28 @@ def _scaled_feasibility(
     against the magnitude of the candidate, finite bounds and (for constraints)
     an independently supplied row/activity scale.
     """
-    below = np.maximum(lower - values, 0.0)
-    above = np.maximum(values - upper, 0.0)
-    violation = np.maximum(below, above)
-    finite_lower = np.where(np.isfinite(lower), np.abs(lower), 0.0)
-    finite_upper = np.where(np.isfinite(upper), np.abs(upper), 0.0)
-    scale = np.maximum.reduce([np.ones_like(values), np.abs(values), finite_lower, finite_upper])
+    if not np.isfinite(values).all():
+        return float("inf"), False
+    scale = np.maximum(1.0, np.abs(values))
     if extra_scale is not None:
+        if not np.isfinite(extra_scale).all():
+            return float("inf"), False
         scale = np.maximum(scale, np.asarray(extra_scale, dtype=np.float64))
-    allowed = float(atol) + float(rtol) * scale
-    normalized = np.divide(
-        violation,
-        allowed,
-        out=np.zeros_like(violation, dtype=np.float64),
-        where=allowed > 0,
-    )
-    return (float(np.max(normalized)) if normalized.size else 0.0, bool(np.all(violation <= allowed)))
+    max_normalized = 0.0
+    ok = True
+    # Each side uses its own bound: a distant upper bound must not relax a
+    # violated lower bound (or vice versa).
+    for bound, direction in ((lower, -1.0), (upper, 1.0)):
+        mask = np.isfinite(bound)
+        with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+            violation = np.maximum(direction * (values[mask] - bound[mask]), 0.0)
+            allowed = float(atol) + float(rtol) * np.maximum(scale[mask], np.abs(bound[mask]))
+            normalized = np.divide(violation, allowed, out=np.full_like(violation, np.inf), where=allowed > 0)
+        normalized[violation == 0] = 0.0
+        if normalized.size:
+            max_normalized = max(max_normalized, float(np.max(normalized)))
+        ok = ok and bool(np.all(np.isfinite(violation) & np.isfinite(allowed) & (violation <= allowed)))
+    return max_normalized, ok
 
 
 def _linear_objective(problem: LinearProblem, x: np.ndarray) -> float:
@@ -119,7 +127,10 @@ def validate_solution(
     )
 
     reported = solution.objective_reported
-    if reported is None:
+    if not np.isfinite(objective):
+        objective_diff = None if reported is None else float("inf")
+        objective_ok = False
+    elif reported is None:
         objective_diff = None
         objective_ok = None
     elif not np.isfinite(reported):
@@ -140,6 +151,8 @@ def validate_solution(
     )
 
     warnings: list[str] = []
+    if not np.isfinite(objective):
+        warnings.append("canonical objective is non-finite")
     if not bounds_ok:
         warnings.append("variable bound violation")
     elif bound_v > tol.feasibility:

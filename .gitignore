@@ -6,7 +6,7 @@ build/
 dist/
 .venv/
 verification/
-release/
+/release/
 *.whl
 *.tar.gz
 *.zip

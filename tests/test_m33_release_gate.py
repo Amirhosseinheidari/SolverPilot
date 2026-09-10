@@ -165,7 +165,10 @@ def test_owner_metadata_stays_uninvented_and_public_gate_stays_false():
     assert project["license-files"] == ["LICENSE"]
     assert project["authors"] == [{"name": "Amirhossein Heidari Rashtabad"}]
     assert project["maintainers"] == [{"name": "Amirhossein Heidari Rashtabad"}]
-    assert "urls" not in project
+    assert project["urls"] == {
+        "Repository": "https://github.com/Amirhosseinheidari/SolverPilot",
+        "Issues": "https://github.com/Amirhosseinheidari/SolverPilot/issues",
+    }
     payload = json.loads(MATRIX.read_text())
     assert payload["technical_external_gate"] is False
     assert payload["public_rc_authorized"] is False

@@ -139,8 +139,9 @@ def test_quadratic_objective_compiles_with_legacy_half_xpx_convention():
     assert isinstance(p, QuadraticProblem)
     np.testing.assert_allclose(p.P.toarray(), [[2, 0], [0, 4]])
     np.testing.assert_allclose(p.linear.c, [-2, -8])
-    r = compiled.solve(backend=BundledOSQPCAPIBackend())
-    assert r.status is PublicStatus.VALID_OPTIMAL
+    from solverpilot.backends import ScipySLSQPQPBackend
+    r = compiled.solve(backend=ScipySLSQPQPBackend())
+    assert r.status is PublicStatus.VALID_FEASIBLE
     np.testing.assert_allclose(r.x, [1, 2], atol=1e-7)
     assert r.objective == pytest.approx(-9.0, abs=1e-7)
 
@@ -262,7 +263,8 @@ def test_direct_legacy_api_remains_available():
 
 def test_model_solve_convenience_linear():
     m=Model(); x=m.variable(lower=1,upper=3); m.minimize(x)
-    r=m.solve(backend=BundledHighsCAPIBackend())
+    from solverpilot.backends import ScipyHighsBackend
+    r=m.solve(backend=ScipyHighsBackend())
     assert r.status is PublicStatus.VALID_OPTIMAL
     assert r.x[0] == pytest.approx(1)
 
