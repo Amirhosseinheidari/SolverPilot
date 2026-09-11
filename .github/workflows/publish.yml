@@ -1,4 +1,3 @@
-# DISABLED TEMPLATE — rename to publish.yml only after owner metadata/license and a qualified attested run are approved.
 name: Publish qualified release to PyPI
 
 on:

@@ -1,13 +1,13 @@
 # Release process
 
-This document is the current prerelease release-process contract. Public publication remains disabled until owner/governance metadata and an exact-artifact qualification run are complete.
+This document is the current prerelease release-process contract. Publication is manual and requires the owner-configured Trusted Publisher, protected environment approval, and a successful attested qualification of the exact main commit.
 
 ## Repository settings required before public launch
 
 Repository owners must verify external settings that source code cannot prove:
 
 1. the default/release branch is protected by a branch ruleset or branch protection;
-2. required CI checks and required reviews are configured;
+2. required CI checks and pull requests are enforced; publication requires owner review through the environment;
 3. GitHub **allowed-actions** policy permits only reviewed actions and current workflows use immutable full commit SHAs;
 4. **GitHub Private Vulnerability Reporting** is enabled before the repository is public;
 5. a protected GitHub environment named `pypi` exists with the intended reviewer protection;
@@ -16,7 +16,7 @@ Repository owners must verify external settings that source code cannot prove:
 
 ## Normal CI
 
-`.github/workflows/ci.yml` runs on pull requests and pushes to `main`. It is intentionally lightweight and tests the source tree on Ubuntu/Python 3.12–3.14. It is **not** release-compatibility evidence.
+`.github/workflows/ci.yml` runs on pull requests and pushes to `main`. It tests the source tree on Ubuntu, Windows, and macOS/Python 3.12–3.14. It is **not** release-compatibility evidence.
 
 ## Exact-artifact release qualification
 
@@ -41,16 +41,16 @@ A private repository/account plan that cannot use attestations may run technical
 
 ## Publication
 
-`.github/workflows/publish.yml.disabled` must remain disabled until owner metadata/license and repository settings are complete.
+`.github/workflows/publish.yml` is manual-only and defaults to TestPyPI. The `pypi` and `testpypi` environments accept only main and require owner approval. Configure the matching pending publisher in each registry before dispatching.
 
-When enabled, publication must:
+Publication must:
 
 1. receive a successful qualification `run_id` and exact 40-character `commit_sha`;
 2. use the GitHub API to verify that the run succeeded for that exact commit and the release-qualification workflow;
 3. download `release-dist` from that exact prior run using `github-token` + `run-id`;
 4. re-verify the frozen distribution hashes and `twine check --strict`;
 5. require valid GitHub attestations for the wheel and sdist;
-6. publish only through PyPI Trusted Publishing/OIDC from the protected `pypi` environment;
+6. publish only through PyPI Trusted Publishing/OIDC from the corresponding protected `pypi` or `testpypi` environment;
 7. never use a long-lived PyPI API token;
 8. record the final PyPI file hashes and provenance after publication.
 
