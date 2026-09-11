@@ -10,3 +10,4 @@ verification/
 *.whl
 *.tar.gz
 *.zip
+.coverage

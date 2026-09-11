@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from time import perf_counter
 import importlib.util
 
 import numpy as np
@@ -91,6 +92,7 @@ class ScipyHighsLPBackend:
         if problem.objective_sense is ObjectiveSense.MAXIMIZE:
             c = -c
 
+        build_start = perf_counter()
         A_ub, b_ub, A_eq, b_eq = _to_linprog_constraints(problem)
         bounds = list(zip(problem.variable_lower.tolist(), problem.variable_upper.tolist()))
 
@@ -100,6 +102,7 @@ class ScipyHighsLPBackend:
         if self.presolve is not None:
             options["presolve"] = bool(self.presolve)
 
+        prepared = perf_counter()
         result = linprog(
             c,
             A_ub=A_ub,
@@ -111,13 +114,29 @@ class ScipyHighsLPBackend:
             options=options,
         )
 
+        solved = perf_counter()
         status = self._status_name(int(result.status), result.x is not None)
         x = None if result.x is None else np.asarray(result.x, dtype=np.float64)
         objective = None
         if x is not None:
             objective = float(problem.c @ x + problem.objective_offset)
 
+        dual = None
+        if x is not None and status == "optimal":
+            y = np.zeros(problem.n_constraints)
+            k = j = 0
+            for i, (lo, hi) in enumerate(zip(problem.constraint_lower, problem.constraint_upper)):
+                if np.isfinite(lo) and lo == hi:
+                    y[i] = -result.eqlin.marginals[j]; j += 1
+                else:
+                    if np.isfinite(hi):
+                        y[i] -= result.ineqlin.marginals[k]; k += 1
+                    if np.isfinite(lo):
+                        y[i] += result.ineqlin.marginals[k]; k += 1
+            dual = np.r_[y, -np.asarray(result.lower.marginals)-np.asarray(result.upper.marginals)].tolist()
         raw: dict[str, object] = {
+            "canonical_dual": dual,
+            "phase_timings": {"backend_build_s": prepared-build_start, "solve_s": solved-prepared},
             "scipy_status": int(result.status),
             "message": str(result.message),
             "success": bool(result.success),
@@ -167,29 +186,17 @@ def _to_linprog_constraints(
     The canonical problem remains the source of truth for final validation.
     """
 
-    ub_rows: list[sparse.csr_matrix] = []
-    ub_rhs: list[float] = []
-    eq_rows: list[sparse.csr_matrix] = []
-    eq_rhs: list[float] = []
-
-    for i in range(problem.n_constraints):
-        lo = float(problem.constraint_lower[i])
-        hi = float(problem.constraint_upper[i])
-        row = problem.A.getrow(i)
-
-        if np.isfinite(lo) and np.isfinite(hi) and lo == hi:
-            eq_rows.append(row)
-            eq_rhs.append(lo)
-            continue
-        if np.isfinite(hi):
-            ub_rows.append(row)
-            ub_rhs.append(hi)
-        if np.isfinite(lo):
-            ub_rows.append(-row)
-            ub_rhs.append(-lo)
-
-    A_ub = sparse.vstack(ub_rows, format="csr") if ub_rows else None
-    b_ub = np.asarray(ub_rhs, dtype=np.float64) if ub_rows else None
-    A_eq = sparse.vstack(eq_rows, format="csr") if eq_rows else None
-    b_eq = np.asarray(eq_rhs, dtype=np.float64) if eq_rows else None
+    lo, hi = problem.constraint_lower, problem.constraint_upper
+    eq = np.isfinite(lo) & (lo == hi)
+    mask = np.column_stack([np.isfinite(hi) & ~eq, np.isfinite(lo) & ~eq]).reshape(-1)
+    positions = np.flatnonzero(mask)
+    rows = positions // 2
+    signs = np.where(positions % 2 == 0, 1., -1.)
+    if positions.size:
+        A_ub = problem.A[rows].multiply(signs[:, None]).tocsr()
+        b_ub = np.where(positions % 2 == 0, hi[rows], -lo[rows])
+    else:
+        A_ub = b_ub = None
+    A_eq = problem.A[eq].tocsr() if np.any(eq) else None
+    b_eq = lo[eq].copy() if np.any(eq) else None
     return A_ub, b_ub, A_eq, b_eq

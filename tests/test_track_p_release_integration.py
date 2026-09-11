@@ -17,7 +17,7 @@ def test_integrated_optional_extras_are_declared():
 
 def test_release_qualification_requires_track_p_integrations_on_python_and_os_matrix():
     text = (ROOT / ".github/workflows/release-qualification.yml").read_text(encoding="utf-8")
-    matrix = "extra: [highs, osqp, scip, nlopt, casadi, conic, nlp, minlp, cp]"
+    matrix = "extra: [highs, osqp, scip, nlopt, casadi, conic, nlp, minlp, cp, clarabel]"
     assert text.count(matrix) == 2
     assert 'python: ["3.12", "3.13", "3.14"]' in text
     assert 'os: [ubuntu-latest, macos-latest, windows-latest]' in text
@@ -33,12 +33,12 @@ def test_release_smoke_has_semantic_checks_for_each_track_p_extra():
 
 def test_current_public_docs_are_version_aligned():
     version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
-    assert version == "0.1"
+    assert version == "0.2"
     for rel in (
         "README.md",
         "KNOWN-LIMITATIONS.md",
         "docs/api/EXTENDED-MODELING-API.md",
-        "docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.md",
-        "docs/release/README-CHECKLIST-0.1.md",
+        "docs/release/SOLVERPILOT-PUBLIC-DOCS-0.2.md",
+        "docs/release/README-CHECKLIST-0.2.md",
     ):
         assert version in (ROOT / rel).read_text(encoding="utf-8"), rel

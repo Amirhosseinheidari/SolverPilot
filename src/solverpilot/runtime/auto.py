@@ -4,7 +4,7 @@ from dataclasses import asdict, replace
 from time import perf_counter
 
 from solverpilot.diagnose import diagnose_infeasibility
-from solverpilot.validate import PublicStatus
+from solverpilot.validate import PublicStatus, ValidationTolerances
 from solverpilot.backends import (
     Backend,
     BackendRegistry,
@@ -88,11 +88,13 @@ def solve(
     health_reports: tuple[BackendHealthReport, ...] | None = None,
     health_policy: HealthPolicy | str = HealthPolicy.IGNORE,
     diagnose_infeasible: bool = False,
+    tolerances: ValidationTolerances | None = None,
 ) -> SolveResult:
     """Solve a problem either with an explicit backend or the deterministic planner."""
 
     total_t0 = perf_counter()
-    registry = default_registry() if registry is None else registry
+    if registry is None and (backend is None or isinstance(backend, str)):
+        registry = default_registry()
 
     inspect_t0 = perf_counter()
     fingerprint = inspect_problem(problem)
@@ -120,7 +122,7 @@ def solve(
         chosen = backend
 
     chosen = apply_budget(chosen, budget)
-    result = execute(problem, chosen)
+    result = execute(problem, chosen, tolerances=tolerances)
 
     diagnose_s = 0.0
     diagnostics = None
@@ -140,6 +142,8 @@ def solve(
         inspect_s=inspect_s,
         plan_s=plan_s,
         backend_build_s=old.backend_build_s,
+        backend_update_s=old.backend_update_s,
+        backend_total_s=old.backend_total_s,
         solve_s=old.solve_s,
         validate_s=old.validate_s,
         diagnose_s=old.diagnose_s + diagnose_s,
@@ -175,6 +179,7 @@ def solve_production(
     performance_policy: PerformancePolicy | str = PerformancePolicy.REQUIRE_COMPARATIVE,
     performance_override: dict[str, str] | None = None,
     diagnose_infeasible: bool = False,
+    tolerances: ValidationTolerances | None = None,
 ) -> tuple[SolveResult, ProductionDecision]:
     """Conservative proof-safe solve plus the auditable production routing decision."""
     registry = default_registry() if registry is None else registry
@@ -188,6 +193,6 @@ def solve_production(
     result = solve(
         problem, registry=registry, backend=decision.plan.selected_backend, intent=intent,
         budget=budget, context=context, health_reports=health_reports,
-        health_policy=health_policy, diagnose_infeasible=diagnose_infeasible,
+        health_policy=health_policy, diagnose_infeasible=diagnose_infeasible, tolerances=tolerances,
     )
     return replace(result, plan=decision.plan), decision

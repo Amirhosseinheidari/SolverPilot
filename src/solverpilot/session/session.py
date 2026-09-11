@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from threading import RLock
+from solverpilot._synchronization import serialized
+
 from dataclasses import replace
 from typing import Any
 
@@ -29,6 +32,7 @@ class Session:
         *,
         registry: BackendRegistry | None = None,
     ) -> None:
+        self._lock = RLock()
         self._problem = problem
         if registry is None:
             from solverpilot.runtime import default_registry
@@ -60,6 +64,7 @@ class Session:
     def last_reuse_assessment(self) -> ReuseAssessment | None:
         return self._last_reuse_assessment
 
+    @serialized
     def update(self, **changes: Any) -> MutationRecord:
         old = self._problem
         new = _updated_problem(old, changes)
@@ -78,6 +83,7 @@ class Session:
             self._history.append(record)
         return record
 
+    @serialized
     def solve(
         self,
         *,

@@ -5,6 +5,7 @@ from typing import Any, Iterable
 import hashlib
 import json
 import uuid
+import math
 
 import numpy as np
 
@@ -12,7 +13,7 @@ from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem,
 
 from .errors import DomainError, OwnershipError, ShapeError, SymbolicTruthValueError
 from .expression import ExprNode, Expression, _shape_tuple, _sign_of_constant
-from .sets import (ConstraintSet, EqualTo, GreaterThan, LessThan, ScalarSet, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone)
+from .sets import (ConstraintSet, EqualTo, GreaterThan, LessThan, ScalarSet, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)
 from .types import Curvature, EntityId, SignDomain
 
 
@@ -32,11 +33,11 @@ def _readonly_array(value: Any, shape: tuple[int, ...], *, finite: bool, name: s
 
 def _canonical_float(x: float) -> str:
     x = float(x)
-    if np.isnan(x):
+    if math.isnan(x):
         raise DomainError("NaN cannot be canonically serialized")
-    if np.isposinf(x):
+    if x == math.inf:
         return "+inf"
-    if np.isneginf(x):
+    if x == -math.inf:
         return "-inf"
     return x.hex()
 
@@ -273,10 +274,12 @@ class Model:
         expr = function if isinstance(function, Expression) else self.constant(function)
         if expr._model is not self:
             raise OwnershipError("constraint function belongs to another model")
-        if not isinstance(set_, (LessThan, GreaterThan, EqualTo, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone)):
+        if not isinstance(set_, (LessThan, GreaterThan, EqualTo, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)):
             from .sets import Interval
             if not isinstance(set_, Interval):
                 raise TypeError("unsupported constraint set")
+        if isinstance(set_, (ExponentialCone, PowerCone)) and expr.shape != (3,):
+            raise ShapeError("exponential and power cones require a vector of length three")
         if isinstance(set_, SecondOrderCone) and expr.shape != (set_.dimension,):
             raise ShapeError(f"SOC function must have shape ({set_.dimension},), got {expr.shape}")
         if isinstance(set_, RotatedSecondOrderCone) and expr.shape != (set_.dimension,):
@@ -480,7 +483,7 @@ class Model:
             if include_parameter_values:
                 item["value"] = _array_semantic_payload(data.value)
             parameters.append(item)
-        has_cones = any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone)) for c in self._constraints)
+        has_cones = any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)) for c in self._constraints)
         nonlinear_kinds = {"sin", "cos", "exp", "log", "sqrt", "tanh", "pow", "div"}
         def has_nonlinear(node):
             return node.kind in nonlinear_kinds or any(has_nonlinear(a) for a in node.args)
@@ -524,6 +527,10 @@ class Model:
         from .sets import Interval
         if isinstance(set_, Interval):
             return {"kind": "Interval", "lower": _canonical_float(set_.lower), "upper": _canonical_float(set_.upper)}
+        if isinstance(set_, ExponentialCone):
+            return {"kind": "ExponentialCone"}
+        if isinstance(set_, PowerCone):
+            return {"kind": "PowerCone", "alpha": set_.alpha}
         if isinstance(set_, SecondOrderCone):
             return {"kind": "SecondOrderCone", "dimension": set_.dimension}
         if isinstance(set_, RotatedSecondOrderCone):
@@ -680,6 +687,10 @@ class Model:
             args = [rebuild(x) for x in node.args]
             if node.kind == "add": return args[0] + args[1]
             if node.kind == "mul": return args[0] * args[1]
+            if node.kind == "div": return args[0] / args[1]
+            if node.kind == "pow": return args[0] ** node.payload
+            if node.kind in {"exp", "log", "sqrt", "sin", "cos", "tanh"}:
+                return getattr(args[0], node.kind)()
             if node.kind == "matmul": return args[0] @ args[1]
             if node.kind == "neg": return -args[0]
             if node.kind == "index": return args[0][node.payload]
@@ -690,7 +701,7 @@ class Model:
 
         for c in self._constraints:
             expr = rebuild(c.function._node)
-            if isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone)):
+            if isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)):
                 clone.add_in_set(expr, c.set, name=c.name)
                 continue
             if isinstance(c.set, LessThan): relation = expr <= c.set.upper

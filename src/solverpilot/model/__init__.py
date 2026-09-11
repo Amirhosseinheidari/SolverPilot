@@ -2,7 +2,7 @@ from .compiler import CompiledModel, CompilationReport, CompilerCacheInfo, compi
 from .errors import CompileError, DomainError, ModelingError, OwnershipError, ShapeError, SymbolicTruthValueError
 from .expression import Expression
 from .model import Constraint, IndicatorConstraint, Model, Objective, Parameter, PendingConstraint, Variable
-from .sets import EqualTo, GreaterThan, Interval, LessThan, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
+from .sets import EqualTo, GreaterThan, Interval, LessThan, ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
 from .types import Curvature, EntityId, NumericType, SignDomain
 
 
@@ -25,3 +25,6 @@ def exp(x): return x.exp()
 def log(x): return x.log()
 def sqrt(x): return x.sqrt()
 def tanh(x): return x.tanh()
+
+from .convenience import indexed_variables, soft_constraint, named_values, diagnose_model, SoftConstraint
+__all__ += ["ExponentialCone", "PowerCone", "indexed_variables", "soft_constraint", "named_values", "diagnose_model", "SoftConstraint"]

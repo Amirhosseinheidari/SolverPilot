@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from threading import RLock
+from solverpilot._synchronization import serialized
+
 from dataclasses import dataclass, field, fields, is_dataclass
 from enum import Enum
 from time import perf_counter
@@ -310,6 +313,7 @@ class PersistentSession:
     ) -> None:
         if not isinstance(model, Model):
             raise TypeError("PersistentSession requires an solverpilot.model.Model")
+        self._lock = RLock()
         self.model = model
         self.backend = backend
         self.capabilities = capabilities or resolve_backend_capabilities(backend, verify=True)
@@ -354,11 +358,13 @@ class PersistentSession:
     def compiled(self) -> CompiledModel | None:
         return self._compiled
 
+    @serialized
     def set_parameter(self, parameter: Parameter, value: Any) -> None:
         if not isinstance(parameter, Parameter) or parameter._model is not self.model:
             raise TypeError("parameter must belong to this PersistentSession model")
         parameter.value = value
 
+    @serialized
     def set_parameter_by_name(self, name: str, value: Any) -> None:
         matches = [p for p in self.model.parameters if p.name == name]
         if len(matches) != 1:
@@ -387,6 +393,7 @@ class PersistentSession:
             )
         return False
 
+    @serialized
     def solve(self) -> PersistentSolveOutcome:
         if self._closed:
             raise PersistentSessionError("PersistentSession is closed")
@@ -475,6 +482,7 @@ class PersistentSession:
         self._history.append(trace)
         return outcome
 
+    @serialized
     def close(self) -> None:
         if self._closed:
             return

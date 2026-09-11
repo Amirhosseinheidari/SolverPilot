@@ -17,6 +17,8 @@ from solverpilot.problem.hashing import _hash_parts, hash_sparse_matrix
 
 
 class ConeKind(str, Enum):
+    EXPONENTIAL = "exponential"
+    POWER = "power"
     SECOND_ORDER = "second_order"
     ROTATED_SECOND_ORDER = "rotated_second_order"
     POSITIVE_SEMIDEFINITE = "positive_semidefinite"
@@ -85,7 +87,13 @@ class ConeAffineBlock:
             raise ValueError(f"cone F has {F.shape[0]} rows but output_shape requires {expected}")
         if g.shape != (expected,):
             raise ValueError(f"cone g must have shape ({expected},), got {g.shape}")
-        if kind is ConeKind.SECOND_ORDER:
+        if kind in (ConeKind.EXPONENTIAL, ConeKind.POWER):
+            if shape != (3,):
+                raise ValueError('exponential and power cones require shape (3,)')
+            if kind is ConeKind.POWER:
+                from solverpilot.model.sets import PowerCone
+                PowerCone(self.metadata.get('alpha', float('nan')))
+        elif kind is ConeKind.SECOND_ORDER:
             if len(shape) != 1 or shape[0] < 2:
                 raise ValueError("second-order cone requires vector dimension >= 2")
         elif kind is ConeKind.ROTATED_SECOND_ORDER:
@@ -103,6 +111,7 @@ class ConeAffineBlock:
         object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
         structural = _hash_parts([
             kind.value.encode(),
+            *([repr(float(self.metadata["alpha"])).encode()] if kind is ConeKind.POWER else []),
             json.dumps(shape).encode(),
             hash_sparse_matrix(F.astype(bool)).encode(),
         ])

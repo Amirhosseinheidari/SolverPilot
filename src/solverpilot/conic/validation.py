@@ -70,9 +70,31 @@ def _psd_check(M: np.ndarray, *, atol: float, rtol: float) -> tuple[bool, float,
     return bool(symmetry_ok and scaled_eigmin >= -psd_tol), asym, eigmin, scaled_eigmin
 
 
-def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, source_id: str | None) -> ConeCheck:
+def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, source_id: str | None, alpha: float | None = None) -> ConeCheck:
     if not np.isfinite(value).all():
         return ConeCheck(source_id, kind, False, float("inf"), "non-finite cone activity")
+    if kind in (ConeKind.EXPONENTIAL, ConeKind.POWER):
+        scale = max(1., float(np.max(np.abs(value))))
+        a, b, c = np.asarray(value).reshape(-1)/scale
+        tol = atol/scale + rtol
+        if kind is ConeKind.EXPONENTIAL:
+            if value.reshape(-1)[1] < -_scaled_tol(atol, rtol, value.reshape(-1)[1]) or value.reshape(-1)[2] < -_scaled_tol(atol, rtol, value.reshape(-1)[2]):
+                return ConeCheck(source_id, kind, False, float("inf"), "negative exponential cone coordinate")
+            if b > 0 and c > 0:
+                violation = max(0., a-b*(math.log(c)-math.log(b)))
+            elif abs(b) <= tol:
+                violation = max(0., a, -c, abs(b))
+            else:
+                violation = float('inf')
+        else:
+            if alpha is None or not 0 < alpha < 1:
+                raise ValueError('valid power exponent required')
+            if any(v < -_scaled_tol(atol, rtol, v) for v in value.reshape(-1)[:2]):
+                return ConeCheck(source_id, kind, False, float('inf'), 'negative power cone coordinate')
+            product = math.exp(alpha*math.log(a)+(1-alpha)*math.log(b)) if a > 0 and b > 0 else 0.
+            violation = max(0., -a, -b, abs(c)-product)
+        return ConeCheck(source_id, kind, bool(violation <= tol), float(violation*scale),
+                         f'normalized_violation={violation}, normalized_tolerance={tol}')
     if kind is ConeKind.SECOND_ORDER:
         y = np.asarray(value, dtype=float).reshape(-1)
         t = float(y[0]); norm = math.hypot(*y[1:])
@@ -142,7 +164,7 @@ def validate_conic_solution(
         rtol=rtol,
         extra_scale=row_scale,
     )
-    checks = tuple(_cone_check(c.kind, c.value(x), atol=atol, rtol=rtol, source_id=c.source_id) for c in problem.cones)
+    checks = tuple(_cone_check(c.kind, c.value(x), atol=atol, rtol=rtol, source_id=c.source_id, alpha=c.metadata.get("alpha")) for c in problem.cones)
     cone_viol = max((c.violation for c in checks), default=0.0)
     objective = problem.objective_value(x)
     valid = bool(vars_ok and linear_ok and all(c.valid for c in checks) and np.isfinite(objective))

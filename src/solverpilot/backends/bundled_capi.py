@@ -13,7 +13,8 @@ from dataclasses import dataclass, field
 import ctypes
 import hashlib
 import importlib.util
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError
+from .metadata import version
 from pathlib import Path
 from time import perf_counter
 

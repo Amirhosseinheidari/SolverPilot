@@ -57,4 +57,20 @@ class PositiveSemidefiniteCone:
         object.__setattr__(self, "dimension", int(self.dimension))
 
 
-ConstraintSet = ScalarSet | SecondOrderCone | RotatedSecondOrderCone | PositiveSemidefiniteCone
+@dataclass(frozen=True, slots=True)
+class ExponentialCone:
+    """Closure of y exp(x/y) <= z, y > 0; vector ordering is (x,y,z)."""
+
+
+@dataclass(frozen=True, slots=True)
+class PowerCone:
+    alpha: float
+
+    def __post_init__(self):
+        import math
+        if isinstance(self.alpha, bool) or not math.isfinite(self.alpha) or not 0 < self.alpha < 1:
+            raise ValueError('power exponent must be finite and strictly between zero and one')
+        object.__setattr__(self, 'alpha', float(self.alpha))
+
+
+ConstraintSet = ScalarSet | SecondOrderCone | RotatedSecondOrderCone | PositiveSemidefiniteCone | ExponentialCone | PowerCone

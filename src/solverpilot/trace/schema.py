@@ -17,6 +17,8 @@ class PhaseTimings:
     validate_s: float = 0.0
     diagnose_s: float = 0.0
     total_s: float = 0.0
+    backend_update_s: float = 0.0
+    backend_total_s: float = 0.0
 
 
 @dataclass(frozen=True, slots=True)

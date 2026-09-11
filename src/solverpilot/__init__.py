@@ -1,6 +1,7 @@
 """SolverPilot public API.
 
-M30 freezes ``__all__`` as the supported top-level API for the 1.0 release line.
+The historical 78-name top-level surface remains compatible in version 0.2.
+New functionality is documented under explicit submodule namespaces.
 Research-only milestone translators and the rejected LP selector remain available
 under :mod:`solverpilot.experimental` and are intentionally excluded from this list.
 """

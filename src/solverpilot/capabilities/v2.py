@@ -51,6 +51,8 @@ class CapabilityKey(str, Enum):
     CONSTRAINT_INDICATOR = "constraint.indicator"
     CONSTRAINT_SOS1 = "constraint.sos1"
     CONSTRAINT_SOS2 = "constraint.sos2"
+    CONSTRAINT_EXPONENTIAL = "constraint.exponential"
+    CONSTRAINT_POWER = "constraint.power"
     CONSTRAINT_SOC = "constraint.soc"
     CONSTRAINT_ROTATED_SOC = "constraint.rotated_soc"
     CONSTRAINT_PSD = "constraint.psd"
@@ -667,6 +669,10 @@ def requirements_v2_for(problem) -> CapabilityRequirementsV2:
         if problem.P.nnz:
             keys.append(CapabilityKey.PROBLEM_CONIC_QUADRATIC)
         kinds = {c.kind for c in problem.cones}
+        if ConeKind.EXPONENTIAL in kinds:
+            keys.append(CapabilityKey.CONSTRAINT_EXPONENTIAL)
+        if ConeKind.POWER in kinds:
+            keys.append(CapabilityKey.CONSTRAINT_POWER)
         if ConeKind.SECOND_ORDER in kinds:
             keys.append(CapabilityKey.CONSTRAINT_SOC)
         if ConeKind.ROTATED_SECOND_ORDER in kinds:

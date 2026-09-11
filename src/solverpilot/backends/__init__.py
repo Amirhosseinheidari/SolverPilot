@@ -49,3 +49,6 @@ __all__ += [
     "BackendSolveRequestV2", "BackendSolveResultV2", "CallbackEvent", "CallbackEventKind",
     "IncrementalBackendProtocolV2", "StructuralIncrementalBackendProtocolV2",
 ]
+
+from .metadata import refresh_backend_metadata
+__all__.append("refresh_backend_metadata")

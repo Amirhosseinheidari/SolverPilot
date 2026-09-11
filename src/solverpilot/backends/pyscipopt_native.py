@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import importlib.util
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError
+from .metadata import version
 
 import numpy as np
 

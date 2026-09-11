@@ -22,14 +22,14 @@ def _sig(obj):
 def test_rc8_identity_and_version_are_canonical():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
     assert project["name"] == "solverpilot"
-    assert project["version"] == solverpilot.__version__ == "0.1"
+    assert project["version"] == solverpilot.__version__ == "0.2"
     assert project["license"] == "Apache-2.0"
     assert project["authors"] == [{"name": "Amirhossein Heidari Rashtabad"}]
     assert project["maintainers"] == [{"name": "Amirhossein Heidari Rashtabad"}]
 
 
 def test_rc8_public_api_snapshot_exactly_matches_runtime():
-    payload = json.loads((ROOT / "PUBLIC-API-V0_1_0.json").read_text())
+    payload = json.loads((ROOT / "PUBLIC-API-V0_2_0.json").read_text())
     assert payload["package_version"] == solverpilot.__version__
     assert payload["schema"] == "solverpilot.public_api.v1"
     assert [r["name"] for r in payload["symbols"]] == solverpilot.__all__
@@ -42,7 +42,7 @@ def test_rc8_public_api_snapshot_exactly_matches_runtime():
 
 
 def test_rc8_backend_contract_matches_runtime_and_learning_stays_off():
-    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_1_0.json").read_text())
+    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_2_0.json").read_text())
     expected = {name for group in payload["stable_backend_ids"].values() for name in group}
     assert expected == {b.manifest.name for b in builtin_backend_candidates()}
     assert set(payload["stable_backend_ids"]["verification_only"]).isdisjoint(default_registry().names())
@@ -63,8 +63,8 @@ def test_rc8_release_tools_have_no_prerelease_number_hardcode():
 
 def test_rc8_current_manifest_requires_rc8_contracts_not_rc6():
     manifest = (ROOT / "MANIFEST.in").read_text()
-    assert "include PUBLIC-API-V0_1_0.json" in manifest
-    assert "include BACKEND-CONTRACT-V0_1_0.json" in manifest
+    assert "include PUBLIC-API-V0_2_0.json" in manifest
+    assert "include BACKEND-CONTRACT-V0_2_0.json" in manifest
     assert "PUBLIC-API-RC6.json" not in manifest
     assert "BACKEND-CONTRACT-RC6.json" not in manifest
 
@@ -72,6 +72,7 @@ def test_rc8_current_manifest_requires_rc8_contracts_not_rc6():
 def test_rc8_live_tools_only_contain_current_release_helpers():
     names = sorted(p.name for p in (ROOT / "tools").glob("*.py"))
     assert names == [
+        "benchmark_02.py",
         "release_cell_runner.py",
         "release_dist_manifest.py",
         "release_repro_build_compare.py",

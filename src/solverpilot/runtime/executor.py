@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import asdict, replace
 from time import perf_counter
 
 from solverpilot.backends import Backend
@@ -8,7 +8,7 @@ from solverpilot.exceptions import BackendUnavailableError, CapabilityMismatchEr
 from solverpilot.capabilities import compatible, requirements_for
 from solverpilot.problem import LinearProblem, QuadraticProblem
 from solverpilot.trace import PhaseTimings, SolveTrace
-from solverpilot.validate import CandidateSolution, PublicStatus, validate_solution
+from solverpilot.validate import CandidateSolution, PublicStatus, ValidationTolerances, validate_solution
 
 from .result import OptimalityEvidence, SolveResult
 
@@ -42,12 +42,15 @@ def _normalize_status(backend_status: str, validation_valid: bool | None) -> Pub
 def execute(
     problem: LinearProblem | QuadraticProblem,
     backend: Backend,
+    *,
+    tolerances: ValidationTolerances | None = None,
 ) -> SolveResult:
     total_t0 = perf_counter()
     if not backend.is_available():
         raise BackendUnavailableError(f"backend is unavailable: {backend.manifest.name}")
+    manifest = backend.manifest
     requirements = requirements_for(problem)
-    if not compatible(backend.manifest, requirements):
+    if not compatible(manifest, requirements):
         raise CapabilityMismatchError(
             f"backend {backend.manifest.name!r} is incompatible with "
             f"required capabilities {sorted(x.value for x in requirements.required)}"
@@ -67,6 +70,7 @@ def execute(
                 x=backend_result.x,
                 objective_reported=backend_result.objective_reported,
             ),
+            tolerances=tolerances,
         )
         validate_s = perf_counter() - validate_t0
 
@@ -82,13 +86,22 @@ def execute(
     reuse_mode_raw = raw.get("reuse_mode")
     reuse_mode = str(reuse_mode_raw) if reuse_mode_raw is not None else None
 
+    phase = raw.get("phase_timings", {})
+    phase = phase if isinstance(phase, dict) else {}
+    measured = {k: float(v) for k, v in phase.items()
+                if k in {"backend_build_s", "backend_update_s", "solve_s"}
+                and isinstance(v, (int, float)) and 0 <= v <= solve_s}
     trace = SolveTrace(
         problem_structural_hash=problem.structural_hash,
         problem_data_hash=problem.data_hash,
         problem_class=_problem_class(problem),
-        backend=backend.manifest.name,
-        backend_version=backend.manifest.version,
-        timings=PhaseTimings(solve_s=solve_s, validate_s=validate_s, total_s=total_s),
+        backend=manifest.name,
+        backend_version=manifest.version,
+        parameters={"validation_tolerances": asdict(tolerances or ValidationTolerances())},
+        timings=PhaseTimings(solve_s=measured.get("solve_s", solve_s), backend_total_s=solve_s,
+                            backend_build_s=measured.get("backend_build_s", 0.),
+                            backend_update_s=measured.get("backend_update_s", 0.),
+                            validate_s=validate_s, total_s=total_s),
         termination=backend_result.backend_status,
         validation_valid=None if validation is None else validation.valid,
         reuse_applied=reuse_applied,
@@ -107,6 +120,14 @@ def execute(
         gap_verified=False,
         certificate_verified=False,
     )
+    proof_start = perf_counter()
+    if backend_result.x is not None and raw_stats.get("canonical_dual") is not None:
+        from solverpilot.validate.optimality import verify_optimality
+        checked = verify_optimality(problem, backend_result.x, raw_stats["canonical_dual"], tolerances=tolerances)
+        raw_stats["optimality_check"] = asdict(checked)
+        evidence = replace(evidence, dual_verified=checked.dual_valid,
+                           gap_verified=checked.verified)
+    proof_s = perf_counter() - proof_start
     raw_stats["solverpilot_trust"] = {
         "backend_reported_optimal": evidence.backend_reported_optimal,
         "primal_validated": evidence.primal_validated,
@@ -115,6 +136,8 @@ def execute(
         "certificate_verified": evidence.certificate_verified,
         "independently_verified_optimal": evidence.independently_verified_optimal,
     }
+    trace = replace(trace, timings=replace(trace.timings,
+                    validate_s=validate_s+proof_s, total_s=perf_counter()-total_t0))
     return SolveResult(
         status=public_status,
         x=backend_result.x,

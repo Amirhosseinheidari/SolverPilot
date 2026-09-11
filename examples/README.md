@@ -33,3 +33,9 @@ python examples/12_cp_reference.py
 | `14_persistent_session_optional.py` | CasADi/bundled verification path | persistent native-patch routing |
 
 Optional scripts exit successfully with an explanatory message when their verified dependency path is unavailable. Separate integration/conformance tests enforce behavior when those dependencies are present.
+
+## Version 0.2
+
+15: named production model, explicit soft penalty and quality evidence.
+16: direct Clarabel PSD solve (optional clarabel extra).
+17: bounded process batch scenarios (script main guard).

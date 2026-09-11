@@ -96,7 +96,7 @@ def validate_solution(
         linear.variable_lower,
         linear.variable_upper,
         atol=tol.feasibility,
-        rtol=_FEASIBILITY_REL,
+        rtol=tol.feasibility_rel,
     )
 
     activity = np.asarray(linear.A @ x, dtype=np.float64).reshape(-1)
@@ -107,7 +107,7 @@ def validate_solution(
         linear.constraint_lower,
         linear.constraint_upper,
         atol=tol.feasibility,
-        rtol=_FEASIBILITY_REL,
+        rtol=tol.feasibility_rel,
         extra_scale=row_scale,
     )
 

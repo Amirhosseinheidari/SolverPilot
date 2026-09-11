@@ -7,7 +7,7 @@ from typing import Iterable
 from solverpilot.backends import Backend, BackendHealthReport, BackendProbeStatus
 from solverpilot.plan import SolveBudget
 from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem
-from solverpilot.validate import PublicStatus
+from solverpilot.validate import PublicStatus, ValidationTolerances
 
 from .budgeting import apply_budget
 from .executor import execute
@@ -71,6 +71,7 @@ def execute_portfolio(
     stop_on_valid_optimal: bool = True,
     health_reports: Iterable[BackendHealthReport] | None = None,
     require_healthy: bool = False,
+    tolerances: ValidationTolerances | None = None,
 ) -> PortfolioSolveResult:
     """Execute a sequential validated backend portfolio.
 
@@ -141,7 +142,7 @@ def execute_portfolio(
         a0 = perf_counter()
         try:
             configured = apply_budget(backend, attempt_budget)
-            result = execute(problem, configured)
+            result = execute(problem, configured, tolerances=tolerances)
             duration = perf_counter() - a0
             attempts.append(
                 PortfolioAttempt(

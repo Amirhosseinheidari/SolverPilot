@@ -1,8 +1,13 @@
 from __future__ import annotations
 
+from threading import RLock
+from time import perf_counter
+from solverpilot._synchronization import serialized
+
 from dataclasses import dataclass, field
 import importlib.util
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError
+from .metadata import version
 
 import numpy as np
 from scipy import sparse
@@ -140,6 +145,7 @@ class OSQPNativeBackend:
     eps_prim_inf: float = 1e-4
     eps_dual_inf: float = 1e-4
     polishing: bool = False
+    _lock: object = field(default_factory=RLock, init=False, repr=False, compare=False)
     _solver: object | None = field(default=None, init=False, repr=False)
     _structural_hash: str | None = field(default=None, init=False, repr=False)
 
@@ -207,6 +213,7 @@ class OSQPNativeBackend:
         settings["eps_dual_inf"] = float(self.eps_dual_inf)
         return settings
 
+    @serialized
     def solve(self, problem: LinearProblem | QuadraticProblem) -> BackendSolveResult:
         if not self.is_available():
             raise BackendUnavailableError("OSQP is not installed")
@@ -215,6 +222,7 @@ class OSQPNativeBackend:
 
         import osqp
 
+        prepare_start = perf_counter()
         data = _osqp_data(problem)
         reuse_applied = self._solver is not None and self._structural_hash == problem.structural_hash
         if not reuse_applied:
@@ -237,7 +245,9 @@ class OSQPNativeBackend:
                 self._solver.update_settings(**update_settings)
             reuse_mode = "same_sparsity_update+automatic_warm_start"
 
+        prepared = perf_counter()
         result = self._solver.solve(raise_error=False)
+        solved = perf_counter()
         info = result.info
         status_text = str(info.status)
         x_raw = getattr(result, "x", None)
@@ -275,6 +285,8 @@ class OSQPNativeBackend:
                 objective = objective_internal + float(problem.linear.objective_offset)
 
         raw: dict[str, object] = {
+            "phase_timings": {"backend_build_s": 0. if reuse_applied else prepared-prepare_start, "backend_update_s": prepared-prepare_start if reuse_applied else 0., "solve_s": solved-prepared},
+            "canonical_dual": None if x is None else np.asarray(result.y, dtype=float).tolist(),
             "osqp_status": status_text,
             "status_val": int(getattr(info, "status_val", 0)),
             "iter": int(getattr(info, "iter", 0)),
