@@ -15,7 +15,7 @@ from solverpilot import builtin_backend_candidates, default_registry
 ROOT = Path(__file__).resolve().parents[1]
 CI = ROOT / ".github/workflows/ci.yml"
 QUAL = ROOT / ".github/workflows/release-qualification.yml"
-PUBLISH = ROOT / ".github/workflows/publish.yml.disabled"
+PUBLISH = ROOT / ".github/workflows/publish.yml"
 AUDIT = ROOT / "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json"
 
 
@@ -53,9 +53,9 @@ def test_current_backend_contract_matches_runtime_and_keeps_learning_off():
     assert payload["production_baseline_policy"]["learned_lp_performance_routing"] is False
 
 
-def test_only_current_ci_and_manual_qualification_are_active_workflows():
+def test_only_ci_qualification_and_manual_publication_are_active_workflows():
     active = sorted(path.name for path in (ROOT / ".github/workflows").glob("*.yml"))
-    assert active == ["ci.yml", "release-qualification.yml"]
+    assert active == ["ci.yml", "publish.yml", "release-qualification.yml"]
     assert PUBLISH.is_file()
     frozen = ROOT / "docs/history/frozen-workflows"
     assert all((frozen / name).is_file() for name in ["m31-compatibility.yml", "m32-external-compatibility.yml", "m33-external-ci.yml"])
@@ -93,7 +93,7 @@ def test_release_qualification_exact_pins_tooling_and_limits_write_permissions()
     assert "attestations: write" not in build_block
 
 
-def test_publish_template_is_cross_run_commit_bound_attested_and_disabled():
+def test_publish_workflow_is_cross_run_commit_bound_attested_and_manual():
     text = PUBLISH.read_text(encoding="utf-8")
     for phrase in [
         "qualified_run_id", "qualified_commit_sha", "github-token:", "run-id:",
@@ -102,7 +102,12 @@ def test_publish_template_is_cross_run_commit_bound_attested_and_disabled():
     ]:
         assert phrase in text
     assert "PYPI_API_TOKEN" not in text and "password:" not in text
-    assert PUBLISH.suffix == ".disabled"
+    assert PUBLISH.suffix == ".yml"
+    assert "workflow_dispatch:" in text
+    assert "push:" not in text and "pull_request:" not in text
+    assert "default: testpypi" in text
+    assert "environment:" in text
+    assert "packages-dir: publish-dist/" in text
 
 
 def test_dependabot_covers_actions_and_python_dependency_metadata():
