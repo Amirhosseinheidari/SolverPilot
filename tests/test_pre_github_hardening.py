@@ -85,7 +85,7 @@ def test_release_qualification_exact_pins_tooling_and_limits_write_permissions()
     text = QUAL.read_text(encoding="utf-8")
     assert '"build==1.6.0"' in text
     assert '"twine==7.0.0"' in text
-    assert '"packaging==26.0"' in text
+    assert '"packaging==26.1"' in text
     assert "id-token: write" in text and "attestations: write" in text
     # Write permissions belong only to the dedicated optional attestation job.
     build_block = text.split("  build-dist:", 1)[1].split("  attest-dist:", 1)[0]
