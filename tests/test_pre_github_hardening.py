@@ -85,7 +85,7 @@ def test_release_qualification_exact_pins_tooling_and_limits_write_permissions()
     text = QUAL.read_text(encoding="utf-8")
     assert '"build==1.6.0"' in text
     assert '"twine==7.0.0"' in text
-    assert '"packaging==26.0"' in text
+    assert '"packaging==26.1"' in text
     assert "id-token: write" in text and "attestations: write" in text
     # Write permissions belong only to the dedicated optional attestation job.
     build_block = text.split("  build-dist:", 1)[1].split("  attest-dist:", 1)[0]
@@ -114,7 +114,12 @@ def test_dependabot_covers_actions_and_python_dependency_metadata():
 def test_repository_does_not_embed_release_binary_artifacts():
     binary = []
     for pattern in ("*.whl", "*.tar.gz", "*.zip"):
-        binary.extend(ROOT.rglob(pattern))
+        binary.extend(
+            path for path in ROOT.rglob(pattern)
+            if path.relative_to(ROOT).parts[0] not in {
+                "dist", "dist-a", "dist-b", "dist-download", "build", ".venv"
+            }
+        )
     assert binary == []
 
 

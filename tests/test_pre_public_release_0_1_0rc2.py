@@ -76,7 +76,7 @@ def test_build_and_optional_runtime_pins_remain_exact_for_external_qualification
     assert pyproject["build-system"]["requires"] == ["setuptools==84.0.0", "wheel==0.48.0"]
     assert pyproject["project"]["optional-dependencies"]["cp"] == ["ortools==9.15.6755"]
     workflow = (ROOT / ".github/workflows/release-qualification.yml").read_text(encoding="utf-8")
-    for pin in ('"build==1.6.0"', '"twine==7.0.0"', '"packaging==26.0"'):
+    for pin in ('"build==1.6.0"', '"twine==7.0.0"', '"packaging==26.1"'):
         assert pin in workflow
 
 
