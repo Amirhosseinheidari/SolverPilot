@@ -196,4 +196,4 @@ def test_cumulative_event_point_semantics_half_open():
 
 
 def test_metadata_and_version():
-    assert om.__version__=='0.1.0rc2'; p=om.CPModel('x').compile(); assert p.metadata['compiled_by']=='solverpilot-p9-cp-core'
+    assert om.__version__=='0.1'; p=om.CPModel('x').compile(); assert p.metadata['compiled_by']=='solverpilot-p9-cp-core'

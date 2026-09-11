@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1 — Final release numbering
+
+- Promote the published 0.1.0rc2 code to the short final version 0.1.
+- Align package metadata, API snapshots, documentation, and release checks.
+- No algorithm, solver policy, public API, or performance changes.
+- Preserve historical release candidate evidence; qualify the new artifacts separately.
+
 ## 0.1.0rc2 — Correctness and trust hardening
 
 - canonicalizes every accepted QP Hessian to one symmetric matrix before hashing, validation, or backend translation; pairwise symmetry checks can no longer be relaxed by an unrelated large coefficient;

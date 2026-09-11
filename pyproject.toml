@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "solverpilot"
-version = "0.1.0rc2"
+version = "0.1"
 description = "Trust-aware optimization runtime for mathematical and constraint programming in Python"
 readme = "README.md"
 license = "Apache-2.0"

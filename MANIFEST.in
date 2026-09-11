@@ -28,3 +28,8 @@ prune .github
 prune tools
 global-exclude __pycache__ *.py[cod] *.egg-info *.whl *.tar.gz *.zip
 recursive-include examples *.py *.md
+
+include PUBLIC-API-V0_1_0.json
+include BACKEND-CONTRACT-V0_1_0.json
+include docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.md
+include docs/release/README-CHECKLIST-0.1.md

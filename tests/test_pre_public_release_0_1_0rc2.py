@@ -10,18 +10,18 @@ import solverpilot
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_release_candidate_identity_is_distinct_from_historical_rc2():
+def test_final_release_identity_is_distinct_from_historical_rc2():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-    assert project["version"] == solverpilot.__version__ == "0.1.0rc2"
-    assert Version(project["version"]).pre == ("rc", 2)
+    assert project["version"] == solverpilot.__version__ == "0.1"
+    assert Version(project["version"]).pre is None
     assert project["version"] != "0.0.40rc2"
 
 
 def test_current_release_snapshots_are_versioned_without_label_collision():
-    api = json.loads((ROOT / "PUBLIC-API-V0_1_0RC2.json").read_text(encoding="utf-8"))
-    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_1_0RC2.json").read_text(encoding="utf-8"))
-    assert api["package_version"] == "0.1.0rc2"
-    assert backend["package_version"] == "0.1.0rc2"
+    api = json.loads((ROOT / "PUBLIC-API-V0_1_0.json").read_text(encoding="utf-8"))
+    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_1_0.json").read_text(encoding="utf-8"))
+    assert api["package_version"] == "0.1"
+    assert backend["package_version"] == "0.1"
     assert len(api["symbols"]) == 78
     assert [row["name"] for row in api["symbols"]] == solverpilot.__all__
 
@@ -62,11 +62,11 @@ def test_pre_public_audit_remains_fail_closed():
     assert audit["publication_blockers"]
 
 
-def test_current_docs_describe_rc2_as_hardened_successor():
+def test_current_docs_describe_final_release_as_unchanged_promotion():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     head = "\n".join(readme.splitlines()[:55])
     assert "0.1.0rc2" in head
-    assert "supersedes `0.1.0rc1`" in head
+    assert "no algorithm or API changes" in head
     assert "correctness/trust hardening" in head
     assert "package version intentionally remains `0.0.40rc2`" not in readme
 
@@ -98,6 +98,9 @@ def test_release_label_is_collision_resistant_across_major_minor_patch():
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
+    assert module._release_label("0.1") == "V0_1_0"
+    assert module._release_label("0.1.0") == "V0_1_0"
+    assert module._release_label("0.1") != module._release_label("0.1.0rc2")
     assert module._release_label("0.1.0rc2") == "V0_1_0RC2"
     assert module._release_label("0.0.40rc2") == "V0_0_40RC2"
     assert module._release_label("1.0.0rc1") == "V1_0_0RC1"
@@ -115,7 +118,7 @@ def test_release_cell_runner_has_explicit_installed_wheel_example_gate():
     assert "run_installed_public_examples(py" in text
 
 
-def test_dist_manifest_requires_current_pre_public_evidence():
+def test_dist_manifest_preserves_historical_pre_public_evidence():
     text = (ROOT / "tools/release_dist_manifest.py").read_text(encoding="utf-8")
-    assert 'f"PRE-PUBLIC-RELEASE-AUDIT-{EXPECTED_VERSION}.json"' in text
-    assert 'f"PRE-PUBLIC-RELEASE-VERIFICATION-{EXPECTED_VERSION}.md"' in text
+    assert '"PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json"' in text
+    assert '"PRE-PUBLIC-RELEASE-VERIFICATION-0.1.0rc2.md"' in text
