@@ -1,0 +1,115 @@
+{
+  "version": "0.2",
+  "package": "D:\\ARTICLE\\solverpilot\\release-02-final-site\\solverpilot\\__init__.py",
+  "thread_environment": "OMP/MKL/OpenBLAS=1",
+  "seed": 8319,
+  "tiny_lp_batch": {
+    "serial_12": {
+      "median_ms": 33.5919999924954,
+      "samples_ms": [
+        31.12189999956172,
+        33.5919999924954,
+        35.62409999722149
+      ]
+    },
+    "batch_12_workers_1": {
+      "median_ms": 8518.693399993936,
+      "samples_ms": [
+        8447.970299996086,
+        9169.015699997544,
+        8518.693399993936
+      ]
+    },
+    "batch_12_workers_2": {
+      "median_ms": 5182.740099990042,
+      "samples_ms": [
+        4898.363100001006,
+        5182.740099990042,
+        5509.482199995546
+      ]
+    },
+    "batch_12_workers_4": {
+      "median_ms": 3012.6115000020945,
+      "samples_ms": [
+        3003.2093999907374,
+        3012.6115000020945,
+        3095.3163000085624
+      ]
+    }
+  },
+  "already_cancelled_batch": {
+    "generated_inputs": 20000,
+    "result_count": 20000,
+    "peak_python_mib": 33.77685737609863,
+    "elapsed_s": 0.77601409998897,
+    "note": "Python allocations only; includes queued futures and retained outputs; not native RSS"
+  },
+  "compilation": [
+    {
+      "n": 64,
+      "m": 32,
+      "nonzeros": 41,
+      "median_ms": {
+        "canonical_sparse": 0.2781999937724322,
+        "semantic_dense": 5.737100000260398
+      },
+      "samples_ms": {
+        "canonical_sparse": [
+          0.37209999572951347,
+          0.25440000172238797,
+          0.2781999937724322
+        ],
+        "semantic_dense": [
+          6.84200000250712,
+          5.5232000013347715,
+          5.737100000260398
+        ]
+      },
+      "scope": "model construction plus first compile versus canonical IR construction; no solves"
+    },
+    {
+      "n": 256,
+      "m": 128,
+      "nonzeros": 655,
+      "median_ms": {
+        "canonical_sparse": 0.4351999959908426,
+        "semantic_dense": 106.59860000305343
+      },
+      "samples_ms": {
+        "canonical_sparse": [
+          0.4351999959908426,
+          0.3741999971680343,
+          0.78600000415463
+        ],
+        "semantic_dense": [
+          113.90009999740869,
+          102.27809999196324,
+          106.59860000305343
+        ]
+      },
+      "scope": "model construction plus first compile versus canonical IR construction; no solves"
+    },
+    {
+      "n": 512,
+      "m": 256,
+      "nonzeros": 2621,
+      "median_ms": {
+        "canonical_sparse": 0.8460000099148601,
+        "semantic_dense": 500.2623000036692
+      },
+      "samples_ms": {
+        "canonical_sparse": [
+          0.9475999977439642,
+          0.8460000099148601,
+          0.6637000042246655
+        ],
+        "semantic_dense": [
+          505.9077000041725,
+          500.2623000036692,
+          476.71489999629557
+        ]
+      },
+      "scope": "model construction plus first compile versus canonical IR construction; no solves"
+    }
+  ]
+}

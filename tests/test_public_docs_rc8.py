@@ -86,6 +86,10 @@ def test_expected_public_examples_exist():
         "15_named_model_and_quality.py",
         "16_direct_conic.py",
         "17_batch_scenarios.py",
+        "18_sensitivity_and_scenarios.py",
+        "19_convex_atoms_optional.py",
+        "20_streaming_reuse.py",
+        "21_checked_run_replay.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

@@ -38,3 +38,8 @@ include PUBLIC-API-V0_2_0.json
 include BACKEND-CONTRACT-V0_2_0.json
 include docs/release/SOLVERPILOT-PUBLIC-DOCS-0.2.md
 include docs/release/README-CHECKLIST-0.2.md
+
+include PUBLIC-API-V0_3_0.json
+include BACKEND-CONTRACT-V0_3_0.json
+include docs/release/SOLVERPILOT-PUBLIC-DOCS-0.3.md
+include docs/release/README-CHECKLIST-0.3.md

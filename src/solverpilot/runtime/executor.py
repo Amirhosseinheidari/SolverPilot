@@ -11,6 +11,7 @@ from solverpilot.trace import PhaseTimings, SolveTrace
 from solverpilot.validate import CandidateSolution, PublicStatus, ValidationTolerances, validate_solution
 
 from .result import OptimalityEvidence, SolveResult
+from .manifest import backend_configuration
 
 
 def _problem_class(problem: LinearProblem | QuadraticProblem) -> str:
@@ -97,7 +98,8 @@ def execute(
         problem_class=_problem_class(problem),
         backend=manifest.name,
         backend_version=manifest.version,
-        parameters={"validation_tolerances": asdict(tolerances or ValidationTolerances())},
+        parameters={"validation_tolerances": asdict(tolerances or ValidationTolerances()),
+                    "backend_configuration": backend_configuration(backend)},
         timings=PhaseTimings(solve_s=measured.get("solve_s", solve_s), backend_total_s=solve_s,
                             backend_build_s=measured.get("backend_build_s", 0.),
                             backend_update_s=measured.get("backend_update_s", 0.),

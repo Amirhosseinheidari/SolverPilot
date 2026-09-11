@@ -18,6 +18,9 @@ class SemanticPrimalValidation:
 
 
 def _eval_expr(model, node, xflat: np.ndarray):
+    from solverpilot.model.atoms import has_atoms, evaluate
+    if has_atoms(node):
+        return evaluate(model, node, xflat)
     from solverpilot.model.compiler import _Evaluator, _variable_layout
     offsets, *_ = _variable_layout(model)
     ev = _Evaluator(model, offsets)
@@ -65,7 +68,8 @@ def validate_semantic_primal(model, x: Any, *, atol: float = 1e-8) -> SemanticPr
 
     def check_set(value: float, set_, label: str) -> None:
         nonlocal max_v
-        if isinstance(set_, LessThan): v = max(0.0, value - set_.upper)
+        if not np.isfinite(value): v = float('inf')
+        elif isinstance(set_, LessThan): v = max(0.0, value - set_.upper)
         elif isinstance(set_, GreaterThan): v = max(0.0, set_.lower - value)
         elif isinstance(set_, EqualTo): v = abs(value - set_.value)
         elif isinstance(set_, Interval): v = max(0.0, set_.lower - value, value - set_.upper)

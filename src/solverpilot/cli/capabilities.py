@@ -5,6 +5,7 @@ import json
 
 from solverpilot.capabilities import conform_backends, project_legacy_manifest
 from solverpilot.runtime import builtin_backend_candidates
+from solverpilot.runtime.catalog import backend_catalog, capability_manifest, verify_specialized_backend
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -17,11 +18,17 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    backends = list(builtin_backend_candidates())
+    catalog = backend_catalog()
+    selected = set(args.backend) if args.backend else set(catalog)
+    missing = sorted(selected-set(catalog))
+    if missing:
+        raise SystemExit(f"unknown backend(s): {', '.join(missing)}")
+    specialized = [(name, b) for name, b in catalog.items() if name in selected and not hasattr(b, 'manifest')]
+    backends = [b for name, b in catalog.items() if name in selected and hasattr(b, 'manifest')]
     if args.backend:
         wanted = set(args.backend)
         backends = [b for b in backends if b.manifest.name in wanted]
-        missing = sorted(wanted - {b.manifest.name for b in backends})
+        missing = sorted(wanted - {b.manifest.name for b in backends} - {name for name, _ in specialized})
         if missing:
             raise SystemExit(f"unknown backend(s): {', '.join(missing)}")
 
@@ -57,6 +64,14 @@ def main(argv: list[str] | None = None) -> int:
                 "manifest": manifest.to_p0_schema_dict() if args.p0_schema else manifest.to_canonical_dict(),
                 "signature": manifest.signature,
             })
+    for name, backend in specialized:
+        manifest = capability_manifest(backend)
+        item = {'backend': name, 'available': backend.is_available(),
+                'manifest': manifest.to_p0_schema_dict() if args.p0_schema else manifest.to_canonical_dict(),
+                'signature': manifest.signature}
+        if args.verify:
+            item.update(conformance_passed=verify_specialized_backend(backend), checks=[])
+        payload.append(item)
     print(json.dumps(payload, indent=2, sort_keys=True))
     return 0
 

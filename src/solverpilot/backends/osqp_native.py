@@ -88,7 +88,13 @@ def _primal_certificate_check(data: OSQPData, certificate: np.ndarray | None, *,
         separating_value = float("inf")
     else:
         separating_value = float(np.dot(data.u[pos], v[pos]) + np.dot(data.l[neg], v[neg]))
-    valid = stationarity_inf <= eps and np.isfinite(separating_value) and separating_value < 0.0
+    from solverpilot.validate._certificate_arithmetic import matvec, box_min, dot
+    n = data.A.shape[1]
+    minimum = box_min(matvec(data.A.T, v), data.l[-n:], data.u[-n:])
+    bound = np.where(v > 0, data.u, data.l)
+    active = v != 0
+    valid = (minimum is not None and np.isfinite(bound[active]).all()
+             and minimum > dot(v[active], bound[active]))
     return {
         "valid": bool(valid),
         "stationarity_inf": stationarity_inf,
@@ -119,7 +125,11 @@ def _dual_certificate_check(problem: QuadraticProblem, data: OSQPData, certifica
         row_violation = max(row_violation, float(np.max(np.maximum(-a_s[lower_only], 0.0), initial=0.0)))
     if np.any(upper_only):
         row_violation = max(row_violation, float(np.max(np.maximum(a_s[upper_only], 0.0), initial=0.0)))
-    valid = ps_inf <= eps and q_dot_s < 0.0 and row_violation <= eps
+    from solverpilot.validate._certificate_arithmetic import matvec, dot
+    exact_rows = matvec(data.A, s)
+    valid = (not any(matvec(problem.P, s)) and dot(problem.linear.c, s) < 0
+             and all((not lo or value >= 0) and (not hi or value <= 0)
+                     for value, lo, hi in zip(exact_rows, finite_l, finite_u)))
     return {
         "valid": bool(valid),
         "ps_inf": ps_inf,
@@ -186,28 +196,35 @@ class OSQPNativeBackend:
         return importlib.util.find_spec("osqp") is not None
 
     def _settings(self) -> dict[str, object]:
+        import osqp
+        defaults = osqp.ext_builtin.OSQPSettings()
+        osqp.ext_builtin.osqp_set_default_settings(defaults)
         settings: dict[str, object] = {
             "verbose": False,
             "warm_starting": True,
             "polishing": bool(self.polishing),
+            "time_limit": defaults.time_limit,
+            "max_iter": defaults.max_iter,
+            "eps_abs": defaults.eps_abs,
+            "eps_rel": defaults.eps_rel,
         }
         if self.time_limit_s is not None:
-            if self.time_limit_s <= 0:
+            if not np.isfinite(self.time_limit_s) or self.time_limit_s <= 0:
                 raise ValueError("time_limit_s must be positive")
             settings["time_limit"] = float(self.time_limit_s)
         if self.max_iter is not None:
-            if self.max_iter <= 0:
+            if isinstance(self.max_iter, bool) or not isinstance(self.max_iter, (int, np.integer)) or self.max_iter <= 0:
                 raise ValueError("max_iter must be positive")
             settings["max_iter"] = int(self.max_iter)
         if self.eps_abs is not None:
-            if self.eps_abs <= 0:
+            if not np.isfinite(self.eps_abs) or self.eps_abs <= 0:
                 raise ValueError("eps_abs must be positive")
             settings["eps_abs"] = float(self.eps_abs)
         if self.eps_rel is not None:
-            if self.eps_rel <= 0:
+            if not np.isfinite(self.eps_rel) or self.eps_rel <= 0:
                 raise ValueError("eps_rel must be positive")
             settings["eps_rel"] = float(self.eps_rel)
-        if self.eps_prim_inf <= 0 or self.eps_dual_inf <= 0:
+        if not np.isfinite([self.eps_prim_inf, self.eps_dual_inf]).all() or self.eps_prim_inf <= 0 or self.eps_dual_inf <= 0:
             raise ValueError("OSQP infeasibility tolerances must be positive")
         settings["eps_prim_inf"] = float(self.eps_prim_inf)
         settings["eps_dual_inf"] = float(self.eps_dual_inf)

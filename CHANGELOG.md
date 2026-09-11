@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3 — Numerical trust, sparse modeling and scenario analysis
+
+- Correct Farkas, recession and LP/QP optimality checks using domain-aware bounds and exact operations on represented binary64 coefficients. Bound free QP residuals when a conservative strong-convexity bound is available.
+- Restore OSQP defaults when optional settings are cleared, and preserve owned solver workspaces under call-local budgets.
+- Reject cross-model conic results and freeze conic, NLP and MINLP result payloads.
+- Lower affine expressions in CSR blocks, retain sparse constants and cache unchanged affine subexpressions across parameter updates.
+- Add checked convex abs/norm/Huber/log-sum-exp/quad-form graphs with semantic variable reconstruction.
+- Add bounded streaming batches, persistent restartable workers and an explicit sequential mode. Retain isolated-per-job compatibility mode.
+- Add opt-in Clarabel data reuse, iteration progress, cooperative cancellation and raw dual/slack snapshots; expose common time/tolerance controls.
+- Add a common result view, strict verified solves, a unified backend catalog and Clarabel CLI conformance.
+- Add named canonical shadow prices, parameter marginals, regular QP directional derivatives and model scaling diagnostics.
+- Add lazy independent scenario sweeps, box-robust constraints, finite-scenario minimax objectives and four transparent application templates.
+- Add opt-in JSON model/run replay with effective backend configuration, version and data-hash checks.
+- Add adversarial scale/permutation regressions, typed common API checks and a required optional-integration coverage floor.
+- Preserve the historical 78-name top-level signatures and previous release evidence.
+
 ## 0.2 — Runtime, modeling and direct conic upgrade
 
 - Serialize process start/close across concurrent batches to prevent the Windows child-handle race found during release qualification.

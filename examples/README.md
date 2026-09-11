@@ -39,3 +39,10 @@ Optional scripts exit successfully with an explanatory message when their verifi
 15: named production model, explicit soft penalty and quality evidence.
 16: direct Clarabel PSD solve (optional clarabel extra).
 17: bounded process batch scenarios (script main guard).
+
+## Version 0.3
+
+18: named sensitivity and independent parameter scenarios.
+19: convex Huber loss and norm constraint (optional Clarabel).
+20: streaming batches with bounded lookahead and persistent processes.
+21: checked numerical optimum and opt-in JSON replay.

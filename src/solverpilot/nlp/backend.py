@@ -20,6 +20,15 @@ class NLPSolveResult:
     multipliers_x:np.ndarray|None
     kkt_stationarity_inf:float|None
     raw_statistics:dict[str,Any]
+    problem_data_hash: str | None = None
+
+    def __post_init__(self):
+        from solverpilot._immutability import deep_freeze, readonly_array
+        for key in ('x', 'multipliers_g', 'multipliers_x'):
+            value = getattr(self, key)
+            if value is not None:
+                object.__setattr__(self, key, readonly_array(value, dtype=float))
+        object.__setattr__(self, 'raw_statistics', deep_freeze(self.raw_statistics))
 
 @dataclass(slots=True)
 class CasadiIpoptBackend:
@@ -27,6 +36,7 @@ class CasadiIpoptBackend:
     tol:float=1e-9
     print_level:int=0
     linear_solver:str|None=None
+    time_limit_s:float|None=None
     @property
     def name(self): return 'casadi-ipopt-nlp-bridge'
     @property
@@ -50,13 +60,17 @@ class CasadiIpoptBackend:
             return CapabilityClaim(CapabilityStatus.RESTRICTED if restr else CapabilityStatus.SUPPORTED,CapabilityMode.EMULATED_SAFE,VerificationLevel.VERIFIED,restr,(ev,))
         claims={CapabilityKey.PROBLEM_NLP:v({'continuous_only':True,'local_solver':True,'global_optimality_not_claimed':True}),CapabilityKey.CONSTRAINT_NONLINEAR:v(),CapabilityKey.DERIVATIVE_GRADIENT:v(),CapabilityKey.DERIVATIVE_JACOBIAN:v(),CapabilityKey.DERIVATIVE_HESSIAN:v(),CapabilityKey.RESULT_PRIMAL:v(),CapabilityKey.RESULT_OBJECTIVE:v(),CapabilityKey.RESULT_DUAL:v({'backend_multiplier_sign_convention':'Ipopt/CasADi'}),CapabilityKey.START_PRIMAL:v()}
         return BackendCapabilityManifestV2(self.name,bv,'casadi',self.binding_version,__version__,claims=claims,metadata={'plugin':'ipopt','local_nlp':True})
-    def solve(self,problem:NLPProblem,*,x0=None):
+    def solve(self,problem:NLPProblem,*,x0=None,tolerances=None):
         if not self.is_available(): raise RuntimeError('CasADi Ipopt plugin unavailable')
         import casadi as ca
         eng=NLPDerivativeEngine(problem)
         nlp={'x':eng.x,'f':eng.f}
         if problem.n_constraints: nlp['g']=eng.g
         opts={'print_time':False,'ipopt.print_level':int(self.print_level),'ipopt.max_iter':int(self.max_iter),'ipopt.tol':float(self.tol)}
+        if self.time_limit_s is not None:
+            if not np.isfinite(self.time_limit_s) or self.time_limit_s <= 0:
+                raise ValueError('time_limit_s must be finite and positive')
+            opts['ipopt.max_wall_time'] = float(self.time_limit_s)
         if self.linear_solver: opts['ipopt.linear_solver']=self.linear_solver
         solver=ca.nlpsol('solverpilot_p7_ipopt','ipopt',nlp,opts)
         initial_search_attempts=0
@@ -98,7 +112,9 @@ class CasadiIpoptBackend:
                 except Exception: pass
             if 'lam_g' in result: lg=np.asarray(result['lam_g'],dtype=float).reshape(-1)
             if 'lam_x' in result: lx=np.asarray(result['lam_x'],dtype=float).reshape(-1)
-        validation=validate_nlp_solution(problem,x,objective_reported=obj,atol=max(1e-7,self.tol*100),rtol=max(1e-7,self.tol*100))
+        validation=validate_nlp_solution(problem,x,objective_reported=obj,
+            atol=max(1e-7,self.tol*100) if tolerances is None else tolerances.feasibility,
+            rtol=max(1e-7,self.tol*100) if tolerances is None else tolerances.objective_rel)
         raw=str(stats.get('return_status',''))
         stationarity=None
         if x is not None and lg is not None and lx is not None:
@@ -110,4 +126,6 @@ class CasadiIpoptBackend:
         kkt_tol=max(1e-6,self.tol*1000)
         success=bool(stats.get('success')) and validation.valid and stationarity is not None and stationarity <= kkt_tol
         stats.update({'error':err,'initial_point_domain_search_attempts':initial_search_attempts,'domain_hazards':list(problem.metadata.get('domain_hazards',())),'casadi_version':self.binding_version,'nlpsol_plugin':'ipopt','global_optimality_claimed':False,'kkt_stationarity_inf':stationarity,'kkt_stationarity_tolerance':kkt_tol})
-        return NLPSolveResult(self.name,raw,x,obj,validation,success,False,lg,lx,stationarity,stats)
+        from solverpilot.runtime.manifest import backend_configuration, json_value
+        stats['run_parameters'] = {'backend_configuration': backend_configuration(self), 'validation_tolerances': json_value(tolerances)}
+        return NLPSolveResult(self.name,raw,x,obj,validation,success,False,lg,lx,stationarity,stats,problem.data_hash)

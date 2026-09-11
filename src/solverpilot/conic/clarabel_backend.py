@@ -3,7 +3,10 @@
 PSD uses column-major upper-triangle svec, with sqrt(2) off-diagonals.
 Nonsymmetric affine PSD expressions also receive explicit symmetry equations.
 """
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, replace, field
+from threading import RLock
+import hashlib
+from solverpilot._synchronization import serialized
 from functools import lru_cache
 from importlib.util import find_spec
 from time import perf_counter
@@ -21,10 +24,15 @@ from .validation import validate_conic_solution
 @dataclass(slots=True)
 class ClarabelBackend:
     max_iter: int = 200
-    tolerance: float = 1e-8
+    tolerance: float = 1e-9
     time_limit_s: float | None = None
     threads: int = 1
     verbose: bool = False
+    reuse: bool = False
+    _lock: object = field(default_factory=RLock, init=False, repr=False, compare=False)
+    _solver: object = field(default=None, init=False, repr=False, compare=False)
+    _signature: str | None = field(default=None, init=False, repr=False, compare=False)
+    _active: bool = field(default=False, init=False, repr=False, compare=False)
 
     @property
     def name(self):
@@ -70,7 +78,10 @@ class ClarabelBackend:
             metadata={'direct_binding': True, 'independent_global_proof': False},
         )
 
-    def solve(self, problem: ConicProblem) -> ConicSolveResult:
+    @serialized
+    def solve(self, problem: ConicProblem, *, tolerances=None, progress=None, cancellation=None) -> ConicSolveResult:
+        if self._active:
+            raise RuntimeError('a progress callback cannot reenter the same Clarabel backend')
         import clarabel
         if problem.convexity_status is not ConvexityStatus.CONFIRMED:
             raise ValueError('Clarabel requires a confirmed convex objective')
@@ -83,6 +94,13 @@ class ClarabelBackend:
         if self.time_limit_s is not None and (not np.isfinite(self.time_limit_s) or self.time_limit_s <= 0):
             raise ValueError('time_limit_s must be finite and positive')
         start = perf_counter()
+        from solverpilot.validate import ValidationTolerances
+        from solverpilot.runtime.manifest import backend_configuration, json_value
+        tol = tolerances or ValidationTolerances()
+        parameters = {'backend_configuration': backend_configuration(self), 'validation_tolerances': json_value(tol)}
+        if cancellation is not None and cancellation.cancelled:
+            return ConicSolveResult(self.name, 'Cancelled', None, None,
+                validate_conic_solution(problem, None), {'run_parameters': parameters}, problem.data_hash)
         matrices, rhs, cones = [], [], []
 
         def append(A, b, cone):
@@ -135,18 +153,55 @@ class ClarabelBackend:
         settings.tol_gap_abs = settings.tol_gap_rel = settings.tol_feas = self.tolerance
         if self.time_limit_s is not None:
             settings.time_limit = self.time_limit_s
-        solver = clarabel.DefaultSolver(sparse.triu(problem.P, format='csc'), problem.q,
-                                       sparse.vstack(matrices, format='csc'), np.concatenate(rhs), cones, settings)
+        if self.reuse:
+            settings.presolve_enable = False
+            settings.chordal_decomposition_enable = False
+        P = sparse.triu(problem.P, format='csc')
+        transport_A = sparse.vstack(matrices, format='csc') if matrices else sparse.csc_matrix((0, problem.n_variables))
+        transport_b = np.concatenate(rhs) if rhs else np.empty(0)
+        digest = hashlib.sha256(repr((P.shape, transport_A.shape, cones, parameters)).encode())
+        for matrix in (P, transport_A):
+            digest.update(matrix.indptr.tobytes()); digest.update(matrix.indices.tobytes())
+        signature = digest.hexdigest()
+        reused = self.reuse and self._solver is not None and self._signature == signature
+        if reused:
+            solver = self._solver
+            solver.update(P=P, q=problem.q, A=transport_A, b=transport_b)
+        else:
+            solver = clarabel.DefaultSolver(P, problem.q, transport_A, transport_b, cones, settings)
+        self._solver = solver if self.reuse else None
+        self._signature = signature if self.reuse else None
+        callback_errors = []
+        if progress is not None or cancellation is not None:
+            from solverpilot.runtime.options import ProgressEvent
+            def callback(info):
+                try:
+                    if cancellation is not None and cancellation.cancelled:
+                        return True
+                    event = ProgressEvent(self.name, 'iteration', info.iterations, info.solve_time,
+                        info.cost_primal+problem.objective_offset, info.res_primal, info.res_dual)
+                    return bool(progress(event)) if progress is not None else False
+                except BaseException as exc:
+                    callback_errors.append(exc)
+                    return True
+            solver.set_termination_callback(callback)
         built = perf_counter()
-        result = solver.solve()
+        self._active = True
+        try:
+            result = solver.solve()
+        finally:
+            self._active = False
+            solver.unset_termination_callback()
+        if callback_errors:
+            raise RuntimeError('progress callback failed') from callback_errors[0]
         solved = perf_counter()
         status = str(result.status)
         candidate_statuses = {'Solved', 'AlmostSolved', 'MaxIterations', 'MaxTime', 'CallbackTerminated'}
         x = np.asarray(result.x, dtype=float) if status in candidate_statuses else None
-        validation = validate_conic_solution(problem, x, atol=1e-7, rtol=1e-7)
+        validation = validate_conic_solution(problem, x, atol=tol.feasibility, rtol=tol.feasibility_rel)
         objective = float(result.obj_val)+problem.objective_offset if x is not None else None
         if objective is not None and (not np.isfinite(objective) or validation.objective is None
-                or abs(objective-validation.objective) > 1e-7+1e-7*max(1., abs(objective), abs(validation.objective))):
+                or abs(objective-validation.objective) > tol.objective_abs+tol.objective_rel*max(1., abs(objective), abs(validation.objective))):
             validation = replace(validation, valid=False)
         if x is not None:
             from solverpilot._immutability import readonly_array
@@ -158,7 +213,16 @@ class ClarabelBackend:
             'validate_s': perf_counter()-solved,
             'primal_residual_reported': result.r_prim, 'dual_residual_reported': result.r_dual,
             'termination_evidence': 'backend_reported',
-        })
+            'reuse_applied': reused, 'reuse_mode': 'same_sparsity_update' if reused else 'cold_setup',
+            'transport_dual': result.z, 'transport_slack': result.s,
+            'run_parameters': parameters,
+        }, problem.data_hash)
+
+    @serialized
+    def close(self):
+        if self._active:
+            raise RuntimeError('cannot close a backend from its active progress callback')
+        self._solver = self._signature = None
 
 
 @lru_cache(maxsize=8)

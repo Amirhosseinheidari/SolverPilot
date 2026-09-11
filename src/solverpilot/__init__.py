@@ -1,6 +1,6 @@
 """SolverPilot public API.
 
-The historical 78-name top-level surface remains compatible in version 0.2.
+The historical 78-name top-level surface remains compatible in version 0.3.
 New functionality is documented under explicit submodule namespaces.
 Research-only milestone translators and the rejected LP selector remain available
 under :mod:`solverpilot.experimental` and are intentionally excluded from this list.

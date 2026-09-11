@@ -28,13 +28,13 @@ def _sig(obj):
 
 def test_current_version_and_build_backend_are_exactly_frozen():
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    assert pyproject["project"]["version"] == solverpilot.__version__ == "0.2"
+    assert pyproject["project"]["version"] == solverpilot.__version__ == "0.3"
     assert Version(solverpilot.__version__).pre is None
     assert pyproject["build-system"]["requires"] == ["setuptools==84.0.0", "wheel==0.48.0"]
 
 
 def test_current_public_api_snapshot_matches_runtime_without_surface_drift():
-    payload = json.loads((ROOT / "PUBLIC-API-V0_2_0.json").read_text(encoding="utf-8"))
+    payload = json.loads((ROOT / "PUBLIC-API-V0_3_0.json").read_text(encoding="utf-8"))
     assert payload["package_version"] == solverpilot.__version__
     assert [row["name"] for row in payload["symbols"]] == solverpilot.__all__
     assert len(solverpilot.__all__) == 78
@@ -46,7 +46,7 @@ def test_current_public_api_snapshot_matches_runtime_without_surface_drift():
 
 
 def test_current_backend_contract_matches_runtime_and_keeps_learning_off():
-    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_2_0.json").read_text(encoding="utf-8"))
+    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_3_0.json").read_text(encoding="utf-8"))
     expected = {name for names in payload["stable_backend_ids"].values() for name in names}
     assert expected == {backend.manifest.name for backend in builtin_backend_candidates()}
     assert set(payload["stable_backend_ids"]["verification_only"]).isdisjoint(default_registry().names())

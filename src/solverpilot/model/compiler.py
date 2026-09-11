@@ -156,24 +156,31 @@ class CompiledModel:
     schema_version: str = "solverpilot.compiled-model.p2.v1"
 
     def solve(self, **kwargs):
+        from solverpilot.runtime.options import expand_options
+        kwargs = expand_options(kwargs)
         from solverpilot.conic import ConicProblem, solve_conic
         if isinstance(self.execution_ir, ConicProblem):
             return solve_conic(self.execution_ir, **kwargs)
         try:
             from solverpilot.minlp import MINLPProblem, solve_outer_approximation
             if isinstance(self.execution_ir, MINLPProblem):
-                return solve_outer_approximation(self.execution_ir, **kwargs)
+                from solverpilot.runtime.specialized import minlp_controls
+                kwargs = minlp_controls(kwargs)
+                return replace(solve_outer_approximation(self.execution_ir, **kwargs), problem_data_hash=self.execution_ir.data_hash)
         except ImportError:
             pass
         try:
             from solverpilot.nlp import NLPProblem, CasadiIpoptBackend
             if isinstance(self.execution_ir, NLPProblem):
                 backend = kwargs.pop("backend", None) or CasadiIpoptBackend()
+                from solverpilot.runtime.specialized import nlp_controls
+                backend, kwargs = nlp_controls(backend, kwargs)
                 return backend.solve(self.execution_ir, **kwargs)
         except ImportError:
             pass
         from solverpilot.runtime import solve
-        return solve(self.execution_ir, **kwargs)
+        from solverpilot.runtime.specialized import core_controls
+        return solve(self.execution_ir, **core_controls(kwargs))
 
     def refresh(self, model: Model, *, use_cache: bool = True, bridge_policy=None, capabilities=None) -> "CompiledModel":
         return compile_model(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
@@ -185,7 +192,9 @@ class CompiledModel:
         for step in self.transformation_tape:
             if step.get("primal_mapping") not in {"identity", "available"}:
                 raise CompileError("primal reconstruction is unavailable for a transformation step")
-        return _np.asarray(x, dtype=float).copy()
+        values = _np.asarray(x, dtype=float)
+        count = self.reconstruction_contract.get('semantic_variable_count', len(values))
+        return values[:count].copy()
 
     def validate_original(self, model: Model, x, *, atol: float = 1e-8):
         try:
@@ -239,11 +248,23 @@ class _Evaluator:
         self.model = model
         self.offsets = offsets
         self._cache: dict[int, np.ndarray] = {}
+        from .affine import AffineEvaluator
+        self.affine = AffineEvaluator(model, offsets)
 
     def evaluate(self, node: ExprNode) -> np.ndarray:
         cache_key = id(node)
         if cache_key in self._cache:
             return self._cache[cache_key]
+        if node.degree is not None and node.degree <= 1:
+            block = self.affine.evaluate(node)
+            matrix = block.coefficients
+            out = np.empty(len(block.constant), dtype=object)
+            for i, constant in enumerate(block.constant):
+                start, stop = matrix.indptr[i:i+2]
+                out[i] = _Polynomial(float(constant), dict(zip(matrix.indices[start:stop].tolist(), matrix.data[start:stop].tolist())), {})
+            out = out.reshape(node.shape)
+            self._cache[cache_key] = out
+            return out
         if node.kind == "constant":
             raw = np.asarray(node.payload, dtype=np.float64)
             out = np.empty(raw.shape if raw.shape else (), dtype=object)
@@ -1169,6 +1190,9 @@ def compile_model(
     bridge_policy: BridgePolicy | None = None,
     capabilities: BackendCapabilityManifestV2 | None = None,
 ) -> CompiledModel:
+    from .atoms import has_atoms, compile_atoms
+    if (model.objective is not None and has_atoms(model.objective.expression._node)) or any(has_atoms(c.function._node) for c in model.constraints):
+        return compile_atoms(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
     from .sets import ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
     if any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)) for c in model.constraints):
         if any(isinstance(c, IndicatorConstraint) for c in model.constraints):

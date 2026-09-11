@@ -3,6 +3,8 @@ from .budgeting import apply_budget
 from .executor import execute
 from .portfolio import PortfolioAttempt, PortfolioSolveResult, execute_portfolio
 from .result import OptimalityEvidence, SolveResult
+from .options import SolveOptions, ProgressEvent
+from .unified import SolutionSummary, summarize, solve_any, solve_verified, UnverifiedSolutionError
 
 __all__ = [
     "PortfolioAttempt",
@@ -16,4 +18,6 @@ __all__ = [
     "execute_portfolio",
     "solve",
     "solve_production",
+    "SolveOptions", "ProgressEvent", "SolutionSummary", "summarize", "solve_any",
+    "solve_verified", "UnverifiedSolutionError",
 ]

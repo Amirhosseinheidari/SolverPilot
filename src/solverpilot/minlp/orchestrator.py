@@ -36,6 +36,13 @@ class MINLPSolveResult:
     raw_statistics:dict[str,Any]
     proof_scope:str='none'
     independently_verified_global:bool=False
+    problem_data_hash: str | None = None
+
+    def __post_init__(self):
+        from solverpilot._immutability import deep_freeze, readonly_array
+        if self.x is not None:
+            object.__setattr__(self, 'x', readonly_array(self.x, dtype=float))
+        object.__setattr__(self, 'raw_statistics', deep_freeze(self.raw_statistics))
 
 
 

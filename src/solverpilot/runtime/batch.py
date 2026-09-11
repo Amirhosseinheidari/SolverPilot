@@ -69,7 +69,7 @@ def _worker(connection, problem, backend, tolerances, memory_mb, solver_budget):
         connection.close()
 
 
-def solve_batch(problems, *, backend: str | None = None, max_workers=1,
+def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
                 timeout_s=None, cancellation: CancellationToken | None = None,
                 memory_mb=None, tolerances: ValidationTolerances | None = None, solver_budget=None):
     """Return ordered results; timeout is per job, measured before process start.
@@ -141,3 +141,36 @@ def solve_batch(problems, *, backend: str | None = None, max_workers=1,
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         return tuple(pool.map(run, enumerate(jobs)))
+
+
+def solve_batch(problems, *, backend=None, max_workers=1, timeout_s=None,
+                cancellation=None, memory_mb=None, tolerances=None, solver_budget=None,
+                max_pending=None, mode='process'):
+    """Collect a streaming batch; process workers are reused within the call.
+
+    Use iter_solve_batch for bounded output memory, or BatchExecutor to preserve
+    processes across calls. Sequential mode is explicit and has no isolation.
+    The isolated mode retains the original one-process-per-job behavior.
+    """
+    from .batch_stream import BatchExecutor, iter_solve_batch
+    options = dict(backend=backend, max_workers=max_workers, timeout_s=timeout_s,
+                   memory_mb=memory_mb, tolerances=tolerances, solver_budget=solver_budget)
+    if mode == 'isolated':
+        return _isolated_batch(problems, cancellation=cancellation, **options)
+    # Preserve the old pre-cancelled sequence contract without consuming an
+    # unbounded generator. The streaming API never advances cancelled inputs.
+    from collections.abc import Sequence
+    if cancellation is not None and cancellation.cancelled and isinstance(problems, Sequence):
+        with BatchExecutor(max_pending=max_pending, **options):
+            if mode not in ('process', 'sequential'):
+                raise ValueError('unknown batch mode')
+            return tuple(BatchItem(i, 'cancelled', None, None, False, None, 0.) for i in range(len(problems)))
+    return tuple(iter_solve_batch(problems, cancellation=cancellation, mode=mode,
+                                  max_pending=max_pending, **options))
+
+
+def __getattr__(name):
+    if name in ('BatchExecutor', 'iter_solve_batch'):
+        from . import batch_stream
+        return getattr(batch_stream, name)
+    raise AttributeError(name)
