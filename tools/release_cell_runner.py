@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import shutil
+import tempfile
 import subprocess
 import sys
 import tomllib
@@ -93,11 +93,11 @@ def main() -> int:
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 
     work = Path.cwd()
-    runtime_env = work / f".{ns.prefix}-runtime-venv"
-    audit_env = work / f".{ns.prefix}-audit-venv"
-    for path in (runtime_env, audit_env):
-        if path.exists():
-            shutil.rmtree(path)
+    # Keep installed packages outside the checkout so the source-import guard
+    # can distinguish the wheel from the source tree on every platform.
+    env_root = Path(tempfile.mkdtemp(prefix="solverpilot-release-"))
+    runtime_env = env_root / "runtime"
+    audit_env = env_root / "audit"
 
     run([sys.executable, "-m", "venv", str(runtime_env)])
     py = venv_python(runtime_env)
