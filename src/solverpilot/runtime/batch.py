@@ -18,6 +18,12 @@ from solverpilot.problem import LinearProblem, QuadraticProblem
 from solverpilot.validate import CandidateSolution, ValidationTolerances, validate_solution
 
 
+# multiprocessing.start() scans a process-global child set. On Windows that
+# scan must not race with another batch thread closing a child process handle.
+# Share the lock across batch calls, but never hold it during solver execution.
+_PROCESS_LIFECYCLE_LOCK = threading.RLock()
+
+
 class CancellationToken:
     def __init__(self):
         self._event = threading.Event()
@@ -98,7 +104,9 @@ def solve_batch(problems, *, backend: str | None = None, max_workers=1,
         parent, child = ctx.Pipe(duplex=False)
         proc = ctx.Process(target=_worker, args=(child, problem, backend, tol, memory_mb, solver_budget))
         try:
-            proc.start(); child.close()
+            with _PROCESS_LIFECYCLE_LOCK:
+                proc.start()
+            child.close()
             while True:
                 if token.cancelled:
                     return stopped('cancelled')
@@ -128,7 +136,8 @@ def solve_batch(problems, *, backend: str | None = None, max_workers=1,
                 proc.join(timeout=2)
                 if proc.is_alive():
                     proc.kill(); proc.join()
-                proc.close()
+                with _PROCESS_LIFECYCLE_LOCK:
+                    proc.close()
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         return tuple(pool.map(run, enumerate(jobs)))

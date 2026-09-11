@@ -235,3 +235,31 @@ def test_metadata_cache_can_be_refreshed(monkeypatch):
         assert metadata.version('solver-test') == '2'
     finally:
         metadata.refresh_backend_metadata()
+
+
+def test_concurrent_batches_serialize_process_start_and_close(monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from multiprocessing.process import BaseProcess
+    import threading
+    import time
+    from solverpilot.runtime.batch import solve_batch
+    probe = threading.Lock()
+
+    def checked(method):
+        def call(self, *args, **kwargs):
+            assert probe.acquire(blocking=False), 'overlapping process lifecycle operations'
+            try:
+                time.sleep(.02)  # Widen the start/close race seen on Windows CI.
+                return method(self, *args, **kwargs)
+            finally:
+                probe.release()
+        return call
+
+    monkeypatch.setattr(BaseProcess, 'start', checked(BaseProcess.start))
+    monkeypatch.setattr(BaseProcess, 'close', checked(BaseProcess.close))
+    p = sp.LinearProblem.from_data(A=[[1.]], c=[1.], variable_lower=[0.],
+        variable_upper=[2.], constraint_lower=[1.], constraint_upper=[np.inf])
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [pool.submit(solve_batch, [p]*4, backend='scipy-highs-ds', max_workers=2) for _ in range(2)]
+        for future in futures:
+            assert all(item.validation_valid for item in future.result())

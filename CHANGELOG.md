@@ -2,6 +2,8 @@
 
 ## 0.2 — Runtime, modeling and direct conic upgrade
 
+- Serialize process start/close across concurrent batches to prevent the Windows child-handle race found during release qualification.
+
 - Cache backend version metadata and avoid discovery for explicit backend objects.
 - Eliminate duplicate QP convexity work and vectorize LP row conversion.
 - Expose absolute/relative validation tolerances and numerical LP/QP KKT checks.
