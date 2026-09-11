@@ -40,6 +40,13 @@ class ConicSolveResult:
     objective_reported: float | None
     validation: ConicValidationReport
     raw_statistics: dict[str, Any]
+    problem_data_hash: str | None = None
+
+    def __post_init__(self):
+        from solverpilot._immutability import deep_freeze, readonly_array
+        if self.x is not None:
+            object.__setattr__(self, 'x', readonly_array(self.x, dtype=float))
+        object.__setattr__(self, 'raw_statistics', deep_freeze(self.raw_statistics))
 
     @property
     def validated(self) -> bool:
@@ -246,13 +253,29 @@ class CasadiSuperSCSBackend:
             "cone_families": sorted({c.kind.value for c in problem.cones}),
             "adapter_transformations": (["rotated_second_order->second_order_exact_linear_map"] if any(c.kind is ConeKind.ROTATED_SECOND_ORDER for c in problem.cones) else []),
         })
-        return ConicSolveResult(self.name, status, x, objective, validation, stats)
+        return ConicSolveResult(self.name, status, x, objective, validation, stats, problem.data_hash)
 
 
-def solve_conic(problem: ConicProblem, *, backend: CasadiSuperSCSBackend | None = None) -> ConicSolveResult:
+def solve_conic(problem: ConicProblem, *, backend=None, budget=None, tolerances=None,
+                progress=None, cancellation=None) -> ConicSolveResult:
     if backend is None:
         from .clarabel_backend import ClarabelBackend
         backend = ClarabelBackend() if ClarabelBackend().is_available() else CasadiSuperSCSBackend()
+    if isinstance(backend, str):
+        from solverpilot.runtime.catalog import backend_catalog
+        backend = backend_catalog()[backend]
+    from solverpilot.runtime.budgeting import configured_backend
+    from solverpilot.exceptions import BudgetNotSupportedError
+    updates = {}
+    if budget is not None:
+        if budget.memory_mb is not None:
+            raise BudgetNotSupportedError('conic memory limits require process isolation')
+        for field, value in [('time_limit_s', budget.wall_time_s), ('threads', budget.threads)]:
+            if value is not None:
+                if not hasattr(backend, field):
+                    raise BudgetNotSupportedError(f'{backend.name} cannot enforce {field}')
+                updates[field] = value
+    backend = configured_backend(backend, updates)
     from solverpilot.capabilities.v2 import compatible_v2, requirements_v2_for
     manifest = backend.capability_manifest_v2
     ok, checks = compatible_v2(
@@ -262,4 +285,12 @@ def solve_conic(problem: ConicProblem, *, backend: CasadiSuperSCSBackend | None 
     if not ok:
         reasons = "; ".join(f"{c.key.value}: {c.reason}" for c in checks if not c.usable)
         raise RuntimeError(f"P6 conic backend capability gate rejected solve: {reasons}")
-    return backend.solve(problem)
+    controls = {k: v for k, v in [('tolerances', tolerances), ('progress', progress), ('cancellation', cancellation)] if v is not None}
+    if controls and backend.name != 'clarabel-native':
+        raise BudgetNotSupportedError(f'{backend.name} does not support these common controls; use Clarabel')
+    result = backend.solve(problem, **controls)
+    from dataclasses import replace
+    from solverpilot.runtime.manifest import json_value
+    raw = dict(result.raw_statistics)
+    raw['run_parameters'] = {**dict(raw.get('run_parameters', {})), 'budget': json_value(budget)}
+    return replace(result, raw_statistics=raw)

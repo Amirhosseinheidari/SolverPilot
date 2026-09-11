@@ -60,6 +60,23 @@ class NLPProblem:
         return int(sum(c.lower.size for c in self.constraints))
 
     @property
+    def data_hash(self):
+        import hashlib, json
+        from solverpilot.runtime.manifest import json_value
+        def node(value):
+            payload = value.payload
+            if value.kind == 'index':
+                items = payload if isinstance(payload, tuple) else (payload,)
+                payload = [{'slice': [a.start, a.stop, a.step]} if isinstance(a, slice) else int(a) for a in items]
+            return {'kind': value.kind, 'shape': value.shape, 'payload': json_value(payload),
+                    'args': [node(a) for a in value.args]}
+        data = {'bounds': [self.variable_lower, self.variable_upper], 'layout': self.variable_layout,
+                'parameters': self.parameter_values, 'objective': node(self.objective_node),
+                'sense': self.objective_sense,
+                'constraints': [{'node': node(c.node), 'lower': c.lower, 'upper': c.upper} for c in self.constraints]}
+        return hashlib.sha256(json.dumps(json_value(data), sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+    @property
     def constraint_lower(self) -> np.ndarray:
         if not self.constraints: return np.empty(0, dtype=float)
         return np.concatenate([c.lower for c in self.constraints])

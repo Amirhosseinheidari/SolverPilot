@@ -1,5 +1,7 @@
 # SolverPilot Extended Modeling API — 0.2
 
+Version 0.3 adds checked convex atoms, sparse affine lowering, bounded streaming, sensitivity and scenarios. See the current [0.3 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.3.md) for guarantees and remaining scope limits.
+
 Track P P0–P9 is merged into SolverPilot under explicit submodule namespaces. These APIs are available in version 0.2 but are **not** added to the M30-frozen 78-symbol `solverpilot.__all__` compatibility surface yet.
 
 ## `solverpilot.model`

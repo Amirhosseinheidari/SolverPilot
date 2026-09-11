@@ -12,16 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_final_release_identity_is_distinct_from_historical_rc2():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-    assert project["version"] == solverpilot.__version__ == "0.2"
+    assert project["version"] == solverpilot.__version__ == "0.3"
     assert Version(project["version"]).pre is None
     assert project["version"] != "0.0.40rc2"
 
 
 def test_current_release_snapshots_are_versioned_without_label_collision():
-    api = json.loads((ROOT / "PUBLIC-API-V0_2_0.json").read_text(encoding="utf-8"))
-    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_2_0.json").read_text(encoding="utf-8"))
-    assert api["package_version"] == "0.2"
-    assert backend["package_version"] == "0.2"
+    api = json.loads((ROOT / "PUBLIC-API-V0_3_0.json").read_text(encoding="utf-8"))
+    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_3_0.json").read_text(encoding="utf-8"))
+    assert api["package_version"] == "0.3"
+    assert backend["package_version"] == "0.3"
     assert len(api["symbols"]) == 78
     assert [row["name"] for row in api["symbols"]] == solverpilot.__all__
 
@@ -66,7 +66,7 @@ def test_current_docs_describe_final_release_as_unchanged_promotion():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     head = "\n".join(readme.splitlines()[:55])
     assert "0.1.0rc2" in head
-    assert "0.2" in head
+    assert "0.3" in head
     assert "correctness/trust hardening" in head
     assert "package version intentionally remains `0.0.40rc2`" not in readme
 
@@ -114,7 +114,7 @@ def test_release_cell_runner_has_explicit_installed_wheel_example_gate():
     assert 'env["PYTHONNOUSERSITE"] = "1"' in text
     assert "def run_installed_public_examples" in text
     assert 'glob("[0-9][0-9]_*.py")' in text
-    assert "expected 17 public examples" in text
+    assert "expected 21 public examples" in text
     assert "run_installed_public_examples(py" in text
 
 

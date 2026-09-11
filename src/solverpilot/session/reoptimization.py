@@ -23,10 +23,14 @@ class ReoptimizationSession:
         self._compiled = self._model.compile()
         if backend is None and isinstance(self._compiled.execution_ir, QuadraticProblem) and OSQPNativeBackend().is_available():
             backend = OSQPNativeBackend()
+        from solverpilot.conic import ConicProblem, ClarabelBackend
+        if backend is None and isinstance(self._compiled.execution_ir, ConicProblem) and ClarabelBackend().is_available():
+            backend = ClarabelBackend(reuse=True)
         self._backend = backend
         from solverpilot.runtime import default_registry
         self._registry = default_registry() if backend is None else None
         self._closed = False
+        self._solving = False
         self.revision = 0
         self.last_result = None
         self.last_compilation_report = self._compiled.compilation_report
@@ -35,11 +39,14 @@ class ReoptimizationSession:
     def solve(self, *, updates=None, **options):
         if self._closed:
             raise RuntimeError('session is closed')
+        if self._solving:
+            raise RuntimeError('a solve callback cannot reenter its session')
         changes = dict(updates or {})
         if set(changes)-self._parameters.keys():
             raise KeyError(f'unknown parameters: {sorted(set(changes)-self._parameters.keys())}')
         old = {name: self._parameters[name].value for name in changes}
         before = self._model.data_hash
+        self._solving = True
         try:
             for name, value in changes.items():
                 self._parameters[name].value = value
@@ -53,6 +60,8 @@ class ReoptimizationSession:
             for name, value in old.items():
                 self._parameters[name].value = value
             raise
+        finally:
+            self._solving = False
         self.revision += before != self._model.data_hash
         self._compiled = compiled
         self.last_compilation_report = compiled.compilation_report
@@ -66,6 +75,8 @@ class ReoptimizationSession:
 
     @serialized
     def close(self):
+        if self._solving:
+            raise RuntimeError('cannot close a session from its active solve callback')
         if not self._closed:
             close = getattr(self._backend, 'close', None)
             if callable(close):

@@ -156,6 +156,7 @@ def solve(
         planner_selected_backend=None if plan is None else plan.selected_backend,
         planner_evidence_level=None if plan is None else plan.evidence_level,
         planner_health_policy=None if plan is None else plan.health_policy.value,
+        parameters={**dict(result.trace.parameters), 'budget': None if budget is None else asdict(budget)},
     )
     return replace(result, trace=trace, plan=plan)
 

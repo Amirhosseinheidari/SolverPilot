@@ -28,3 +28,5 @@ def tanh(x): return x.tanh()
 
 from .convenience import indexed_variables, soft_constraint, named_values, diagnose_model, SoftConstraint
 __all__ += ["ExponentialCone", "PowerCone", "indexed_variables", "soft_constraint", "named_values", "diagnose_model", "SoftConstraint"]
+from .atoms import abs, norm, huber, log_sum_exp, quad_form
+__all__ += ['abs', 'norm', 'huber', 'log_sum_exp', 'quad_form']

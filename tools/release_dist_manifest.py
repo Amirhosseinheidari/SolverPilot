@@ -67,6 +67,7 @@ def main() -> int:
             or "/tests/" in n or ".egg-info/" in n or "/build/" in n
         ]
         canonical_package_present = any(n.startswith("solverpilot/") for n in names)
+        typed_marker_present = 'solverpilot/py.typed' in names
         legacy_package_members = [n for n in names if n.startswith("optimind/")]
         license_entries = [n for n in names if "/licenses/LICENSE" in n or n.endswith("/LICENSE")]
 
@@ -108,6 +109,10 @@ def main() -> int:
             "examples/15_named_model_and_quality.py",
             "examples/16_direct_conic.py",
             "examples/17_batch_scenarios.py",
+            "examples/18_sensitivity_and_scenarios.py",
+            "examples/19_convex_atoms_optional.py",
+            "examples/20_streaming_reuse.py",
+            "examples/21_checked_run_replay.py",
         ]
         sdist_required = {item: any(n.endswith("/" + item) for n in sdist_names) for item in required}
         legacy_sdist_members = [n for n in sdist_names if "/optimind/" in n or n.endswith("/optimind")]
@@ -140,6 +145,7 @@ def main() -> int:
         },
         "wheel_pollution": pollution,
         "canonical_package_present": canonical_package_present,
+        "typed_marker_present": typed_marker_present,
         "legacy_package_members": legacy_package_members,
         "legacy_sdist_members": legacy_sdist_members,
         "license_entries": license_entries,
@@ -153,6 +159,7 @@ def main() -> int:
         and wheel_bad is None
         and not pollution
         and canonical_package_present
+        and typed_marker_present
         and not legacy_package_members
         and not legacy_sdist_members
         and bool(license_entries)

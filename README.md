@@ -1,6 +1,6 @@
 # SolverPilot
 
-> **Current version:** `0.2`. Adds configurable validation, numerical optimality checks, faster preparation, owned reoptimization sessions, bounded batch execution, modeling conveniences and a direct Clarabel conic adapter. Historical `0.1.0rc2` correctness/trust hardening remains in place.
+> **Current version:** `0.3`. Repairs scale-sensitive numerical certificates, preserves sparse model data and solver workspaces, and adds convex atoms, streaming batches, sensitivity, scenarios, robust counterparts and application templates. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.3 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.3.md) for examples and precise guarantees.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 

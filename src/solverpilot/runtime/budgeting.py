@@ -7,6 +7,37 @@ from solverpilot.plan import SolveBudget
 from solverpilot.exceptions import BudgetNotSupportedError
 
 
+class _ConfiguredBackend:
+    """Apply call-local settings while preserving an owned, locked workspace."""
+    def __init__(self, backend, updates):
+        self.backend = backend
+        self.updates = dict(updates)
+
+    def __getattr__(self, name):
+        return self.updates[name] if name in self.updates else getattr(self.backend, name)
+
+    def solve(self, problem, **kwargs):
+        with self.backend._lock:
+            previous = {key: getattr(self.backend, key) for key in self.updates}
+            try:
+                for key, value in self.updates.items():
+                    setattr(self.backend, key, value)
+                return self.backend.solve(problem, **kwargs)
+            finally:
+                for key, value in previous.items():
+                    setattr(self.backend, key, value)
+
+
+def configured_backend(backend, updates):
+    if not updates:
+        return backend
+    if hasattr(backend, '_lock'):
+        return _ConfiguredBackend(backend, updates)
+    if not is_dataclass(backend):
+        raise TypeError('backend options require a dataclass or an owned reentrant lock')
+    return replace(backend, **updates)
+
+
 def apply_budget(backend: Backend, budget: SolveBudget | None) -> Backend:
     if budget is None:
         return backend
@@ -40,4 +71,4 @@ def apply_budget(backend: Backend, budget: SolveBudget | None) -> Backend:
         raise TypeError(
             f"backend {backend.manifest.name!r} exposes budget fields but is not safely cloneable"
         )
-    return replace(backend, **updates)
+    return configured_backend(backend, updates)

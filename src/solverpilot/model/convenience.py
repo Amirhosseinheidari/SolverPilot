@@ -53,7 +53,9 @@ def named_values(model: Model, compiled, result):
         return ()
     if compiled.semantic_hash != model.semantic_hash or compiled.data_hash != model.data_hash:
         raise ValueError('compiled model is stale')
-    if hasattr(result, "trace") and result.trace.problem_data_hash != compiled.execution_ir.data_hash:
+    expected = getattr(compiled.execution_ir, 'data_hash', compiled.data_hash)
+    actual = result.trace.problem_data_hash if hasattr(result, 'trace') else getattr(result, 'problem_data_hash', None)
+    if actual != expected:
         raise ValueError("result belongs to different problem data")
     x = compiled.reconstruct_primal(result.x)
     records = []

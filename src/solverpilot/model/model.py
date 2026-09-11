@@ -8,6 +8,7 @@ import uuid
 import math
 
 import numpy as np
+from scipy import sparse
 
 from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem, VariableDomain
 
@@ -43,6 +44,9 @@ def _canonical_float(x: float) -> str:
 
 
 def _array_semantic_payload(arr: np.ndarray) -> dict[str, Any]:
+    if sparse.issparse(arr):
+        return {'shape': list(arr.shape), 'format': 'csr', 'indices': arr.indices.tolist(),
+                'indptr': arr.indptr.tolist(), 'values': [_canonical_float(x) for x in arr.data]}
     flat = np.asarray(arr, dtype=np.float64).reshape(-1)
     return {"shape": list(arr.shape), "values": [_canonical_float(x) for x in flat]}
 
@@ -262,6 +266,15 @@ class Model:
         return Parameter(self, data)
 
     def constant(self, value: Any) -> Expression:
+        if sparse.issparse(value):
+            arr = sparse.csr_matrix(value, dtype=float, copy=True)
+            arr.sum_duplicates(); arr.eliminate_zeros(); arr.sort_indices()
+            if not np.isfinite(arr.data).all():
+                raise DomainError('expression constants must be finite')
+            for data in (arr.data, arr.indices, arr.indptr):
+                data.flags.writeable = False
+            return Expression(self, ExprNode('constant', tuple(arr.shape), payload=arr,
+                sign=_sign_of_constant(arr.data), degree=0, curvature=Curvature.CONSTANT))
         arr = np.asarray(value, dtype=np.float64)
         if np.isnan(arr).any() or np.isinf(arr).any():
             raise DomainError("expression constants must be finite")
@@ -557,6 +570,8 @@ class Model:
             out["axis"] = node.payload
         elif node.kind == "pow":
             out["exponent"] = int(node.payload)
+        elif node.kind.startswith('atom_'):
+            out['atom_data'] = _array_semantic_payload(node.payload) if isinstance(node.payload, np.ndarray) else (str(node.payload) if node.payload == float('inf') else node.payload)
         out["args"] = [self._serialize_node(arg, include_parameter_values=include_parameter_values) for arg in node.args]
         return out
 
@@ -566,7 +581,7 @@ class Model:
     def _constant_value(self, node: ExprNode) -> np.ndarray:
         if node.kind != "constant":
             raise DomainError("expression is not a fixed constant")
-        return np.asarray(node.payload, dtype=np.float64)
+        return node.payload.toarray() if sparse.issparse(node.payload) else np.asarray(node.payload, dtype=np.float64)
 
     def _variable_sign(self, data: _VariableData) -> SignDomain:
         if np.all(data.lower == 0) and np.all(data.upper == 0):
@@ -579,7 +594,8 @@ class Model:
 
     def _indexed_sign(self, node: ExprNode, key: Any) -> SignDomain:
         if node.kind == "constant":
-            return _sign_of_constant(np.asarray(node.payload)[key])
+            value = node.payload[key] if sparse.issparse(node.payload) else np.asarray(node.payload)[key]
+            return _sign_of_constant(value.toarray() if sparse.issparse(value) else np.asarray(value))
         if node.kind == "variable":
             data = self._variables[node.payload]
             lo = np.asarray(data.lower)[key]
@@ -685,6 +701,9 @@ class Model:
             if node.kind == "constant":
                 return clone.constant(node.payload)
             args = [rebuild(x) for x in node.args]
+            if node.kind.startswith('atom_'):
+                from .atoms import _atom
+                return _atom(node.kind[5:], args[0], node.payload)
             if node.kind == "add": return args[0] + args[1]
             if node.kind == "mul": return args[0] * args[1]
             if node.kind == "div": return args[0] / args[1]

@@ -1,5 +1,7 @@
 # Known limitations — 0.2
 
+Version 0.3 adds checked convex atoms, sparse affine lowering, bounded streaming, sensitivity and scenarios. See the current [0.3 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.3.md) for guarantees and remaining scope limits.
+
 ## Numerical evidence
 
 Primal validation is independent of backend termination. Continuous LP/QP duals from SciPy LP, native HiGHS and OSQP can additionally be checked for stationarity, complementarity and numerical gap. These are tolerance-qualified checks, not exact-arithmetic proofs. MILP/global nonlinear optimality is not proved by primal feasibility. Backend-only infeasible/unbounded statuses remain claims unless a certificate is checked.
