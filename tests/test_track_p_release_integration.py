@@ -33,12 +33,12 @@ def test_release_smoke_has_semantic_checks_for_each_track_p_extra():
 
 def test_current_public_docs_are_version_aligned():
     version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
-    assert version == "0.1.0rc2"
+    assert version == "0.1"
     for rel in (
         "README.md",
         "KNOWN-LIMITATIONS.md",
         "docs/api/EXTENDED-MODELING-API.md",
-        "docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.0RC2.md",
-        "docs/release/README-CHECKLIST-0.1.0RC2.md",
+        "docs/release/SOLVERPILOT-PUBLIC-DOCS-0.1.md",
+        "docs/release/README-CHECKLIST-0.1.md",
     ):
         assert version in (ROOT / rel).read_text(encoding="utf-8"), rel

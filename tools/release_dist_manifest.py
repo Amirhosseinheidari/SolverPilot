@@ -23,8 +23,12 @@ EXPECTED_LICENSE = PROJECT.get("license")
 
 def _release_label(version: str) -> str:
     parsed = Version(version)
-    if parsed.pre is None or parsed.pre[0] != "rc":
-        raise RuntimeError(f"release tooling expects an rc prerelease version, got {version!r}")
+    if parsed.epoch or parsed.post is not None or parsed.dev is not None or parsed.local is not None:
+        raise RuntimeError(f"unsupported release version: {version!r}")
+    if parsed.pre is None:
+        return f"V{parsed.major}_{parsed.minor}_{parsed.micro}"
+    if parsed.pre[0] != "rc":
+        raise RuntimeError(f"release tooling supports final and rc versions, got {version!r}")
     return f"V{parsed.major}_{parsed.minor}_{parsed.micro}RC{parsed.pre[1]}"
 
 
@@ -78,8 +82,9 @@ def main() -> int:
             "KNOWN-LIMITATIONS.md",
             "RELEASING.md",
             "TRACK-P-MERGE-PROVENANCE.json",
-            f"PRE-PUBLIC-RELEASE-AUDIT-{EXPECTED_VERSION}.json",
-            f"PRE-PUBLIC-RELEASE-VERIFICATION-{EXPECTED_VERSION}.md",
+            # Frozen historical evidence; the current artifacts are qualified separately.
+            "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json",
+            "PRE-PUBLIC-RELEASE-VERIFICATION-0.1.0rc2.md",
             "docs/release/PRE-GITHUB-HARDENING.md",
             f"docs/release/SOLVERPILOT-PUBLIC-DOCS-{CURRENT_RELEASE_DOC_VERSION}.md",
             f"docs/release/README-CHECKLIST-{CURRENT_RELEASE_DOC_VERSION}.md",

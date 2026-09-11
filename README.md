@@ -1,6 +1,6 @@
 # SolverPilot
 
-> **Pre-release:** `0.1.0rc2`. This is the second pre-public release candidate; it supersedes `0.1.0rc1` after correctness/trust hardening and packages the hardened Core + Track P P0–P9 platform together with the verified S2–S10 trust, evaluation, extension, TSP/VRP, and history layers. Public PyPI publication remains fail-closed until the exact-artifact external qualification workflow passes.
+> **Current version:** `0.1`. This release promotes the published `0.1.0rc2` code with no algorithm or API changes. Performance improvements are deferred to a future version. Every publication still requires exact-artifact qualification.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
@@ -37,7 +37,7 @@ The extended APIs are canonically imported from submodules such as `solverpilot.
 
 ### Verified trust, evaluation, extension, and application layers
 
-The `0.1.0rc2` release candidate keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
+The `0.1` release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
 
 - `solverpilot.io`: strict local JSON/CSV ingestion, bounded reads, explicit mapping, content hashes, and source provenance;
 - `solverpilot.evaluation`: direct-run oracle construction and decomposed quality/runtime/failure regret;
@@ -266,7 +266,7 @@ print(result.algorithm)
 print(result.globally_proven)
 ```
 
-`globally_proven=True` is emitted only when the certified scope, original-space validation, and bound-closure conditions all pass. In `0.1.0rc2` this is a **solver-certified proof under the compiler's convexity assumptions**, not an independently reconstructed end-to-end proof; inspect `result.proof_scope` and `result.independently_verified_global`. General integer, nonconvex, nonlinear-equality, and indicator+MINLP compositions remain fail-closed.
+`globally_proven=True` is emitted only when the certified scope, original-space validation, and bound-closure conditions all pass. In `0.1` this is a **solver-certified proof under the compiler's convexity assumptions**, not an independently reconstructed end-to-end proof; inspect `result.proof_scope` and `result.independently_verified_global`. General integer, nonconvex, nonlinear-equality, and indicator+MINLP compositions remain fail-closed.
 
 See [`examples/11_minlp_optional.py`](examples/11_minlp_optional.py).
 

@@ -1,6 +1,6 @@
 # Release process
 
-This document is the current prerelease release-process contract. Publication is manual and requires the owner-configured Trusted Publisher, protected environment approval, and a successful attested qualification of the exact main commit.
+This document is the current release-process contract. Publication is manual and requires the owner-configured Trusted Publisher, protected environment approval, and a successful attested qualification of the exact main commit.
 
 ## Repository settings required before public launch
 
