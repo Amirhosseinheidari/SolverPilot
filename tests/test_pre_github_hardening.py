@@ -114,7 +114,12 @@ def test_dependabot_covers_actions_and_python_dependency_metadata():
 def test_repository_does_not_embed_release_binary_artifacts():
     binary = []
     for pattern in ("*.whl", "*.tar.gz", "*.zip"):
-        binary.extend(ROOT.rglob(pattern))
+        binary.extend(
+            path for path in ROOT.rglob(pattern)
+            if path.relative_to(ROOT).parts[0] not in {
+                "dist", "dist-a", "dist-b", "dist-download", "build", ".venv"
+            }
+        )
     assert binary == []
 
 

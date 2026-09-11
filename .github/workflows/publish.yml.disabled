@@ -4,6 +4,12 @@ name: Publish qualified release to PyPI
 on:
   workflow_dispatch:
     inputs:
+      destination:
+        description: "Publish to TestPyPI first; use PyPI after installation verification"
+        required: true
+        type: choice
+        default: testpypi
+        options: [testpypi, pypi]
       qualified_run_id:
         description: "Run ID of a successful Release qualification workflow executed with attest_artifacts=true"
         required: true
@@ -18,10 +24,11 @@ permissions:
 
 jobs:
   publish:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
-      name: pypi
-      # url: https://pypi.org/p/OWNER_APPROVED_PROJECT_NAME
+      name: ${{ inputs.destination }}
     permissions:
       contents: read
       actions: read
@@ -46,6 +53,8 @@ jobs:
           checks={
             "sha_format": bool(re.fullmatch(r"[0-9a-f]{40}", expected)),
             "head_sha": run.get("head_sha")==expected,
+            "head_branch": run.get("head_branch")=="main",
+            "repository": run.get("repository", {}).get("full_name")==os.environ["GITHUB_REPOSITORY"],
             "conclusion": run.get("conclusion")=="success",
             "event": run.get("event")=="workflow_dispatch",
             "workflow_path": str(run.get("path","")).endswith(".github/workflows/release-qualification.yml"),
@@ -77,7 +86,13 @@ jobs:
           for artifact in dist/*.whl dist/*.tar.gz; do
             gh attestation verify "$artifact" --repo "${{ github.repository }}"
           done
+      - name: Stage only the verified distribution files
+        shell: bash
+        run: |
+          mkdir publish-dist
+          cp dist/*.whl dist/*.tar.gz publish-dist/
       - name: Publish via PyPI Trusted Publishing
         uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
-          packages-dir: dist/
+          packages-dir: publish-dist/
+          repository-url: ${{ inputs.destination == 'testpypi' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
