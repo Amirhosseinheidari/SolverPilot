@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2 — Runtime, modeling and direct conic upgrade
+
+- Cache backend version metadata and avoid discovery for explicit backend objects.
+- Eliminate duplicate QP convexity work and vectorize LP row conversion.
+- Expose absolute/relative validation tolerances and numerical LP/QP KKT checks.
+- Add supplied Farkas/recession certificate verification and named quality reports.
+- Add owned transactional reoptimization and serialize mutable solver operations.
+- Add bounded process batches with cancellation, deadlines and explicit POSIX memory limits.
+- Add indexed variables, explicit soft penalties, named diagnostics/results and linear lexicographic objectives.
+- Add direct Clarabel with SOC/RSOC/PSD/exponential/power and quadratic objectives.
+- Fix cloning of power/division/smooth expressions; retain historical API call compatibility.
+- Add numerical campaigns, repeated-solve RSS benchmarks and three public examples.
+- Extend exact-artifact qualification with Clarabel on all supported platforms.
+
 ## 0.1 — Final release numbering
 
 - Promote the published 0.1.0rc2 code to the short final version 0.1.

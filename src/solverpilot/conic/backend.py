@@ -250,7 +250,9 @@ class CasadiSuperSCSBackend:
 
 
 def solve_conic(problem: ConicProblem, *, backend: CasadiSuperSCSBackend | None = None) -> ConicSolveResult:
-    backend = CasadiSuperSCSBackend() if backend is None else backend
+    if backend is None:
+        from .clarabel_backend import ClarabelBackend
+        backend = ClarabelBackend() if ClarabelBackend().is_available() else CasadiSuperSCSBackend()
     from solverpilot.capabilities.v2 import compatible_v2, requirements_v2_for
     manifest = backend.capability_manifest_v2
     ok, checks = compatible_v2(

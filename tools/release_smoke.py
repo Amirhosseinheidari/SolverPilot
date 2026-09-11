@@ -28,7 +28,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--require-extra",
-        choices=["highs", "osqp", "scip", "nlopt", "casadi", "conic", "nlp", "minlp", "cp"],
+        choices=["highs", "osqp", "scip", "nlopt", "casadi", "conic", "nlp", "minlp", "cp", "clarabel"],
     )
     ap.add_argument("--forbid-source-root")
     ns = ap.parse_args()
@@ -58,7 +58,13 @@ def main() -> int:
     legacy_spec = importlib.util.find_spec("optimind")
 
     extended = None
-    if ns.require_extra == "conic":
+    if ns.require_extra == "clarabel":
+        from solverpilot.conic import ClarabelBackend
+        from solverpilot.conic.clarabel_backend import _runtime_conformance
+        b = ClarabelBackend()
+        extended = {"kind": "clarabel", "binding_version": b.binding_version,
+                    "passed": b.is_available() and _runtime_conformance(b.binding_version)}
+    elif ns.require_extra == "conic":
         from importlib.metadata import version as package_version
         from solverpilot.model import Model
         from solverpilot.conic import ConicProblem, ConeKind

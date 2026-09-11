@@ -27,3 +27,6 @@ __all__ = [
     "bind_persistent_backend", "decide_mutation_path", "PersistenceConformanceCheck", "PersistenceConformanceReport",
     "conform_persistent_backend",
 ]
+
+from .reoptimization import ReoptimizationSession
+__all__.append("ReoptimizationSession")

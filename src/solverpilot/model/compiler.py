@@ -1169,8 +1169,8 @@ def compile_model(
     bridge_policy: BridgePolicy | None = None,
     capabilities: BackendCapabilityManifestV2 | None = None,
 ) -> CompiledModel:
-    from .sets import PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
-    if any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone)) for c in model.constraints):
+    from .sets import ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
+    if any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)) for c in model.constraints):
         if any(isinstance(c, IndicatorConstraint) for c in model.constraints):
             raise CompileError("P6 does not combine indicator/MILP bridges with continuous conic targets")
         from solverpilot.conic.compiler import compile_conic_model

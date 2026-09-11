@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from time import perf_counter
 import importlib.util
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError
+from .metadata import version
 
 import numpy as np
 from scipy import sparse
@@ -110,6 +112,7 @@ class HighspyNativeBackend:
             raise BackendUnavailableError("highspy is not installed")
         import highspy
 
+        build_start = perf_counter()
         h = highspy.Highs()
         h.setOptionValue("output_flag", False)
         if self.time_limit_s is not None:
@@ -136,7 +139,9 @@ class HighspyNativeBackend:
         pass_status = h.passModel(model)
         if "error" in str(pass_status).lower():
             raise RuntimeError(f"HiGHS rejected model: {pass_status}")
+        prepared = perf_counter()
         h.run()
+        solved = perf_counter()
         info = h.getInfo()
         model_status = h.modelStatusToString(h.getModelStatus())
         primal_status = h.solutionStatusToString(info.primal_solution_status)
@@ -160,7 +165,16 @@ class HighspyNativeBackend:
             except Exception:
                 objective_internal = None
 
+        linear = problem.linear if isinstance(problem, QuadraticProblem) else problem
+        dual = None
+        if x is not None and not linear.has_integer_variables:
+            solution = h.getSolution()
+            if solution.dual_valid:
+                sign = 1. if linear.objective_sense is ObjectiveSense.MINIMIZE else -1.
+                dual = (-sign*np.r_[solution.row_dual, solution.col_dual]).tolist()
         raw = {
+            "canonical_dual": dual,
+            "phase_timings": {"backend_build_s": prepared-build_start, "solve_s": solved-prepared},
             "model_status": str(model_status),
             "primal_solution_status": str(primal_status),
             "simplex_iteration_count": int(getattr(info, "simplex_iteration_count", 0)),

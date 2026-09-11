@@ -54,8 +54,8 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
         })
         if proc.returncode != 0:
             raise SystemExit(f"installed-wheel example failed: {example.name}\n{proc.stdout}\n{proc.stderr}")
-    if len(rows) != 14:
-        raise SystemExit(f"expected 14 public examples, got {len(rows)}")
+    if len(rows) != 17:
+        raise SystemExit(f"expected 17 public examples, got {len(rows)}")
     out = work / f"{prefix}-installed-examples.json"
     out.write_text(json.dumps({
         "schema": "solverpilot.release.installed_examples.v1",
@@ -67,6 +67,7 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
 
 
 EXTRA_FOCUSED_TESTS = {
+    "clarabel": ["tests/test_upgrade_02.py", "tests/test_02_numerical.py"],
     "conic": ["tests/test_p6_conic_ir.py", "tests/test_p6_semantic_cones.py", "tests/test_p6_conformance_and_schema.py"],
     "nlp": ["tests/test_p7_nlp_ir_ad.py", "tests/test_p7_ipopt_backend.py", "tests/test_p7_conformance.py"],
     "minlp": ["tests/test_p8_minlp.py"],
@@ -79,7 +80,7 @@ def main() -> int:
     ap.add_argument("--prefix", required=True)
     ap.add_argument(
         "--extra",
-        choices=["highs", "osqp", "scip", "nlopt", "casadi", "conic", "nlp", "minlp", "cp"],
+        choices=["highs", "osqp", "scip", "nlopt", "casadi", "conic", "nlp", "minlp", "cp", "clarabel"],
     )
     ap.add_argument("--minimum-deps", action="store_true")
     ap.add_argument("--skip-regression", action="store_true")

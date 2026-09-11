@@ -105,6 +105,9 @@ def main() -> int:
             "examples/12_cp_reference.py",
             "examples/13_cp_sat_optional.py",
             "examples/14_persistent_session_optional.py",
+            "examples/15_named_model_and_quality.py",
+            "examples/16_direct_conic.py",
+            "examples/17_batch_scenarios.py",
         ]
         sdist_required = {item: any(n.endswith("/" + item) for n in sdist_names) for item in required}
         legacy_sdist_members = [n for n in sdist_names if "/optimind/" in n or n.endswith("/optimind")]

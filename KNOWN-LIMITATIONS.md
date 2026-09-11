@@ -1,70 +1,33 @@
-# Known Limitations — 0.1.0rc2
+# Known limitations — 0.2
 
-This file records real limitations and guarantee boundaries for the merged SolverPilot + Track P prerelease.
+## Numerical evidence
 
+Primal validation is independent of backend termination. Continuous LP/QP duals from SciPy LP, native HiGHS and OSQP can additionally be checked for stationarity, complementarity and numerical gap. These are tolerance-qualified checks, not exact-arithmetic proofs. MILP/global nonlinear optimality is not proved by primal feasibility. Backend-only infeasible/unbounded statuses remain claims unless a certificate is checked.
 
-## 0.1.0rc2 release-candidate boundaries
+Per-call ValidationTolerances is supported by execute, solve, solve_production and execute_portfolio. The default feasibility floor is 1e-7 with relative tolerance 1e-9; the relative allowance can be disabled. Native solver tolerances must be configured separately. Nonfinite evidence cannot produce a verified certificate.
 
-The S2–S10 migration layers are part of this prerelease source line, but the 78-symbol top-level API remains frozen. The new layers are intentionally submodule-scoped. Public release qualification still requires the exact-artifact GitHub matrix, including optional native integrations and artifact attestation before publication.
+## Conic and nonlinear scope
 
-The learned solver selector remains disabled. OOD diagnostics are conservative shift indicators rather than calibrated probabilities. History persistence is opt-in plaintext SQLite and intentionally excludes raw solution vectors/problem arrays, but caller-provided metadata can still be sensitive. TSP/VRP exact reference solvers are exponential and intended only for small validation/oracle cases. Extension activation assumes caller-owned canonical registries are not mutated concurrently outside the manager during activation.
+Optional direct Clarabel supports convex quadratic objectives and affine SOC, rotated SOC, PSD, exponential and power cones. Runtime conformance and original-space validation gate its use. CasADi SuperSCS retains its restricted linear-objective SOC/RSOC scope; its generic PSD and quadratic-conic routes remain disabled. Generalized power cones are not implemented. Conic primal feasibility alone does not imply independently verified global optimality.
 
-## Validation tolerances
+Smooth NLP remains optional through CasADi/Ipopt and produces local candidates. Generic global NLP and arbitrary nonsmooth atoms are unsupported. MINLP remains the certified convex binary-discrete scope: general integer, nonconvex/global, nonlinear-equality, two-sided nonlinear and indicator+MINLP compositions remain unsupported. Existing proof flags retain their documented solver-certified scope.
 
-Candidate validation uses `ValidationTolerances` defaults with an absolute feasibility floor of `1e-7` plus an internal scale-aware relative term. Raw absolute residuals are still reported, and a warning records when a candidate is accepted only by the scale-aware criterion. High-level `solve()` / `solve_production()` does not yet expose a per-call validation-tolerance parameter, so users with domain-specific numerical requirements should still validate against their own tolerances.
+## Execution and ownership
 
-## Infeasible / unbounded status evidence
+Batch accepts canonical LP/QP, uses spawn and requires a script main guard. Timeouts/cancellation terminate workers; unobserved incumbents cannot be recovered afterward. Native solver budgets may return incumbents before the outer deadline. Cleanup may add bounded latency. POSIX memory limits are RLIMIT_AS address-space caps, not RSS; Windows memory caps are rejected. Worker count does not limit internal solver threads.
 
-Candidate-bearing statuses are independently checked against canonical constraints, integrality, and objective consistency. `INFEASIBLE`, `UNBOUNDED`, and `INFEASIBLE_OR_UNBOUNDED` normally reflect backend termination unless independent certificate/diagnostic evidence is explicitly recorded.
+ReoptimizationSession owns a model clone and serializes update+solve. Session/PersistentSession serialize their public methods, but direct external model/backend mutations require caller coordination. Compiler caches are not shared mutable workspaces for uncoordinated modeling. Reuse is conditional on structure/settings and is not guaranteed faster. Session history can intentionally grow.
 
-## Learned LP routing
+CP-SAT remains process-isolated to avoid known HiGHS ABI collisions. Reference CP and exact TSP/VRP are exhaustive and only suitable for small oracle cases.
 
-Learned LP performance routing remains disabled. Track P does not change or override the M24–M29 negative generalization decision.
+## Modeling and records
 
-## Conic boundary
+Soft helpers accept affine relations and require explicit penalty use in the objective. Lexicographic solving currently supports canonical LP/MILP with linear objectives; locks include numerical tolerances. Named conflict diagnostics support LP/MILP. Named values reject stale compiled models and retain IDs for duplicate labels.
 
-SOC and RSOC representation/validation are supported, with a restricted verified linear-objective solve path. PSD representation/validation is supported, but generic PSD solving is not promoted as verified. Quadratic-objective conic solving also remains fail-closed without the necessary conformance evidence. Exponential/power/generalized-power cones are not implemented.
+Learned routing remains disabled; OOD indicators are not calibrated probabilities. History is opt-in plaintext SQLite; user metadata can be sensitive. Extension registry mutation requires caller coordination. Development pickle caches are trusted artifacts, not a safe untrusted interchange format.
 
-## NLP boundary
+## Qualification
 
-Smooth continuous NLP is optional and uses the pinned CasADi verification path. Generic NLP results are local-optimal candidates only after independent primal/objective validation and KKT stationarity checks. SolverPilot does not claim global optimality for generic NLPs. Nonsmooth generic atoms such as arbitrary `abs/max/min` are not part of the current verified surface.
+Cross-platform support requires exact-artifact qualification on Python 3.12–3.14. Upstream package availability alone is not integration evidence. Synthetic latency/RSS measurements do not establish industrial scalability or absence of long-term leaks. Historical reports retain their original versions and cannot qualify new artifacts.
 
-## MINLP boundary
-
-The current proof-aware MINLP layer supports a certified convex **binary-discrete** scope. General integer MINLP, nonconvex/global MINLP, nonlinear equalities, two-sided nonlinear constraints, and indicator+MINLP composition remain unsupported/fail-closed.
-
-## Constraint-programming boundary
-
-OR-Tools CP-SAT is executed in a Python isolated-mode subprocess rather than loaded after the core HiGHS path in the same process. This is intentional: the verified Linux OR-Tools 9.15.6755 wheel and the SciPy/HiGHS path can expose incompatible HiGHS shared-library ABIs when loaded in the wrong order. The worker protocol binds the request/response to the SolverPilot version, exact OR-Tools version, request nonce, structural hash, and data hash. Worker results cross a strict JSON boundary and primal/objective data are revalidated in the parent process; backend optimality is preserved only when the worker status/proof metadata and parent checks are mutually consistent.
-
-The reference CP backend is exhaustive and can return `unknown_state_limit` when its configured state budget would be exceeded. OR-Tools CP-SAT is optional and locked to version `9.15.6755` for the frozen P9 integration evidence; public cross-platform support still depends on the release qualification matrix.
-
-## Persistence / reoptimization
-
-`PersistentSession` can select native patching only when exact granular capability evidence is runtime verified. Reuse is not guaranteed to be faster; Track P retained negative timing cases where a persistent solve was slower than a cold rebuild.
-
-## Cross-platform release status
-
-Local Linux validation is not equivalent to public support. Linux/macOS/Windows support for Python 3.12–3.14 is promoted only after the manual exact-artifact release qualification workflow passes.
-
-## Optional integrations
-
-Availability depends on third-party binary packages, bundled plugins, and platform support. An upstream wheel existing is not by itself SolverPilot integration evidence.
-
-## Historical 0.0.40rc2 core hardening semantics
-
-- A `QuadraticProblem` may still be constructed with `convexity_status=UNKNOWN` for compatibility, but it is not eligible for convex-QP capability classification, planning, inspection, runtime execution, or guarded direct QP backend solving until convexity is confirmed.
-- `PublicStatus.VALID_OPTIMAL` remains a compatibility status: it means the backend reported optimality and the canonical primal candidate validated. Inspect `SolveResult.optimality_evidence` for whether dual/gap/certificate evidence was independently verified.
-- Linear/QP primal feasibility now uses an absolute numerical floor plus a scale-aware relative term internally. Large absolute residuals accepted only by the scale-aware criterion are surfaced as validation warnings.
-- NLP IR records domain hazards for `log`, `sqrt`, and symbolic division when safety cannot be proved from declared bounds. Compilation remains compatible; the Ipopt bridge uses deterministic finite starting-point search, and final original-space validation remains authoritative.
-- MINLP `globally_proven=True` is solver-certified within the compiler's convexity assumptions. `independently_verified_global` is a separate field and is currently false for the P8 orchestration path because SolverPilot does not reconstruct the complete end-to-end KKT/MILP proof chain independently.
-
-
-## Research benchmark cache security
-
-Some scripts under `benchmarks/` consume locally generated Python pickle caches. These are trusted-development artifacts, not safe interchange files. Loading a pickle from an untrusted source can execute code. Public dataset acquisition and scientific evidence must use the hash/provenance-controlled acquisition path rather than accepting third-party pickle caches.
-
-
-## Local build reproducibility boundary
-
-With a fixed `SOURCE_DATE_EPOCH`, the current local diagnostic wheel was byte-reproducible across two independent builds, while the sdist had identical member names and semantic file contents but not identical archive bytes. This local environment also does not provide the exact build-system versions pinned by `pyproject.toml`. Public-release reproducibility and exact build-backend qualification therefore remain GitHub release-qualification gates rather than locally certified properties.
+See [the 0.2 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.2.md) for APIs and examples.

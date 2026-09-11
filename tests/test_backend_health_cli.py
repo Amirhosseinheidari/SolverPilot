@@ -10,7 +10,7 @@ def test_health_report_is_json_serializable_and_complete():
     encoded = json.dumps(report)
     assert encoded
     assert report["schema_version"] == "1.0"
-    assert report["solverpilot_version"] == "0.1"
+    assert report["solverpilot_version"] == "0.2"
     entries = report["backends"]
     names = {entry["backend"] for entry in entries}
     assert names == {
@@ -41,5 +41,5 @@ def test_health_cli_default_exit_code_is_zero_when_no_backend_is_unhealthy(capsy
     code = main(["--compact"])
     captured = capsys.readouterr()
     payload = json.loads(captured.out)
-    assert payload["solverpilot_version"] == "0.1"
+    assert payload["solverpilot_version"] == "0.2"
     assert code == 0, [(e["backend"], [(c.get("capability"), c.get("error")) for c in e.get("checks", [])], e.get("metadata", {}).get("cleanup_error")) for e in payload["backends"] if e["status"] == "unhealthy"]

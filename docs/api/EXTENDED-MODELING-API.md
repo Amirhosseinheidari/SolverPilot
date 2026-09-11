@@ -1,6 +1,6 @@
-# SolverPilot Extended Modeling API — 0.1.0rc2
+# SolverPilot Extended Modeling API — 0.2
 
-Track P P0–P9 is merged into SolverPilot under explicit submodule namespaces. These APIs are available in the prerelease but are **not** added to the M30-frozen 78-symbol `solverpilot.__all__` compatibility surface yet.
+Track P P0–P9 is merged into SolverPilot under explicit submodule namespaces. These APIs are available in version 0.2 but are **not** added to the M30-frozen 78-symbol `solverpilot.__all__` compatibility surface yet.
 
 ## `solverpilot.model`
 
@@ -32,9 +32,9 @@ Current verified production bridge family is deliberately narrow: fixed-state si
 
 ## `solverpilot.conic`
 
-`ConicProblem`, SOC/RSOC/PSD blocks, independent cone validation, and the verification-only CasADi/SuperSCS path.
+`ConicProblem`, SOC/RSOC/PSD/exponential/power blocks, independent cone validation, and the direct Clarabel adapter. The legacy CasADi/SuperSCS verification path remains available.
 
-Representational support is broader than verified solve support. PSD and generic quadratic-conic solving remain fail-closed without conformance evidence.
+Clarabel enables PSD and convex quadratic-conic solving after analytic runtime conformance checks. The legacy CasADi adapter keeps its fail-closed restrictions for those features.
 
 ## `solverpilot.nlp`
 
@@ -57,4 +57,8 @@ The CP-SAT adapter runs the native binding in an isolated worker process to avoi
 
 ## Stability
 
-These extended submodule APIs are merged and regression-tested but remain prerelease surfaces. Their semantics are documented and fail-closed; promotion into the stable top-level `solverpilot.__all__` surface requires an explicit pre-1.0 API decision rather than happening implicitly during this merge.
+These extended submodule APIs are merged and regression-tested but remain explicit submodule surfaces. Their semantics are documented and fail-closed; promotion into the stable top-level `solverpilot.__all__` surface requires an explicit pre-1.0 API decision rather than happening implicitly during this merge.
+
+## Version 0.2 additions
+
+See [the 0.2 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.2.md) for direct Clarabel, exponential/power cones, owned reoptimization, named model helpers, lexicographic objectives, batch cancellation and numerical certificates. The legacy CasADi restrictions above remain specific to that adapter.

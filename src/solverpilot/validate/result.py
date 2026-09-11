@@ -24,9 +24,10 @@ class ValidationTolerances:
     integrality: float = 1e-6
     objective_abs: float = 1e-7
     objective_rel: float = 1e-7
+    feasibility_rel: float = 1e-9
 
     def __post_init__(self) -> None:
-        for name in ("feasibility", "integrality", "objective_abs", "objective_rel"):
+        for name in ("feasibility", "integrality", "objective_abs", "objective_rel", "feasibility_rel"):
             raw = getattr(self, name)
             if isinstance(raw, bool) or type(raw) not in (int, float):
                 raise ValueError(f"{name} tolerance must be a finite number")

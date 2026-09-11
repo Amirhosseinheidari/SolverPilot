@@ -25,3 +25,6 @@ __all__ = [
     "render_json",
     "render_markdown",
 ]
+
+from .quality import solution_quality
+__all__.append("solution_quality")

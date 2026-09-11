@@ -9,3 +9,6 @@ __all__ = [
     "ConeCheck", "ConicValidationReport", "validate_conic_solution",
     "ConicConformanceCheck", "ConicConformanceReport", "conform_casadi_superscs_backend",
 ]
+
+from .clarabel_backend import ClarabelBackend
+__all__.append("ClarabelBackend")

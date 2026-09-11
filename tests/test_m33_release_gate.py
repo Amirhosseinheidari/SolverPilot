@@ -35,7 +35,8 @@ def _historical_qualname(name: str | None) -> str | None:
 
 def _sig(obj):
     try:
-        return str(inspect.signature(obj))
+        from legacy_api_02 import legacy_signature
+        return legacy_signature(obj)
     except (TypeError, ValueError):
         return None
 

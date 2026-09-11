@@ -14,7 +14,7 @@ from solverpilot.problem import ObjectiveSense, VariableDomain
 from solverpilot.model.errors import CompileError
 from solverpilot.model.sets import (
     EqualTo, GreaterThan, Interval, LessThan,
-    PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone,
+    ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone,
 )
 
 from .ir import ConeAffineBlock, ConeKind, ConicProblem
@@ -130,7 +130,11 @@ def _build_conic(model, *, cache_status: str, changed_parameters: tuple[str, ...
         F, g, shape = _affine_map(evaluator, constraint.function._node, n, context=f"cone constraint {cid}")
         deps = tuple(sorted(constraint.function.parameter_dependencies))
         cone_dependencies.update(deps)
-        if isinstance(set_, SecondOrderCone):
+        if isinstance(set_, ExponentialCone):
+            kind, expected = ConeKind.EXPONENTIAL, (3,)
+        elif isinstance(set_, PowerCone):
+            kind, expected = ConeKind.POWER, (3,)
+        elif isinstance(set_, SecondOrderCone):
             kind = ConeKind.SECOND_ORDER
             expected = (set_.dimension,)
         elif isinstance(set_, RotatedSecondOrderCone):
@@ -145,7 +149,7 @@ def _build_conic(model, *, cache_status: str, changed_parameters: tuple[str, ...
         if shape != expected:
             raise CompileError(f"cone shape mismatch for {cid}: expected {expected}, got {shape}")
         index = len(cones)
-        cones.append(ConeAffineBlock(kind, F, g, expected, source_id=cid, metadata={"parameter_dependencies": deps}))
+        cones.append(ConeAffineBlock(kind, F, g, expected, source_id=cid, metadata={"parameter_dependencies": deps, **({"alpha": set_.alpha} if isinstance(set_, PowerCone) else {})}))
         source_constraints[cid] = {
             "semantic_kind": kind.value,
             "cone_block": index,

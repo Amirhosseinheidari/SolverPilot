@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import InitVar, dataclass, field
 from typing import Sequence
 
 import numpy as np
@@ -106,7 +106,9 @@ class QuadraticProblem:
     structural_hash: str = field(init=False)
     data_hash: str = field(init=False)
 
-    def __post_init__(self) -> None:
+    _verify_convexity: InitVar[bool] = field(default=False, kw_only=True)
+
+    def __post_init__(self, _verify_convexity: bool) -> None:
         if self.linear.objective_sense is not ObjectiveSense.MINIMIZE:
             raise ValueError("v0.1 QuadraticProblem currently supports convex minimization only")
         if self.linear.has_integer_variables:
@@ -117,9 +119,11 @@ class QuadraticProblem:
             raise ValueError(f"P must have shape ({n}, {n}), got {P_raw.shape}")
         P = _canonicalize_hessian(P_raw)
         status = ConvexityStatus(self.convexity_status)
+        if _verify_convexity:
+            status = _check_convexity(P)
         if status is ConvexityStatus.REJECTED:
-            raise ValueError("nonconvex quadratic objectives are out of scope for v0.1")
-        if status is ConvexityStatus.CONFIRMED:
+            raise ValueError("P is not positive semidefinite; nonconvex quadratic objectives are unsupported")
+        if status is ConvexityStatus.CONFIRMED and not _verify_convexity:
             checked = _check_convexity(P)
             if checked is not ConvexityStatus.CONFIRMED:
                 raise ValueError("P is not independently confirmed positive semidefinite")
@@ -185,8 +189,7 @@ class QuadraticProblem:
             objective_offset=objective_offset,
             metadata={} if metadata is None else metadata,
         )
-        P_csr = _canonicalize_hessian(_readonly_csr(P))
-        status = _check_convexity(P_csr) if verify_convexity else ConvexityStatus.UNKNOWN
-        if status is ConvexityStatus.REJECTED:
-            raise ValueError("P is not positive semidefinite within scale-aware tolerance")
-        return cls(linear=linear, P=P_csr, convexity_status=status, metadata={} if metadata is None else metadata)
+        return cls(linear=linear, P=sparse.csr_matrix(P),
+                   convexity_status=ConvexityStatus.UNKNOWN,
+                   metadata={} if metadata is None else metadata,
+                   _verify_convexity=verify_convexity)

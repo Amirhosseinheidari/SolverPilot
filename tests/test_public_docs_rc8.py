@@ -37,11 +37,11 @@ def test_readme_covers_requested_public_user_path():
         assert phrase in text, phrase
 
 
-def test_readme_installation_does_not_claim_pypi_is_already_live():
+def test_readme_installation_points_to_public_package_and_repository():
     text = README.read_text(encoding="utf-8")
     install = text.split("## Installation", 1)[1].split("## Quick Start", 1)[0]
-    assert "After the first public release" in install
-    assert "git clone <REPOSITORY_URL>" in install
+    assert "python -m pip install solverpilot" in install
+    assert "git clone https://github.com/Amirhosseinheidari/SolverPilot.git" in install
 
 
 def test_readme_optional_extras_match_pyproject():
@@ -83,6 +83,9 @@ def test_expected_public_examples_exist():
         "12_cp_reference.py",
         "13_cp_sat_optional.py",
         "14_persistent_session_optional.py",
+        "15_named_model_and_quality.py",
+        "16_direct_conic.py",
+        "17_batch_scenarios.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

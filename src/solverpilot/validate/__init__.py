@@ -8,3 +8,6 @@ __all__ = [
     "ValidationTolerances",
     "validate_solution",
 ]
+
+from .optimality import OptimalityCheck, verify_optimality, verify_infeasibility, verify_unboundedness
+__all__ += ["OptimalityCheck", "verify_optimality", "verify_infeasibility", "verify_unboundedness"]

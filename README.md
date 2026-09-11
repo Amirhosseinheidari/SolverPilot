@@ -1,6 +1,6 @@
 # SolverPilot
 
-> **Current version:** `0.1`. This release promotes the published `0.1.0rc2` code with no algorithm or API changes. Performance improvements are deferred to a future version. Every publication still requires exact-artifact qualification.
+> **Current version:** `0.2`. Adds configurable validation, numerical optimality checks, faster preparation, owned reoptimization sessions, bounded batch execution, modeling conveniences and a direct Clarabel conic adapter. Historical `0.1.0rc2` correctness/trust hardening remains in place.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
@@ -37,7 +37,7 @@ The extended APIs are canonically imported from submodules such as `solverpilot.
 
 ### Verified trust, evaluation, extension, and application layers
 
-The `0.1` release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
+The `0.2` release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
 
 - `solverpilot.io`: strict local JSON/CSV ingestion, bounded reads, explicit mapping, content hashes, and source provenance;
 - `solverpilot.evaluation`: direct-run oracle construction and decomposed quality/runtime/failure regret;
@@ -95,7 +95,7 @@ Optional integrations are installed separately. OR-Tools 9.15 provides Python 3.
 
 ### From PyPI
 
-After the first public release:
+Install the latest published release from PyPI:
 
 ```bash
 python -m pip install solverpilot
@@ -104,7 +104,7 @@ python -m pip install solverpilot
 ### From the repository before PyPI publication
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone https://github.com/Amirhosseinheidari/SolverPilot.git
 cd solverpilot
 python -m pip install .
 ```
@@ -266,7 +266,7 @@ print(result.algorithm)
 print(result.globally_proven)
 ```
 
-`globally_proven=True` is emitted only when the certified scope, original-space validation, and bound-closure conditions all pass. In `0.1` this is a **solver-certified proof under the compiler's convexity assumptions**, not an independently reconstructed end-to-end proof; inspect `result.proof_scope` and `result.independently_verified_global`. General integer, nonconvex, nonlinear-equality, and indicator+MINLP compositions remain fail-closed.
+`globally_proven=True` is emitted only when the certified scope, original-space validation, and bound-closure conditions all pass. In `0.2` this is a **solver-certified proof under the compiler's convexity assumptions**, not an independently reconstructed end-to-end proof; inspect `result.proof_scope` and `result.independently_verified_global`. General integer, nonconvex, nonlinear-equality, and indicator+MINLP compositions remain fail-closed.
 
 See [`examples/11_minlp_optional.py`](examples/11_minlp_optional.py).
 
@@ -388,6 +388,7 @@ A native patch is selected only when the exact granular capability and persisten
 | SCIP | `python -m pip install "solverpilot[scip]"` | PySCIPOpt adapter |
 | NLopt | `python -m pip install "solverpilot[nlopt]"` | NLopt SLSQP integration |
 | CasADi | `python -m pip install "solverpilot[casadi]"` | pinned CasADi 3.7.2 verification bridge |
+| Clarabel | `python -m pip install "solverpilot[clarabel]"` | direct convex conic solver, including PSD, exponential and power cones |
 | Conic | `python -m pip install "solverpilot[conic]"` | CasADi-based conic verification path |
 | NLP | `python -m pip install "solverpilot[nlp]"` | CasADi 3.7.2 + Ipopt path |
 | MINLP | `python -m pip install "solverpilot[minlp]"` | dependencies for certified binary MINLP orchestration |
@@ -476,3 +477,7 @@ Normal CI targets Python 3.12–3.14. The exact-artifact cross-platform release 
 ## License
 
 SolverPilot is licensed under the [Apache License 2.0](LICENSE). Apache-2.0 permits commercial and closed-source use subject to its terms. It does not grant trademark rights.
+
+## Version 0.2 guide
+
+See [the 0.2 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.2.md) for new APIs, installation, numerical guarantees, batch limits and examples.

@@ -5,6 +5,7 @@ import importlib.metadata
 from pathlib import Path
 
 EXTRA_PACKAGE = {
+    "clarabel": "clarabel",
     "highs": "highspy",
     "osqp": "osqp",
     "scip": "pyscipopt",
