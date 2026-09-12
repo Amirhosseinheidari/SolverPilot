@@ -95,14 +95,18 @@ def solve_any(
 
     options = options or SolveOptions()
     kwargs = expand_options({"options": options})
+    from solverpilot.globalopt import GlobalQuadraticProblem, FactorableProblem, solve_global
     if isinstance(problem, Model):
-        problem = problem.compile()
+        target = "global" if getattr(backend, "compile_target", None) == "global" or backend == "scip-global" else None
+        problem = problem.compile(target=target)
     if isinstance(problem, CompiledModel):
         result = (
             problem.solve(backend=backend, **kwargs)
             if backend is not None
             else problem.solve(**kwargs)
         )
+    elif isinstance(problem, (GlobalQuadraticProblem, FactorableProblem)):
+        result = solve_global(problem, backend=backend, **kwargs)
     elif isinstance(problem, (LinearProblem, QuadraticProblem)):
         from .specialized import core_controls
 
@@ -165,10 +169,11 @@ class UnverifiedSolutionError(RuntimeError):
 def solve_verified(
     problem: Any, *, backend: Any = None, options: SolveOptions | None = None
 ) -> tuple[SolutionSummary, Any]:
-    """Require a validated primal and independent, domain-corrected LP/QP bound.
+    """Require a validated primal and an independent, domain-corrected bound.
 
     Failure retains the result on UnverifiedSolutionError for inspection. This
-    is tolerance-qualified verification, not a proof about unrounded input.
+    Supported LP/QP and scoped SOC/RSOC/PSD witnesses are tolerance-qualified;
+    this is not a proof about unrounded input or generic global nonlinear models.
     """
     summary, result = solve_any(problem, backend=backend, options=options)
     if not summary.feasible or summary.optimality != "independent_numerical_bound":

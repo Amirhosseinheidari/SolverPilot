@@ -52,3 +52,5 @@ __all__ += [
 
 from .metadata import refresh_backend_metadata
 __all__.append("refresh_backend_metadata")
+from .pdlp import PDLPBackend
+__all__.append("PDLPBackend")

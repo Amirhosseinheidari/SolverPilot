@@ -8,10 +8,14 @@ import numpy as np
 
 
 def readonly_array(value: np.ndarray | Any, *, dtype=None) -> np.ndarray:
-    """Return an owned, read-only NumPy snapshot."""
-    arr = np.array(value, dtype=dtype, copy=True)
-    arr.flags.writeable = False
-    return arr
+    """Return an independent read-only snapshot, with immutable numeric storage."""
+    arr = np.asarray(value, dtype=dtype)
+    if arr.dtype.hasobject:
+        # Object pointers cannot safely be reconstructed from a byte buffer.
+        arr = arr.copy()
+        arr.flags.writeable = False
+        return arr
+    return np.frombuffer(arr.tobytes(order="C"), dtype=arr.dtype).reshape(arr.shape)
 
 
 def deep_freeze(value: Any) -> Any:

@@ -2,7 +2,7 @@ from .compiler import CompiledModel, CompilationReport, CompilerCacheInfo, compi
 from .errors import CompileError, DomainError, ModelingError, OwnershipError, ShapeError, SymbolicTruthValueError
 from .expression import Expression
 from .model import Constraint, IndicatorConstraint, Model, Objective, Parameter, PendingConstraint, Variable
-from .sets import EqualTo, GreaterThan, Interval, LessThan, ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
+from .sets import EqualTo, GreaterThan, Interval, LessThan, ExponentialCone, PowerCone, GeneralizedPowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
 from .types import Curvature, EntityId, NumericType, SignDomain
 
 
@@ -27,6 +27,6 @@ def sqrt(x): return x.sqrt()
 def tanh(x): return x.tanh()
 
 from .convenience import indexed_variables, soft_constraint, named_values, diagnose_model, SoftConstraint
-__all__ += ["ExponentialCone", "PowerCone", "indexed_variables", "soft_constraint", "named_values", "diagnose_model", "SoftConstraint"]
+__all__ += ["GeneralizedPowerCone", "ExponentialCone", "PowerCone", "indexed_variables", "soft_constraint", "named_values", "diagnose_model", "SoftConstraint"]
 from .atoms import abs, norm, huber, log_sum_exp, quad_form
 __all__ += ['abs', 'norm', 'huber', 'log_sum_exp', 'quad_form']

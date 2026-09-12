@@ -1,0 +1,51 @@
+{
+  "milestone": "RELEASE_0_4",
+  "notes": [
+    "Backend IDs remain stable across the SolverPilot pre-GitHub cleanup.",
+    "Verification-only adapters are never admitted to the default solving registry.",
+    "Availability of optional public backends remains environment-dependent.",
+    "The legacy optimind Python package is not shipped in SolverPilot 0.1.",
+    "Clarabel has a separate conic capability/conformance surface; it is not an LP/MILP registry entry.",
+    "Unified catalog includes specialized conic/NLP/CP adapters; the legacy LP/QP registry remains compatible.",
+    "Global and PDLP adapters are explicitly selected; existing default registry IDs are unchanged.",
+    "SCIP global bounds are solver-reported numerical evidence, not independent generic global certificates."
+  ],
+  "package_version": "0.4",
+  "production_baseline_policy": {
+    "convex_qp": "osqp-native when available; otherwise scipy-slsqp-qp-bridge for non-proof intents",
+    "learned_lp_performance_routing": false,
+    "lp": "scipy-highs-ds",
+    "milp": "scipy-highs-bridge"
+  },
+  "schema": "solverpilot.backend_contract.v1",
+  "stable_backend_ids": {
+    "base_runtime": [
+      "scipy-highs-ds",
+      "scipy-highs-ipm",
+      "scipy-highs-bridge",
+      "scipy-slsqp-qp-bridge"
+    ],
+    "optional_public": [
+      "highspy-native",
+      "osqp-native",
+      "pyscipopt-native",
+      "nlopt-slsqp-native"
+    ],
+    "verification_only": [
+      "casadi-osqp-bridge",
+      "casadi-highs-bridge",
+      "casadi-cbc-bridge",
+      "bundled-osqp-capi",
+      "bundled-highs-capi"
+    ]
+  },
+  "optional_conic_backends": [
+    "clarabel-native"
+  ],
+  "optional_global_backends": [
+    "scip-global"
+  ],
+  "optional_first_order_backends": [
+    "ortools-pdlp"
+  ]
+}

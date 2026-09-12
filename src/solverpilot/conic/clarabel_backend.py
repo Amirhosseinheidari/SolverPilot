@@ -70,6 +70,7 @@ class ClarabelBackend:
                 CapabilityKey.CONSTRAINT_LINEAR, CapabilityKey.CONSTRAINT_SOC,
                 CapabilityKey.CONSTRAINT_ROTATED_SOC, CapabilityKey.CONSTRAINT_PSD,
                 CapabilityKey.CONSTRAINT_EXPONENTIAL, CapabilityKey.CONSTRAINT_POWER,
+                CapabilityKey.CONSTRAINT_GENERALIZED_POWER,
                 CapabilityKey.RESULT_PRIMAL, CapabilityKey.RESULT_OBJECTIVE)
         return BackendCapabilityManifestV2(
             backend=self.name, backend_version=self.binding_version or 'unavailable',
@@ -102,27 +103,37 @@ class ClarabelBackend:
             return ConicSolveResult(self.name, 'Cancelled', None, None,
                 validate_conic_solution(problem, None), {'run_parameters': parameters}, problem.data_hash)
         matrices, rhs, cones = [], [], []
+        linear_segments, cone_segments = [], []
+        transport_size = 0
 
         def append(A, b, cone):
+            nonlocal transport_size
+            segment = slice(transport_size, transport_size+np.asarray(b).size)
+            transport_size = segment.stop
             matrices.append(sparse.csc_matrix(A)); rhs.append(np.asarray(b).reshape(-1)); cones.append(cone)
+            return segment
 
         A = sparse.vstack([problem.A, sparse.eye(problem.n_variables)], format='csr')
         lo = np.r_[problem.constraint_lower, problem.variable_lower]
         hi = np.r_[problem.constraint_upper, problem.variable_upper]
         eq = np.isfinite(lo) & (lo == hi)
         if np.any(eq):
-            append(A[eq], lo[eq], clarabel.ZeroConeT(int(eq.sum())))
+            segment = append(A[eq], lo[eq], clarabel.ZeroConeT(int(eq.sum())))
+            linear_segments.append((np.flatnonzero(eq),1,segment))
         for mask, sign, bound in [(np.isfinite(hi) & ~eq, 1, hi), (np.isfinite(lo) & ~eq, -1, lo)]:
             if np.any(mask):
-                append(sign*A[mask], sign*bound[mask], clarabel.NonnegativeConeT(int(mask.sum())))
+                segment = append(sign*A[mask], sign*bound[mask], clarabel.NonnegativeConeT(int(mask.sum())))
+                linear_segments.append((np.flatnonzero(mask),sign,segment))
         for block in problem.cones:
             F, g = block.F, block.g
             if block.kind is ConeKind.EXPONENTIAL:
-                append(-F, g, clarabel.ExponentialConeT())
+                segment = append(-F, g, clarabel.ExponentialConeT())
             elif block.kind is ConeKind.POWER:
-                append(-F, g, clarabel.PowerConeT(float(block.metadata['alpha'])))
+                segment = append(-F, g, clarabel.PowerConeT(float(block.metadata['alpha'])))
+            elif block.kind is ConeKind.GENERALIZED_POWER:
+                segment = append(-F, g, clarabel.GenPowerConeT(list(block.metadata["weights"]), block.metadata["tail_dimension"]))
             elif block.kind is ConeKind.SECOND_ORDER:
-                append(-F, g, clarabel.SecondOrderConeT(block.dimension))
+                segment = append(-F, g, clarabel.SecondOrderConeT(block.dimension))
             elif block.kind is ConeKind.ROTATED_SECOND_ORDER:
                 d = block.dimension
                 T = sparse.lil_matrix((d, d))
@@ -131,7 +142,7 @@ class ClarabelBackend:
                 for i in range(2, d):
                     T[i, i] = np.sqrt(2.)
                 T = T.tocsr()
-                append(-(T@F), T@g, clarabel.SecondOrderConeT(d))
+                segment = append(-(T@F), T@g, clarabel.SecondOrderConeT(d))
             elif block.kind is ConeKind.POSITIVE_SEMIDEFINITE:
                 n = block.output_shape[0]
                 indices, factors, symmetry_rows, symmetry_rhs = [], [], [], []
@@ -144,9 +155,10 @@ class ClarabelBackend:
                 if symmetry_rows:
                     append(sparse.vstack(symmetry_rows), symmetry_rhs, clarabel.ZeroConeT(len(symmetry_rows)))
                 S = sparse.diags(factors)
-                append(-(S@F[indices]), S@g[indices], clarabel.PSDTriangleConeT(n))
+                segment = append(-(S@F[indices]), S@g[indices], clarabel.PSDTriangleConeT(n))
             else:
                 raise ValueError(f'unsupported cone: {block.kind}')
+            cone_segments.append(segment)
         settings = clarabel.DefaultSettings()
         settings.verbose = self.verbose; settings.max_iter = self.max_iter
         settings.max_threads = self.threads
@@ -206,14 +218,43 @@ class ClarabelBackend:
         if x is not None:
             from solverpilot._immutability import readonly_array
             x = readonly_array(x, dtype=float)
+        canonical_dual = np.zeros(problem.n_linear_constraints+problem.n_variables)
+        transport_dual = np.asarray(result.z,dtype=float)
+        for indices,sign,segment in linear_segments:
+            canonical_dual[indices] += sign*transport_dual[segment]
+        cone_duals = []
+        from .optimality import repair_dual, verify_conic_optimality
+        for block,segment in zip(problem.cones,cone_segments):
+            z = transport_dual[segment].copy()
+            if block.kind is ConeKind.ROTATED_SECOND_ORDER:
+                z = np.r_[z[0]+z[1],z[0]-z[1],np.sqrt(2.)*z[2:]]
+            elif block.kind is ConeKind.POSITIVE_SEMIDEFINITE:
+                dim = block.output_shape[0];M = np.zeros((dim,dim));k = 0
+                for j in range(dim):
+                    for i in range(j+1):
+                        M[i,j] = M[j,i] = z[k] if i==j else z[k]/np.sqrt(2.)
+                        k += 1
+                z = M
+            cone_duals.append(repair_dual(block.kind,z))
+        proof = verify_conic_optimality(problem,x,canonical_dual,cone_duals,tolerances=tol) if x is not None else None
+        from dataclasses import asdict
         return ConicSolveResult(self.name, status, x, objective, validation, {
             'binding_version': self.binding_version, 'iterations': result.iterations,
-            'backend_reported_optimal': status == 'Solved', 'independently_verified_optimal': False,
+            'backend_reported_optimal': status == 'Solved',
+            'independently_verified_optimal': bool(proof and proof.verified and validation.valid),
+            'optimality_check': None if proof is None else asdict(proof),
+            'canonical_linear_dual': canonical_dual, 'canonical_cone_duals': cone_duals,
+            'solverpilot_trust': {'primal_validated': validation.valid,
+                'dual_verified': bool(proof and proof.dual_valid), 'gap_verified': bool(proof and proof.verified and validation.valid)},
             'backend_build_s': built-start, 'solve_s': solved-built,
             'validate_s': perf_counter()-solved,
             'primal_residual_reported': result.r_prim, 'dual_residual_reported': result.r_dual,
             'termination_evidence': 'backend_reported',
             'reuse_applied': reused, 'reuse_mode': 'same_sparsity_update' if reused else 'cold_setup',
+            'reuse_report': {'workspace': 'observed' if reused else 'not_used',
+                             'primal_dual_start': 'unknown', 'symbolic_factorization': 'unknown',
+                             'numeric_factorization': 'unknown',
+                             'reason': 'same sparsity data update' if reused else 'cold setup or changed structure/settings'},
             'transport_dual': result.z, 'transport_slack': result.s,
             'run_parameters': parameters,
         }, problem.data_hash)
@@ -244,6 +285,10 @@ def _runtime_conformance(binding_version):
         m.add_in_set(x, ExponentialCone()); m.minimize(x[2]); cases.append((m, np.e))
         m = Model(); x = m.variable(3, lower=[4., 1., -10.], upper=[4., 1., 10.])
         m.add_in_set(x, PowerCone(.5)); m.minimize(-x[2]); cases.append((m, -2.))
+        from solverpilot.model.sets import GeneralizedPowerCone
+        m = Model(); x = m.variable(5, lower=[1,4,9,-10,-10], upper=[1,4,9,10,10])
+        m.add_in_set(x, GeneralizedPowerCone((.2,.3,.5), 2)); m.minimize(-x[3])
+        cases.append((m, -float(np.exp(np.dot([.2,.3,.5], np.log([1,4,9]))))))
         for model, objective in cases:
             r = ClarabelBackend().solve(model.compile(use_cache=False).execution_ir)
             if not r.validated or r.objective_reported is None or abs(r.objective_reported-objective) > 2e-5:

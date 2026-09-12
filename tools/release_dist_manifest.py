@@ -113,6 +113,9 @@ def main() -> int:
             "examples/19_convex_atoms_optional.py",
             "examples/20_streaming_reuse.py",
             "examples/21_checked_run_replay.py",
+            "examples/22_global_optimization_optional.py",
+            "examples/23_generalized_power_optional.py",
+            "examples/24_pdlp_and_certificates_optional.py",
         ]
         sdist_required = {item: any(n.endswith("/" + item) for n in sdist_names) for item in required}
         legacy_sdist_members = [n for n in sdist_names if "/optimind/" in n or n.endswith("/optimind")]

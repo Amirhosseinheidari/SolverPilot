@@ -6,6 +6,8 @@ def backend_catalog():
     from solverpilot.conic import ClarabelBackend, CasadiSuperSCSBackend
     from solverpilot.nlp import CasadiIpoptBackend
     from solverpilot.cp import ORToolsCPSATBackend
+    from solverpilot.globalopt import SCIPGlobalBackend
+    from solverpilot.backends.pdlp import PDLPBackend
 
     result = {b.manifest.name: b for b in builtin_backend_candidates()}
     for backend in (
@@ -13,6 +15,8 @@ def backend_catalog():
         CasadiSuperSCSBackend(),
         CasadiIpoptBackend(),
         ORToolsCPSATBackend(),
+        SCIPGlobalBackend(),
+        PDLPBackend(),
     ):
         result[backend.name] = backend
     return result
@@ -37,6 +41,20 @@ def verify_specialized_backend(backend):
 
             return _runtime_conformance(backend.binding_version)
         from solverpilot.model import Model
+
+        if backend.name == "scip-global":
+            from solverpilot.globalopt.capabilities import global_conformance
+            from solverpilot.backends.metadata import version
+            return global_conformance(version("pyscipopt"))
+
+        if backend.name == "ortools-pdlp":
+            from solverpilot.problem import LinearProblem
+            from solverpilot.runtime import solve
+            import numpy as np
+            p = LinearProblem.from_data(A=np.empty((0,1)), c=[1],variable_lower=[1],
+                variable_upper=[2],constraint_lower=[],constraint_upper=[])
+            r = solve(p, backend=backend)
+            return r.validation.valid and abs(r.objective-1)<1e-7
 
         if backend.name == "casadi-ipopt-nlp-bridge":
             import numpy as np

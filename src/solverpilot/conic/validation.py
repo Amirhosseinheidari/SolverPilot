@@ -70,9 +70,27 @@ def _psd_check(M: np.ndarray, *, atol: float, rtol: float) -> tuple[bool, float,
     return bool(symmetry_ok and scaled_eigmin >= -psd_tol), asym, eigmin, scaled_eigmin
 
 
-def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, source_id: str | None, alpha: float | None = None) -> ConeCheck:
+def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, source_id: str | None, alpha: float | None = None, weights=None) -> ConeCheck:
     if not np.isfinite(value).all():
         return ConeCheck(source_id, kind, False, float("inf"), "non-finite cone activity")
+    if kind is ConeKind.GENERALIZED_POWER:
+        y = np.asarray(value, dtype=float).reshape(-1)
+        if weights is None:
+            raise ValueError("generalized power weights required")
+        count = len(weights)
+        heads, tail = y[:count], y[count:]
+        if any(v < -_scaled_tol(atol, rtol, v) for v in heads):
+            return ConeCheck(source_id, kind, False, float("inf"), "negative generalized power coordinate")
+        # Normalize by a common scale before products/norms, preserving homogeneity.
+        scale = max(1., float(np.max(np.abs(y))))
+        normalized = y / scale
+        h = normalized[:count]
+        product = math.exp(math.fsum(float(w)*math.log(float(v)) for w,v in zip(weights,h))) if np.all(h > 0) else 0.
+        norm = math.hypot(*normalized[count:])
+        violation = max(0., norm-product, -float(np.min(h)))
+        tolerance = atol/scale+rtol*max(1./scale, norm, product)
+        return ConeCheck(source_id, kind, violation <= tolerance, violation*scale,
+                         f"normalized_gap={violation}, normalized_tolerance={tolerance}")
     if kind in (ConeKind.EXPONENTIAL, ConeKind.POWER):
         scale = max(1., float(np.max(np.abs(value))))
         a, b, c = np.asarray(value).reshape(-1)/scale
@@ -164,7 +182,7 @@ def validate_conic_solution(
         rtol=rtol,
         extra_scale=row_scale,
     )
-    checks = tuple(_cone_check(c.kind, c.value(x), atol=atol, rtol=rtol, source_id=c.source_id, alpha=c.metadata.get("alpha")) for c in problem.cones)
+    checks = tuple(_cone_check(c.kind, c.value(x), atol=atol, rtol=rtol, source_id=c.source_id, alpha=c.metadata.get("alpha"), weights=c.metadata.get("weights")) for c in problem.cones)
     cone_viol = max((c.violation for c in checks), default=0.0)
     objective = problem.objective_value(x)
     valid = bool(vars_ok and linear_ok and all(c.valid for c in checks) and np.isfinite(objective))

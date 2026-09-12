@@ -1,12 +1,12 @@
 def legacy_signature(obj):
-    """Project only documented 0.2 optional additions out of historical signatures."""
+    """Project documented additive optional parameters out of historical signatures."""
     import inspect
     additions = {
         "PhaseTimings": {"backend_update_s", "backend_total_s"},
         "QuadraticProblem": {"_verify_convexity"},
         "ValidationTolerances": {"feasibility_rel"},
-        "execute": {"tolerances"}, "solve": {"tolerances"},
-        "solve_production": {"tolerances"}, "execute_portfolio": {"tolerances"},
+        "execute": {"tolerances"}, "solve": {"tolerances", "certificate_recovery"},
+        "solve_production": {"tolerances", "certificate_recovery"}, "execute_portfolio": {"tolerances"},
     }
     try:
         sig = inspect.signature(obj)

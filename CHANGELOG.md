@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4 — Conservative certificates and explicit global optimization
+
+- Reject the near-indefinite QP counterexample; require exact represented-data PSD evidence before independent QP bounds.
+- Add a separate matrix nonconvex QP/MIQP IR and bounded factorable SCIP global path, including nonlinear equalities, two-sided rows, general integers, explicit nonsmooth atoms and interval-certified indicators.
+- Add generalized power cone modeling, hashing, Clarabel transport and original-space validation.
+- Reconstruct Clarabel duals and check conservative original-domain SOC/RSOC/PSD bounds; leave unsupported dual membership explicitly unverified.
+- Add isolated CPU PDLP for LP and diagonal convex QP, with canonical duals and wall budgets.
+- Preserve ambiguous primal status for PDLP dual infeasibility; require a checked feasible origin before claiming primal unboundedness.
+- Add optional bounded LP witness recovery and independent rechecking; expose `certificate_recovery` on high-level solve calls.
+- Skip OSQP matrix updates for vector-only edits and expose common reuse observations without claiming factorization reuse.
+- Add shadow policy observations and exact/GPU prerequisite probes, with production learned routing and unqualified integrations disabled.
+- Harden global model snapshots, domains, callback cleanup and numerical result storage; add analytic, exhaustive-reference and adversarial regressions.
+- Preserve historical API/release artifacts; current top-level signatures gain only the documented optional recovery keyword.
+
 ## 0.3 — Numerical trust, sparse modeling and scenario analysis
 
 - Correct Farkas, recession and LP/QP optimality checks using domain-aware bounds and exact operations on represented binary64 coefficients. Bound free QP residuals when a conservative strong-convexity bound is available.

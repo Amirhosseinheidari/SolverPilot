@@ -14,7 +14,7 @@ from solverpilot.problem import ObjectiveSense, VariableDomain
 from solverpilot.model.errors import CompileError
 from solverpilot.model.sets import (
     EqualTo, GreaterThan, Interval, LessThan,
-    ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone,
+    ExponentialCone, PowerCone, GeneralizedPowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone,
 )
 
 from .ir import ConeAffineBlock, ConeKind, ConicProblem
@@ -134,6 +134,8 @@ def _build_conic(model, *, cache_status: str, changed_parameters: tuple[str, ...
             kind, expected = ConeKind.EXPONENTIAL, (3,)
         elif isinstance(set_, PowerCone):
             kind, expected = ConeKind.POWER, (3,)
+        elif isinstance(set_, GeneralizedPowerCone):
+            kind, expected = ConeKind.GENERALIZED_POWER, (set_.dimension,)
         elif isinstance(set_, SecondOrderCone):
             kind = ConeKind.SECOND_ORDER
             expected = (set_.dimension,)
@@ -149,7 +151,9 @@ def _build_conic(model, *, cache_status: str, changed_parameters: tuple[str, ...
         if shape != expected:
             raise CompileError(f"cone shape mismatch for {cid}: expected {expected}, got {shape}")
         index = len(cones)
-        cones.append(ConeAffineBlock(kind, F, g, expected, source_id=cid, metadata={"parameter_dependencies": deps, **({"alpha": set_.alpha} if isinstance(set_, PowerCone) else {})}))
+        extra = {"alpha": set_.alpha} if isinstance(set_, PowerCone) else (
+            {"weights": set_.weights, "tail_dimension": set_.tail_dimension} if isinstance(set_, GeneralizedPowerCone) else {})
+        cones.append(ConeAffineBlock(kind, F, g, expected, source_id=cid, metadata={"parameter_dependencies": deps, **extra}))
         source_constraints[cid] = {
             "semantic_kind": kind.value,
             "cone_block": index,

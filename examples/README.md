@@ -46,3 +46,9 @@ Optional scripts exit successfully with an explanatory message when their verifi
 19: convex Huber loss and norm constraint (optional Clarabel).
 20: streaming batches with bounded lookahead and persistent processes.
 21: checked numerical optimum and opt-in JSON replay.
+
+## 0.4 additions
+
+- `22_global_optimization_optional.py`: bounded general MINLP with nonsmooth terms and indicators.
+- `23_generalized_power_optional.py`: multidimensional power cone.
+- `24_pdlp_and_certificates_optional.py`: CPU PDLP and independent LP witness recovery.

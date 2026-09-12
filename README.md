@@ -1,6 +1,6 @@
 # SolverPilot
 
-> **Current version:** `0.3`. Repairs scale-sensitive numerical certificates, preserves sparse model data and solver workspaces, and adds convex atoms, streaming batches, sensitivity, scenarios, robust counterparts and application templates. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.3 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.3.md) for examples and precise guarantees.
+> **Current version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
@@ -33,11 +33,11 @@ SolverPilot has two complementary layers.
 - proof-aware **certified convex binary MINLP** orchestration;
 - integer/Boolean/interval constraint programming with an exhaustive reference backend and optional OR-Tools CP-SAT.
 
-The extended APIs are canonically imported from submodules such as `solverpilot.model`, `solverpilot.conic`, `solverpilot.nlp`, `solverpilot.minlp`, and `solverpilot.cp`. The M30-frozen top-level `solverpilot.__all__` surface remains unchanged in this merge candidate.
+The extended APIs are canonically imported from submodules such as `solverpilot.model`, `solverpilot.conic`, `solverpilot.nlp`, `solverpilot.minlp`, `solverpilot.globalopt`, and `solverpilot.cp`. The M30-frozen top-level `solverpilot.__all__` surface remains unchanged in this release.
 
 ### Verified trust, evaluation, extension, and application layers
 
-The `0.2` release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
+The current release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
 
 - `solverpilot.io`: strict local JSON/CSV ingestion, bounded reads, explicit mapping, content hashes, and source provenance;
 - `solverpilot.evaluation`: direct-run oracle construction and decomposed quality/runtime/failure regret;
@@ -59,12 +59,15 @@ These APIs remain submodule-scoped and do not change the frozen 78-symbol top-le
 | Continuous convex QP | ✅ solve | validated candidate; bridge-specific optimality claims stay conservative |
 | Semantic LP/MILP/QP modeling | ✅ | compiles to canonical core IR |
 | Indicator constraints | ✅ restricted exact bridges | fixed-state simplification or finite-bound-certified Big-M; otherwise fail-closed |
-| SOC | ✅ representation/validation; verified restricted solve path | linear-objective supported verification path only |
-| RSOC | ✅ representation/validation; verified restricted solve path | exact map to SOC in verified path |
-| PSD | ✅ representation/validation | generic PSD solving is not authorized by current conformance evidence |
+| SOC | ✅ direct Clarabel + original validation | conservative independent original-domain bounds when dual evidence is available |
+| RSOC | ✅ direct Clarabel + original validation | reconstructed duals and exact cone membership checks |
+| PSD | ✅ direct Clarabel + original validation | independent bounds require conservative PSD evidence; generic matrices can remain unverified |
+| Exponential / power / generalized power | ✅ direct Clarabel | numerical original-space validation; independent dual certification remains unsupported |
 | Smooth continuous NLP | ✅ optional | local-optimal candidate only after validation/KKT checks; **no global NLP proof** |
 | Convex binary MINLP | ✅ restricted | `globally_proven` is solver-certified inside the certified P8 binary/convex scope; `independently_verified_global` remains false until the full proof chain is independently reconstructed |
-| General integer/nonconvex MINLP | ❌ | fail-closed |
+| Nonconvex QP / MIQP | ✅ explicit `GlobalQuadraticProblem` / SCIP | solver-reported numerical global bound; original candidate validation |
+| General integer/nonconvex MINLP | ✅ explicit bounded factorable SCIP path | nonlinear equality/two-sided rows, abs/max/min and interval-certified indicators; no independent generic global proof |
+| CPU PDLP | ✅ optional LP / diagonal convex QP | isolated worker; explicit selection |
 | Constraint programming | ✅ reference solver | exhaustive proof only within reference state budget |
 | OR-Tools CP-SAT | ✅ optional | exact verified integration target: OR-Tools `9.15.6755` |
 | TSP application | ✅ reference / MILP / restricted CP / heuristics | independent route validation; only exhaustive reference paths issue an independent optimality proof |
@@ -79,7 +82,7 @@ These APIs remain submodule-scoped and do not change the frozen 78-symbol top-le
 - Local-file symlink/path checks are fail-closed for static paths, but they are not a sandbox against a hostile process racing filesystem entries between validation and open.
 - `HistoryStore` is a local plaintext SQLite store. It is opt-in and minimizes persisted solver/problem payloads, but it is not encrypted and caller-supplied metadata can still contain sensitive information.
 - TSP/VRP exact reference algorithms are exponential and intentionally state-budgeted; the routing layer does not yet claim pickup-and-delivery, split delivery, stochastic travel time, live traffic, or real-time redispatch support.
-- The local salvage qualification environment did not contain the exact release build pins or OR-Tools runtime; those remain external release gates rather than locally claimed passes.
+- Exact SCIP and cuOpt GPU execution adapters are not shipped; readiness probes cannot qualify execution. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md).
 
 ## Requirements
 
@@ -386,6 +389,8 @@ A native patch is selected only when the exact granular capability and persisten
 | HiGHS | `python -m pip install "solverpilot[highs]"` | public `highspy` native adapter |
 | OSQP | `python -m pip install "solverpilot[osqp]"` | public OSQP Python adapter |
 | SCIP | `python -m pip install "solverpilot[scip]"` | PySCIPOpt adapter |
+| Global | `python -m pip install "solverpilot[global]"` | explicit SCIP nonconvex QP/MIQP/bounded MINLP |
+| PDLP | `python -m pip install "solverpilot[pdlp]"` | isolated CPU LP/diagonal convex QP |
 | NLopt | `python -m pip install "solverpilot[nlopt]"` | NLopt SLSQP integration |
 | CasADi | `python -m pip install "solverpilot[casadi]"` | pinned CasADi 3.7.2 verification bridge |
 | Clarabel | `python -m pip install "solverpilot[clarabel]"` | direct convex conic solver, including PSD, exponential and power cones |
@@ -402,18 +407,19 @@ An upstream package being installable is not by itself SolverPilot integration e
 ## What is not supported or not claimed yet
 
 - learned LP performance routing in production;
-- nonconvex continuous QP in the matrix-first QP path;
-- mixed-integer `QuadraticProblem` / general MIQP as a stable matrix-first path;
-- exponential/power/generalized-power cone families;
-- generic verified PSD solving;
-- global optimality for generic NLP;
-- nonsmooth generic NLP atoms such as arbitrary `abs/max/min`;
-- general-integer or nonconvex/global MINLP;
+- nonconvex or integer variables in the existing convex `QuadraticProblem`; use the separate `GlobalQuadraticProblem`;
+- independent verification for every PSD matrix or transcendental cone dual;
+- independent global optimality for arbitrary NLP/MINLP functions;
+- nonsmooth atoms on the smooth Ipopt path; supported abs/max/min are available on the explicit bounded global path;
+- exact SCIP and GPU execution adapters; readiness probes alone do not qualify them;
 - nonlinear equalities/two-sided nonlinear constraints in the current MINLP proof path;
-- indicator+MINLP bridge composition;
+- global indicator bodies without a provable finite interval enclosure;
 - automatic guarantee that repeated solves use native warm starts/factorization reuse;
 - automatic independent certificates for every infeasible/unbounded backend termination;
-- a per-call validation-tolerance argument on high-level `solve()` / `solve_production()`.
+
+Per-call `tolerances=ValidationTolerances(...)` is available on `solve()` and
+`solve_production()`. The [0.4 scope table](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md#scope-against-the-research-checklist)
+maps each research item to its implemented API and remaining boundary.
 
 See [Known Limitations](KNOWN-LIMITATIONS.md).
 
@@ -439,14 +445,17 @@ Extended modeling:
 13. [`13_cp_sat_optional.py`](examples/13_cp_sat_optional.py) — optional OR-Tools CP-SAT
 14. [`14_persistent_session_optional.py`](examples/14_persistent_session_optional.py) — persistent semantic-model session
 
-See [`examples/README.md`](examples/README.md).
+New in 0.4: [global optimization](examples/22_global_optimization_optional.py),
+[generalized power](examples/23_generalized_power_optional.py), and
+[PDLP/certificate recovery](examples/24_pdlp_and_certificates_optional.py).
+See all 24 examples in [`examples/README.md`](examples/README.md).
 
 ## API Reference
 
 - [Stable top-level Public API](docs/api/PUBLIC-API-v1.md)
 - [Extended Modeling API](docs/api/EXTENDED-MODELING-API.md)
-- [Current frozen top-level API snapshot](PUBLIC-API-V0_1_0RC2.json)
-- [Current core backend contract](BACKEND-CONTRACT-V0_1_0RC2.json)
+- [Current frozen top-level API snapshot](PUBLIC-API-V0_4_0.json)
+- [Current core backend contract](BACKEND-CONTRACT-V0_4_0.json)
 - [Track P merge provenance](TRACK-P-MERGE-PROVENANCE.json)
 
 ## Trust and provenance

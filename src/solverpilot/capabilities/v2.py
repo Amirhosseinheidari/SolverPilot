@@ -40,6 +40,8 @@ class CapabilityKey(str, Enum):
     PROBLEM_LP = "problem.lp"
     PROBLEM_MILP = "problem.milp"
     PROBLEM_CONVEX_QP = "problem.convex_qp"
+    PROBLEM_NONCONVEX_QP = "problem.nonconvex_qp"
+    PROBLEM_MIQP = "problem.miqp"
     PROBLEM_CONIC = "problem.conic"
     PROBLEM_CONIC_QUADRATIC = "problem.conic_quadratic"
     PROBLEM_NLP = "problem.nlp"
@@ -53,6 +55,7 @@ class CapabilityKey(str, Enum):
     CONSTRAINT_SOS2 = "constraint.sos2"
     CONSTRAINT_EXPONENTIAL = "constraint.exponential"
     CONSTRAINT_POWER = "constraint.power"
+    CONSTRAINT_GENERALIZED_POWER = "constraint.generalized_power"
     CONSTRAINT_SOC = "constraint.soc"
     CONSTRAINT_ROTATED_SOC = "constraint.rotated_soc"
     CONSTRAINT_PSD = "constraint.psd"
@@ -673,6 +676,8 @@ def requirements_v2_for(problem) -> CapabilityRequirementsV2:
             keys.append(CapabilityKey.CONSTRAINT_EXPONENTIAL)
         if ConeKind.POWER in kinds:
             keys.append(CapabilityKey.CONSTRAINT_POWER)
+        if ConeKind.GENERALIZED_POWER in kinds:
+            keys.append(CapabilityKey.CONSTRAINT_GENERALIZED_POWER)
         if ConeKind.SECOND_ORDER in kinds:
             keys.append(CapabilityKey.CONSTRAINT_SOC)
         if ConeKind.ROTATED_SECOND_ORDER in kinds:

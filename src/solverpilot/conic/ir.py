@@ -19,6 +19,7 @@ from solverpilot.problem.hashing import _hash_parts, hash_sparse_matrix
 class ConeKind(str, Enum):
     EXPONENTIAL = "exponential"
     POWER = "power"
+    GENERALIZED_POWER = "generalized_power"
     SECOND_ORDER = "second_order"
     ROTATED_SECOND_ORDER = "rotated_second_order"
     POSITIVE_SEMIDEFINITE = "positive_semidefinite"
@@ -87,7 +88,14 @@ class ConeAffineBlock:
             raise ValueError(f"cone F has {F.shape[0]} rows but output_shape requires {expected}")
         if g.shape != (expected,):
             raise ValueError(f"cone g must have shape ({expected},), got {g.shape}")
-        if kind in (ConeKind.EXPONENTIAL, ConeKind.POWER):
+        metadata = dict(self.metadata)
+        if kind is ConeKind.GENERALIZED_POWER:
+            from solverpilot.model.sets import GeneralizedPowerCone
+            cone = GeneralizedPowerCone(metadata.get("weights", ()), metadata.get("tail_dimension", 1))
+            if shape != (cone.dimension,):
+                raise ValueError("generalized power dimension does not match weights and tail")
+            metadata.update(weights=cone.weights, tail_dimension=cone.tail_dimension)
+        elif kind in (ConeKind.EXPONENTIAL, ConeKind.POWER):
             if shape != (3,):
                 raise ValueError('exponential and power cones require shape (3,)')
             if kind is ConeKind.POWER:
@@ -108,10 +116,11 @@ class ConeAffineBlock:
         object.__setattr__(self, "F", F)
         object.__setattr__(self, "g", g)
         object.__setattr__(self, "output_shape", shape)
-        object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
+        object.__setattr__(self, "metadata", MappingProxyType(metadata))
         structural = _hash_parts([
             kind.value.encode(),
             *([repr(float(self.metadata["alpha"])).encode()] if kind is ConeKind.POWER else []),
+            *([repr((metadata["weights"], metadata["tail_dimension"])).encode()] if kind is ConeKind.GENERALIZED_POWER else []),
             json.dumps(shape).encode(),
             hash_sparse_matrix(F.astype(bool)).encode(),
         ])

@@ -58,7 +58,13 @@ def main() -> int:
     legacy_spec = importlib.util.find_spec("optimind")
 
     extended = None
-    if ns.require_extra == "clarabel":
+    if ns.require_extra == "scip":
+        from solverpilot.globalopt import SCIPGlobalBackend
+        from solverpilot.runtime.catalog import verify_specialized_backend
+        b = SCIPGlobalBackend()
+        extended = {"kind": "global", "capabilities": b.capabilities(),
+                    "passed": verify_specialized_backend(b)}
+    elif ns.require_extra == "clarabel":
         from solverpilot.conic import ClarabelBackend
         from solverpilot.conic.clarabel_backend import _runtime_conformance
         b = ClarabelBackend()
@@ -151,6 +157,10 @@ def main() -> int:
             "objective": getattr(r, "objective", None),
         }
         extended["passed"] = bool(extended["ortools_version"] == VERIFIED_ORTOOLS_VERSION and extended["available"] and extended["valid"] and extended["optimality_proven"] and extended["objective"] == 3)
+        from solverpilot.backends.pdlp import PDLPBackend
+        pdlp_result = solve(lp, backend=PDLPBackend(time_limit_s=20))
+        extended["pdlp_valid"] = bool(pdlp_result.validation.valid and abs(pdlp_result.objective-1)<1e-6)
+        extended["passed"] = extended["passed"] and extended["pdlp_valid"]
 
     payload = {
         "schema": "solverpilot.release.smoke.v2",
