@@ -158,6 +158,10 @@ class CompiledModel:
     def solve(self, **kwargs):
         from solverpilot.runtime.options import expand_options
         kwargs = expand_options(kwargs)
+        from solverpilot.globalopt.problem import FactorableProblem
+        if isinstance(self.execution_ir, FactorableProblem):
+            from solverpilot.globalopt.backend import solve_global
+            return solve_global(self.execution_ir, **kwargs)
         from solverpilot.conic import ConicProblem, solve_conic
         if isinstance(self.execution_ir, ConicProblem):
             return solve_conic(self.execution_ir, **kwargs)
@@ -183,6 +187,9 @@ class CompiledModel:
         return solve(self.execution_ir, **core_controls(kwargs))
 
     def refresh(self, model: Model, *, use_cache: bool = True, bridge_policy=None, capabilities=None) -> "CompiledModel":
+        from solverpilot.globalopt.problem import FactorableProblem
+        if isinstance(self.execution_ir, FactorableProblem):
+            return model.compile(target="global", use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
         return compile_model(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
 
     def reconstruct_primal(self, x):
@@ -197,6 +204,14 @@ class CompiledModel:
         return values[:count].copy()
 
     def validate_original(self, model: Model, x, *, atol: float = 1e-8):
+        from solverpilot.globalopt.problem import FactorableProblem
+        if isinstance(self.execution_ir, FactorableProblem):
+            if model.data_hash != self.data_hash:
+                raise ValueError("model differs from the compiled snapshot")
+            from solverpilot.globalopt.validation import validate_global_solution
+            from solverpilot.validate import ValidationTolerances
+            return validate_global_solution(self.execution_ir, self.reconstruct_primal(x),
+                                            tolerances=ValidationTolerances(feasibility=atol, feasibility_rel=atol))
         try:
             from solverpilot.minlp import MINLPProblem, validate_minlp_solution
             if isinstance(self.execution_ir, MINLPProblem):
@@ -1193,8 +1208,8 @@ def compile_model(
     from .atoms import has_atoms, compile_atoms
     if (model.objective is not None and has_atoms(model.objective.expression._node)) or any(has_atoms(c.function._node) for c in model.constraints):
         return compile_atoms(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
-    from .sets import ExponentialCone, PowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
-    if any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)) for c in model.constraints):
+    from .sets import ExponentialCone, PowerCone, GeneralizedPowerCone, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
+    if any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone, GeneralizedPowerCone)) for c in model.constraints):
         if any(isinstance(c, IndicatorConstraint) for c in model.constraints):
             raise CompileError("P6 does not combine indicator/MILP bridges with continuous conic targets")
         from solverpilot.conic.compiler import compile_conic_model

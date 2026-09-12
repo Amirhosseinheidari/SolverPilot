@@ -158,6 +158,7 @@ class OSQPNativeBackend:
     _lock: object = field(default_factory=RLock, init=False, repr=False, compare=False)
     _solver: object | None = field(default=None, init=False, repr=False)
     _structural_hash: str | None = field(default=None, init=False, repr=False)
+    _matrix_values: tuple | None = field(default=None, init=False, repr=False)
 
     @property
     def manifest(self) -> BackendManifest:
@@ -242,6 +243,8 @@ class OSQPNativeBackend:
         prepare_start = perf_counter()
         data = _osqp_data(problem)
         reuse_applied = self._solver is not None and self._structural_hash == problem.structural_hash
+        matrix_changed = self._matrix_values is None or not (
+            np.array_equal(data.P.data,self._matrix_values[0]) and np.array_equal(data.A.data,self._matrix_values[1]))
         if not reuse_applied:
             solver = osqp.OSQP()
             solver.setup(P=data.P, q=data.q, A=data.A, l=data.l, u=data.u, **self._settings())
@@ -250,8 +253,10 @@ class OSQPNativeBackend:
             reuse_mode = "cold_setup"
         else:
             # OSQP documents vector updates and P/A value updates with unchanged sparsity.
-            # Supplying all numerical values avoids guessing which mutation occurred.
-            self._solver.update(q=data.q, l=data.l, u=data.u, Px=data.P.data, Ax=data.A.data)
+            updates = dict(q=data.q,l=data.l,u=data.u)
+            if matrix_changed:
+                updates.update(Px=data.P.data,Ax=data.A.data)
+            self._solver.update(**updates)
             # Mutable settings may be changed without setup; keep configured values aligned.
             update_settings = {
                 k: v
@@ -262,6 +267,7 @@ class OSQPNativeBackend:
                 self._solver.update_settings(**update_settings)
             reuse_mode = "same_sparsity_update+automatic_warm_start"
 
+        self._matrix_values = (data.P.data.copy(),data.A.data.copy())
         prepared = perf_counter()
         result = self._solver.solve(raise_error=False)
         solved = perf_counter()
@@ -314,6 +320,13 @@ class OSQPNativeBackend:
             "run_time": float(getattr(info, "run_time", 0.0)),
             "reuse_applied": bool(reuse_applied),
             "reuse_mode": reuse_mode,
+            "reuse_report": {
+                "workspace": "observed" if reuse_applied else "not_used",
+                "primal_dual_start": "automatic_enabled" if reuse_applied else "not_used",
+                "matrix_update": bool(reuse_applied and matrix_changed),
+                "symbolic_factorization": "unknown", "numeric_factorization": "unknown",
+                "reason": "matrix values changed" if reuse_applied and matrix_changed else "vector-only update" if reuse_applied else "cold setup",
+            },
             "certificate_kind": certificate_kind,
             "certificate_check": certificate_check,
             "objective_internal": objective_internal,

@@ -74,6 +74,12 @@ def _check_convexity(
         sym = _canonicalize_hessian(P)
     except ValueError:
         return ConvexityStatus.REJECTED
+    from .curvature import certify_psd
+    evidence = certify_psd(sym)
+    if evidence.certified:
+        return ConvexityStatus.CONFIRMED
+    if evidence.status == "not_psd":
+        return ConvexityStatus.REJECTED
     scaled = _scaled_psd_matrix(sym)
     row_sums = np.asarray(abs(scaled).sum(axis=1), dtype=np.float64).reshape(-1)
     scale = max(1.0, float(np.max(row_sums)) if row_sums.size else 0.0)
@@ -88,7 +94,10 @@ def _check_convexity(
             lam_min = float(eigsh(scaled, k=1, which="SA", return_eigenvectors=False)[0])
     except (np.linalg.LinAlgError, ArpackError, ArpackNoConvergence):
         return ConvexityStatus.UNKNOWN
-    return ConvexityStatus.CONFIRMED if lam_min >= -tol else ConvexityStatus.REJECTED
+    if lam_min < -tol:
+        return ConvexityStatus.REJECTED
+    # Ambiguous negative/zero curvature must not become a convexity claim.
+    return ConvexityStatus.CONFIRMED if lam_min > tol else ConvexityStatus.UNKNOWN
 
 
 def require_confirmed_convexity(problem: "QuadraticProblem") -> None:

@@ -54,8 +54,8 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
         })
         if proc.returncode != 0:
             raise SystemExit(f"installed-wheel example failed: {example.name}\n{proc.stdout}\n{proc.stderr}")
-    if len(rows) != 21:
-        raise SystemExit(f"expected 21 public examples, got {len(rows)}")
+    if len(rows) != 24:
+        raise SystemExit(f"expected 24 public examples, got {len(rows)}")
     out = work / f"{prefix}-installed-examples.json"
     out.write_text(json.dumps({
         "schema": "solverpilot.release.installed_examples.v1",
@@ -67,11 +67,12 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
 
 
 EXTRA_FOCUSED_TESTS = {
-    "clarabel": ["tests/test_upgrade_02.py", "tests/test_02_numerical.py", "tests/test_03_modeling.py", "tests/test_03_runtime.py", "tests/test_03_edge_cases.py"],
+    "clarabel": ["tests/test_upgrade_02.py", "tests/test_02_numerical.py", "tests/test_03_modeling.py", "tests/test_03_runtime.py", "tests/test_03_edge_cases.py", "tests/test_04_generalized_power.py", "tests/test_04_conic_bounds.py"],
+    "scip": ["tests/test_pyscipopt_native_integration.py", "tests/test_04_global.py", "tests/test_04_hardening.py"],
     "conic": ["tests/test_p6_conic_ir.py", "tests/test_p6_semantic_cones.py", "tests/test_p6_conformance_and_schema.py"],
     "nlp": ["tests/test_p7_nlp_ir_ad.py", "tests/test_p7_ipopt_backend.py", "tests/test_p7_conformance.py"],
     "minlp": ["tests/test_p8_minlp.py"],
-    "cp": ["tests/test_p9_cp_core.py", "tests/test_p9_ortools_static_contract.py"],
+    "cp": ["tests/test_p9_cp_core.py", "tests/test_p9_ortools_static_contract.py", "tests/test_04_pdlp.py"],
 }
 
 def main() -> int:

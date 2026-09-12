@@ -45,6 +45,10 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
     if isinstance(problem, QuadraticProblem):
         from solverpilot.problem.quadratic import require_confirmed_convexity
         require_confirmed_convexity(problem)
+        from solverpilot.problem.curvature import certify_psd
+        curvature = certify_psd(problem.P)
+        if not curvature.certified:
+            return bad("independent PSD evidence unavailable: " + curvature.reason)
     bound = np.where(y > 0, hi, lo)
     active = y != 0
     if not np.isfinite(bound[active]).all():

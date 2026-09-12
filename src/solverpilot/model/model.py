@@ -14,7 +14,7 @@ from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem,
 
 from .errors import DomainError, OwnershipError, ShapeError, SymbolicTruthValueError
 from .expression import ExprNode, Expression, _shape_tuple, _sign_of_constant
-from .sets import (ConstraintSet, EqualTo, GreaterThan, LessThan, ScalarSet, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)
+from .sets import (ConstraintSet, EqualTo, GreaterThan, LessThan, ScalarSet, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone, GeneralizedPowerCone)
 from .types import Curvature, EntityId, SignDomain
 
 
@@ -287,10 +287,12 @@ class Model:
         expr = function if isinstance(function, Expression) else self.constant(function)
         if expr._model is not self:
             raise OwnershipError("constraint function belongs to another model")
-        if not isinstance(set_, (LessThan, GreaterThan, EqualTo, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)):
+        if not isinstance(set_, (LessThan, GreaterThan, EqualTo, SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone, GeneralizedPowerCone)):
             from .sets import Interval
             if not isinstance(set_, Interval):
                 raise TypeError("unsupported constraint set")
+        if isinstance(set_, GeneralizedPowerCone) and expr.shape != (set_.dimension,):
+            raise ShapeError("generalized power cone shape mismatch")
         if isinstance(set_, (ExponentialCone, PowerCone)) and expr.shape != (3,):
             raise ShapeError("exponential and power cones require a vector of length three")
         if isinstance(set_, SecondOrderCone) and expr.shape != (set_.dimension,):
@@ -436,7 +438,14 @@ class Model:
         self._mark_semantic_change()
         return objective
 
-    def compile(self, *, use_cache: bool = True, bridge_policy=None, capabilities=None):
+    def compile(self, *, use_cache: bool = True, bridge_policy=None, capabilities=None, target=None):
+        if target == "global":
+            if bridge_policy is not None or capabilities is not None:
+                raise ValueError("global target uses its explicit interval/SCIP policy")
+            from solverpilot.globalopt.compiler import compile_global_model
+            return compile_global_model(self, use_cache=use_cache)
+        if target is not None:
+            raise ValueError("unknown compilation target")
         from .compiler import compile_model
         return compile_model(self, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
 
@@ -449,7 +458,11 @@ class Model:
         return compiler_cache_info(self)
 
     def solve(self, **kwargs):
-        compiled = self.compile()
+        backend = kwargs.get("backend")
+        target = kwargs.pop("target", None)
+        if target is None and (getattr(backend, "compile_target", None) == "global" or backend == "scip-global"):
+            target = "global"
+        compiled = self.compile(target=target)
         return compiled.solve(**kwargs)
 
     @property
@@ -496,7 +509,7 @@ class Model:
             if include_parameter_values:
                 item["value"] = _array_semantic_payload(data.value)
             parameters.append(item)
-        has_cones = any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)) for c in self._constraints)
+        has_cones = any(isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone, GeneralizedPowerCone)) for c in self._constraints)
         nonlinear_kinds = {"sin", "cos", "exp", "log", "sqrt", "tanh", "pow", "div"}
         def has_nonlinear(node):
             return node.kind in nonlinear_kinds or any(has_nonlinear(a) for a in node.args)
@@ -540,6 +553,8 @@ class Model:
         from .sets import Interval
         if isinstance(set_, Interval):
             return {"kind": "Interval", "lower": _canonical_float(set_.lower), "upper": _canonical_float(set_.upper)}
+        if isinstance(set_, GeneralizedPowerCone):
+            return {"kind": "GeneralizedPowerCone", "weights": list(set_.weights), "tail_dimension": set_.tail_dimension}
         if isinstance(set_, ExponentialCone):
             return {"kind": "ExponentialCone"}
         if isinstance(set_, PowerCone):
@@ -720,7 +735,7 @@ class Model:
 
         for c in self._constraints:
             expr = rebuild(c.function._node)
-            if isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone)):
+            if isinstance(c.set, (SecondOrderCone, RotatedSecondOrderCone, PositiveSemidefiniteCone, ExponentialCone, PowerCone, GeneralizedPowerCone)):
                 clone.add_in_set(expr, c.set, name=c.name)
                 continue
             if isinstance(c.set, LessThan): relation = expr <= c.set.upper

@@ -89,10 +89,18 @@ def solve(
     health_policy: HealthPolicy | str = HealthPolicy.IGNORE,
     diagnose_infeasible: bool = False,
     tolerances: ValidationTolerances | None = None,
+    certificate_recovery: float | None = None,
 ) -> SolveResult:
     """Solve a problem either with an explicit backend or the deterministic planner."""
 
     total_t0 = perf_counter()
+    if certificate_recovery is not None:
+        import math
+        if isinstance(certificate_recovery, bool) or not math.isfinite(certificate_recovery) or certificate_recovery <= 0:
+            raise ValueError("certificate_recovery must be a positive time budget in seconds")
+    if registry is None and backend == "ortools-pdlp":
+        from solverpilot.backends.pdlp import PDLPBackend
+        backend = PDLPBackend()
     if registry is None and (backend is None or isinstance(backend, str)):
         registry = default_registry()
 
@@ -123,6 +131,19 @@ def solve(
 
     chosen = apply_budget(chosen, budget)
     result = execute(problem, chosen, tolerances=tolerances)
+    recovery_s = 0.0
+    if certificate_recovery is not None:
+        if isinstance(problem, LinearProblem) and not problem.has_integer_variables and result.backend_status in {"infeasible","unbounded","infeasible_or_unbounded"}:
+            from solverpilot.validate.recovery import recover_lp_certificate, LPCertificate
+            recovery_t0 = perf_counter()
+            remaining=certificate_recovery
+            if budget is not None and budget.wall_time_s is not None:
+                remaining=min(remaining,budget.wall_time_s-(perf_counter()-total_t0))
+            certificate=(recover_lp_certificate(problem,termination=result.backend_status,time_limit_s=remaining,tolerances=tolerances)
+                         if remaining>0 else LPCertificate(problem.data_hash,"unknown",False,"solve budget exhausted"))
+            raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(certificate)
+            result=replace(result,raw_statistics=raw)
+            recovery_s = perf_counter() - recovery_t0
 
     diagnose_s = 0.0
     diagnostics = None
@@ -145,7 +166,7 @@ def solve(
         backend_update_s=old.backend_update_s,
         backend_total_s=old.backend_total_s,
         solve_s=old.solve_s,
-        validate_s=old.validate_s,
+        validate_s=old.validate_s + recovery_s,
         diagnose_s=old.diagnose_s + diagnose_s,
         total_s=total_s,
     )
@@ -181,6 +202,7 @@ def solve_production(
     performance_override: dict[str, str] | None = None,
     diagnose_infeasible: bool = False,
     tolerances: ValidationTolerances | None = None,
+    certificate_recovery: float | None = None,
 ) -> tuple[SolveResult, ProductionDecision]:
     """Conservative proof-safe solve plus the auditable production routing decision."""
     registry = default_registry() if registry is None else registry
@@ -195,5 +217,6 @@ def solve_production(
         problem, registry=registry, backend=decision.plan.selected_backend, intent=intent,
         budget=budget, context=context, health_reports=health_reports,
         health_policy=health_policy, diagnose_infeasible=diagnose_infeasible, tolerances=tolerances,
+        certificate_recovery=certificate_recovery,
     )
     return replace(result, plan=decision.plan), decision

@@ -52,6 +52,14 @@ class ConicSolveResult:
     def validated(self) -> bool:
         return bool(self.validation.valid)
 
+    @property
+    def optimality_evidence(self):
+        from solverpilot.runtime.result import OptimalityEvidence
+        trust = self.raw_statistics.get("solverpilot_trust", {})
+        return OptimalityEvidence(backend_reported_optimal=bool(self.raw_statistics.get("backend_reported_optimal")),
+            primal_validated=self.validation.valid, dual_verified=bool(trust.get("dual_verified")),
+            gap_verified=bool(trust.get("gap_verified")))
+
 
 @dataclass(slots=True)
 class CasadiSuperSCSBackend:

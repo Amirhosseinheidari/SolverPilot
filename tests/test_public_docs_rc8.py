@@ -90,6 +90,9 @@ def test_expected_public_examples_exist():
         "19_convex_atoms_optional.py",
         "20_streaming_reuse.py",
         "21_checked_run_replay.py",
+        "22_global_optimization_optional.py",
+        "23_generalized_power_optional.py",
+        "24_pdlp_and_certificates_optional.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

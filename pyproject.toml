@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "solverpilot"
-version = "0.3"
+version = "0.4"
 description = "Trust-aware optimization runtime for mathematical and constraint programming in Python"
 readme = "README.md"
 license = "Apache-2.0"
@@ -56,6 +56,8 @@ conic = ["casadi==3.7.2"]
 nlp = ["casadi==3.7.2"]
 minlp = ["casadi==3.7.2"]
 cp = ["ortools==9.15.6755"]
+pdlp = ["ortools==9.15.6755"]
+global = ["pyscipopt>=6.2.1,<7"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

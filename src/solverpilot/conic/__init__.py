@@ -12,3 +12,5 @@ __all__ = [
 
 from .clarabel_backend import ClarabelBackend
 __all__.append("ClarabelBackend")
+from .optimality import ConicOptimalityCheck, verify_conic_optimality
+__all__ += ["ConicOptimalityCheck", "verify_conic_optimality"]

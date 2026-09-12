@@ -12,7 +12,7 @@
     "variable_upper": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
     "constraint_lower": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
     "constraint_upper": {"type": "array", "items": {"anyOf": [{"type": "number"}, {"enum": ["+inf", "-inf"]}]}},
-    "cones": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["kind", "F", "g", "output_shape", "structural_hash", "data_hash"], "properties": {"kind": {"enum": ["second_order", "rotated_second_order", "positive_semidefinite"]}}}},
+    "cones": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["kind", "F", "g", "output_shape", "structural_hash", "data_hash"], "properties": {"kind": {"enum": ["second_order", "rotated_second_order", "positive_semidefinite", "exponential", "power", "generalized_power"]}}}},
     "objective_sense": {"const": "minimize"},
     "objective_offset": {"type": "number"},
     "name": {"type": ["string", "null"]},

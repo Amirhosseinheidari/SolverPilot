@@ -1,6 +1,6 @@
-# SolverPilot Extended Modeling API — 0.2
+# SolverPilot Extended Modeling API — 0.4
 
-Version 0.3 adds checked convex atoms, sparse affine lowering, bounded streaming, sensitivity and scenarios. See the current [0.3 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.3.md) for guarantees and remaining scope limits.
+Version 0.4 adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, conservative conic bounds, LP witness recovery and reuse observations. See the current [0.4 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for guarantees and scope limits.
 
 Track P P0–P9 is merged into SolverPilot under explicit submodule namespaces. These APIs are available in version 0.2 but are **not** added to the M30-frozen 78-symbol `solverpilot.__all__` compatibility surface yet.
 
@@ -48,7 +48,23 @@ A successful generic NLP result is a local-optimal candidate after validation/KK
 
 Certified convex binary MINLP IR, validation, exact binary enumeration, and Outer Approximation.
 
-Global proof is restricted to the supported convex-binary certificate scope and requires original-space validation plus bound closure. General integer/nonconvex MINLP remains unsupported.
+This module's proof path stays within the supported convex-binary certificate scope and requires original-space validation plus bound closure. General integer/nonconvex MINLP uses the separate `solverpilot.globalopt` module and reports SCIP numerical global evidence only.
+
+## `solverpilot.globalopt`
+
+`GlobalQuadraticProblem`, `FactorableProblem`, `GlobalIndicator`, `SCIPGlobalBackend`,
+`solve_global`, and explicit `absolute`/`maximum`/`minimum` atoms. Matrix QP/MIQP
+and bounded factorable NLP/MINLP use separate IRs, preserving the convex QP and
+convex-binary OA contracts. See the 0.4 guide for domain and indicator limits.
+
+## New evidence and runtime APIs
+
+- `solverpilot.backends.pdlp.PDLPBackend`: isolated CPU LP/nonnegative diagonal QP.
+- `solverpilot.conic.verify_conic_optimality`: conservative original-domain bounds.
+- `solverpilot.validate.recover_lp_certificate` / `verify_lp_certificate`: bounded LP witness recovery and rechecking.
+- `solverpilot.runtime.reuse.reuse_evidence`: observed workspace/start/factorization state.
+- `solverpilot.runtime.integrations.integration_readiness`: prerequisites, not execution qualification.
+- `solverpilot.intelligence.shadow.observe_shadow_policy`: measured suggestions without production routing changes.
 
 ## `solverpilot.cp`
 

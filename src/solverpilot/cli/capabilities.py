@@ -13,11 +13,18 @@ def _parser() -> argparse.ArgumentParser:
     p.add_argument("--verify", action="store_true", help="run native problem-class conformance smokes")
     p.add_argument("--p0-schema", action="store_true", help="emit the P0 frozen capability schema projection")
     p.add_argument("--backend", action="append", default=[], help="restrict output to one or more backend names")
+    p.add_argument("--integrations", action="store_true", help="report exact-SCIP/GPU prerequisites without qualifying execution")
     return p
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if args.integrations:
+        from solverpilot.runtime.integrations import integration_readiness
+        from solverpilot.runtime.manifest import json_value
+        print(json.dumps([dict(name=r.name,available=r.available,qualified=r.qualified,
+            details=json_value(r.details),reason=r.reason) for r in integration_readiness()],indent=2))
+        return 0
     catalog = backend_catalog()
     selected = set(args.backend) if args.backend else set(catalog)
     missing = sorted(selected-set(catalog))
