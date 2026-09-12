@@ -164,6 +164,9 @@ quadratics and integer variables are rejected. Solver-reported corrected dual
 bounds remain labeled as such; the common LP/QP checker independently processes
 canonical duals where possible. Process startup and data transfer count toward
 the PDLP adapter's wall budget. This CPU integration makes no GPU speed claim.
+PDLP dual infeasibility maps to `infeasible_or_unbounded`: a primal feasible
+origin is additionally required to establish unboundedness. This distinction
+follows the [upstream termination contract](https://github.com/google/or-tools/blob/stable/ortools/pdlp/solve_log.proto).
 
 ```python
 from solverpilot import solve

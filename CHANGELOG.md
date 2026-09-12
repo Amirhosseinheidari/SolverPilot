@@ -7,6 +7,7 @@
 - Add generalized power cone modeling, hashing, Clarabel transport and original-space validation.
 - Reconstruct Clarabel duals and check conservative original-domain SOC/RSOC/PSD bounds; leave unsupported dual membership explicitly unverified.
 - Add isolated CPU PDLP for LP and diagonal convex QP, with canonical duals and wall budgets.
+- Preserve ambiguous primal status for PDLP dual infeasibility; require a checked feasible origin before claiming primal unboundedness.
 - Add optional bounded LP witness recovery and independent rechecking; expose `certificate_recovery` on high-level solve calls.
 - Skip OSQP matrix updates for vector-only edits and expose common reuse observations without claiming factorization reuse.
 - Add shadow policy observations and exact/GPU prerequisite probes, with production learned routing and unqualified integrations disabled.

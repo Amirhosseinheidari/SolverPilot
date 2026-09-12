@@ -164,7 +164,9 @@ class PDLPBackend:
         status = {
             "TERMINATION_REASON_OPTIMAL": "optimal",
             "TERMINATION_REASON_PRIMAL_INFEASIBLE": "infeasible",
-            "TERMINATION_REASON_DUAL_INFEASIBLE": "unbounded",
+            # PDLP's dual-infeasible termination does not establish primal
+            # feasibility: the primal may itself be infeasible (solve_log.proto).
+            "TERMINATION_REASON_DUAL_INFEASIBLE": "infeasible_or_unbounded",
             "TERMINATION_REASON_PRIMAL_OR_DUAL_INFEASIBLE": "infeasible_or_unbounded",
         }.get(reason)
         candidate = payload.get("x")
