@@ -112,6 +112,7 @@ def test_dual_infeasible_report_is_not_a_primal_unbounded_proof(monkeypatch):
         corrected_dual_objective=None,
     )
     monkeypatch.setattr(PDLPBackend, "is_available", lambda _: True)
+    monkeypatch.setattr(adapter, "version", lambda _: "test-transport")
     monkeypatch.setattr(
         adapter.subprocess,
         "run",
