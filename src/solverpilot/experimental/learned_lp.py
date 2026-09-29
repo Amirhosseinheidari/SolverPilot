@@ -115,6 +115,8 @@ class LPSelector:
     training_sha256: str
 
     def __post_init__(self):
+        for field in ('candidates', 'lower', 'upper', 'training_instances', 'training_groups', 'training_hashes'):
+            object.__setattr__(self, field, tuple(getattr(self, field)))
         if (not self.candidates or len(set(self.candidates)) != len(self.candidates)
                 or any(not isinstance(c, str) or not c for c in self.candidates)
                 or any(c not in self.candidates for c in (self.baseline, self.left, self.right))):
@@ -260,8 +262,10 @@ def evaluate_lp_selector(model: LPSelector, rows: Sequence[LPObservation], *,
         expected, _ = _choose(row.features, model, model.environment_id, set(model.candidates))
         if d.candidate != expected or not math.isfinite(d.overhead_s) or d.overhead_s < 0:
             raise ValueError("decision differs from frozen model or overhead is invalid")
-        policy.append(float(c[model.candidates.index(d.candidate)] + d.overhead_s))
-        success.append(sum(ok and wall <= model.cutoff_s for wall, ok in row.samples[d.candidate]))
+        effective = [(wall+d.overhead_s, ok) for wall, ok in row.samples[d.candidate]]
+        policy.append(float(np.mean([wall if ok and wall <= model.cutoff_s else 10*model.cutoff_s
+                                     for wall, ok in effective])))
+        success.append(sum(ok and wall <= model.cutoff_s for wall, ok in effective))
         baseline_success.append(sum(ok and wall <= model.cutoff_s for wall, ok in row.samples[model.baseline]))
         switches += d.candidate != model.baseline
     policy = np.asarray(policy)
@@ -288,4 +292,4 @@ def evaluate_lp_selector(model: LPSelector, rows: Sequence[LPObservation], *,
             "p90_ratio": tail, "switches": switches, "gates": gates,
             "research_gate_passed": all(gates.values()), "production_authorized": False,
             "verified_repeats": sum(success), "baseline_verified_repeats": sum(baseline_success),
-            "cost_definition": "mean of all repeats; unsuccessful/late repeat = 10*cutoff; plus measured decision cost"}
+            "cost_definition": "add measured decision cost to each repeat before cutoff; unsuccessful/late = 10*cutoff"}

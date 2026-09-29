@@ -11,3 +11,4 @@ verification/
 *.tar.gz
 *.zip
 .coverage
+/exact-native-evidence/

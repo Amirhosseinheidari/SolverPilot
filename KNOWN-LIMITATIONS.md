@@ -38,6 +38,13 @@ Soft helpers accept affine relations and require explicit penalty use in the obj
 
 Automatic learned routing remains disabled. The development [LP selector](docs/LEARNED-LP.md) is an experimental training/shadow-evaluation API, not production authority. Its feature-range guard does not detect every distribution shift, and OOD indicators are not calibrated probabilities. History is opt-in plaintext SQLite; user metadata can be sensitive. Extension registry mutation requires caller coordination. Development pickle caches are trusted artifacts, not a safe untrusted interchange format.
 
+The [certificate/routing follow-up](docs/CERTIFICATE-ROUTING-RECOVERY.md) recovers a
+tolerance-qualified independent certificate for pilot4 when supplied the native
+LP basis. Recovery is optional, work-bounded and incomplete, with cooperative time
+checks. It does not provide a generic exact LP oracle. V2 leaf calibration and
+validated sessions are experimental; neither synthetic development results nor
+previously consumed public cases authorize automatic routing.
+
 ## Qualification
 
 Cross-platform support requires exact-artifact qualification on Python 3.12–3.14. Upstream package availability alone is not integration evidence. Synthetic latency/RSS measurements do not establish industrial scalability or absence of long-term leaks. Historical reports retain their original versions and cannot qualify new artifacts.

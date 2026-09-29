@@ -1,0 +1,178 @@
+[
+  {
+    "data_hash": "3f19c5ea03659d3d3dc79c4a091eb6fe56785c554fcddfa0c32eb99d9917943e",
+    "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+    "features": [
+      1.3862943611198906,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "group": "synthetic-template:box",
+    "instance": "demo-box",
+    "samples": {
+      "highs-ipm": [
+        [
+          0.0054610999941360205,
+          true
+        ],
+        [
+          0.0030086000042501837,
+          true
+        ]
+      ],
+      "highs-simplex": [
+        [
+          0.042118900004425086,
+          true
+        ],
+        [
+          0.0024339999945368618,
+          true
+        ]
+      ]
+    },
+    "split": "train"
+  },
+  {
+    "data_hash": "c5bf2396e0f2189c3bd205cb7f76c0219049551022d68e9186833fa050174ac4",
+    "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+    "features": [
+      1.6094379124341003,
+      0.6931471805599453,
+      1.6094379124341003,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.6094379124341003,
+      0.6931471805599453,
+      0.0,
+      0.0,
+      1.0986122886681098
+    ],
+    "group": "synthetic-template:packing",
+    "instance": "demo-packing",
+    "samples": {
+      "highs-ipm": [
+        [
+          0.003909599996404722,
+          true
+        ],
+        [
+          0.0028577999910339713,
+          true
+        ]
+      ],
+      "highs-simplex": [
+        [
+          0.0028498000028776005,
+          true
+        ],
+        [
+          0.002977299998747185,
+          true
+        ]
+      ]
+    },
+    "split": "train"
+  },
+  {
+    "data_hash": "98f2ae243761fc43221bc22b54756037abe44fe02e373e31e25049fd1bcb51c4",
+    "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+    "features": [
+      1.3862943611198906,
+      1.0986122886681098,
+      1.6094379124341003,
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0986122886681098,
+      0.8472978603872036,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "group": "synthetic-template:covering",
+    "instance": "demo-covering",
+    "samples": {
+      "highs-ipm": [
+        [
+          0.006593300000531599,
+          true
+        ],
+        [
+          0.003037000002223067,
+          true
+        ]
+      ],
+      "highs-simplex": [
+        [
+          0.004581400004099123,
+          true
+        ],
+        [
+          0.002732499997364357,
+          true
+        ]
+      ]
+    },
+    "split": "train"
+  },
+  {
+    "data_hash": "349a8d665c8aecf601ae82ddf6508c587343d3771647f3afa8f3d8791fbabfed",
+    "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+    "features": [
+      1.6094379124341003,
+      1.3862943611198906,
+      1.9459101490553132,
+      0.5,
+      1.0,
+      1.0,
+      1.0,
+      0.5,
+      1.0986122886681098,
+      0.9162907318741551,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "group": "synthetic-template:path-flow",
+    "instance": "demo-path-flow",
+    "samples": {
+      "highs-ipm": [
+        [
+          0.002796400003717281,
+          true
+        ],
+        [
+          0.003467100003035739,
+          true
+        ]
+      ],
+      "highs-simplex": [
+        [
+          0.0026852000009967014,
+          true
+        ],
+        [
+          0.0028040000033797696,
+          true
+        ]
+      ]
+    },
+    "split": "train"
+  }
+]

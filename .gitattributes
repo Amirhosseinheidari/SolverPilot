@@ -9,3 +9,5 @@
 *.zip binary
 *.whl binary
 *.gz binary
+# Measurement digests bind exact captured bytes, including Windows newlines.
+docs/evidence/certificate-routing/** -text

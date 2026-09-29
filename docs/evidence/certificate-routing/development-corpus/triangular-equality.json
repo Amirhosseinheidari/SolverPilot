@@ -1,0 +1,44 @@
+{
+  "A": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      1.0
+    ]
+  ],
+  "c": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "constraint_lower": [
+    1.0,
+    3.0,
+    5.0
+  ],
+  "constraint_upper": [
+    1.0,
+    3.0,
+    5.0
+  ],
+  "variable_lower": [
+    null,
+    null,
+    null
+  ],
+  "variable_upper": [
+    null,
+    null,
+    null
+  ]
+}

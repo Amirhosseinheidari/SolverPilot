@@ -185,6 +185,17 @@ class HighspyNativeBackend:
             "reuse_mode": "cold_native_solve",
             "objective_internal": objective_internal,
         }
+        if isinstance(problem, LinearProblem) and not problem.has_integer_variables:
+            basis = h.getBasis()
+            if basis.valid:
+                raw['lp_basis'] = {
+                    'basic_columns': [j for j, s in enumerate(basis.col_status)
+                                      if s == highspy.HighsBasisStatus.kBasic],
+                    'nonbasic_rows': [i for i, s in enumerate(basis.row_status)
+                                     if s != highspy.HighsBasisStatus.kBasic],
+                    'problem_hash': problem.data_hash,
+                    'scope': 'numerical elimination hint; not a certificate',
+                }
         return BackendSolveResult(
             backend_status=backend_status,
             x=x,
