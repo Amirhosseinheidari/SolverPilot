@@ -56,6 +56,12 @@ SCIP runs with exact mode enabled **before** reading the problem, no objective s
 no presolve rounds/restarts, and separation disabled. This conservative first path avoids
 incomplete cut certificates requiring `viprcomp`. It can be slower than standard SCIP.
 
+SCIP's informational `global` suffix is accepted after derivations. When its proof
+stops at variable bounds, SolverPilot can append a rational linear combination that
+closes the objective bound. VIPR checks this added step and all its dependencies;
+the `global` annotation is never treated as an axiom. Both input and checked certificate
+hashes are returned, and the original solver proof is retained in the evidence directory.
+
 Executables are trusted native programs explicitly selected by the caller. Their SHA256
 hashes and the certificate hash are returned for reproducibility; hashes are provenance,
 not a replacement for mathematical checking. This is not a formally verified entire

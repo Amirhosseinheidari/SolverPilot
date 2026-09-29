@@ -8,7 +8,7 @@ import pytest
 
 from solverpilot import LinearProblem
 from solverpilot.exact import solve_exact, verify_exact_certificate
-from solverpilot.exact.certificate import bind_certificate
+from solverpilot.exact.certificate import bind_certificate, close_objective_bound
 from solverpilot.exact.problem import ExactModel
 from solverpilot.exact import runtime
 
@@ -97,6 +97,19 @@ def test_native_global_annotation_and_complete_bound_records():
     assert " 0 <= x0 <= 3\n" in m.lp_text()
     with pytest.raises(ValueError):
         bind_certificate(m, CERT.replace(b"} -1", b"} -1 untrusted_annotation"))
+
+
+def test_objective_closure_is_checkable_and_idempotent():
+    p = problem(sense="maximize")
+    raw = (b"VER 1.0\nVAR 1\nx0\nINT 0\nOBJ min\n1 0 -1\nCON 1 1\n"
+           b"u L 3 1 0 1\nRTP range -3 -3\nSOL 1\ns 1 0 3\nDER 0\n")
+    m = ExactModel.from_problem(p)
+    complete = close_objective_bound(bind_certificate(m, raw), raw)
+    assert b"G -3 OBJ { lin 1 0 -1 } -1" in complete
+    assert b"DER 1\n" in complete
+    assert close_objective_bound(bind_certificate(m, complete), complete) == complete
+    insufficient = raw.replace(b"RTP range -3 -3", b"RTP range -2 -2").replace(b"s 1 0 3", b"s 1 0 2")
+    assert close_objective_bound(bind_certificate(m, insufficient), insufficient) == insufficient
 
 
 def test_integer_bound_rounding():

@@ -10,7 +10,7 @@ import subprocess
 from tempfile import TemporaryDirectory, mkdtemp
 from time import monotonic, sleep
 
-from .certificate import MAX_CERTIFICATE_BYTES, bind_certificate
+from .certificate import MAX_CERTIFICATE_BYTES, bind_certificate, close_objective_bound
 from .problem import ExactModel
 
 
@@ -26,6 +26,7 @@ class ExactSolveResult:
     elapsed_s: float = 0.0
     problem_hash: str = ""
     certificate_sha256: str = ""
+    input_certificate_sha256: str = ""
     checker_sha256: str = ""
     solver_sha256: str = ""
     evidence_directory: str | None = None
@@ -156,6 +157,7 @@ def _execute(problem, *, checker_executable, time_limit, evidence_directory,
             directory = Path(mkdtemp(prefix="exact-", dir=parent))
             saved = str(directory)
         payload = b""
+        input_hash = ""
         try:
             if solver is not None:
                 (directory / "problem.lp").write_text(model.lp_text(), encoding="ascii")
@@ -172,6 +174,8 @@ def _execute(problem, *, checker_executable, time_limit, evidence_directory,
                 payload = _read_certificate(directory / "proof.vipr")
             else:
                 payload = _read_certificate(certificate)
+            input_hash = sha256(payload).hexdigest()
+            payload = close_objective_bound(bind_certificate(model, payload), payload)
             result = _verify(model, payload, checker, directory, deadline)
             if _digest(checker) != checker_hash or (solver and _digest(solver) != solver_hash):
                 raise ValueError("native executable changed during execution")
@@ -181,6 +185,7 @@ def _execute(problem, *, checker_executable, time_limit, evidence_directory,
             result = ExactSolveResult("unverified", False, str(exc))
         return replace(result, elapsed_s=monotonic() - start, problem_hash=model.data_hash,
                        certificate_sha256=sha256(payload).hexdigest() if payload else "",
+                       input_certificate_sha256=input_hash,
                        checker_sha256=checker_hash, solver_sha256=solver_hash,
                        evidence_directory=saved)
 

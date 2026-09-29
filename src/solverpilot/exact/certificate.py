@@ -18,6 +18,10 @@ class BoundCertificate:
     lower: Fraction | None
     upper: Fraction | None
     solutions: tuple
+    objective: tuple
+    bound_rows: tuple
+    derivations: int
+    has_objective_proof: bool
 
 
 class Tokens:
@@ -25,17 +29,20 @@ class Tokens:
         if len(payload) > MAX_CERTIFICATE_BYTES:
             raise ValueError("certificate exceeds size limit")
         content = payload.decode("ascii")
-        # SCIP adds an informational `global` suffix after a complete derivation.
-        # VIPR ignores it at end of line. Accept only this known annotation.
-        lines = (re.sub(r"(\}\s+-?[0-9]+)\s+global\s*$", r"\1", line)
-                 for line in content.splitlines() if not line.lstrip().startswith("%"))
+        lines = (line for line in content.splitlines() if not line.lstrip().startswith("%"))
         self.tokens = iter("\n".join(lines).split())
+        self.buffer = None
+
+    def peek(self):
+        if self.buffer is None:
+            self.buffer = next(self.tokens, None)
+        return self.buffer
 
     def get(self):
-        try:
-            value = next(self.tokens)
-        except StopIteration:
-            raise ValueError("truncated certificate") from None
+        value = self.peek()
+        self.buffer = None
+        if value is None:
+            raise ValueError("truncated certificate")
         if len(value) > 4096:
             raise ValueError("certificate token too long")
         return value
@@ -116,10 +123,12 @@ def bind_certificate(model, payload):
     m = t.integer()
     t.integer(m)  # number of bound constraints
     assumptions = model.assumptions()
-    for _ in range(m):
+    bound_rows = []
+    for idx in range(m):
         row, sense, rhs = t.constraint(n, objective)
         if constraint_key(((mapping[j], a) for j, a in row), sense, rhs) not in assumptions:
             raise ValueError("certificate contains an unproved model transformation")
+        bound_rows.append((idx, row, sense, rhs))
     t.expect("RTP")
     relation = t.get()
     lower = upper = None
@@ -149,9 +158,12 @@ def bind_certificate(model, payload):
             raise ValueError("upper bound lacks an original-model feasible solution")
     t.expect("DER")
     d = t.integer()
+    has_objective_proof = False
     # Validate the entire grammar before passing untrusted bytes to the native checker.
     for idx in range(m, m + d):
-        t.constraint(n, objective)
+        row, sense, rhs = t.constraint(n, objective)
+        if row == objective and sense in ("G", "E") and lower is not None and rhs >= lower:
+            has_objective_proof = True
         t.expect("{")
         reason = t.get()
         if reason in ("lin", "rnd"):
@@ -169,6 +181,52 @@ def bind_certificate(model, payload):
             raise ValueError("incomplete or unsupported derivation")
         t.expect("}")
         t.integer(m + d - 1, -1)
-    if next(t.tokens, None) is not None:
+        if t.peek() == "global":
+            t.get()
+            bound_rows.append((idx, row, sense, rhs))
+    if t.peek() is not None:
         raise ValueError("trailing certificate data")
-    return BoundCertificate(relation, lower, upper, tuple(solutions))
+    return BoundCertificate(relation, lower, upper, tuple(solutions), objective,
+                            tuple(bound_rows), d, has_objective_proof)
+
+
+def close_objective_bound(bound, payload):
+    """Append a checkable linear-combination proof when SCIP stops at variable bounds.
+
+    The global annotation is only a candidate hint, never a trusted assumption.
+    VIPR must still discharge every assumption in the referenced derivations.
+    """
+    if bound.relation != "range" or bound.lower is None or bound.has_objective_proof:
+        return payload
+    chosen = []
+    total = Fraction()
+    objective = dict(bound.objective)
+    best = {}
+    for idx, row, sense, rhs in bound.bound_rows:
+        if len(row) != 1 or row[0][0] not in objective:
+            continue
+        j, a = row[0]
+        multiplier = objective[j] / a
+        if sense != "E" and ((sense == "G") != (multiplier > 0)):
+            continue
+        value = multiplier * rhs
+        if j not in best or value > best[j][0]:
+            best[j] = (value, idx, multiplier)
+    for j, _ in bound.objective:
+        if j not in best:
+            return payload
+        total += best[j][0]
+        chosen.append((best[j][1], best[j][2]))
+    if total < bound.lower:
+        return payload
+    content = payload.decode("ascii")
+    pattern = r"(?m)^DER[ \t]+" + str(bound.derivations) + r"[ \t]*$"
+    if len(re.findall(pattern, content)) != 1:
+        return payload
+    content = re.sub(pattern, f"DER {bound.derivations + 1}", content)
+    # Retain earlier constraints until the added proof step consumes them.
+    content = re.sub(r"(?m)(\}[ \t]+)-?[0-9]+([ \t]*(?:global)?[ \t]*)$", r"\g<1>-1\2", content)
+    references = " ".join(f"{idx} {weight}" for idx, weight in chosen)
+    content = content.rstrip() + (f"\nsolverpilot_objective_closure G {total} OBJ "
+                                 f"{{ lin {len(chosen)} {references} }} -1\n")
+    return content.encode("ascii")
