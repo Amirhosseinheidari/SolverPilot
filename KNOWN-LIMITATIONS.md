@@ -6,6 +6,9 @@ Development after 0.4 adds an explicit [exact LP/MILP path](docs/EXACT-MILP.md).
 It needs separately built trusted executables and does not qualify generic MIQP/MINLP,
 unboundedness, or unsupported presolve transformations. The release-specific statements
 below describe the published 0.4 wheel.
+The development [cuOpt GPU adapter](docs/GPU-LP.md) is limited to explicit continuous
+LP execution, with independent numerical validation and no automatic routing or
+reuse claim. GPU qualification is separate from CPU-only GitHub CI.
 
 ## Numerical evidence
 

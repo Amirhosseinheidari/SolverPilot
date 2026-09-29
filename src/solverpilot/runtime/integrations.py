@@ -55,6 +55,7 @@ def integration_readiness():
         "nvidia_smi_on_path": which("nvidia-smi") is not None,
         "gpu_execution_tested": False,
         "driver_compatibility_tested": False,
+        "explicit_backend": "cuopt-gpu",
     }
     return (
         IntegrationReadiness("scip-exact-milp", exact, False, scip, exact_reason),
@@ -63,6 +64,6 @@ def integration_readiness():
             linux and installed,
             False,
             gpu,
-            "cuOpt requires a compatible Linux/WSL2 CUDA runtime and a separate measured qualification; CPU PDLP is available now",
+            "explicit cuopt-gpu LP adapter requires Linux/WSL2 CUDA and measured qualification; this probe does not execute a solve",
         ),
     )

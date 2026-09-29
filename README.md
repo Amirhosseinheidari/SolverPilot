@@ -5,6 +5,8 @@
 Development after 0.4: an explicit [exact LP/MILP certificate API](docs/EXACT-MILP.md)
 is being qualified separately. It requires exact SCIP and VIPR executables and is
 not part of the published 0.4 wheel.
+An explicit [cuOpt GPU LP adapter](docs/GPU-LP.md) is also under development;
+it requires separate hardware qualification and is not automatically selected.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
