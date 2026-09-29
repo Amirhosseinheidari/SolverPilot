@@ -99,7 +99,7 @@ def summarize(result: Any) -> SolutionSummary:
         else getattr(result, "backend", getattr(result, "algorithm", "unknown")),
         trace.problem_data_hash
         if trace is not None
-            else getattr(result, "problem_data_hash", getattr(result, "problem_hash", None)),
+        else getattr(result, "problem_data_hash", getattr(result, "problem_hash", None)),
         getattr(result, "x", None),
         getattr(result, "assignment", None),
         optimality_reason=proof_reason,
