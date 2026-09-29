@@ -98,6 +98,8 @@ def _planner_payload(result: SolveResult) -> dict[str, Any] | None:
 def _runtime_payload(result: SolveResult) -> dict[str, Any]:
     timings = result.trace.timings
     return {
+        "execution_id": result.execution_id,
+        "source_sha256": result.trace.source_sha256,
         "reuse_applied": result.trace.reuse_applied,
         "reuse_mode": result.trace.reuse_mode,
         "total_s": timings.total_s,

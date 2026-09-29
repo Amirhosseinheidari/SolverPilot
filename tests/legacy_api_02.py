@@ -3,6 +3,7 @@ def legacy_signature(obj):
     import inspect
     additions = {
         "PhaseTimings": {"backend_update_s", "backend_total_s"},
+        "SolveTrace": {"execution_id", "source_sha256", "replay_of"},
         "QuadraticProblem": {"_verify_convexity"},
         "ValidationTolerances": {"feasibility_rel"},
         "execute": {"tolerances"}, "solve": {"tolerances", "certificate_recovery"},
@@ -17,3 +18,18 @@ def legacy_signature(obj):
         assert name in sig.parameters
         assert sig.parameters[name].default is not inspect.Parameter.empty
     return str(sig.replace(parameters=[p for n, p in sig.parameters.items() if n not in allowed]))
+
+
+def published_04_signature(obj):
+    """Preserve the published 0.4 signature while checking documented extensions."""
+    import inspect
+    try:
+        sig = inspect.signature(obj)
+    except (ValueError, TypeError):
+        return None
+    additions = {"execution_id", "source_sha256", "replay_of"} if getattr(obj, "__name__", "") == "SolveTrace" else set()
+    for name in additions:
+        parameter = sig.parameters[name]
+        assert parameter.kind is inspect.Parameter.KEYWORD_ONLY
+        assert parameter.default is not inspect.Parameter.empty
+    return str(sig.replace(parameters=[p for n, p in sig.parameters.items() if n not in additions]))

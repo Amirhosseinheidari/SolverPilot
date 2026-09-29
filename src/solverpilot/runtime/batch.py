@@ -5,7 +5,8 @@ owns its solver; deadlines include process startup and cleanup. IPC is private
 to child processes created here, never an interchange format for external data.
 """
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from solverpilot._identity import new_execution_id
 import multiprocessing as mp
 import os
 import threading
@@ -50,6 +51,7 @@ class BatchItem:
     problem_data_hash: str | None = None
     requested_time_s: float | None = None
     within_budget: bool | None = None
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
     def __post_init__(self):
         if self.x is not None:
@@ -65,6 +67,7 @@ def _worker(connection, problem, backend, tolerances, memory_mb, solver_budget):
         from solverpilot.runtime import solve
         result = solve(problem, backend=backend, tolerances=tolerances, budget=solver_budget)
         connection.send({'status': result.status.value,
+                         'execution_id': result.execution_id,
                          'x': None if result.x is None else result.x.tolist(),
                          'objective': result.objective, 'backend': result.trace.backend})
     except BaseException as exc:
@@ -129,7 +132,8 @@ def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
                     status = payload['status'] if x is None or valid else 'invalid_solution'
                     return BatchItem(index, status, None if x is None else np.asarray(x),
                                      None if validation is None else validation.objective_recomputed,
-                                     valid, payload['backend'], monotonic()-start)
+                                     valid, payload['backend'], monotonic()-start,
+                                     execution_id=payload['execution_id'])
                 if not proc.is_alive():
                     return stopped('error', f'worker exited with code {proc.exitcode}')
         finally:

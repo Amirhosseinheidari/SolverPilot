@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from solverpilot._identity import new_execution_id
 import importlib.util
 from importlib.metadata import PackageNotFoundError, version
 from typing import Any
@@ -41,6 +42,7 @@ class ConicSolveResult:
     validation: ConicValidationReport
     raw_statistics: dict[str, Any]
     problem_data_hash: str | None = None
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
     def __post_init__(self):
         from solverpilot._immutability import deep_freeze, readonly_array

@@ -79,6 +79,8 @@ def execute(
         backend_result.backend_status,
         None if validation is None else validation.valid,
     )
+    from solverpilot._identity import process_source_sha256
+    source_digest = process_source_sha256()
     total_s = perf_counter() - total_t0
 
     raw = backend_result.raw_statistics or {}
@@ -93,6 +95,7 @@ def execute(
                 if k in {"backend_build_s", "backend_update_s", "solve_s"}
                 and isinstance(v, (int, float)) and 0 <= v <= solve_s}
     trace = SolveTrace(
+        source_sha256=source_digest,
         problem_structural_hash=problem.structural_hash,
         problem_data_hash=problem.data_hash,
         problem_class=_problem_class(problem),

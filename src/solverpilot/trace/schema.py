@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any
+from solverpilot._identity import new_execution_id, process_source_sha256
 
 
 TRACE_SCHEMA_VERSION = "0.3"
@@ -44,6 +45,9 @@ class SolveTrace:
     warnings: tuple[str, ...] = ()
     schema_version: str = TRACE_SCHEMA_VERSION
     created_at_utc: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
+    source_sha256: str | None = field(default_factory=process_source_sha256, kw_only=True, compare=False)
+    replay_of: str | None = field(default=None, kw_only=True, compare=False)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

@@ -1,5 +1,5 @@
 """Passive installed-code identity and readiness; never an execution certificate."""
-import hashlib
+from solverpilot._identity import source_tree_sha256
 from importlib import metadata
 from importlib.util import find_spec
 import json
@@ -10,9 +10,7 @@ import platform
 def readiness_report():
     import solverpilot
     root=Path(solverpilot.__file__).resolve().parent
-    files=sorted(root.rglob('*.py'))
-    hashes={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
-    code_id=hashlib.sha256(json.dumps(hashes,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    code_id=source_tree_sha256()
     distribution_version=None; matches=False; editable=False
     try:
         dist=metadata.distribution('solverpilot')
