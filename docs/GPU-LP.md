@@ -17,7 +17,7 @@ Linux environment, not a Windows Python environment.
 ```sh
 python -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install --extra-index-url https://pypi.nvidia.com '.[gpu,test,highs]'
+.venv/bin/python -m pip install --extra-index-url https://pypi.nvidia.com '.[gpu,test,highs,pdlp]'
 ```
 
 ```python
@@ -75,6 +75,8 @@ Run actual GPU tests explicitly on the target machine:
 ```sh
 SOLVERPILOT_TEST_CUOPT=1 python -m pytest tests/test_cuopt_native.py -ra
 python tools/qualify_cuopt.py --output gpu-qualification.json
+python tools/qualify_cuopt.py --cpu-solver ipm --output gpu-versus-ipm.json
+python tools/qualify_cuopt.py --cpu-solver pdlp --output gpu-versus-cpu-pdlp.json
 python -m pip freeze > gpu-environment.txt
 ```
 
@@ -83,8 +85,14 @@ with known primal/dual optima, records model hashes and solver/package versions,
 and reports complete wall time alongside native solve and validation timings.
 Both feasibility and independent numerical optimality must pass. Results are
 synthetic observations, not training/held-out evidence for a production policy.
+An unsuccessful or time-limited baseline remains in the report and makes the
+comparison command exit nonzero; its duration is not a completed-solve speedup.
 Ordinary GitHub-hosted CI has no configured NVIDIA GPU; local GPU evidence must
 remain clearly distinguished from CPU-only GitHub checks.
+
+See the [RTX 3050 qualification record](evidence/cuopt-rtx3050/README.md): GPU
+execution passed, but CPU PDLP was faster on all three tested sizes. GPU is
+therefore available explicitly and remains excluded from automatic routing.
 
 Official references:
 

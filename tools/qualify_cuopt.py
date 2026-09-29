@@ -15,7 +15,7 @@ from time import perf_counter
 import numpy as np
 from scipy import sparse
 from solverpilot import LinearProblem, solve
-from solverpilot.backends import CuOptBackend, HighspyNativeBackend
+from solverpilot.backends import CuOptBackend, HighspyNativeBackend, PDLPBackend
 import solverpilot.backends.cuopt as cuopt_adapter
 
 
@@ -54,6 +54,9 @@ def main():
     parser.add_argument("--sizes", type=int, nargs="+", default=[500, 5000, 20000])
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--time-limit", type=float, default=30.0)
+    parser.add_argument(
+        "--cpu-solver", choices=["choose", "simplex", "ipm", "pdlp"], default="choose"
+    )
     args = parser.parse_args()
     if not 1 <= args.repeats <= 10 or any(n < 2 or n > 100000 for n in args.sizes):
         parser.error("repeats must be 1..10 and sizes 2..100000")
@@ -71,6 +74,7 @@ def main():
             "repeats": args.repeats,
             "time_limit_s": args.time_limit,
             "cpu_threads": 1,
+            "cpu_solver": args.cpu_solver,
             "gpu_tolerance": 1e-9,
             "gpu_precision": "float64",
         },
@@ -78,10 +82,17 @@ def main():
         "worker_sha256": hashlib.sha256(
             Path(cuopt_adapter.__file__).with_name("_cuopt_worker.py").read_bytes()
         ).hexdigest(),
-        "scope": "bounded sparse continuous LP; isolated cold GPU solve versus CPU HiGHS",
+        "scope": "bounded sparse continuous LP; isolated cold cuOpt GPU solve versus "
+        + (
+            "isolated CPU OR-Tools PDLP"
+            if args.cpu_solver == "pdlp"
+            else "CPU HiGHS " + args.cpu_solver
+        ),
         "records": [],
         "summary": [],
     }
+    if args.cpu_solver == "pdlp":
+        report["versions"]["ortools"] = version("ortools")
     try:
         report["nvidia_smi"] = subprocess.run(
             ["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"],
@@ -102,7 +113,13 @@ def main():
             p, planted = problem(n, 264800 + n + repetition)
             backends = [
                 CuOptBackend(time_limit_s=args.time_limit),
-                HighspyNativeBackend(time_limit_s=args.time_limit, threads=1),
+                (
+                    PDLPBackend(time_limit_s=args.time_limit, threads=1)
+                    if args.cpu_solver == "pdlp"
+                    else HighspyNativeBackend(
+                        time_limit_s=args.time_limit, threads=1, solver=args.cpu_solver
+                    )
+                ),
             ]
             if repetition % 2:
                 backends.reverse()
@@ -113,6 +130,7 @@ def main():
                     nnz=p.A.nnz,
                     repetition=repetition,
                     backend=backend.manifest.name,
+                    algorithm="PDLP" if isinstance(backend, CuOptBackend) else args.cpu_solver,
                     data_hash=p.data_hash,
                     planted_objective=planted,
                 )
@@ -141,7 +159,10 @@ def main():
                 report["records"].append(row)
                 save()
                 print(json.dumps(row), flush=True)
-        for name in ("cuopt-gpu", "highspy-native"):
+        for name in (
+            "cuopt-gpu",
+            "ortools-pdlp" if args.cpu_solver == "pdlp" else "highspy-native",
+        ):
             rows = [r for r in report["records"] if r["n"] == n and r["backend"] == name]
             if rows:
                 qualified = all(
@@ -156,6 +177,15 @@ def main():
                         backend=name,
                         all_passed=qualified,
                         median_wall_s=statistics.median(r["wall_s"] for r in rows),
+                        verified_count=sum(
+                            bool(
+                                r.get("feasible")
+                                and r.get("independently_verified")
+                                and r.get("matches_planted")
+                            )
+                            for r in rows
+                        ),
+                        trials=len(rows),
                     )
                 )
         save()
