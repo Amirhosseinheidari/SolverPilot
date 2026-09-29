@@ -79,7 +79,10 @@ class _Worker:
         start = monotonic()
 
         def stopped(status, error=None):
-            return BatchItem(index, status, None, None, False, None, monotonic() - start, error)
+            elapsed = monotonic()-start
+            return BatchItem(index, status, None, None, False, None, elapsed, error,
+                             problem_data_hash=problem.data_hash, requested_time_s=owner.timeout_s,
+                             within_budget=None if owner.timeout_s is None else elapsed <= owner.timeout_s)
 
         def cancelled():
             return (
@@ -166,6 +169,8 @@ class _Worker:
                         monotonic() - start,
                         independently_verified_optimal=bool(valid and payload.get("verified") is True),
                         problem_data_hash=problem.data_hash,
+                        requested_time_s=owner.timeout_s,
+                        within_budget=None if owner.timeout_s is None else True,
                     )
                 if not self.process.is_alive():
                     error = f"worker exited with code {self.process.exitcode}"

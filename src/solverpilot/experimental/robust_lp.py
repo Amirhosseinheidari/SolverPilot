@@ -70,4 +70,8 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
                                      "automatic_production_routing_enabled": False}
     if gain_guard is not None:
         raw["experimental_lp_route"]["gain_guard_sha256"] = gain_guard.payload()['sha256']
-    return replace(result, raw_statistics=raw)
+    elapsed = perf_counter()-start
+    raw['call_budget'] = {**dict(raw.get('call_budget', {})), 'requested_s': time_limit_s,
+                          'elapsed_s': elapsed, 'within_budget': elapsed <= time_limit_s}
+    trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
+    return replace(result, raw_statistics=raw, trace=trace)

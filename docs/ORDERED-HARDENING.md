@@ -9,7 +9,7 @@ promotion of a learned model or publication of a new package.
 | 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Implemented; public replay retains an explicit incomplete case |
 | 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; synthetic development evaluation only, public promotion pending |
 | 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Local qualification passed; full CI pending |
-| 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Pending |
+| 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Implemented with legacy statuses preserved |
 | 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Pending |
 
 ## Step 1: exact arithmetic and deadline accounting
@@ -92,3 +92,19 @@ each 35-call series. This short observation proves neither absence of leaks nor
 industrial reliability. Deadlines of 10 microseconds and 0.1 seconds returned
 timeouts with no candidate; 5 seconds returned a verified result. Process cleanup
 can exceed the requested interval, and that overhead is recorded explicitly.
+
+## Step 5: three separate result questions
+
+`summarize(result)` preserves legacy status and independently reports feasibility,
+optimality evidence/reason and whole-call budget compliance. A valid, proved but
+late answer remains proved and explicitly late. A terminated isolated call has
+no retained candidate or proof. Missing timing evidence stays unknown.
+
+Owned batch proof flags and model identity survive the common view. Exact results
+distinguish zero-gap optimality, verified lower bounds and verified infeasibility;
+a finite lower bound never becomes an optimality claim. Exact timing without a
+reported budget does not invent deadline compliance.
+
+See `examples/26_evidence_and_deadline.py`. The legacy `valid_optimal` status
+continues to mean backend-reported optimality plus validated primal feasibility;
+inspect `optimality` for the stronger independently checked evidence.

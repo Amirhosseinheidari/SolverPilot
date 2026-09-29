@@ -28,5 +28,6 @@ def solve_with_deadline(problem, *, timeout_s, backend=None, tolerances=None, ca
     if elapsed > timeout_s and result.status not in {'timeout', 'cancelled', 'error'}:
         return replace(result, status='timeout', x=None, objective=None, validation_valid=False,
                        independently_verified_optimal=False, elapsed_s=elapsed,
+                       requested_time_s=timeout_s, within_budget=False,
                        error='whole-call deadline exceeded; late result discarded')
-    return replace(result, elapsed_s=elapsed)
+    return replace(result, elapsed_s=elapsed, requested_time_s=timeout_s, within_budget=elapsed <= timeout_s)
