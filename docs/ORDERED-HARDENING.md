@@ -8,7 +8,7 @@ promotion of a learned model or publication of a new package.
 | 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; final integration pending |
 | 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Implemented; public replay retains an explicit incomplete case |
 | 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; synthetic development evaluation only, public promotion pending |
-| 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Pending |
+| 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Local qualification passed; full CI pending |
 | 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Pending |
 | 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Pending |
 
@@ -73,3 +73,22 @@ enables automatic routing. Calibration is not a statistical promotion test.
 and guard before solving 12 disjoint synthetic evaluation cases, twice each.
 This is a development regression, not fresh public/industrial evidence. Old
 public cohorts remain consumed. A new public qualification is still required.
+
+## Step 4: lifecycle and resource observations
+
+A 35-call LP plus 35-call QP soak found that native OSQP defaults produced invalid
+cold candidates before warm starts improved them. The built-in registry now uses
+1e-8 absolute/relative OSQP tolerances and polishing; explicitly constructed
+adapters keep their own settings. Independent validation is unchanged. All 70
+calls then passed primal and independent optimality checks.
+
+Timeout, active cancellation and worker crash are followed by successful requests
+in the same executor. Sequential batches now preserve independent proof metadata.
+Cancellation is checked again after parent validation. The CI OS/Python matrix
+runs the resource observation script and preserves its JSON.
+
+On the local Windows run, post-warmup parent+child RSS range was below 0.2 MB for
+each 35-call series. This short observation proves neither absence of leaks nor
+industrial reliability. Deadlines of 10 microseconds and 0.1 seconds returned
+timeouts with no candidate; 5 seconds returned a verified result. Process cleanup
+can exceed the requested interval, and that overhead is recorded explicitly.

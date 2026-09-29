@@ -147,6 +147,9 @@ class _Worker:
                         )
                     )
                     valid = validation is not None and validation.valid
+                    if cancelled():
+                        self.close()
+                        return stopped("cancelled")
                     if payload.get("problem_data_hash") != problem.data_hash:
                         self.close()
                         return stopped("error", "worker result model identity mismatch")
@@ -307,5 +310,7 @@ def iter_solve_batch(problems, *, cancellation=None, mode="process", **options):
                 bool(result.validation and result.validation.valid),
                 result.trace.backend,
                 monotonic() - start,
+                independently_verified_optimal=result.optimality_evidence.independently_verified_optimal,
+                problem_data_hash=problem.data_hash,
             )
             index += 1
