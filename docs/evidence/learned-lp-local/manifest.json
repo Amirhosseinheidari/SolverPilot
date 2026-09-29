@@ -1,0 +1,19 @@
+{
+  "host_recorded_date": "2026-09-29",
+  "clock_note": "WSL UTC clock was about one day ahead of the Windows host. Raw guest timestamps preserved; durations use perf_counter.",
+  "files": {
+    "model.json": "f1605fbc4b1e5d75d31d5eda185dfe3d8b9e983d7ed6cd9eb7b7bcf94595675d",
+    "observations.json": "70ebc351ba4aee181ef01256633e1f18e60d4f497f8cd05ff82c51633f460598",
+    "protocol.json": "839f77fd5cfb1fccfa7cf47b70be17f90a02858021081aa3e4e06ddbd81f789b",
+    "protocol.sha256": "7d625864d07dead553a7c96c2372eae24740f8818c9d8d715b9dbc6585b74dd2",
+    "summary.json": "dcbb7faae74314dcb66d2240280779b2cad3ca4eccffb2cca868e08ca8bf4011",
+    "test-decisions.json": "612484ca3d668b073d1653464c155a8e88f09510ab1e7fa81d75beb8606dcb37",
+    "test-report.json": "3ebe964f0951c7e3936595d59ba9202d3fd1481120f8d44b49fba600b5aeee9b",
+    "test.json": "01faa01d33c89e415fb73798d4e6a99b590ca4a15e0bed786baafeeb2770f2a2",
+    "train.json": "9fe9ea818ad437f49e8720d19a322ecbac5bee945459c8f80aeeca9d1326f02a",
+    "validation-decisions.json": "3bc9a2dfc83682def43eb6e9079a5bc747bd5959486c5095bbbe2b65f316dc5f",
+    "validation-report.json": "7fc78277f1652fe23244037aa437892173fa439767233288d4d3ef1725adb1ad",
+    "validation.json": "7ec4a32bdc4ffa8fd31897bab67df473293b71690140af67a3ab3c9bb0c9bc70",
+    "warmup.json": "f89763b238c8ab2fd74cef5e768638128a1d79861ed578c66faae261592afac0"
+  }
+}

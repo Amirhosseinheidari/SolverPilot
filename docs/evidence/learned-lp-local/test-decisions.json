@@ -1,0 +1,62 @@
+{
+  "f0-g8-v0": {
+    "candidate": "ortools-pdlp",
+    "reason": "training_baseline",
+    "overhead_s": 0.0001829899999989948
+  },
+  "f0-g8-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 4.0053999995848244e-05
+  },
+  "f0-g9-v0": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 3.7065000000779946e-05
+  },
+  "f0-g9-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 5.55290000079367e-05
+  },
+  "f1-g8-v0": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 0.00011535299999820836
+  },
+  "f1-g8-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 4.4861999995760016e-05
+  },
+  "f1-g9-v0": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 4.469000000995038e-05
+  },
+  "f1-g9-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 5.142899999555084e-05
+  },
+  "f2-g8-v0": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 0.00019628699999429955
+  },
+  "f2-g8-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 4.3826999998941574e-05
+  },
+  "f2-g9-v0": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 3.3015000013847384e-05
+  },
+  "f2-g9-v1": {
+    "candidate": "highs-ipm",
+    "reason": "learned_stump",
+    "overhead_s": 8.816300000091815e-05
+  }
+}

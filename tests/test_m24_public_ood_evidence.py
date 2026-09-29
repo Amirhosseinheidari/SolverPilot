@@ -74,6 +74,8 @@ def test_failed_m24_evidence_rejects_manual_performance_override():
 def test_comparative_evidence_requires_public_preregistered_and_validated():
     base=dict(
         evidence_class=EvidenceClass.COMPARATIVE_HELDOUT, source='x',
+        corpus_integrity_passed=True, outcome_accounting_passed=True,
+        independent_validation_passed=True, reference_crosscheck_passed=True,
         comparative_backends=('scipy-highs-ds','scipy-highs-ipm'),
         heldout=True, feature_cost_accounted=True, fixed_environment=True,
         public_ood=True, pre_registered_policy=True, selection_opportunity_validated=True, performance_ranking_validated=True,

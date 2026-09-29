@@ -1,0 +1,14 @@
+[
+  {
+    "candidate": "highs-simplex",
+    "verified": true
+  },
+  {
+    "candidate": "highs-ipm",
+    "verified": true
+  },
+  {
+    "candidate": "ortools-pdlp",
+    "verified": true
+  }
+]

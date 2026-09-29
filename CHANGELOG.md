@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add an experimental, JSON-serialized cost-sensitive LP selector with training-only baselines, group-separated evaluation, measured feature/decision overhead and conservative abstention. Automatic production routing remains disabled.
+- Count every failed or late repetition in new selector experiments using PAR10; freeze protocols/models before evaluation and preserve unconsumed tests after failed validation.
+- Require correctness/accounting evidence and candidate membership for production performance overrides; report ranking inactive when an override is rejected or unused.
+- Reject invalid direct split labels and empty split identities.
+
 - Add an explicit isolated cuOpt GPU PDLP adapter for continuous LP, with original-space objective/dual validation, wall-time termination, and no automatic routing or CPU fallback.
 - Add CPU-only adversarial transport checks, opt-in native GPU qualification and a bounded CPU/GPU comparison that preserves model hashes, package versions and complete timing observations.
 

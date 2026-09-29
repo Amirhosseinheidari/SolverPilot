@@ -57,6 +57,10 @@ class ProductionEvidence:
     def supports_performance_ranking(self) -> bool:
         return (
             self.evidence_class is EvidenceClass.COMPARATIVE_HELDOUT
+            and self.corpus_integrity_passed is True
+            and self.outcome_accounting_passed is True
+            and self.independent_validation_passed is True
+            and self.reference_crosscheck_passed is True
             and len(set(self.comparative_backends)) >= 2
             and self.heldout
             and self.feature_cost_accounted
@@ -457,7 +461,8 @@ def plan_production_solve(
         f"evidence source: {evidence.source}",
     ]
     override_rejection: str | None = None
-    enable_perf = evidence.supports_performance_ranking and performance_policy is not PerformancePolicy.CONSERVATIVE
+    # Eligibility is not execution: report ranking enabled only when an eligible
+    # comparative override is actually accepted below.
 
     chosen_override: str | None = None
     if performance_override:
@@ -471,6 +476,8 @@ def plan_production_solve(
                     "performance override rejected: evidence is not comparative held-out evidence "
                     "with feature-cost, fixed-environment, public/OOD, preregistration, and successful promotion accounting"
                 )
+            elif requested not in evidence.comparative_backends:
+                override_rejection = f"performance override backend absent from comparative evidence: {requested}"
             elif requested not in _backend_names(registry):
                 override_rejection = f"performance override backend unavailable: {requested}"
             else:
@@ -564,7 +571,7 @@ def plan_production_solve(
     )
     return ProductionDecision(
         plan=plan,
-        auto_performance_ranking_enabled=enable_perf,
+        auto_performance_ranking_enabled=False,
         evidence=evidence,
         conservative_baseline=baseline,
         rationale=tuple(rationale),
