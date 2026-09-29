@@ -157,6 +157,11 @@ execution evidence. Use trusted local JSON; never pickle or executable payloads.
 
 ## Validation and next qualification
 
+The [pilot kit](pilot/README.md) adds an independently formulated direct-SciPy reference,
+public educational and explicitly synthetic inputs, balanced repeated machine timings,
+two clean wheel installations and blank participant feedback forms. It does not substitute
+automated execution for independent users or confirmed business requirements.
+
 `tests/test_execution_evidence.py` covers identity, history aliases, export
 sentinels, lineage, source/version checks, legacy reading, batch transport and
 invalid-candidate export. `tests/test_production_workflow.py` uses analytic

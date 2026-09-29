@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a reproducible production pilot kit with a directly formulated SciPy reference, attributed educational data, explicit synthetic diagnostics, balanced machine timings, strict replay in two clean wheel installations and blank participant feedback forms.
+- Fix installed-wheel release qualification to validate and execute the complete contiguous public-example sequence instead of assuming exactly 24 examples.
+
 - Link execution identity across summaries, reports, history and versioned evidence exports; retain replay lineage and code-source checks, with explicit raw-statistics/model export opt-ins and legacy v1 reading.
 - Add an immutable continuous-production contract, optional minimum commitments, independent formulation/candidate checks, named scenario comparisons, scoped capacity-shortfall diagnostics, Markdown/JSON studies and checked replay.
 - Preserve completed worker identities across batch modes and record malformed scenario entries without losing later scenarios.

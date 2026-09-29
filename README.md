@@ -21,6 +21,8 @@ public retraining and independently checked residual-bound recovery.
 The [production evidence workflow](docs/PRODUCTION-EVIDENCE-WORKFLOW.md) adds
 stable execution identity, explicit export policies, and a complete capacity
 study with independent template-contract checks, named comparisons and replay.
+The [production pilot kit](docs/pilot/README.md) provides a public reference case,
+two clean installation checks and [Persian participant instructions](docs/pilot/GUIDE-FA.md).
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
