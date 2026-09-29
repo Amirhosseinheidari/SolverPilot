@@ -89,6 +89,16 @@ def test_native_checker_rejects_false_derivation(tmp_path):
     path.write_text(payload.replace("lin 1 0 1", "lin 1 0 0"), encoding="ascii")
     r = verify_exact_certificate(p, path, checker_executable=vipr)
     assert not r.independently_verified and r.status == "unverified"
+    # A `global` annotation cannot discharge a branch assumption. Even the
+    # automatically appended objective step must be rejected by the real checker.
+    false_global = ("VER 1.0\nVAR 2\nx0 x1\nINT 0\nOBJ min\n2 0 1 1 1\nCON 2 2\n"
+                    "r0 G 1 1 0 1\nr1 G 1 1 1 1\nRTP range 3 3\nSOL 1\ns 2 0 2 1 1\nDER 1\n"
+                    "fake G 2 1 0 1 { asm } -1 global\n")
+    path.write_text(false_global, encoding="ascii")
+    p2 = LinearProblem(np.zeros((0, 2)), [1, 1], [1, 1], [3, 3], [], [], ["continuous"] * 2)
+    r = verify_exact_certificate(p2, path, checker_executable=vipr)
+    assert not r.independently_verified and r.status == "unverified"
+    assert r.input_certificate_sha256 != r.certificate_sha256
 
 
 @pytest.mark.native

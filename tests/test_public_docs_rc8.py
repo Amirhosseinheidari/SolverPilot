@@ -93,6 +93,7 @@ def test_expected_public_examples_exist():
         "22_global_optimization_optional.py",
         "23_generalized_power_optional.py",
         "24_pdlp_and_certificates_optional.py",
+        "25_exact_milp_optional.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

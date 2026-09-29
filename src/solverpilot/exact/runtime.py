@@ -167,8 +167,9 @@ def _execute(problem, *, checker_executable, time_limit, evidence_directory,
                     'certificate/maxfilesize = 32\npresolving/maxrounds = 0\n'
                     'presolving/maxrestarts = 0\nmisc/scaleobj = FALSE\n'
                     'separating/maxrounds = 0\nseparating/maxroundsroot = 0\n'
+                    'conflict/enable = FALSE\n'
                     f'limits/time = {remaining:.9f}\nlimits/memory = 1024\n', encoding="ascii")
-                _run([solver, "-c", "set load exact.set",
+                _run([solver, "-c", "set load exact.set", "-c", "set separating emphasis off",
                       "-c", "read problem.lp", "-c", "optimize", "-c", "quit"],
                      directory, "scip.log", deadline)
                 payload = _read_certificate(directory / "proof.vipr")

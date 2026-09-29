@@ -53,7 +53,7 @@ with fewer constraints: its lower bound remains valid, while primal feasibility 
 checked on the complete original model. Unsupported presolve transformations fail closed.
 
 SCIP runs with exact mode enabled **before** reading the problem, no objective scaling,
-no presolve rounds/restarts, and separation disabled. This conservative first path avoids
+no presolve rounds/restarts, and separation/conflict analysis disabled. This conservative first path avoids
 incomplete cut certificates requiring `viprcomp`. It can be slower than standard SCIP.
 
 SCIP's informational `global` suffix is accepted after derivations. When its proof
