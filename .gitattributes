@@ -10,4 +10,4 @@
 *.whl binary
 *.gz binary
 # Measurement digests bind exact captured bytes, including Windows newlines.
-docs/evidence/certificate-routing/** -text
+docs/evidence/certificate-routing/** -text whitespace=cr-at-eol
