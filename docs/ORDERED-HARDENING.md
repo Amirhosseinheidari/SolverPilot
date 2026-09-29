@@ -7,7 +7,7 @@ promotion of a learned model or publication of a new package.
 |---|---|---|
 | 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; final integration pending |
 | 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Implemented; public replay retains an explicit incomplete case |
-| 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Pending |
+| 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; synthetic development evaluation only, public promotion pending |
 | 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Pending |
 | 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Pending |
 | 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Pending |
@@ -55,3 +55,21 @@ systems with known unique solutions. Adversarial primal, dual and resource-cap
 tests reject invalid or incomplete evidence. Replay of consumed public cases
 keeps unitcal_7 verified but pilot4 still has no finite residual lower bound.
 This is a coverage improvement, not a generic certificate algorithm.
+
+## Step 3: total-cost gain guard
+
+`calibrate_gain_guard` consumes training observations with both learned candidates
+and the production planner. All repeats count, with PAR10 for failed or late
+independent verification. Every calibration group must benefit after routing
+overhead, sufficient groups must support a switch, and no verified repeat may
+be lost. The guard binds the model, environment, implementation and time budget.
+Changed bindings, expensive setup or missing calibrated gain use production.
+
+Pass `gain_guard=guard` to explicit `solve_robust_lp`; the older unguarded research
+API remains available. Guard artifacts are digest-checked on load. Neither API
+enables automatic routing. Calibration is not a statistical promotion test.
+
+`benchmarks/qualify_gain_guard.py` freezes 24 new synthetic training cases, model
+and guard before solving 12 disjoint synthetic evaluation cases, twice each.
+This is a development regression, not fresh public/industrial evidence. Old
+public cohorts remain consumed. A new public qualification is still required.
