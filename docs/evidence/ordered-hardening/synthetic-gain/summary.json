@@ -1,0 +1,55 @@
+{
+  "scope": "Fresh synthetic development qualification; never enables production routing.",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "D:\\ARTICLE\\solverpilot\\.performance-venv\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "hostname": "amir",
+    "cpu_model": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 16,
+    "memory_bytes": null,
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "highspy": "1.15.1"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null,
+      "BLIS_NUM_THREADS": null
+    }
+  },
+  "totals": {
+    "guarded": {
+      "calls": 24,
+      "verified_within_budget": 24,
+      "par10_mean_s": 0.020697545834385284
+    },
+    "production": {
+      "calls": 24,
+      "verified_within_budget": 24,
+      "par10_mean_s": 0.019872724997185287
+    }
+  },
+  "allowed_candidates": [],
+  "heldout_hashes": [
+    "fbe25b13293056b4fdc32640dde95e9fa273b6f550a06a232e558b4383b8d04d",
+    "5b82ab6af64c69255ea4de6a7eb25660ac92a9d71b1eb1cefdb76fe004886df5",
+    "809684fb66e6cc12dd9e69ed700e75dcbde16a6ba67290ae9e2bd2664dade932",
+    "1a36b6392555b392f78b271f6e83194c493b411f8488fb87feaf93389a2fa9d2",
+    "1c92f77ad11fb5f8ea6e7c2f2e23a4b9c787be84046506ecf1c0e813d7215978",
+    "88b9bafaf983940bc8ebaf02d3058fc54f44d30f27ec5e138030894328e86ae3",
+    "f5976107945af21b35716a49e0f5ead7446bdcdc9a605f6e278d2a3bf955d8f5",
+    "556b682e0d7f9bb6609c7a26124b88c1d184630d5b580ff2538e764a1127e3d9",
+    "05010edddecf30a7af8d335ca2b952d6da8c17bb0dd1ce5dea103cd57bda08f9",
+    "c2c71c9204cf93c8bd66d062555c476b4327ac02e4078d44449760653c65fdd7",
+    "caa5c0334a8a65a79309789b10753b6cf17f7ce3e8f5ed0b666ad2146d525f81",
+    "ed23bc891e7abfb4c4bdf881fdea5c21ff66e65d08dcc25386df0b1e0f90ea0a"
+  ],
+  "production_authorized": false,
+  "public_heldout_qualification": "not performed for this guard"
+}

@@ -1,7 +1,7 @@
 """Explicit deadline-controlled CPU LP/QP call using the existing batch worker.
 
 Use the normal multiprocessing main guard. Worker startup, solve, proof checks,
-transport and parent validation count; process cleanup can add bounded latency.
+transport and parent validation count; process cleanup can add latency.
 Only registered in-process CPU adapters are eligible, avoiding orphaned nested
 workers. A late result is discarded, never promoted to on-time success.
 """

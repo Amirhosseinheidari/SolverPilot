@@ -5,12 +5,12 @@ promotion of a learned model or publication of a new package.
 
 | Step | Acceptance rule | Status |
 |---|---|---|
-| 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; final integration pending |
+| 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; local regression and 12-job CI passed |
 | 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Implemented; public replay retains an explicit incomplete case |
-| 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; synthetic development evaluation only, public promotion pending |
-| 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Local qualification passed; full CI pending |
+| 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; public challenge and family audit reject promotion |
+| 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Windows, Linux/WSL and all 9 OS/Python CI cells passed |
 | 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Implemented with legacy statuses preserved |
-| 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Implemented; installed-wheel and CI qualification pending |
+| 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Implemented; installed-wheel smoke and CI passed |
 
 ## Step 1: exact arithmetic and deadline accounting
 
@@ -72,7 +72,7 @@ enables automatic routing. Calibration is not a statistical promotion test.
 `benchmarks/qualify_gain_guard.py` freezes 24 new synthetic training cases, model
 and guard before solving 12 disjoint synthetic evaluation cases, twice each.
 This is a development regression, not fresh public/industrial evidence. Old
-public cohorts remain consumed. A new public qualification is still required.
+public cohorts remain consumed. The subsequent public challenge is documented below; its promotion gate failed.
 
 ## Step 4: lifecycle and resource observations
 
@@ -127,10 +127,29 @@ the exact-artifact publish workflow; no existing PyPI artifact is replaced.
 ## Remaining qualification boundaries
 
 - pilot4 still lacks an independent finite residual lower bound on the replay.
-- Learned routing has new synthetic development evidence, not a passed new public
-  promotion gate. It remains opt-in and disabled in automatic production routes.
+- Learned routing has synthetic and public diagnostic evidence, but no passed
+  public promotion gate. It remains opt-in and disabled in automatic production routes.
 - Resource observations cover short runs on the available machine and CI hosts;
   multi-hour industrial workloads and additional physical GPU hardware are not qualified.
 - Generic nonlinear global proofs and generic PSD certificates remain out of scope.
 - This work prepares and tests a development distribution; it does not publish a
   new stable PyPI version or claim all remaining research limitations are solved.
+
+## Public gain-guard challenge and family-audit repair
+
+A separate 336-call public experiment used 24 consumed training models and 24
+newly selected test models (two repeats, 2-second API / 12-second process limits).
+The model and gain guard were frozen before test outcomes. No objective mismatch
+was found, but there were zero admitted test switches. The numerical promotion
+gate failed against production even before an additional data-quality failure.
+
+Review against the official Netlib notes found that the old numeric-suffix family
+heuristic separated GREENBEA/GREENBEB despite their shared refinery model. We
+retain the entire challenge as diagnostic evidence, including the related case;
+we do not remove it post hoc or call the result unbiased generalization evidence.
+`public_lp_families.audit_split` and the preparation/qualification entry points
+now reject known alphabetic Netlib variants before any solve. The check is
+conservative, with explicit aliases, and does not claim exhaustive semantic
+independence. Future promotion needs a newly audited, unconsumed cohort.
+
+See [raw observations and audit](evidence/ordered-hardening/README.md).

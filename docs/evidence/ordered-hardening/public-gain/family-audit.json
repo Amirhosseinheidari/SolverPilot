@@ -1,0 +1,11 @@
+{
+  "passed": false,
+  "overlapping_families": [
+    "netlib:greenbe"
+  ],
+  "duplicate_heldout_families": [],
+  "overlapping_data_hashes": [],
+  "scope": "declared groups plus curated Netlib aliases; not exhaustive semantic independence",
+  "discovered_during_evaluation": true,
+  "action": "retain complete original observations as diagnostic evidence; reject promotion, never filter out the related case"
+}

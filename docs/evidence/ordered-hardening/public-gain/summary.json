@@ -1,0 +1,52 @@
+{
+  "instances": 24,
+  "outcomes": 144,
+  "verified_within_budget": {
+    "guarded": 24,
+    "default": 22,
+    "production": 24
+  },
+  "mean_api_par10_s": {
+    "guarded": 10.296347337270824,
+    "default": 11.084476632812498,
+    "production": 10.283146831875
+  },
+  "comparisons": {
+    "default": {
+      "ratio": 0.9288979243991874,
+      "bootstrap_95pct": [
+        0.7600827685536842,
+        1.0077868798862493
+      ],
+      "p90_ratio": 1.2160314784262154,
+      "no_lost_verified_solves": true
+    },
+    "production": {
+      "ratio": 1.001283702898699,
+      "bootstrap_95pct": [
+        1.0004028903354434,
+        1.0034431470510408
+      ],
+      "p90_ratio": 1.1463985212263277,
+      "no_lost_verified_solves": true
+    }
+  },
+  "switches": 0,
+  "objective_mismatches": [],
+  "gates": {
+    "complete_outcomes": true,
+    "no_objective_mismatch": true,
+    "at_least_20_groups": true,
+    "actual_guarded_switches": false,
+    "default_gain": true,
+    "default_bootstrap": false,
+    "default_tail": true,
+    "default_successes": true,
+    "production_gain": false,
+    "production_bootstrap": false,
+    "production_tail": true,
+    "production_successes": true
+  },
+  "public_gate_passed": false,
+  "automatic_production_routing_enabled": false
+}

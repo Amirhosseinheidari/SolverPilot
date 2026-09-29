@@ -1,0 +1,357 @@
+{
+  "scope": "verifier-only, planted bounded LP; exact same candidate, alternated order; three repeats; not full solve speed",
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/solverpilot/cuopt-venv/bin/python",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "hostname": "amir",
+    "cpu_model": "12th Gen Intel(R) Core(TM) i7-12650H",
+    "logical_cpus": 16,
+    "memory_bytes": 8131276800,
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.18.1"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null,
+      "BLIS_NUM_THREADS": null
+    }
+  },
+  "source_sha256": "e8582790081caa81d65bd890eb6f893b395ab5917880b5419aed60938581e350",
+  "observations": [
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 0,
+      "method": "reference",
+      "wall_s": 0.012471752000000613,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 0,
+      "method": "dyadic",
+      "wall_s": 0.00696682099999979,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 1,
+      "method": "dyadic",
+      "wall_s": 0.006565993999999797,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 1,
+      "method": "reference",
+      "wall_s": 0.01200749599999984,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 2,
+      "method": "reference",
+      "wall_s": 0.011216596000000578,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 500,
+      "nnz": 1000,
+      "repeat": 2,
+      "method": "dyadic",
+      "wall_s": 0.006903668000000529,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 4.465102231411131e-15,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 14.646182482901272,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 0,
+      "method": "reference",
+      "wall_s": 0.10354951400000001,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 0,
+      "method": "dyadic",
+      "wall_s": 0.055806872000000673,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 1,
+      "method": "dyadic",
+      "wall_s": 0.05656682000000046,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 1,
+      "method": "reference",
+      "wall_s": 0.10713565200000019,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 2,
+      "method": "reference",
+      "wall_s": 0.1172218900000006,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 5000,
+      "nnz": 10000,
+      "repeat": 2,
+      "method": "dyadic",
+      "wall_s": 0.05603175500000024,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 5.169832505027361e-14,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 5.6771418690260855,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 0,
+      "method": "reference",
+      "wall_s": 0.42008547100000015,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 0,
+      "method": "dyadic",
+      "wall_s": 0.23823012700000046,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 1,
+      "method": "dyadic",
+      "wall_s": 0.24390674700000048,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 1,
+      "method": "reference",
+      "wall_s": 0.44237430299999936,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 2,
+      "method": "reference",
+      "wall_s": 0.43316318399999965,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    },
+    {
+      "n": 20000,
+      "nnz": 40000,
+      "repeat": 2,
+      "method": "dyadic",
+      "wall_s": 0.24745205299999995,
+      "check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 0.0,
+        "complementarity_inf": 0.0,
+        "gap": 2.1591233313658846e-13,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 32.24050937001144,
+        "domain_refined": false
+      }
+    }
+  ],
+  "median_ratio_by_n": {
+    "500": 0.5749465167425932,
+    "5000": 0.5229982172507817,
+    "20000": 0.563082819614699
+  }
+}

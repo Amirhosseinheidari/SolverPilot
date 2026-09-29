@@ -19,6 +19,7 @@ from prepare_public_lp import relax
 from public_lp_worker import CANDIDATES, PACKAGES, candidate, run_strategy
 from qualify_public_lp import run_process, sha, write
 from qualify_robust_lp import verify_split
+from public_lp_families import audit_split
 
 API_LIMIT=2.
 PROCESS_LIMIT=12.
@@ -105,6 +106,10 @@ def main():
     if os.name!='posix' or not hasattr(os,'sched_setaffinity'):raise SystemExit('Linux/WSL required')
     train=json.loads((args.training/'cohort.json').read_text());test=json.loads((args.heldout/'cohort.json').read_text())
     verify_split(train['selected'],test['selected'])
+    family_audit=audit_split(train['selected'],test['selected'],
+                            prior_names=test.get('prior_audit',{}).get('names',()))
+    if not family_audit['passed']:
+        raise ValueError('public family audit rejected split: '+json.dumps(family_audit))
     for folder,cohort in ((args.training,train),(args.heldout,test)):
         for c in cohort['selected']:
             if sha(folder/c['file'])!=c['mps_sha256']:raise ValueError('corpus changed')
@@ -123,6 +128,7 @@ def main():
         'gate':'24 unseen cases/families; both baselines: >=3% gain, bootstrap upper<1, p90<=1.25, no lost successes; actual switches, zero objective mismatches',
         'retuning_allowed':False,'automatic_production_routing_enabled':False}
     write(args.output/'protocol.json',protocol);write(args.output/'training-cohort.json',train);write(args.output/'heldout-cohort.json',test)
+    write(args.output/'family-audit.json',family_audit)
     model_path=args.output/'model.json'
     def collect(folder,cases,strategies,name):
         rows=[]

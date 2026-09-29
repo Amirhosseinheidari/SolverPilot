@@ -1,0 +1,4343 @@
+{
+  "selection": "SHA256(source:name) order; first 12 importable unique groups per source after prior and structural exclusions; no solve outcomes used",
+  "caps": {
+    "n": 50000,
+    "m": 50000,
+    "nnz": 500000
+  },
+  "prior_audit": {
+    "names": [
+      "50v-10",
+      "admission",
+      "afiro",
+      "air05",
+      "app1-1",
+      "assign1-5-8",
+      "b1c1s1",
+      "beasleyc3",
+      "benchmark_tests",
+      "binkar10_1",
+      "bnatt400",
+      "bnatt500",
+      "bppc4-08",
+      "bridge_tests",
+      "bundled-highs-capi",
+      "bundled-osqp-capi",
+      "casadi-cbc-bridge",
+      "casadi-highs-bridge",
+      "casadi-osqp-bridge",
+      "cgal_ldd",
+      "cod105",
+      "cost266-uue",
+      "csched007",
+      "csched008",
+      "cvs16r128-89",
+      "docsls.npz",
+      "drayage-100-23",
+      "drayage-25-23",
+      "driver_recheck",
+      "driver_tests",
+      "dualc1.mat",
+      "dualc2.mat",
+      "dws008-01",
+      "eil33-2",
+      "enlight_hard",
+      "exp-1-500-5-5",
+      "extended_checks",
+      "fastxgemm-n2r6s0t2",
+      "fhnw-binpack4-4",
+      "fhnw-binpack4-48",
+      "focused_cleanup",
+      "gen-ip002",
+      "gen-ip054",
+      "genhs28.mat",
+      "glass-sc",
+      "glass4",
+      "gmu-35-40",
+      "gmu-35-50",
+      "gnar0.npz",
+      "gnar1.npz",
+      "gnar2.npz",
+      "gnar3.npz",
+      "gnar4.npz",
+      "graph20-20-1rand",
+      "graphdraw-domain",
+      "highspy-native",
+      "hs118.mat",
+      "hs21.mat",
+      "hs268.mat",
+      "hs35.mat",
+      "hs35mod.mat",
+      "hs51.mat",
+      "hs52.mat",
+      "hs53.mat",
+      "hs76.mat",
+      "ic97_potential",
+      "icir97_tension",
+      "identity_check",
+      "interpreter_check",
+      "kit_collection",
+      "kit_tests",
+      "legacy_pilot",
+      "leo1",
+      "leo2",
+      "lipmwalk0.npz",
+      "lipmwalk1.npz",
+      "lipmwalk10.npz",
+      "lipmwalk11.npz",
+      "lipmwalk12.npz",
+      "lipmwalk13.npz",
+      "lipmwalk14.npz",
+      "lipmwalk15.npz",
+      "lipmwalk16.npz",
+      "lipmwalk17.npz",
+      "lipmwalk18.npz",
+      "lipmwalk19.npz",
+      "lipmwalk2.npz",
+      "lipmwalk20.npz",
+      "lipmwalk21.npz",
+      "lipmwalk22.npz",
+      "lipmwalk23.npz",
+      "lipmwalk24.npz",
+      "lipmwalk25.npz",
+      "lipmwalk26.npz",
+      "lipmwalk27.npz",
+      "lipmwalk28.npz",
+      "lipmwalk29.npz",
+      "lipmwalk3.npz",
+      "lipmwalk4.npz",
+      "lipmwalk5.npz",
+      "lipmwalk6.npz",
+      "lipmwalk7.npz",
+      "lipmwalk8.npz",
+      "lipmwalk9.npz",
+      "lotschd.mat",
+      "lotsize",
+      "mad",
+      "markshare2",
+      "markshare_4_0",
+      "mas74",
+      "mas76",
+      "mc11",
+      "mcsched",
+      "mik-250-20-75-4",
+      "milo-v12-6-r2-40-1",
+      "mushroom-best",
+      "mzzv11",
+      "mzzv42z",
+      "n5-3",
+      "neos-1171737",
+      "neos-1456979",
+      "neos-1582420",
+      "neos-2657525-crna",
+      "neos-3024952-loue",
+      "neos-3083819-nubu",
+      "neos-3216931-puriri",
+      "neos-3627168-kasai",
+      "neos-3754480-nidda",
+      "neos-4338804-snowy",
+      "neos-4387871-tavua",
+      "neos-4738912-atrato",
+      "neos-4954672-berkel",
+      "neos-5107597-kakapo",
+      "neos-911970",
+      "neos17",
+      "neos5",
+      "neos859080",
+      "nlopt-slsqp-native",
+      "ns1208400",
+      "ns1830653",
+      "nu25-pr12",
+      "osqp-native",
+      "p200x1188c",
+      "peg-solitaire-a3",
+      "pg",
+      "pg5_34",
+      "pk1",
+      "preflight",
+      "prepared_replay",
+      "privileged_reverify",
+      "privileged_tests",
+      "pyscipopt-native",
+      "qafiro.mat",
+      "qap10",
+      "qptest.mat",
+      "ran14x18-disj-8",
+      "reblock115",
+      "rmatr100-p10",
+      "roci-4-11",
+      "rococob10-011000",
+      "rocococ10-001000",
+      "roll3000",
+      "s268.mat",
+      "scipy-highs-bridge",
+      "scipy-highs-ds",
+      "scipy-highs-ipm",
+      "scipy-slsqp-qp-bridge",
+      "sct2",
+      "seymour",
+      "seymour1",
+      "soplex_ldd",
+      "sp150x300d",
+      "standard_reverify",
+      "supportcase26",
+      "swath1",
+      "swath3",
+      "tame.mat",
+      "timtab1",
+      "tr12-30",
+      "trento1",
+      "uct-subprob",
+      "wachplan",
+      "zecevic2.mat"
+    ],
+    "sources": [
+      {
+        "path": "exact-milp-work\\benchmarks\\results\\m25-cohort.json",
+        "sha256": "8ff4ea9d488978ecdfd11f1bc713385399959ade1739f98cfd0e7fb2d0e52c78",
+        "names": [
+          "seymour1",
+          "graphdraw-domain",
+          "neos-4954672-berkel",
+          "csched007",
+          "gen-ip002",
+          "eil33-2",
+          "neos-2657525-crna",
+          "supportcase26",
+          "lotsize",
+          "sp150x300d",
+          "neos859080",
+          "beasleyc3",
+          "mad",
+          "markshare2",
+          "neos5",
+          "ran14x18-disj-8",
+          "roll3000",
+          "neos-4387871-tavua",
+          "cod105",
+          "peg-solitaire-a3",
+          "neos17",
+          "bppc4-08",
+          "p200x1188c",
+          "icir97_tension",
+          "n5-3",
+          "50v-10",
+          "neos-1171737",
+          "glass4",
+          "app1-1",
+          "neos-4338804-snowy",
+          "neos-3024952-loue",
+          "ic97_potential",
+          "b1c1s1",
+          "assign1-5-8",
+          "gmu-35-40",
+          "neos-3754480-nidda",
+          "mik-250-20-75-4",
+          "uct-subprob",
+          "cvs16r128-89",
+          "wachplan",
+          "binkar10_1",
+          "neos-3627168-kasai",
+          "reblock115",
+          "timtab1",
+          "rococob10-011000",
+          "qap10",
+          "markshare_4_0",
+          "csched008"
+        ]
+      },
+      {
+        "path": "exact-milp-work\\benchmarks\\results\\m28\\m28-fresh-cohort.json",
+        "sha256": "e1a5cd1d040e0af9499c59d229162f0853cd58c65a94b2adff61c1c25769cd68",
+        "names": [
+          "drayage-100-23",
+          "rmatr100-p10",
+          "fastxgemm-n2r6s0t2",
+          "ns1830653",
+          "neos-3083819-nubu",
+          "bnatt400",
+          "glass-sc",
+          "trento1",
+          "air05",
+          "milo-v12-6-r2-40-1",
+          "leo1",
+          "neos-1456979",
+          "dws008-01",
+          "neos-3216931-puriri",
+          "neos-1582420",
+          "graph20-20-1rand",
+          "drayage-25-23",
+          "mzzv42z",
+          "mzzv11",
+          "fhnw-binpack4-4",
+          "neos-911970",
+          "mcsched",
+          "mas74",
+          "swath1",
+          "bnatt500",
+          "gmu-35-50",
+          "neos-5107597-kakapo",
+          "swath3",
+          "leo2",
+          "sct2",
+          "nu25-pr12",
+          "pg",
+          "exp-1-500-5-5",
+          "tr12-30",
+          "roci-4-11",
+          "fhnw-binpack4-48",
+          "mas76",
+          "mc11",
+          "mushroom-best",
+          "neos-4738912-atrato",
+          "rocococ10-001000",
+          "seymour",
+          "cost266-uue",
+          "gen-ip054",
+          "pk1",
+          "pg5_34",
+          "ns1208400",
+          "enlight_hard"
+        ]
+      },
+      {
+        "path": "exact-milp-work\\benchmarks\\results\\m24-public-ood-lp-selector.json",
+        "sha256": "988d9c42ab2f5d5a0b9c33ae77b5fe2fc5d36821a26abd5d14c8b77e5272ef13",
+        "names": [
+          "graphdraw-domain",
+          "neos-4954672-berkel",
+          "csched007",
+          "gen-ip002",
+          "neos-2657525-crna",
+          "supportcase26",
+          "sp150x300d",
+          "neos859080",
+          "mad",
+          "markshare2",
+          "neos5",
+          "ran14x18-disj-8",
+          "cod105",
+          "neos17",
+          "bppc4-08",
+          "glass4",
+          "neos-4338804-snowy",
+          "ic97_potential",
+          "assign1-5-8",
+          "gmu-35-40",
+          "neos-3754480-nidda",
+          "mik-250-20-75-4",
+          "neos-3627168-kasai",
+          "timtab1"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\install\\SUMMARY.json",
+        "sha256": "fd696187f466f9f6f94479c3cfb419a56bf8b49f2541f737819d7519dee42522",
+        "names": [
+          "extended_checks",
+          "interpreter_check",
+          "preflight"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\admission.json",
+        "sha256": "570920613791eec023442bc8a67984859c138c61c3b807eafb35f7d061bf57e5",
+        "names": [
+          "admission"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\benchmark_tests.json",
+        "sha256": "f282c75a07b4e073909e4a2e3a771d06b8854d1a8a165ae673bdc0337cdb8de6",
+        "names": [
+          "benchmark_tests"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\driver_recheck.json",
+        "sha256": "5e51768d5f4504ecebd3cbcbe9f793662615b33391fbdd32b35200146313372b",
+        "names": [
+          "driver_recheck"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\driver_tests.json",
+        "sha256": "86b116ba23259efa330c698f1a58cbcc1974461af6428ab69de1227fbdbfc731",
+        "names": [
+          "driver_tests"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\focused_cleanup.json",
+        "sha256": "f59919460a26ec1003eca3bb2c1e2f06335ad7d914dec4d551e35ba83369f0ae",
+        "names": [
+          "focused_cleanup"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\identity_check.json",
+        "sha256": "0dcf4c5063ed2711b4532ea53676f04db07321a49341cffbf4cf3b2d8f6151b1",
+        "names": [
+          "identity_check"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\kit_collection.json",
+        "sha256": "223af13d054f23f6113e6e0a78d8def58714c6f43bb523aa6a2ff9d2711c3531",
+        "names": [
+          "kit_collection"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\kit_tests.json",
+        "sha256": "4448571ace7f87176c5bbae08695da94fb84f8ea68df35251aae30d300d70267",
+        "names": [
+          "kit_tests"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\stages\\legacy_pilot.json",
+        "sha256": "d0a0bdc08647b53836cfd465c3c01dc88e63b47b1c351a7c976601934aafb29c",
+        "names": [
+          "legacy_pilot"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\install\\stages\\extended_checks.json",
+        "sha256": "44e9e88cc4368ee215a9c66049ff120fa7008ef1f0da231608b465e7e06c9038",
+        "names": [
+          "extended_checks"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\install\\stages\\interpreter_check.json",
+        "sha256": "b57b1bd20ddf17b41986e081239a132efd434462f42f5072bb6ffc84721016a4",
+        "names": [
+          "interpreter_check"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\install\\stages\\preflight.json",
+        "sha256": "685f0aa7686046fc79e276e9119c123ad3bb7e11d54800ce0b589523b433edb2",
+        "names": [
+          "preflight"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\bridge_tests.receipt.json",
+        "sha256": "e7667d279059b96d9d75dd8f9bde25ea30512883630bae7b55319eb3241b1594",
+        "names": [
+          "bridge_tests"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\cgal_ldd.receipt.json",
+        "sha256": "7997fc97f8912665f5ce250cd749ee40430a38f74547f1345b4c4d5cbcb04ad1",
+        "names": [
+          "cgal_ldd"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\POSTCHECKS.json",
+        "sha256": "fd657b7e624364f20991c3cd49a89b973a6f5427ab2fc0150ea3e61eded77131",
+        "names": [
+          "bridge_tests",
+          "cgal_ldd",
+          "prepared_replay",
+          "privileged_reverify",
+          "privileged_tests",
+          "soplex_ldd",
+          "standard_reverify"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared_replay.receipt.json",
+        "sha256": "f133e6f6dce91cfb49fb76d8d0f499f7790b658303b88b9e9f000eeb8cef263e",
+        "names": [
+          "prepared_replay"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\privileged_reverify.receipt.json",
+        "sha256": "a7a2d7ff0764efaddf0b573a499d7057cc668c587ca88568c9a5cfee3a65041e",
+        "names": [
+          "privileged_reverify"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\privileged_tests.receipt.json",
+        "sha256": "89c4de59ccaef762d92791a80175fd8660061fc3cac94602522ba30a882a92c5",
+        "names": [
+          "privileged_tests"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\soplex_ldd.receipt.json",
+        "sha256": "e1bda98e8ff8f1e0feb17a5679d5b71d65bd383666b8bff124c6198e8b7873c2",
+        "names": [
+          "soplex_ldd"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\standard_reverify.receipt.json",
+        "sha256": "9fcc5e2a22a29986a87bf18cb2a272b38c439f000823f5f2c1508d588dbdad40",
+        "names": [
+          "standard_reverify"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\Legacy_Inventory.json",
+        "sha256": "b24f09f08dbe304fc1d2992061dbabc4c9a0ad99f88252ff374bee2ac3ad4161",
+        "names": [
+          "docsls.npz",
+          "genhs28.mat",
+          "hs118.mat",
+          "hs21.mat",
+          "hs268.mat",
+          "hs35.mat",
+          "hs35mod.mat",
+          "hs51.mat",
+          "hs52.mat",
+          "hs53.mat",
+          "hs76.mat",
+          "lotschd.mat",
+          "qafiro.mat",
+          "qptest.mat",
+          "s268.mat",
+          "tame.mat",
+          "zecevic2.mat"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\Pending_Candidates.json",
+        "sha256": "ed8bc77a73fc5ee92e5d107616ec0a4fd7c1b8db11573d1bbbd20f1fbb12ebe6",
+        "names": [
+          "dualc1.mat",
+          "dualc2.mat",
+          "gnar0.npz",
+          "gnar1.npz",
+          "gnar2.npz",
+          "gnar3.npz",
+          "gnar4.npz",
+          "lipmwalk0.npz",
+          "lipmwalk1.npz",
+          "lipmwalk10.npz",
+          "lipmwalk11.npz",
+          "lipmwalk12.npz",
+          "lipmwalk13.npz",
+          "lipmwalk14.npz",
+          "lipmwalk15.npz",
+          "lipmwalk16.npz",
+          "lipmwalk17.npz",
+          "lipmwalk18.npz",
+          "lipmwalk19.npz",
+          "lipmwalk2.npz",
+          "lipmwalk20.npz",
+          "lipmwalk21.npz",
+          "lipmwalk22.npz",
+          "lipmwalk23.npz",
+          "lipmwalk24.npz",
+          "lipmwalk25.npz",
+          "lipmwalk26.npz",
+          "lipmwalk27.npz",
+          "lipmwalk28.npz",
+          "lipmwalk29.npz",
+          "lipmwalk3.npz",
+          "lipmwalk4.npz",
+          "lipmwalk5.npz",
+          "lipmwalk6.npz",
+          "lipmwalk7.npz",
+          "lipmwalk8.npz",
+          "lipmwalk9.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\DUALC1.json",
+        "sha256": "45947e7527b7a269985baaeec553bb55d59428ceb226b3a38f1468dfac7ab9b4",
+        "names": [
+          "dualc1.mat"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\DUALC2.json",
+        "sha256": "73e061c59a7e40ffbb3d58a663df9531ca432f9a662d7a57f4ddf099ea5fd248",
+        "names": [
+          "dualc2.mat"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\GNAR0.json",
+        "sha256": "2b4c16bc30b632412a6141f5f3b10e75679002d9007907a7aee66dbf0232d91f",
+        "names": [
+          "gnar0.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\GNAR1.json",
+        "sha256": "1b22b8025c48e1d8b7a26390ee4cbec77c1fd23bba1ee2653b5c83d57263a0b3",
+        "names": [
+          "gnar1.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\GNAR2.json",
+        "sha256": "e9024289b78fdd06de0e4d457f86615e5af78cf9c4b2fb00db7b4e5fcd2133e0",
+        "names": [
+          "gnar2.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\GNAR3.json",
+        "sha256": "00fe6cf2ae8a2632ab425fcc9d0437e1e24720d52c6de0561367dd0b3d16bee8",
+        "names": [
+          "gnar3.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\GNAR4.json",
+        "sha256": "c8e93e935cd77da2a357df2f8ed3285f99de66da288263774921868743cb08a1",
+        "names": [
+          "gnar4.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK0.json",
+        "sha256": "fc8f108c385945b91845a43536cfff6eeb9ef9a0305f577c54c9ea6e594a0d70",
+        "names": [
+          "lipmwalk0.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK1.json",
+        "sha256": "c656649274a5779cf74ca2752f1d1499902422e93e48b4a72c13a4532a69c553",
+        "names": [
+          "lipmwalk1.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK10.json",
+        "sha256": "d3c3698bb80e6c62ffc2cb663bfc09a415e2e1a2681bb58eaf86e7103cf0bf1f",
+        "names": [
+          "lipmwalk10.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK11.json",
+        "sha256": "880e19b4d9b5257c03115e0db33016ed2b5654ca6677616b347e90a31172a8db",
+        "names": [
+          "lipmwalk11.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK12.json",
+        "sha256": "4e7ff1f70d2a150b81e0eddbd63553d46259eaa0bb51ad71ce4a5648d7ec4888",
+        "names": [
+          "lipmwalk12.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK13.json",
+        "sha256": "e541a10c5cb3d3f10cc2168aa10b2e7b7e63ed2d217955ddc5da7d5ea09919aa",
+        "names": [
+          "lipmwalk13.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK14.json",
+        "sha256": "c2b7cfe75175fa759799b27fb43fe4d5b30f2f05c98f1d2707122dcc8f48fc59",
+        "names": [
+          "lipmwalk14.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK15.json",
+        "sha256": "352a8092c750c5127944b58dc151b87c1d607a2017e906bb6c3d4d3251171317",
+        "names": [
+          "lipmwalk15.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK16.json",
+        "sha256": "45d5590f382132da4552d7872173d5a6162978d57dc0e3e9798ce3cd04f8d07e",
+        "names": [
+          "lipmwalk16.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK17.json",
+        "sha256": "5fe6850c4133e9918b10d60664f37d23eb793f07fe6e9e90789e505231b4958e",
+        "names": [
+          "lipmwalk17.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK18.json",
+        "sha256": "2fc40b89516405fc6848550d58cccd3fd19fabc9d8e7aff7d02812676d3426d0",
+        "names": [
+          "lipmwalk18.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK19.json",
+        "sha256": "9f1929fbc774daef311d4632ca115098002ba8aaee43d881a7aba1d81dd0480d",
+        "names": [
+          "lipmwalk19.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK2.json",
+        "sha256": "8b79fa9a14dcd3fefd5093832b143fb3d314f27c13510d729442652098cb9222",
+        "names": [
+          "lipmwalk2.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK20.json",
+        "sha256": "760759985745902d025d630f15e4514ab14bd014015c26c8399c651354ad03ee",
+        "names": [
+          "lipmwalk20.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK21.json",
+        "sha256": "18e82c2ba4f4984bae46a0232869c5a98cfe0a397d1b2ffcd53e847114a95b48",
+        "names": [
+          "lipmwalk21.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK22.json",
+        "sha256": "c1de74e0a79c02cb59f3be5ba19c479dd69500fb7f0ed34180f9d19ad14d7058",
+        "names": [
+          "lipmwalk22.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK23.json",
+        "sha256": "895eeda32a46abe194952cfea3c748f1f00babad55bcfced130f8d3e9662ab95",
+        "names": [
+          "lipmwalk23.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK24.json",
+        "sha256": "f4c1becf9ddeb0da02bc703b3b1d06f362b3883aa919b96d1a42abee6580a387",
+        "names": [
+          "lipmwalk24.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK25.json",
+        "sha256": "9f4623cffa806c7de4bcbfa22f909ac5bab650e2ea0324e25037b1dc2988ac29",
+        "names": [
+          "lipmwalk25.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK26.json",
+        "sha256": "a5c83b5172b73c8a7eaf7e3fbf8563e8c243893c44356981bc08cf843b047189",
+        "names": [
+          "lipmwalk26.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK27.json",
+        "sha256": "a832e57ee6775d3a2bbd9069eec79d427ba1af9f0d0c94e84597aba82459d745",
+        "names": [
+          "lipmwalk27.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK28.json",
+        "sha256": "76daeb0b667279aefb07175e423f2913d281a24ff276d25c8c8ff5eb79c28581",
+        "names": [
+          "lipmwalk28.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK29.json",
+        "sha256": "d50b53688084f2b316232b0c8d3e448889bda676b170d496abf84c02a9d4ccf4",
+        "names": [
+          "lipmwalk29.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK3.json",
+        "sha256": "43b2795ee93beaa5bf97965aa0e74adc0043a3ff9764f3f2870142b39554500b",
+        "names": [
+          "lipmwalk3.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK4.json",
+        "sha256": "c62c2a37dfccd24e4d5f6fca44f2f3b210dbef6806399d3367538af6d54eecf5",
+        "names": [
+          "lipmwalk4.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK5.json",
+        "sha256": "7fb3292475c0624b0912bdb3d60f2f4f90027a44bb0e4ce3b2d996d2b674189a",
+        "names": [
+          "lipmwalk5.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK6.json",
+        "sha256": "7f29ca9e0a60b86e4b667e3244828a235db18b7b9595938d5b47c082b9fa72c7",
+        "names": [
+          "lipmwalk6.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK7.json",
+        "sha256": "a10d2436e768944df3cc9c9e9eb487cff677bd8185bb1b767c81c9399632b369",
+        "names": [
+          "lipmwalk7.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK8.json",
+        "sha256": "714db914d51b93e917cb9186ccdca088987b82196c75720054fe03338fb17a9a",
+        "names": [
+          "lipmwalk8.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RESULTS\\tests\\postchecks\\prepared\\pending\\LIPMWALK9.json",
+        "sha256": "9be2c1c77d90c2f3498be95faccb123202c08303be761db6f3b016c5ff2104c4",
+        "names": [
+          "lipmwalk9.npz"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RUN06_EARLY_FAILURE\\stages\\focused_cleanup.json",
+        "sha256": "fd4e258b3267c7cff88444585b4f70dccd994803ab5c3a025a5d40ca6162ffe4",
+        "names": [
+          "focused_cleanup"
+        ]
+      },
+      {
+        "path": "stage0-r6-20260929\\evidence\\VPS_RUN06_EARLY_FAILURE\\stages\\identity_check.json",
+        "sha256": "14db85c4f4dd6aec4b2809c92f2bb376644383faa6f0c2df415eb10ae13cf61e",
+        "names": [
+          "identity_check"
+        ]
+      },
+      {
+        "path": "case-study-r1-20260930\\evidence\\VPS_CASE_STUDY\\sealed\\ADMISSION.json",
+        "sha256": "5380945f7242a6ba95d2a0ce096d8e5acdb751868305599efcb5a87b1105da8d",
+        "names": [
+          "dualc1.mat",
+          "dualc2.mat",
+          "gnar0.npz",
+          "gnar1.npz",
+          "gnar2.npz",
+          "gnar3.npz",
+          "gnar4.npz",
+          "lipmwalk0.npz",
+          "lipmwalk1.npz",
+          "lipmwalk10.npz",
+          "lipmwalk11.npz",
+          "lipmwalk12.npz",
+          "lipmwalk13.npz",
+          "lipmwalk14.npz",
+          "lipmwalk15.npz",
+          "lipmwalk16.npz",
+          "lipmwalk17.npz",
+          "lipmwalk18.npz",
+          "lipmwalk19.npz",
+          "lipmwalk2.npz",
+          "lipmwalk20.npz",
+          "lipmwalk21.npz",
+          "lipmwalk22.npz",
+          "lipmwalk23.npz",
+          "lipmwalk24.npz",
+          "lipmwalk25.npz",
+          "lipmwalk26.npz",
+          "lipmwalk27.npz",
+          "lipmwalk28.npz",
+          "lipmwalk29.npz",
+          "lipmwalk3.npz",
+          "lipmwalk4.npz",
+          "lipmwalk5.npz",
+          "lipmwalk6.npz",
+          "lipmwalk7.npz",
+          "lipmwalk8.npz",
+          "lipmwalk9.npz"
+        ]
+      },
+      {
+        "path": "performance-audit-20260911\\measurements.json",
+        "sha256": "dd54aac1b021c9736563ac9ac6f138f7f7bf62feb5d616b7a9f63c8dd3ad7cfe",
+        "names": [
+          "bundled-highs-capi",
+          "bundled-osqp-capi",
+          "casadi-cbc-bridge",
+          "casadi-highs-bridge",
+          "casadi-osqp-bridge",
+          "highspy-native",
+          "nlopt-slsqp-native",
+          "osqp-native",
+          "pyscipopt-native",
+          "scipy-highs-bridge",
+          "scipy-highs-ds",
+          "scipy-highs-ipm",
+          "scipy-slsqp-qp-bridge"
+        ]
+      }
+    ]
+  },
+  "metadata_sha256": {
+    "prior-audit.json": "92287ce2dcb48953bffb8b1950ff6c9300f798083c8a57204b4f048054150546",
+    "netlib-readme": "3e88f372892982e84ab41a65e005ecf1b4fbf19f3e8ada9fcb59a5ae87dd003c",
+    "miplib-metadata.json": "eeb69bfb62225b8e8c9b2e98c751ffe0f9fcd51bb52d69796a4e4c320e370488",
+    "miplib-metadata.html": "7ee849b8649e0c82db900c7123a0c40f2aa94ee0e3e7abeba7ece6b2b28d737f",
+    "miplib-benchmark.test": "0ee9758dba64bb1689cc121c794ee547992a046bcabe1cce9ea79158375dabd5",
+    "emps.c": "fee41f544f6873a5e12bc598947828dc9964ef0676162e4df55e915760e2be22"
+  },
+  "selected": [
+    {
+      "name": "neos-3004026-krka",
+      "n": 17030,
+      "m": 12545,
+      "nnz": 41860,
+      "group": "miplib:neos-pseudoapplication-38",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/neos-3004026-krka.mps.gz",
+      "raw_sha256": "98e00480fca9f452b1185089c154e14e3af9e79113e1bc0237a2fd444a271516",
+      "mps_sha256": "7f8e828628826311201247f9d3038321cb59cd2da1806ec1cb4e6176e377197b",
+      "file": "miplib-neos-3004026-krka.mps",
+      "data_hash": "d15b0c31ab277080d2acf3d76d288b41c8e821b7facb009ad1b40113b07bf32b",
+      "reader_agreement": true
+    },
+    {
+      "name": "germanrr",
+      "n": 10813,
+      "m": 10779,
+      "nnz": 175547,
+      "group": "miplib:germanrr",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/germanrr.mps.gz",
+      "raw_sha256": "e7609d88c8ef96f40be85069e39ee5f208a7980625badb4d3908cd4b7a0058fb",
+      "mps_sha256": "5dbed5fe40c250554655a175bb84516788b7a4331211eb205170c8c19afae1d0",
+      "file": "miplib-germanrr.mps",
+      "data_hash": "6507052f93ac1ccb648aeff0b35f9474c2189697166e69550178f3e9cba49d6a",
+      "reader_agreement": true
+    },
+    {
+      "name": "brazil3",
+      "n": 23968,
+      "m": 14646,
+      "nnz": 133184,
+      "group": "miplib:timetabling",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/brazil3.mps.gz",
+      "raw_sha256": "717adb6b924d7f4f28b4f86cc63fbeb02c2e86dbd7163d3736b998c3caaf7ff0",
+      "mps_sha256": "f6bbf00496001a5563a70a4195d5189cc78bdea87113cc3530f01909c8f5d81d",
+      "file": "miplib-brazil3.mps",
+      "data_hash": "66bec46eb61b52297176ddfd76989d032be485ceb0990c857b7c3940267deab4",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "pilot4",
+      "n": 1000,
+      "m": 410,
+      "nnz": 5141,
+      "group": "netlib:pilot",
+      "reference": -2581.1392641,
+      "url": "https://www.netlib.org/lp/data/pilot4",
+      "raw_sha256": "baf0c68257a14cc34fd56e50d4b3701f117339e819175da658d37a2158c98dd3",
+      "mps_sha256": "8d3c89d5be7ce7a591ad06d9b88c584dfb47501a73f9b882ff11eec7f9341387",
+      "file": "netlib-pilot4.mps",
+      "data_hash": "84461a38b1aa9f716f91660e9551682e92715c6805e6ee38995a300a3718c7ef",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "greenbea",
+      "n": 5405,
+      "m": 2392,
+      "nnz": 30877,
+      "group": "netlib:greenbea",
+      "reference": -72462405.908,
+      "url": "https://www.netlib.org/lp/data/greenbea",
+      "raw_sha256": "d495408c62df4410084ca8193a347fe9c2d5f56aa0e12f7fcb42b94f8a87fcc9",
+      "mps_sha256": "3d978068e59e9126ddd7599d845a111c66cc7a60709b7ea8c2441dc5f0e44fdf",
+      "file": "netlib-greenbea.mps",
+      "data_hash": "6cf18f306b78330dae6dfc89967e3b8ec130d11485b06950b4dd4191478a493e",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "fit1p",
+      "n": 1677,
+      "m": 627,
+      "nnz": 9868,
+      "group": "netlib:fit",
+      "reference": 9146.3780924,
+      "url": "https://www.netlib.org/lp/data/fit1p",
+      "raw_sha256": "7f7e4ac2792c8f3b50334a8827b04f3eb8208dc0ba46918874dbfeb1d0f01f09",
+      "mps_sha256": "f04f6a0b9face4919aac4f2c39671abead1ebeff56c757af99d1812312ab6765",
+      "file": "netlib-fit1p.mps",
+      "data_hash": "62e73447d68afe210bc68aedfd53366af1df7e88a51fbac35824ab3ac618818c",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "grow7",
+      "n": 301,
+      "m": 140,
+      "nnz": 2612,
+      "group": "netlib:grow",
+      "reference": -47787811.815,
+      "url": "https://www.netlib.org/lp/data/grow7",
+      "raw_sha256": "3a9006f5891b11d02323465e3f69a32158194dedd58028d51afcf45258c00a1c",
+      "mps_sha256": "7072888d957cf01949854eac5ce171710d8b674566f1f2695d9f44de7b8cb74d",
+      "file": "netlib-grow7.mps",
+      "data_hash": "1d3c5f8698e4e2b89be85d56e735e145bebd5005d2144f213e3a3c62e0fd8986",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "kb2",
+      "n": 41,
+      "m": 43,
+      "nnz": 286,
+      "group": "netlib:kb",
+      "reference": -1749.9001299,
+      "url": "https://www.netlib.org/lp/data/kb2",
+      "raw_sha256": "f8410e43eac30a999179519932a7a9ed630d6a7428438710bffb10b01433eee0",
+      "mps_sha256": "b8a3df09b7e76059cb1abd04b8a36c6bf9d9781e20a3d51b38c56f31f47606ea",
+      "file": "netlib-kb2.mps",
+      "data_hash": "bd843d9b86ef7c87bddb6bbd1852581ffbb4d8f52c3d52df3de7d9d33b1d2a04",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "sctap1",
+      "n": 480,
+      "m": 300,
+      "nnz": 1692,
+      "group": "netlib:sctap",
+      "reference": 1412.25,
+      "url": "https://www.netlib.org/lp/data/sctap1",
+      "raw_sha256": "92a8dfb738aabe0b5df06ebcf49a7c3f9d18c7641c589b0290c90b084d15e0de",
+      "mps_sha256": "546e421f29d61481619b4f7bc91b7fe0f07dbec53356a3e04f1ee8fb9fc32b6e",
+      "file": "netlib-sctap1.mps",
+      "data_hash": "d36090d2319cff92d30e50821b03e209272ad0a221fd09b816280e930028a96b",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "ship12l",
+      "n": 5427,
+      "m": 1151,
+      "nnz": 16170,
+      "group": "netlib:ship",
+      "reference": 1470187.9193,
+      "url": "https://www.netlib.org/lp/data/ship12l",
+      "raw_sha256": "bb6c65988f8fa9ecab7b3c4e5600e9d51a58ddea5ee5928f0cd9a0addaf5af3f",
+      "mps_sha256": "9b48a8f1640f18ee53bf74d13e12de4946868c8f889bec8f9321dec5baa1c4e3",
+      "file": "netlib-ship12l.mps",
+      "data_hash": "c7cf5ce399ada50aebca541e90c6a3b0816c85a57eaefc13fcc4e038eb0f81aa",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "adlittle",
+      "n": 97,
+      "m": 56,
+      "nnz": 383,
+      "group": "netlib:adlittle",
+      "reference": 225494.96316,
+      "url": "https://www.netlib.org/lp/data/adlittle",
+      "raw_sha256": "a8d81309f69682bdc02ff7b57841f06c7254fa5cca997c2b3deea794ea8efdfd",
+      "mps_sha256": "fec81e24fa91bc545d97239b108b43e6034f37b4bf2455a3f8c179726b44d44c",
+      "file": "netlib-adlittle.mps",
+      "data_hash": "f6108c87d85c14f63da834588574bb43ed93bede23612d15e8ea946998e77588",
+      "reader_agreement": true
+    },
+    {
+      "name": "irp",
+      "n": 20315,
+      "m": 39,
+      "nnz": 98254,
+      "group": "miplib:irp",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/irp.mps.gz",
+      "raw_sha256": "c587a00599896816d3edf62c1bbed531c27000b635bcd0b9f913442a232792e7",
+      "mps_sha256": "754905341c843153bd2caa6a73985dcb1b841423b6825370a1293b6d39bfd9da",
+      "file": "miplib-irp.mps",
+      "data_hash": "61fd283a79a631015c8af9abf1ab9697a06ea32268947a2cb749634d987b1885",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "agg2",
+      "n": 302,
+      "m": 516,
+      "nnz": 4284,
+      "group": "netlib:agg",
+      "reference": -20239252.356,
+      "url": "https://www.netlib.org/lp/data/agg2",
+      "raw_sha256": "bede4ff2869169f7c7915159a993ac30e2e034503c9e73b8436e92418901b770",
+      "mps_sha256": "bf1e15697ecfdc1f2e207b7f42509b03cd7e33580b99821950ac24a262145ae0",
+      "file": "netlib-agg2.mps",
+      "data_hash": "d2e9072c60dde68d724c1875c32de4f3d8342209a80fd058f95e38dd13cb51b2",
+      "reader_agreement": true
+    },
+    {
+      "name": "piperout-08",
+      "n": 10399,
+      "m": 14589,
+      "nnz": 44959,
+      "group": "miplib:piperout",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/piperout-08.mps.gz",
+      "raw_sha256": "9000694c9a77ac82cebf25a46699a80351800229cc56bfbc4db0c8b6dcfaf39c",
+      "mps_sha256": "4f2393fb47ebda389300cdcc3f787a3f96c9978705cd03e11aa316fe8442a721",
+      "file": "miplib-piperout-08.mps",
+      "data_hash": "06480f3d4c75d786e29e6113fa5a7fd978f7ffdb6e6491a09e2c623774992f4b",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "25fv47",
+      "n": 1571,
+      "m": 821,
+      "nnz": 10400,
+      "group": "netlib:25fv47",
+      "reference": 5501.8458883,
+      "url": "https://www.netlib.org/lp/data/25fv47",
+      "raw_sha256": "1a73d906caca6002d3aa29e8886493a08199b0b2815398f4edefb30e5abac025",
+      "mps_sha256": "07290b464eb79c0ed722e16ed29454b5802fb67daaa03b8ee7fd40aee7f9b508",
+      "file": "netlib-25fv47.mps",
+      "data_hash": "4fd988ab81870d60dcc7c53ed00d86472d2bd613765d1edc40482102ee8835bd",
+      "reader_agreement": true
+    },
+    {
+      "name": "hypothyroid-k1",
+      "n": 2602,
+      "m": 5195,
+      "nnz": 433884,
+      "group": "miplib:hypothyroid",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/hypothyroid-k1.mps.gz",
+      "raw_sha256": "489ffe662de76b8dbb93855fc971d383ca27e613ea5805437652efe3a9e9230e",
+      "mps_sha256": "f1e02ce5876f6424ab26a13af41c55bae6bc1cc65d4164087dc981865e407107",
+      "file": "miplib-hypothyroid-k1.mps",
+      "data_hash": "aef799e852a7cb8a15d04e3523c2189710d719efba3b9a165db3ad1e275f1338",
+      "reader_agreement": true
+    },
+    {
+      "name": "unitcal_7",
+      "n": 25755,
+      "m": 48939,
+      "nnz": 127595,
+      "group": "miplib:unitcal",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/unitcal_7.mps.gz",
+      "raw_sha256": "e9c83822eacf7b929134baf74c75be489304c545d390858666869e5755fec9a0",
+      "mps_sha256": "c376735825096041e176b0513445e545396ea60bd62c20c1f1b50872aa64be4c",
+      "file": "miplib-unitcal_7.mps",
+      "data_hash": "0f0c761a294004f877f6249360a3fe02e57d24338e106256c5b01e771f5b89a6",
+      "reader_agreement": true
+    },
+    {
+      "name": "ns1952667",
+      "n": 13264,
+      "m": 41,
+      "nnz": 335643,
+      "group": "miplib:neos-pseudoapplication-78",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/ns1952667.mps.gz",
+      "raw_sha256": "a871037226d823452e87de304ae3ea367ee2b7ec255cce2fe16df27e341d9f20",
+      "mps_sha256": "8f462679c9bb1ac6d38dcd3bc8db3103295128920f377c633bc1c9027b7dfe06",
+      "file": "miplib-ns1952667.mps",
+      "data_hash": "8a43065190a4553fad2f6108f57676048359ea576f76d1134b5f9262473a3e71",
+      "reader_agreement": true
+    },
+    {
+      "name": "cbs-cta",
+      "n": 24793,
+      "m": 10112,
+      "nnz": 64388,
+      "group": "miplib:cta",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/cbs-cta.mps.gz",
+      "raw_sha256": "4f688482bbf0702ff0176fc027ee13967c1a8dbf8f243f8b2cebbb35bef534fa",
+      "mps_sha256": "c1a57ebb5962b41ad55815e4b3260104bf0bb4bcd6d01f1ebccbb50f2e5f127b",
+      "file": "miplib-cbs-cta.mps",
+      "data_hash": "5ff90ccc822cac0084e5c011e4c1dd8f05579d5942d51c3bf0edd55b9909c22b",
+      "reader_agreement": true
+    },
+    {
+      "name": "blp-ar98",
+      "n": 16021,
+      "m": 1128,
+      "nnz": 200601,
+      "group": "miplib:blp",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/blp-ar98.mps.gz",
+      "raw_sha256": "9540fa275cb8d8019cf2c8911d4af46a821bed0bd9207d558106cacef4169117",
+      "mps_sha256": "b57094efbc630a2e05900a0794a3287281db58117d60825032a8f1c70c1dd287",
+      "file": "miplib-blp-ar98.mps",
+      "data_hash": "b08ebd25e83a7128a13e1c96dbacd4bc21e3808f04c48a5f88ebd201f3cbd144",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "bnl2",
+      "n": 3489,
+      "m": 2324,
+      "nnz": 13999,
+      "group": "netlib:bnl",
+      "reference": 1811.2365404,
+      "url": "https://www.netlib.org/lp/data/bnl2",
+      "raw_sha256": "972ea8ea18826f5231c22afee33845cbd11538c537060f2fd65086ce588ca0f3",
+      "mps_sha256": "e57f068952efde4c829b24edc375db0d49fc1bde675b76db03aa706d30cb45ae",
+      "file": "netlib-bnl2.mps",
+      "data_hash": "2207dc5d13666d1a1e56d2cd96c1b15a98a112b3d69491dc16b1b7bba5cd89d5",
+      "reader_agreement": true
+    },
+    {
+      "source": "netlib",
+      "name": "modszk1",
+      "n": 1620,
+      "m": 687,
+      "nnz": 3168,
+      "group": "netlib:modszk",
+      "reference": 320.61972906,
+      "url": "https://www.netlib.org/lp/data/modszk1",
+      "raw_sha256": "83648640da99e2c52b05198eba62762621635a49814a5dbdb98eefd808f9d6de",
+      "mps_sha256": "f2fa28c90f7a08c326aad2679700839b8fd5b1757a4165622c3867e1ab063f9a",
+      "file": "netlib-modszk1.mps",
+      "data_hash": "d4b75f3886c488f50f6f5d4faa25178895761c40e0fe5742162c2f4998dd1533",
+      "reader_agreement": true
+    },
+    {
+      "name": "neos-5195221-niemur",
+      "n": 14546,
+      "m": 42256,
+      "nnz": 176586,
+      "group": "miplib:neos-pseudoapplication-32",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/neos-5195221-niemur.mps.gz",
+      "raw_sha256": "c1c8c6e4603d783f55fa3da7c01a5b9be788ebf54764ff72e4a676d065ee90f0",
+      "mps_sha256": "200af657b9362b255433eb25de8512ce0faa0a6c518b118f93bf76e5452e7f1d",
+      "file": "miplib-neos-5195221-niemur.mps",
+      "data_hash": "4e7aebadced72d4c6436eec2ba898cdd185b396ad28b567eef4d9be0d2f91ec5",
+      "reader_agreement": true
+    },
+    {
+      "name": "nursesched-sprint02",
+      "n": 10250,
+      "m": 3522,
+      "nnz": 204000,
+      "group": "miplib:nursescheduling",
+      "source": "miplib",
+      "reference": null,
+      "url": "https://miplib.zib.de/WebData/instances/nursesched-sprint02.mps.gz",
+      "raw_sha256": "fadbbaaea74c7070e553a55e4312755c5fcf3e049ebafe7bdfd2c9769fecc8ba",
+      "mps_sha256": "070c64c6dc23284fc5e85db1f8470aab4d0a6c826eff9bfc1ba4016ffbfded21",
+      "file": "miplib-nursesched-sprint02.mps",
+      "data_hash": "159b98bc9f90b94b790e78da56f6571603693ed43c094eefa216f88b28f9de45",
+      "reader_agreement": true
+    }
+  ],
+  "exclusions": [
+    {
+      "name": "app1-1",
+      "n": 2480,
+      "m": 4926,
+      "nnz": 18275,
+      "group": "miplib:app",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-5114902-kasavu",
+      "n": 710164,
+      "m": 961170,
+      "nnz": 4240376,
+      "group": "miplib:neos-pseudoapplication-104",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-5049753-cuanza",
+      "n": 242736,
+      "m": 322248,
+      "nnz": 1440672,
+      "group": "miplib:neos-pseudoapplication-85",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "sorrell3",
+      "n": 1024,
+      "m": 169162,
+      "nnz": 338324,
+      "group": "miplib:independentset",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "ns1208400",
+      "n": 2883,
+      "m": 4289,
+      "nnz": 81746,
+      "group": "miplib:neos-pseudoapplication-108",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "fhnw-binpack4-48",
+      "n": 3710,
+      "m": 4480,
+      "nnz": 17290,
+      "group": "miplib:binpack",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "cryptanalysiskb128n5obj14",
+      "n": 48950,
+      "m": 98021,
+      "nnz": 292875,
+      "group": "miplib:cryptanalysis",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "gmu-35-40",
+      "n": 1205,
+      "m": 424,
+      "nnz": 4843,
+      "group": "miplib:gmu",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "timtab1",
+      "n": 397,
+      "m": 171,
+      "nnz": 829,
+      "group": "miplib:timtab",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "cvs16r128-89",
+      "n": 3472,
+      "m": 4633,
+      "nnz": 12528,
+      "group": "miplib:cvs",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "nu25-pr12",
+      "n": 5868,
+      "m": 2313,
+      "nnz": 17712,
+      "group": "miplib:nus-prxy",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "seymour1",
+      "n": 1372,
+      "m": 4944,
+      "nnz": 33549,
+      "group": "miplib:seymour",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "square47",
+      "n": 95030,
+      "m": 61591,
+      "nnz": 27329856,
+      "group": "miplib:square",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "sing44",
+      "n": 59708,
+      "m": 54745,
+      "nnz": 281260,
+      "group": "miplib:sing",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-5093327-huahum",
+      "n": 40640,
+      "m": 51840,
+      "nnz": 784768,
+      "group": "miplib:neos-pseudoapplication-17",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-5107597-kakapo",
+      "n": 3114,
+      "m": 6498,
+      "nnz": 19392,
+      "group": "miplib:neos-pseudoapplication-54",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-911970",
+      "n": 888,
+      "m": 107,
+      "nnz": 3408,
+      "group": "miplib:neos-pseudoapplication-70",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "ship08l",
+      "n": 4283,
+      "m": 778,
+      "nnz": 17085,
+      "group": "netlib:ship",
+      "reference": 1909055.2114,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "triptim1",
+      "n": 30055,
+      "m": 15706,
+      "nnz": 515436,
+      "group": "miplib:triptim",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "gen-ip054",
+      "n": 30,
+      "m": 27,
+      "nnz": 532,
+      "group": "miplib:generated",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "fastxgemm-n2r6s0t2",
+      "n": 784,
+      "m": 5998,
+      "nnz": 19376,
+      "group": "miplib:fastxgemm",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "supportcase6",
+      "n": 130052,
+      "m": 771,
+      "nnz": 584976,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "ns1760995",
+      "n": 17956,
+      "m": 615388,
+      "nnz": 1854012,
+      "group": "miplib:neos-pseudoapplication-12",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "agg",
+      "n": 163,
+      "m": 488,
+      "nnz": 2541,
+      "group": "netlib:agg",
+      "reference": -35991767.287,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "graph20-20-1rand",
+      "n": 2183,
+      "m": 5587,
+      "nnz": 19277,
+      "group": "miplib:graphs",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "n5-3",
+      "n": 2550,
+      "m": 1062,
+      "nnz": 9900,
+      "group": "miplib:nxy-z",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "mzzv11",
+      "n": 10240,
+      "m": 9499,
+      "nnz": 134603,
+      "group": "miplib:mzzv",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "thor50dday",
+      "n": 106261,
+      "m": 53360,
+      "nnz": 212060,
+      "group": "miplib:thor",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "pg",
+      "n": 2700,
+      "m": 125,
+      "nnz": 5200,
+      "group": "miplib:pg",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "roll3000",
+      "n": 1166,
+      "m": 2295,
+      "nnz": 29386,
+      "group": "miplib:roll",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "bab6",
+      "n": 114240,
+      "m": 29904,
+      "nnz": 1283181,
+      "group": "miplib:bab",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "supportcase26",
+      "n": 436,
+      "m": 870,
+      "nnz": 2492,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "dws008-01",
+      "n": 11096,
+      "m": 6064,
+      "nnz": 56400,
+      "group": "miplib:dws",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "50v-10",
+      "n": 2013,
+      "m": 233,
+      "nnz": 2745,
+      "group": "miplib:50v-10",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-873061",
+      "n": 175288,
+      "m": 93360,
+      "nnz": 350576,
+      "group": "miplib:neos-pseudoapplication-61",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "standata",
+      "n": 1075,
+      "m": 359,
+      "nnz": 3038,
+      "group": "netlib:standata",
+      "reference": 1257.6995,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "sctap2",
+      "n": 1880,
+      "m": 1090,
+      "nnz": 8124,
+      "group": "netlib:sctap",
+      "reference": 1724.8071429,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "blp-ic98",
+      "n": 13640,
+      "m": 717,
+      "nnz": 191947,
+      "group": "miplib:blp",
+      "source": "miplib",
+      "reference": null,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "graphdraw-domain",
+      "n": 254,
+      "m": 865,
+      "nnz": 2600,
+      "group": "miplib:graphdraw",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "pg5_34",
+      "n": 2600,
+      "m": 225,
+      "nnz": 7700,
+      "group": "miplib:pg",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "markshare2",
+      "n": 74,
+      "m": 7,
+      "nnz": 434,
+      "group": "miplib:markshare",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "map10",
+      "n": 164547,
+      "m": 328818,
+      "nnz": 549920,
+      "group": "miplib:map",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "trento1",
+      "n": 7687,
+      "m": 1265,
+      "nnz": 93571,
+      "group": "miplib:trento",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "cycle",
+      "n": 2857,
+      "m": 1903,
+      "nnz": 21322,
+      "group": "netlib:cycle",
+      "reference": -5.2263930249,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "mas76",
+      "n": 151,
+      "m": 12,
+      "nnz": 1640,
+      "group": "miplib:mas",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-4300652-rahue",
+      "n": 33003,
+      "m": 76992,
+      "nnz": 183616,
+      "group": "miplib:neos-pseudoapplication-13",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "czprob",
+      "n": 3523,
+      "m": 929,
+      "nnz": 14173,
+      "group": "netlib:czprob",
+      "reference": 2185196.6989,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "grow15",
+      "n": 645,
+      "m": 300,
+      "nnz": 5665,
+      "group": "netlib:grow",
+      "reference": -106870941.29,
+      "reason": "already_selected_group"
+    },
+    {
+      "source": "netlib",
+      "name": "pilot87",
+      "n": 4883,
+      "m": 2030,
+      "nnz": 73804,
+      "group": "netlib:pilot",
+      "reference": 301.71072827,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "milo-v12-6-r2-40-1",
+      "n": 2688,
+      "m": 5628,
+      "nnz": 14604,
+      "group": "miplib:milo",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "roi5alpha10n8",
+      "n": 106150,
+      "m": 4665,
+      "nnz": 2370224,
+      "group": "miplib:roi",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "binkar10_1",
+      "n": 2298,
+      "m": 1026,
+      "nnz": 4496,
+      "group": "miplib:binkar",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "drayage-25-23",
+      "n": 11090,
+      "m": 4630,
+      "nnz": 41550,
+      "group": "miplib:drayage",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "nexp-150-20-8-5",
+      "n": 20115,
+      "m": 4620,
+      "nnz": 42465,
+      "group": "miplib:exp_and_fc",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_family"
+    },
+    {
+      "name": "rococoC10-001000",
+      "n": 3117,
+      "m": 1293,
+      "nnz": 11751,
+      "group": "miplib:rococo",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-1445765",
+      "n": 20617,
+      "m": 2147,
+      "nnz": 40230,
+      "group": "miplib:neos-pseudoapplication-88",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-4387871-tavua",
+      "n": 4004,
+      "m": 4554,
+      "nnz": 23496,
+      "group": "miplib:neos-pseudoapplication-58",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "rmatr200-p5",
+      "n": 37816,
+      "m": 37617,
+      "nnz": 113048,
+      "group": "miplib:rmatr",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_family"
+    },
+    {
+      "name": "sp98ar",
+      "n": 15085,
+      "m": 1435,
+      "nnz": 426148,
+      "group": "miplib:sp9",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "rocII-5-11",
+      "n": 11523,
+      "m": 26897,
+      "nnz": 303291,
+      "group": "miplib:rocI",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_family"
+    },
+    {
+      "name": "bppc4-08",
+      "n": 1456,
+      "m": 111,
+      "nnz": 23964,
+      "group": "miplib:bppc",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-4722843-widden",
+      "n": 77723,
+      "m": 113555,
+      "nnz": 311529,
+      "group": "miplib:neos-pseudoapplication-30",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-3402294-bobin",
+      "n": 2904,
+      "m": 591076,
+      "nnz": 2034888,
+      "group": "miplib:neos-pseudoapplication-71",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "traininstance2",
+      "n": 12890,
+      "m": 15603,
+      "nnz": 41531,
+      "group": "miplib:traininstance",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "proteindesign122trx11p8",
+      "n": 127326,
+      "m": 254,
+      "nnz": 503427,
+      "group": "miplib:proteindesign",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "e226",
+      "n": 282,
+      "m": 223,
+      "nnz": 2767,
+      "group": "netlib:e",
+      "reference": -18.751929066,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "sc50a",
+      "n": 48,
+      "m": 50,
+      "nnz": 131,
+      "group": "netlib:sc",
+      "reference": -64.575077059,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-662469",
+      "n": 18235,
+      "m": 1085,
+      "nnz": 200055,
+      "group": "miplib:neos-pseudoapplication-73",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "sierra",
+      "n": 2036,
+      "m": 1227,
+      "nnz": 9252,
+      "group": "netlib:sierra",
+      "reference": 15394362.184,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-3988577-wolgan",
+      "n": 25870,
+      "m": 44662,
+      "nnz": 350350,
+      "group": "miplib:neos-pseudoapplication-64",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "maros-r7",
+      "n": 9408,
+      "m": 3136,
+      "nnz": 151120,
+      "group": "netlib:maros-r",
+      "reference": 1497185.1665,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-5052403-cygnet",
+      "n": 32868,
+      "m": 38268,
+      "nnz": 4898304,
+      "group": "miplib:neos-pseudoapplication-100",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "d6cube",
+      "n": 6184,
+      "m": 415,
+      "nnz": 43888,
+      "group": "netlib:d",
+      "reference": 315.49166667,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "academictimetablesmall",
+      "n": 28926,
+      "m": 23294,
+      "nnz": 268350,
+      "group": "miplib:academictimetablesmall",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "tbfp-network",
+      "n": 72747,
+      "m": 2436,
+      "nnz": 215837,
+      "group": "miplib:tbfp-network",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "lotsize",
+      "n": 2985,
+      "m": 1920,
+      "nnz": 6565,
+      "group": "miplib:lotsize",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "beaconfd",
+      "n": 262,
+      "m": 173,
+      "nnz": 3476,
+      "group": "netlib:beaconfd",
+      "reference": 33592.485807,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "finnis",
+      "n": 614,
+      "m": 497,
+      "nnz": 2714,
+      "group": "netlib:finnis",
+      "reference": 172790.96547,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "capri",
+      "n": 353,
+      "m": 271,
+      "nnz": 1786,
+      "group": "netlib:capri",
+      "reference": 2690.0129138,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "gen-ip002",
+      "n": 41,
+      "m": 24,
+      "nnz": 922,
+      "group": "miplib:generated",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-3216931-puriri",
+      "n": 3555,
+      "m": 5989,
+      "nnz": 91691,
+      "group": "miplib:neos-pseudoapplication-56",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "30n20b8",
+      "n": 18380,
+      "m": 576,
+      "nnz": 109706,
+      "group": "miplib:30n20b8",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "radiationm40-10-02",
+      "n": 172013,
+      "m": 173603,
+      "nnz": 406825,
+      "group": "miplib:radiation",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "israel",
+      "n": 142,
+      "m": 174,
+      "nnz": 2358,
+      "group": "netlib:israel",
+      "reference": -896644.82186,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "scfxm3",
+      "n": 1371,
+      "m": 990,
+      "nnz": 7846,
+      "group": "netlib:scfxm",
+      "reference": 54901.25455,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "nursesched-medium-hint03",
+      "n": 34248,
+      "m": 14062,
+      "nnz": 622800,
+      "group": "miplib:nursescheduling",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "stair",
+      "n": 467,
+      "m": 356,
+      "nnz": 3857,
+      "group": "netlib:stair",
+      "reference": -251.26695119,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "map16715-04",
+      "n": 164547,
+      "m": 328818,
+      "nnz": 549920,
+      "group": "miplib:map",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "opm2-z10-s4",
+      "n": 6250,
+      "m": 160633,
+      "nnz": 371240,
+      "group": "miplib:opm2",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-4763324-toguru",
+      "n": 53593,
+      "m": 106954,
+      "nnz": 266805,
+      "group": "miplib:neos-pseudoapplication-106",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "greenbeb",
+      "n": 5405,
+      "m": 2392,
+      "nnz": 31499,
+      "group": "netlib:greenbeb",
+      "reference": -4302147.6065,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-1171448",
+      "n": 4914,
+      "m": 13206,
+      "nnz": 131859,
+      "group": "miplib:neos-pseudoapplication-8",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "lotfi",
+      "n": 308,
+      "m": 153,
+      "nnz": 1086,
+      "group": "netlib:lotfi",
+      "reference": -25.264706062,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "ns1116954",
+      "n": 12648,
+      "m": 131991,
+      "nnz": 410582,
+      "group": "miplib:neos-pseudoapplication-51",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "supportcase40",
+      "n": 16440,
+      "m": 38192,
+      "nnz": 104420,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-3046615-murg",
+      "n": 274,
+      "m": 498,
+      "nnz": 1266,
+      "group": "miplib:neos-pseudoapplication-90",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "ns1830653",
+      "n": 1629,
+      "m": 2932,
+      "nnz": 100933,
+      "group": "miplib:neos-pseudoapplication-110",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "satellites2-40",
+      "n": 35378,
+      "m": 20916,
+      "nnz": 283668,
+      "group": "miplib:satellites",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "perold",
+      "n": 1376,
+      "m": 625,
+      "nnz": 6026,
+      "group": "netlib:perold",
+      "reference": -9380.7580773,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "decomp2",
+      "n": 14387,
+      "m": 10765,
+      "nnz": 64073,
+      "group": "miplib:decomp",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "mcsched",
+      "n": 1747,
+      "m": 2107,
+      "nnz": 8088,
+      "group": "miplib:mcsched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "irish-electricity",
+      "n": 61728,
+      "m": 104259,
+      "nnz": 523257,
+      "group": "miplib:irish-electricity",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "s250r10",
+      "n": 273142,
+      "m": 10962,
+      "nnz": 1318607,
+      "group": "miplib:Spinoza",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "bore3d",
+      "n": 315,
+      "m": 233,
+      "nnz": 1525,
+      "group": "netlib:bore",
+      "reference": 1373.0803942,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-4532248-waihi",
+      "n": 86842,
+      "m": 167322,
+      "nnz": 525339,
+      "group": "miplib:neos-pseudoapplication-6",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "qap10",
+      "n": 4150,
+      "m": 1820,
+      "nnz": 18200,
+      "group": "miplib:qap",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "uccase12",
+      "n": 62529,
+      "m": 121161,
+      "nnz": 419447,
+      "group": "miplib:uccase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "physiciansched3-3",
+      "n": 79555,
+      "m": 266227,
+      "nnz": 1062479,
+      "group": "miplib:physiciansched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "ns1644855",
+      "n": 30200,
+      "m": 40698,
+      "nnz": 2110696,
+      "group": "miplib:neos-pseudoapplication-76",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "bnatt400",
+      "n": 3600,
+      "m": 5614,
+      "nnz": 21698,
+      "group": "miplib:bnatt",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "ship12s",
+      "n": 2763,
+      "m": 1151,
+      "nnz": 10941,
+      "group": "netlib:ship",
+      "reference": 1489236.1344,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "k1mushroom",
+      "n": 8211,
+      "m": 16419,
+      "nnz": 1697946,
+      "group": "miplib:k1mushroom",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "sp97ar",
+      "n": 14101,
+      "m": 1761,
+      "nnz": 290968,
+      "group": "miplib:sp9",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "blend",
+      "n": 83,
+      "m": 74,
+      "nnz": 521,
+      "group": "netlib:blend",
+      "reference": -30.812149846,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "scsd6",
+      "n": 1350,
+      "m": 147,
+      "nnz": 5666,
+      "group": "netlib:scsd",
+      "reference": 50.500000078,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-3754480-nidda",
+      "n": 253,
+      "m": 402,
+      "nnz": 1488,
+      "group": "miplib:neos-pseudoapplication-107",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "supportcase12",
+      "n": 799616,
+      "m": 166781,
+      "nnz": 2334437,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "supportcase19",
+      "n": 1429098,
+      "m": 10713,
+      "nnz": 4287094,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "square41",
+      "n": 62234,
+      "m": 40160,
+      "nnz": 13566426,
+      "group": "miplib:square",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "forplan",
+      "n": 421,
+      "m": 161,
+      "nnz": 4916,
+      "group": "netlib:forplan",
+      "reference": -664.21873953,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "cost266-UUE",
+      "n": 4161,
+      "m": 1446,
+      "nnz": 12312,
+      "group": "miplib:network_design",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "nw04",
+      "n": 87482,
+      "m": 36,
+      "nnz": 636666,
+      "group": "miplib:nw",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "eil33-2",
+      "n": 4516,
+      "m": 32,
+      "nnz": 44243,
+      "group": "miplib:eil",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "buildingenergy",
+      "n": 154978,
+      "m": 277594,
+      "nnz": 788969,
+      "group": "miplib:buildingenergy",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "rocI-4-11",
+      "n": 6839,
+      "m": 10883,
+      "nnz": 27383,
+      "group": "miplib:rocI",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "scfxm1",
+      "n": 457,
+      "m": 330,
+      "nnz": 2612,
+      "group": "netlib:scfxm",
+      "reference": 18416.759028,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "share2b",
+      "n": 79,
+      "m": 96,
+      "nnz": 730,
+      "group": "netlib:share",
+      "reference": -415.73224074,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "n3div36",
+      "n": 22120,
+      "m": 4484,
+      "nnz": 340740,
+      "group": "miplib:nseq",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "bandm",
+      "n": 472,
+      "m": 305,
+      "nnz": 2659,
+      "group": "netlib:bandm",
+      "reference": -158.62801845,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-860300",
+      "n": 1385,
+      "m": 850,
+      "nnz": 384329,
+      "group": "miplib:neos-pseudoapplication-23",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "b1c1s1",
+      "n": 3872,
+      "m": 3904,
+      "nnz": 11408,
+      "group": "miplib:c1s1",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "supportcase18",
+      "n": 13410,
+      "m": 240,
+      "nnz": 28920,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-3083819-nubu",
+      "n": 8644,
+      "m": 4725,
+      "nnz": 24048,
+      "group": "miplib:neos-pseudoapplication-31",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-2987310-joes",
+      "n": 27837,
+      "m": 29015,
+      "nnz": 580291,
+      "group": "miplib:neos-pseudoapplication-82",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "fit2d",
+      "n": 10500,
+      "m": 25,
+      "nnz": 138018,
+      "group": "netlib:fit",
+      "reference": -68464.293294,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "gmu-35-50",
+      "n": 1919,
+      "m": 435,
+      "nnz": 8643,
+      "group": "miplib:gmu",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "agg3",
+      "n": 302,
+      "m": 516,
+      "nnz": 4531,
+      "group": "netlib:agg",
+      "reference": 10312115.935,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "neos-3402454-bohle",
+      "n": 2904,
+      "m": 2897380,
+      "nnz": 8953800,
+      "group": "miplib:neos-pseudoapplication-4",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "boeing2",
+      "n": 143,
+      "m": 166,
+      "nnz": 1339,
+      "group": "netlib:boeing",
+      "reference": -315.01872802,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "scfxm2",
+      "n": 914,
+      "m": 660,
+      "nnz": 5229,
+      "group": "netlib:scfxm",
+      "reference": 36660.261565,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "pilot.ja",
+      "n": 1988,
+      "m": 940,
+      "nnz": 14706,
+      "group": "netlib:pilot.ja",
+      "reference": -6113.1344111,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "dano3_5",
+      "n": 13873,
+      "m": 3202,
+      "nnz": 79655,
+      "group": "miplib:dano",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "supportcase42",
+      "n": 19466,
+      "m": 18439,
+      "nnz": 435653,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-848589",
+      "n": 550539,
+      "m": 1484,
+      "nnz": 1101078,
+      "group": "miplib:neos-pseudoapplication-77",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "dfl001",
+      "n": 12230,
+      "m": 6071,
+      "nnz": 41873,
+      "group": "netlib:dfl",
+      "reference": 11266400.0,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "wachplan",
+      "n": 3361,
+      "m": 1553,
+      "nnz": 89361,
+      "group": "miplib:wachplan",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "gfrd-pnc",
+      "n": 1092,
+      "m": 616,
+      "nnz": 3467,
+      "group": "netlib:gfrd-pnc",
+      "reference": 6902235.9995,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-4413714-turia",
+      "n": 190402,
+      "m": 2303,
+      "nnz": 761756,
+      "group": "miplib:neos-pseudoapplication-67",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "maros",
+      "n": 1443,
+      "m": 846,
+      "nnz": 10006,
+      "group": "netlib:maros",
+      "reference": -58063.743701,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-1171737",
+      "n": 2340,
+      "m": 4179,
+      "nnz": 58620,
+      "group": "miplib:neos-pseudoapplication-80",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "uct-subprob",
+      "n": 2256,
+      "m": 1973,
+      "nnz": 10147,
+      "group": "miplib:uct-subprob",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "ganges",
+      "n": 1681,
+      "m": 1309,
+      "nnz": 7021,
+      "group": "netlib:ganges",
+      "reference": -109586.36356,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "woodw",
+      "n": 8405,
+      "m": 1098,
+      "nnz": 37478,
+      "group": "netlib:woodw",
+      "reference": 1.3044763331,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "proteindesign121hz512p9",
+      "n": 159145,
+      "m": 301,
+      "nnz": 629449,
+      "group": "miplib:proteindesign",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-2075418-temuka",
+      "n": 122304,
+      "m": 349602,
+      "nnz": 7610261,
+      "group": "miplib:neos-pseudoapplication-62",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "stocfor1",
+      "n": 111,
+      "m": 117,
+      "nnz": 474,
+      "group": "netlib:stocfor",
+      "reference": -41131.976219,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "momentum1",
+      "n": 5174,
+      "m": 42680,
+      "nnz": 103191,
+      "group": "miplib:momentum",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "supportcase22",
+      "n": 7129,
+      "m": 260602,
+      "nnz": 2228828,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "drayage-100-23",
+      "n": 11090,
+      "m": 4630,
+      "nnz": 41550,
+      "group": "miplib:drayage",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "csched008",
+      "n": 1536,
+      "m": 351,
+      "nnz": 5687,
+      "group": "miplib:csched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-827175",
+      "n": 32504,
+      "m": 14187,
+      "nnz": 110790,
+      "group": "miplib:neos-pseudoapplication-87",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-631710",
+      "n": 167056,
+      "m": 169576,
+      "nnz": 834166,
+      "group": "miplib:neos-pseudoapplication-75",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-4647030-tutaki",
+      "n": 12600,
+      "m": 8382,
+      "nnz": 3953388,
+      "group": "miplib:neos-pseudoapplication-29",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "netdiversion",
+      "n": 129180,
+      "m": 119589,
+      "nnz": 615282,
+      "group": "miplib:netdiversion",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "roi2alpha3n4",
+      "n": 6816,
+      "m": 1251,
+      "nnz": 878812,
+      "group": "miplib:roi",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "mas74",
+      "n": 151,
+      "m": 13,
+      "nnz": 1706,
+      "group": "miplib:mas",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos859080",
+      "n": 160,
+      "m": 164,
+      "nnz": 1280,
+      "group": "miplib:neos-pseudoapplication-96",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "rmatr100-p10",
+      "n": 7359,
+      "m": 7260,
+      "nnz": 21877,
+      "group": "miplib:rmatr",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-3555904-turama",
+      "n": 37461,
+      "m": 146493,
+      "nnz": 793605,
+      "group": "miplib:neos-pseudoapplication-81",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "standmps",
+      "n": 1075,
+      "m": 467,
+      "nnz": 3686,
+      "group": "netlib:standmps",
+      "reference": 1406.0175,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "degen3",
+      "n": 1818,
+      "m": 1503,
+      "nnz": 26230,
+      "group": "netlib:degen",
+      "reference": -987.294,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-2746589-doon",
+      "n": 50936,
+      "m": 31530,
+      "nnz": 271072,
+      "group": "miplib:neos-pseudoapplication-52",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "mad",
+      "n": 220,
+      "m": 51,
+      "nnz": 2808,
+      "group": "miplib:mad",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "peg-solitaire-a3",
+      "n": 4552,
+      "m": 4587,
+      "nnz": 28387,
+      "group": "miplib:pegsolitaire",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "net12",
+      "n": 14115,
+      "m": 14021,
+      "nnz": 80384,
+      "group": "miplib:net",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "ship04l",
+      "n": 2118,
+      "m": 402,
+      "nnz": 8450,
+      "group": "netlib:ship",
+      "reference": 1793324.538,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "mushroom-best",
+      "n": 8468,
+      "m": 8580,
+      "nnz": 188735,
+      "group": "miplib:ustun",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "scagr7",
+      "n": 140,
+      "m": 129,
+      "nnz": 553,
+      "group": "netlib:scagr",
+      "reference": -2331389.2548,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos8",
+      "n": 23228,
+      "m": 46324,
+      "nnz": 313180,
+      "group": "miplib:neos-pseudoapplication-15",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "eilA101-2",
+      "n": 65832,
+      "m": 100,
+      "nnz": 959373,
+      "group": "miplib:eil",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_family"
+    },
+    {
+      "source": "netlib",
+      "name": "pilot.we",
+      "n": 2789,
+      "m": 722,
+      "nnz": 9218,
+      "group": "netlib:pilot.we",
+      "reference": -2720102.7439,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "highschool1-aigio",
+      "n": 320404,
+      "m": 92568,
+      "nnz": 1562168,
+      "group": "miplib:timetabling",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "beasleyC3",
+      "n": 2500,
+      "m": 1750,
+      "nnz": 5000,
+      "group": "miplib:beasley",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "fit1d",
+      "n": 1026,
+      "m": 24,
+      "nnz": 14430,
+      "group": "netlib:fit",
+      "reference": -9146.3780924,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "supportcase33",
+      "n": 20203,
+      "m": 20489,
+      "nnz": 211915,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "chromaticindex512-7",
+      "n": 36864,
+      "m": 33791,
+      "nnz": 135156,
+      "group": "miplib:chromaticindex",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "p200x1188c",
+      "n": 2376,
+      "m": 1388,
+      "nnz": 4752,
+      "group": "miplib:pr_product",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "snp-02-004-104",
+      "n": 228350,
+      "m": 126512,
+      "nnz": 463941,
+      "group": "miplib:supplynetworkplanning",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-960392",
+      "n": 59376,
+      "m": 4744,
+      "nnz": 189503,
+      "group": "miplib:neos-pseudoapplication-94",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "chromaticindex1024-7",
+      "n": 73728,
+      "m": 67583,
+      "nnz": 270324,
+      "group": "miplib:chromaticindex",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "seymour",
+      "n": 1372,
+      "m": 4944,
+      "nnz": 33549,
+      "group": "miplib:seymour",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "comp07-2idx",
+      "n": 17264,
+      "m": 21235,
+      "nnz": 86577,
+      "group": "miplib:coursetimetabling",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "markshare_4_0",
+      "n": 34,
+      "m": 4,
+      "nnz": 123,
+      "group": "miplib:markshare",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "savsched1",
+      "n": 328575,
+      "m": 295989,
+      "nnz": 1770507,
+      "group": "miplib:savsched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "ex10",
+      "n": 17680,
+      "m": 69608,
+      "nnz": 1162000,
+      "group": "miplib:ex",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "pilotnov",
+      "n": 2172,
+      "m": 975,
+      "nnz": 13129,
+      "group": "netlib:pilotnov",
+      "reference": -4497.2761882,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-5104907-jarama",
+      "n": 345856,
+      "m": 489818,
+      "nnz": 2053548,
+      "group": "miplib:neos-pseudoapplication-24",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "co-100",
+      "n": 48417,
+      "m": 2187,
+      "nnz": 1995817,
+      "group": "miplib:co",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "gfd-schedulen180f7d50m30k18",
+      "n": 227535,
+      "m": 457985,
+      "nnz": 1233372,
+      "group": "miplib:gfd-schedule",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "CMS750_4",
+      "n": 11697,
+      "m": 16381,
+      "nnz": 44903,
+      "group": "miplib:cms",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "80bau3b",
+      "n": 9799,
+      "m": 2262,
+      "nnz": 29063,
+      "group": "netlib:80bau3b",
+      "reference": 987232.16072,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "sing326",
+      "n": 55156,
+      "m": 50781,
+      "nnz": 268173,
+      "group": "miplib:sing",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "sctap3",
+      "n": 2480,
+      "m": 1480,
+      "nnz": 10734,
+      "group": "netlib:sctap",
+      "reference": 1424.0,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "cod105",
+      "n": 1024,
+      "m": 1024,
+      "nnz": 57344,
+      "group": "miplib:cod",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "h80x6320d",
+      "n": 12640,
+      "m": 6558,
+      "nnz": 31521,
+      "group": "miplib:fixed-cost-network-flow",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "rail507",
+      "n": 63019,
+      "m": 509,
+      "nnz": 468878,
+      "group": "miplib:rail",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "bab2",
+      "n": 147912,
+      "m": 17245,
+      "nnz": 2027726,
+      "group": "miplib:bab",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "radiationm18-12-05",
+      "n": 40623,
+      "m": 40935,
+      "nnz": 96149,
+      "group": "miplib:radiation",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "leo1",
+      "n": 6731,
+      "m": 593,
+      "nnz": 131218,
+      "group": "miplib:leo",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-1582420",
+      "n": 10100,
+      "m": 10180,
+      "nnz": 24814,
+      "group": "miplib:neos-pseudoapplication-10",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-1122047",
+      "n": 5100,
+      "m": 57791,
+      "nnz": 163640,
+      "group": "miplib:neos-pseudoapplication-46",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "dano3_3",
+      "n": 13873,
+      "m": 3202,
+      "nnz": 79655,
+      "group": "miplib:dano",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "fffff800",
+      "n": 854,
+      "m": 524,
+      "nnz": 6235,
+      "group": "netlib:fffff",
+      "reference": 555679.61165,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "pilot",
+      "n": 3652,
+      "m": 1441,
+      "nnz": 43220,
+      "group": "netlib:pilot",
+      "reference": -557.40430007,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "swath3",
+      "n": 6805,
+      "m": 884,
+      "nnz": 34965,
+      "group": "miplib:swath",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "stocfor2",
+      "n": 2031,
+      "m": 2157,
+      "nnz": 9492,
+      "group": "netlib:stocfor",
+      "reference": -39024.408538,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "app1-2",
+      "n": 26871,
+      "m": 53467,
+      "nnz": 199175,
+      "group": "miplib:app",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_family"
+    },
+    {
+      "name": "rococoB10-011000",
+      "n": 4456,
+      "m": 1667,
+      "nnz": 16517,
+      "group": "miplib:rococo",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-933966",
+      "n": 31762,
+      "m": 12047,
+      "nnz": 180618,
+      "group": "miplib:neos-pseudoapplication-34",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "tuff",
+      "n": 587,
+      "m": 333,
+      "nnz": 4523,
+      "group": "netlib:tuff",
+      "reference": 0.29214776509,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "sc205",
+      "n": 203,
+      "m": 205,
+      "nnz": 552,
+      "group": "netlib:sc",
+      "reference": -52.202061212,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "icir97_tension",
+      "n": 2494,
+      "m": 1203,
+      "nnz": 22333,
+      "group": "miplib:icir",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "n2seq36q",
+      "n": 22480,
+      "m": 2565,
+      "nnz": 183292,
+      "group": "miplib:nseq",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos5",
+      "n": 63,
+      "m": 63,
+      "nnz": 2016,
+      "group": "miplib:neos-pseudoapplication-21",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "supportcase10",
+      "n": 14770,
+      "m": 165684,
+      "nnz": 555082,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "s100",
+      "n": 364417,
+      "m": 14733,
+      "nnz": 1777917,
+      "group": "miplib:Spinoza",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "rail02",
+      "n": 270869,
+      "m": 95791,
+      "nnz": 756228,
+      "group": "miplib:rail0",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "sc50b",
+      "n": 48,
+      "m": 50,
+      "nnz": 119,
+      "group": "netlib:sc",
+      "reference": -70.0,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "afiro",
+      "n": 32,
+      "m": 27,
+      "nnz": 88,
+      "group": "netlib:afiro",
+      "reference": -464.75314286,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-1456979",
+      "n": 4605,
+      "m": 6770,
+      "nnz": 36440,
+      "group": "miplib:neos-pseudoapplication-102",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "scsd8",
+      "n": 2750,
+      "m": 397,
+      "nnz": 11334,
+      "group": "netlib:scsd",
+      "reference": 904.99999993,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "fit2p",
+      "n": 13525,
+      "m": 3000,
+      "nnz": 60784,
+      "group": "netlib:fit",
+      "reference": 68464.293232,
+      "reason": "already_selected_group"
+    },
+    {
+      "source": "netlib",
+      "name": "scorpion",
+      "n": 358,
+      "m": 388,
+      "nnz": 1708,
+      "group": "netlib:scorpion",
+      "reference": 1878.1248227,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "scrs8",
+      "n": 1169,
+      "m": 490,
+      "nnz": 4029,
+      "group": "netlib:scrs",
+      "reference": 904.29998619,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "leo2",
+      "n": 11100,
+      "m": 593,
+      "nnz": 219959,
+      "group": "miplib:leo",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "tr12-30",
+      "n": 1080,
+      "m": 750,
+      "nnz": 2508,
+      "group": "miplib:tr",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "rail01",
+      "n": 117527,
+      "m": 46843,
+      "nnz": 392086,
+      "group": "miplib:rail0",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "vtp.base",
+      "n": 203,
+      "m": 198,
+      "nnz": 914,
+      "group": "netlib:vtp.base",
+      "reference": 129831.46246,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "physiciansched6-2",
+      "n": 111827,
+      "m": 168336,
+      "nnz": 480259,
+      "group": "miplib:physiciansched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "seba",
+      "n": 1028,
+      "m": 515,
+      "nnz": 4874,
+      "group": "netlib:seba",
+      "reference": 15711.6,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "istanbul-no-cutoff",
+      "n": 5282,
+      "m": 20346,
+      "nnz": 71477,
+      "group": "miplib:istanbul-no-cutoff",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "scagr25",
+      "n": 500,
+      "m": 471,
+      "nnz": 2029,
+      "group": "netlib:scagr",
+      "reference": -14753433.061,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "exp-1-500-5-5",
+      "n": 990,
+      "m": 550,
+      "nnz": 1980,
+      "group": "miplib:exp_and_fc",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-4954672-berkel",
+      "n": 1533,
+      "m": 1848,
+      "nnz": 8007,
+      "group": "miplib:neos-pseudoapplication-43",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "mc11",
+      "n": 3040,
+      "m": 1920,
+      "nnz": 6080,
+      "group": "miplib:mc",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "sc105",
+      "n": 103,
+      "m": 105,
+      "nnz": 281,
+      "group": "netlib:sc",
+      "reference": -52.202061212,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "brandy",
+      "n": 249,
+      "m": 220,
+      "nnz": 2150,
+      "group": "netlib:brandy",
+      "reference": 1518.5098965,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-3627168-kasai",
+      "n": 1462,
+      "m": 1655,
+      "nnz": 5158,
+      "group": "miplib:neos-pseudoapplication-25",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "rd-rplusc-21",
+      "n": 622,
+      "m": 125899,
+      "nnz": 852384,
+      "group": "miplib:rd-rplusc",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "mik-250-20-75-4",
+      "n": 270,
+      "m": 195,
+      "nnz": 9270,
+      "group": "miplib:mik_250",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "fhnw-binpack4-4",
+      "n": 520,
+      "m": 620,
+      "nnz": 2332,
+      "group": "miplib:binpack",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "shell",
+      "n": 1775,
+      "m": 536,
+      "nnz": 4900,
+      "group": "netlib:shell",
+      "reference": 1208825346.0,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "fiball",
+      "n": 34219,
+      "m": 3707,
+      "nnz": 104792,
+      "group": "miplib:fiball",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "ran14x18-disj-8",
+      "n": 504,
+      "m": 447,
+      "nnz": 10277,
+      "group": "miplib:ran",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "share1b",
+      "n": 225,
+      "m": 117,
+      "nnz": 1182,
+      "group": "netlib:share",
+      "reference": -76589.318579,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "mzzv42z",
+      "n": 11717,
+      "m": 10460,
+      "nnz": 151261,
+      "group": "miplib:mzzv",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "atlanta-ip",
+      "n": 48738,
+      "m": 21732,
+      "nnz": 257532,
+      "group": "miplib:atlanta-ip",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-2978193-inde",
+      "n": 20800,
+      "m": 396,
+      "nnz": 41600,
+      "group": "miplib:neos-pseudoapplication-5",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "etamacro",
+      "n": 688,
+      "m": 400,
+      "nnz": 2489,
+      "group": "netlib:etamacro",
+      "reference": -755.71521774,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-1354092",
+      "n": 13702,
+      "m": 3135,
+      "nnz": 187187,
+      "group": "miplib:neos-pseudoapplication-47",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "pk1",
+      "n": 86,
+      "m": 45,
+      "nnz": 915,
+      "group": "miplib:pk",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-4738912-atrato",
+      "n": 6216,
+      "m": 1947,
+      "nnz": 19521,
+      "group": "miplib:neos-pseudoapplication-37",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "cryptanalysiskb128n5obj16",
+      "n": 48950,
+      "m": 98021,
+      "nnz": 292875,
+      "group": "miplib:cryptanalysis",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "cmflsp50-24-8-8",
+      "n": 16392,
+      "m": 3520,
+      "nnz": 158622,
+      "group": "miplib:cmflsp",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "uccase9",
+      "n": 33242,
+      "m": 49565,
+      "nnz": 332316,
+      "group": "miplib:uccase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "reblock115",
+      "n": 1150,
+      "m": 4735,
+      "nnz": 13724,
+      "group": "miplib:reblock",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-3656078-kumeu",
+      "n": 14870,
+      "m": 17656,
+      "nnz": 59292,
+      "group": "miplib:neos-pseudoapplication-44",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "glass4",
+      "n": 322,
+      "m": 396,
+      "nnz": 1815,
+      "group": "miplib:glass",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-5188808-nattai",
+      "n": 14544,
+      "m": 29452,
+      "nnz": 133686,
+      "group": "miplib:neos-pseudoapplication-98",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "satellites2-60-fs",
+      "n": 35378,
+      "m": 16516,
+      "nnz": 125048,
+      "group": "miplib:satellites",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "comp21-2idx",
+      "n": 10863,
+      "m": 14038,
+      "nnz": 57301,
+      "group": "miplib:coursetimetabling",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "swath1",
+      "n": 6805,
+      "m": 884,
+      "nnz": 34965,
+      "group": "miplib:swath",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos17",
+      "n": 535,
+      "m": 486,
+      "nnz": 4931,
+      "group": "miplib:neos-pseudoapplication-66",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "degen2",
+      "n": 534,
+      "m": 444,
+      "nnz": 4449,
+      "group": "netlib:degen",
+      "reference": -1435.178,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "nesm",
+      "n": 2923,
+      "m": 662,
+      "nnz": 13988,
+      "group": "netlib:nesm",
+      "reference": 14076073.035,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "traininstance6",
+      "n": 10218,
+      "m": 12309,
+      "nnz": 32785,
+      "group": "miplib:traininstance",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "assign1-5-8",
+      "n": 156,
+      "m": 161,
+      "nnz": 3720,
+      "group": "miplib:assign1",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-3024952-loue",
+      "n": 3255,
+      "m": 3705,
+      "nnz": 17310,
+      "group": "miplib:neos-pseudoapplication-86",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "boeing1",
+      "n": 384,
+      "m": 350,
+      "nnz": 3865,
+      "group": "netlib:boeing",
+      "reference": -335.21356751,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-957323",
+      "n": 57756,
+      "m": 3757,
+      "nnz": 499656,
+      "group": "miplib:neos-pseudoapplication-48",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "neos-3381206-awhea",
+      "n": 2375,
+      "m": 479,
+      "nnz": 4275,
+      "group": "miplib:neos-pseudoapplication-105",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "csched007",
+      "n": 1758,
+      "m": 351,
+      "nnz": 6379,
+      "group": "miplib:csched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "ship08s",
+      "n": 2387,
+      "m": 778,
+      "nnz": 9501,
+      "group": "netlib:ship",
+      "reference": 1920098.2105,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "glass-sc",
+      "n": 214,
+      "m": 6119,
+      "nnz": 63918,
+      "group": "miplib:maxfeassub",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "piperout-27",
+      "n": 11659,
+      "m": 18442,
+      "nnz": 54662,
+      "group": "miplib:piperout",
+      "source": "miplib",
+      "reference": null,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "supportcase7",
+      "n": 138844,
+      "m": 6532,
+      "nnz": 2845545,
+      "group": "miplib:supportcase",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "bnl1",
+      "n": 1175,
+      "m": 643,
+      "nnz": 6129,
+      "group": "netlib:bnl",
+      "reference": 1977.6292856,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "ic97_potential",
+      "n": 728,
+      "m": 1046,
+      "nnz": 3138,
+      "group": "miplib:ic",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "var-smallemery-m6j6",
+      "n": 5608,
+      "m": 13416,
+      "nnz": 850621,
+      "group": "miplib:var-smallemery-m",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "sp150x300d",
+      "n": 600,
+      "m": 450,
+      "nnz": 1200,
+      "group": "miplib:sp_product",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-950242",
+      "n": 5760,
+      "m": 34224,
+      "nnz": 104160,
+      "group": "miplib:neos-pseudoapplication-72",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "fast0507",
+      "n": 63009,
+      "m": 507,
+      "nnz": 409349,
+      "group": "miplib:fast",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "grow22",
+      "n": 946,
+      "m": 440,
+      "nnz": 8318,
+      "group": "netlib:grow",
+      "reference": -160834336.48,
+      "reason": "already_selected_group"
+    },
+    {
+      "source": "netlib",
+      "name": "wood1p",
+      "n": 2594,
+      "m": 244,
+      "nnz": 70216,
+      "group": "netlib:wood",
+      "reference": 1.4429024116,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "splice1k1",
+      "n": 3253,
+      "m": 6505,
+      "nnz": 1761016,
+      "group": "miplib:splice",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "d2q06c",
+      "n": 5167,
+      "m": 2171,
+      "nnz": 35674,
+      "group": "netlib:d",
+      "reference": 122784.23615,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-787933",
+      "n": 236376,
+      "m": 1897,
+      "nnz": 298320,
+      "group": "miplib:neos-pseudoapplication-36",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "name": "air05",
+      "n": 7195,
+      "m": 426,
+      "nnz": 52121,
+      "group": "miplib:air",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "ex9",
+      "n": 10404,
+      "m": 40962,
+      "nnz": 517112,
+      "group": "miplib:ex",
+      "source": "miplib",
+      "reference": null,
+      "reason": "structural_cap"
+    },
+    {
+      "source": "netlib",
+      "name": "ship04s",
+      "n": 1458,
+      "m": 402,
+      "nnz": 5810,
+      "group": "netlib:ship",
+      "reference": 1798714.7004,
+      "reason": "already_selected_group"
+    },
+    {
+      "name": "sct2",
+      "n": 5885,
+      "m": 2151,
+      "nnz": 23643,
+      "group": "miplib:sct",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "neos-4338804-snowy",
+      "n": 1344,
+      "m": 1701,
+      "nnz": 6342,
+      "group": "miplib:neos-pseudoapplication-40",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "bnatt500",
+      "n": 4500,
+      "m": 7029,
+      "nnz": 27203,
+      "group": "miplib:bnatt",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "source": "netlib",
+      "name": "scsd1",
+      "n": 760,
+      "m": 77,
+      "nnz": 3148,
+      "group": "netlib:scsd",
+      "reference": 8.6666666743,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "lectsched-5-obj",
+      "n": 21805,
+      "m": 38884,
+      "nnz": 239608,
+      "group": "miplib:lectsched",
+      "source": "miplib",
+      "reference": null,
+      "reason": "source_quota_filled"
+    },
+    {
+      "source": "netlib",
+      "name": "recipe",
+      "n": 180,
+      "m": 91,
+      "nnz": 752,
+      "group": "netlib:recipe",
+      "reference": -266.616,
+      "reason": "source_quota_filled"
+    },
+    {
+      "name": "neos-2657525-crna",
+      "n": 524,
+      "m": 342,
+      "nnz": 1690,
+      "group": "miplib:neos-pseudoapplication-7",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    },
+    {
+      "name": "enlight_hard",
+      "n": 200,
+      "m": 100,
+      "nnz": 560,
+      "group": "miplib:enlight",
+      "source": "miplib",
+      "reference": null,
+      "reason": "prior_instance"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "model_sha256": "dd900f22dcfebf35026bace4bd489dd1246b804b8e2b216f729cfcdacea4bafb",
+  "guard_sha256": "7cad60ae35546589823b0a1a14d397119d17140a5cdbef95146386b449f2fb1b",
+  "before_any_heldout_solve": true,
+  "captured_at": "2026-09-30T11:10:25.305310+00:00"
+}

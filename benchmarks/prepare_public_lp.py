@@ -12,6 +12,7 @@ from pathlib import Path
 import re
 import subprocess
 import urllib.request
+from public_lp_families import family as audited_family
 
 import highspy
 import numpy as np
@@ -24,7 +25,7 @@ def sha(data):
 
 
 def family(name):
-    return re.split(r"[0-9]", name.lower(), maxsplit=1)[0].rstrip("-_.") or name.lower()
+    return audited_family(name)
 
 
 def fetch(url):

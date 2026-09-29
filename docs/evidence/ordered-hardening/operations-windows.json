@@ -1,0 +1,697 @@
+{
+  "scope": "Bounded local/CI soak; observed RSS is not a proof of absence of memory leaks.",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "D:\\ARTICLE\\solverpilot\\.performance-venv\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "hostname": "amir",
+    "cpu_model": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 16,
+    "memory_bytes": null,
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "osqp": "1.1.3",
+      "psutil": "7.2.2"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null,
+      "BLIS_NUM_THREADS": null
+    }
+  },
+  "observations": [
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 0,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.6560000000026776,
+      "parent_rss": 84529152,
+      "children_rss": 89411584
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 1,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84537344,
+      "children_rss": 89460736
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 2,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84541440,
+      "children_rss": 89468928
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 3,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84545536,
+      "children_rss": 89477120
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 4,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84545536,
+      "children_rss": 89481216
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 5,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84545536,
+      "children_rss": 89481216
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 6,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84553728,
+      "children_rss": 89485312
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 7,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84553728,
+      "children_rss": 89493504
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 8,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84553728,
+      "children_rss": 89501696
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 9,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84553728,
+      "children_rss": 89505792
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 10,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84557824,
+      "children_rss": 89513984
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 11,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84557824,
+      "children_rss": 89518080
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 12,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84557824,
+      "children_rss": 89522176
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 13,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.015999999988707714,
+      "parent_rss": 84557824,
+      "children_rss": 89526272
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 14,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.014999999999417923,
+      "parent_rss": 84566016,
+      "children_rss": 89530368
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 15,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84566016,
+      "children_rss": 89534464
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 16,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84566016,
+      "children_rss": 89538560
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 17,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84570112,
+      "children_rss": 89542656
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 18,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84574208,
+      "children_rss": 89550848
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 19,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84578304,
+      "children_rss": 89554944
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 20,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84578304,
+      "children_rss": 89563136
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 21,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84578304,
+      "children_rss": 89567232
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 22,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84578304,
+      "children_rss": 89567232
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 23,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84582400,
+      "children_rss": 89571328
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 24,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84582400,
+      "children_rss": 89575424
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 25,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84582400,
+      "children_rss": 89579520
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 26,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84582400,
+      "children_rss": 89587712
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 27,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84586496,
+      "children_rss": 89587712
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 28,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84586496,
+      "children_rss": 89595904
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 29,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84586496,
+      "children_rss": 89600000
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 30,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84586496,
+      "children_rss": 89604096
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 31,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84594688,
+      "children_rss": 89612288
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 32,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.015999999988707714,
+      "parent_rss": 84594688,
+      "children_rss": 89612288
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 33,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89616384
+    },
+    {
+      "backend": "scipy-highs-ds",
+      "iteration": 34,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89620480
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 0,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.6720000000059372,
+      "parent_rss": 84598784,
+      "children_rss": 89767936
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 1,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84598784,
+      "children_rss": 89780224
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 2,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89780224
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 3,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.015999999988707714,
+      "parent_rss": 84602880,
+      "children_rss": 89784320
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 4,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89792512
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 5,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89796608
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 6,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89796608
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 7,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84602880,
+      "children_rss": 89808896
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 8,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84602880,
+      "children_rss": 89817088
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 9,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84606976,
+      "children_rss": 89821184
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 10,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89825280
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 11,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89829376
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 12,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84611072,
+      "children_rss": 89833472
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 13,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89837568
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 14,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89837568
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 15,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89841664
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 16,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89845760
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 17,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84611072,
+      "children_rss": 89849856
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 18,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89849856
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 19,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84611072,
+      "children_rss": 89853952
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 20,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84615168,
+      "children_rss": 89862144
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 21,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84615168,
+      "children_rss": 89870336
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 22,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84619264,
+      "children_rss": 89874432
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 23,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84619264,
+      "children_rss": 89882624
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 24,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84619264,
+      "children_rss": 89886720
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 25,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84619264,
+      "children_rss": 89890816
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 26,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.01600000000325963,
+      "parent_rss": 84623360,
+      "children_rss": 89890816
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 27,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84627456,
+      "children_rss": 89894912
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 28,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84627456,
+      "children_rss": 89899008
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 29,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84627456,
+      "children_rss": 89903104
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 30,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84631552,
+      "children_rss": 89907200
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 31,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.014999999999417923,
+      "parent_rss": 84631552,
+      "children_rss": 89911296
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 32,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84631552,
+      "children_rss": 89915392
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 33,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84639744,
+      "children_rss": 89919488
+    },
+    {
+      "backend": "osqp-native",
+      "iteration": 34,
+      "verified": true,
+      "valid": true,
+      "elapsed_s": 0.0,
+      "parent_rss": 84639744,
+      "children_rss": 89919488
+    }
+  ],
+  "deadline_observations": [
+    {
+      "budget_s": 1e-05,
+      "call_wall_s": 0.03110779999406077,
+      "status": "timeout",
+      "verified": false
+    },
+    {
+      "budget_s": 0.1,
+      "call_wall_s": 0.10824739999952726,
+      "status": "timeout",
+      "verified": false
+    },
+    {
+      "budget_s": 5.0,
+      "call_wall_s": 0.6546272999985376,
+      "status": "valid_optimal",
+      "verified": true
+    }
+  ],
+  "summary": {
+    "scipy-highs-ds": {
+      "calls": 35,
+      "verified": 35,
+      "post_warmup_rss_range_bytes": 196608,
+      "last_minus_first_rss_bytes": 196608
+    },
+    "osqp-native": {
+      "calls": 35,
+      "verified": 35,
+      "post_warmup_rss_range_bytes": 159744,
+      "last_minus_first_rss_bytes": 159744
+    }
+  },
+  "remaining_owned_workers": [],
+  "functional_gate_passed": true,
+  "memory_leak_absence_claimed": false,
+  "native_factorization_reuse_claimed": false
+}
