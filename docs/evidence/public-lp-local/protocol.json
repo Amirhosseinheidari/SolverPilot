@@ -1,0 +1,53 @@
+{
+  "schema": "solverpilot.public-lp-qualification.v1",
+  "captured_at": "2026-09-30T08:23:22.884315+00:00",
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/solverpilot/cuopt-venv/bin/python",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "hostname": "amir",
+    "cpu_model": "12th Gen Intel(R) Core(TM) i7-12650H",
+    "logical_cpus": 16,
+    "memory_bytes": 8131272704,
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.18.1",
+      "highspy": "1.15.1",
+      "ortools": "9.15.6755"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1"
+    }
+  },
+  "cohort_sha256": "508940793563548bf422d7e2e2f5a24b2816868240df2d49a1d60a0c87f263f6",
+  "model_file_sha256": "f1605fbc4b1e5d75d31d5eda185dfe3d8b9e983d7ed6cd9eb7b7bcf94595675d",
+  "model_payload_sha256": "90333470414abd395b1a688006a5dc691258c99e160af394af34c8a9504806f2",
+  "source_hashes": {
+    "benchmarks/qualify_public_lp.py": "8fdb9b3bf4b31f6557740956ad5a7c9ed27eaa17daf4b9269de51910326e275a",
+    "benchmarks/public_lp_worker.py": "381aab9d9e9215bb0901ce458903f84f0a330eced4e0e74f5cc6a7fa1cfc65d5",
+    "src/solverpilot/experimental/learned_lp.py": "b3b49830a059cea8a5bc1dbd809ab6586cf3162e4a73a4ebac46383a9da99a32",
+    "src/solverpilot/experimental/lp_environment.py": "2940bf09c1a80490bf4779f9e515195ad25bf5649e00306fede948842a877bab"
+  },
+  "strategies": [
+    "learned",
+    "default",
+    "production",
+    "highs-simplex",
+    "highs-ipm",
+    "ortools-pdlp"
+  ],
+  "repeats": 2,
+  "api_budget_s": 2.0,
+  "controller_deadline_s": 12.0,
+  "affinity_cpu": 0,
+  "parallel_solves": 1,
+  "retuning_allowed": false,
+  "gate": "24 fresh models; >=20 groups; some learned switches; zero certificate objective mismatch; >=3% gain, bootstrap upper<1, p90<=1.25 and no lost solves against both default and production",
+  "scope": "frozen synthetic-trained policy; public OOD challenge; real isolated routed calls; no retraining or promotion from a result alone"
+}

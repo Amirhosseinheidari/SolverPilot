@@ -4,6 +4,10 @@ This development API trains and evaluates a small cost-sensitive selector for
 continuous LP. It does **not** change `solve()`, `solve_production()`, the default
 registry, or GPU routing. It is not in the published 0.4 wheel.
 
+The subsequent [public-workload qualification](PUBLIC-LP-QUALIFICATION.md) tests
+the frozen model against actual default/production API calls and three explicit
+CPU configurations, with full process timing and separate stress cases.
+
 The historical M26/M27/M29 experiments did not establish production-quality LP
 routing. Their test outcomes have already been consumed and must not be reused as
 fresh held-out evidence. This implementation starts a separate local experiment

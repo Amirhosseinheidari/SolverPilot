@@ -1,0 +1,60 @@
+{
+  "learned": {
+    "observed": 48,
+    "primal_valid": 15,
+    "backend_optimal": 20,
+    "statuses": {
+      "valid_optimal": 14,
+      "error": 26,
+      "invalid_solution": 7,
+      "feasible_limit": 1
+    }
+  },
+  "default": {
+    "observed": 48,
+    "primal_valid": 44,
+    "backend_optimal": 44,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "production": {
+    "observed": 48,
+    "primal_valid": 44,
+    "backend_optimal": 44,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "highs-simplex": {
+    "observed": 48,
+    "primal_valid": 44,
+    "backend_optimal": 44,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "highs-ipm": {
+    "observed": 48,
+    "primal_valid": 42,
+    "backend_optimal": 42,
+    "statuses": {
+      "valid_optimal": 42,
+      "error": 6
+    }
+  },
+  "ortools-pdlp": {
+    "observed": 48,
+    "primal_valid": 15,
+    "backend_optimal": 20,
+    "statuses": {
+      "valid_optimal": 14,
+      "error": 23,
+      "invalid_solution": 10,
+      "feasible_limit": 1
+    }
+  }
+}
