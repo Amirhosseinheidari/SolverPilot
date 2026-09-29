@@ -142,3 +142,79 @@ def row_residual_lower_bound(problem, coefficients, lower, upper, *, max_visits=
             break
     tail = box_min(residual, lower, upper)
     return None if tail is None else constant+tail
+
+
+def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pivots=128,
+                                 max_visits=100000, max_bits=8192):
+    """Exact sparse equality-basis elimination, explicitly bounded and optional.
+
+    Each pivot row is an exact linear combination of original equality rows.
+    Substitution preserves the residual objective plus a constant. Inequality
+    rows are never used as equalities. Returning None is an incomplete recovery,
+    not evidence of infeasibility or nonoptimality.
+    """
+    a = problem.A.tocsr(); columns = a.tocsc()
+    equal = np.isfinite(problem.constraint_lower) & (problem.constraint_lower == problem.constraint_upper)
+    residual = {j: v for j, v in enumerate(coefficients) if v}
+    pivots = {}; constant = rational(0); visits = 0
+
+    def small(values):
+        return all(v.numerator.bit_length()+v.denominator.bit_length() <= max_bits for v in values)
+
+    for _ in range(max_pivots):
+        bad = [j for j, v in residual.items() if not np.isfinite(lower[j] if v > 0 else upper[j])]
+        if not bad:
+            tail = box_min([residual.get(j, rational(0)) for j in range(problem.n_variables)], lower, upper)
+            return None if tail is None else constant+tail
+        j = min(bad, key=lambda k: columns.indptr[k+1]-columns.indptr[k])
+        found = False
+        choices = columns.indices[columns.indptr[j]:columns.indptr[j+1]]
+        for i in sorted((i for i in choices if equal[i]), key=lambda i: a.indptr[i+1]-a.indptr[i]):
+            begin, end = a.indptr[i:i+2]; visits += end-begin
+            if visits > max_visits: return None
+            row = {int(a.indices[k]): rational(a.data[k]) for k in range(begin, end) if a.data[k]}
+            rhs = rational(problem.constraint_lower[i])
+            for k, (basis, bound) in pivots.items():
+                multiplier = row.get(k, rational(0))
+                if not multiplier: continue
+                visits += len(basis)
+                if visits > max_visits: return None
+                rhs -= multiplier*bound
+                for col, value in basis.items():
+                    updated = row.get(col, rational(0))-multiplier*value
+                    if updated: row[col] = updated
+                    else: row.pop(col, None)
+                if not small([rhs, *row.values()]): return None
+            pivot = row.get(j)
+            if not pivot: continue
+            row = {k: v/pivot for k, v in row.items()}; rhs /= pivot
+            if not small([rhs, *row.values()]): return None
+            multiplier = residual[j]
+            new_constant = constant+multiplier*rhs
+            if not small([new_constant]): return None
+            visits += len(row)
+            if visits > max_visits: return None
+            for k, value in row.items():
+                updated = residual.get(k, rational(0))-multiplier*value
+                if updated: residual[k] = updated
+                else: residual.pop(k, None)
+            if not small(residual.values()): return None
+            constant = new_constant; pivots[j] = (row, rhs); found = True
+            break
+        if not found: return None
+    tail = box_min([residual.get(j, rational(0)) for j in range(problem.n_variables)], lower, upper)
+    return None if tail is None else constant+tail
+
+
+def recover_lp_optimality(problem, x, dual, *, tolerances=None):
+    """Explicit extended recovery; caller-owned x/dual flags are never trusted.
+
+    Uses exact original equality combinations after ordinary domain recovery.
+    Work limits do not imply a wall-clock guarantee; use process isolation when
+    a hard stopping boundary is needed. No additional solver is invoked.
+    """
+    from .optimality import verify_optimality
+    prepared = prepare_lp_dual(problem, dual)
+    if prepared is None:
+        raise ValueError('extended recovery requires a finite continuous LP dual')
+    return verify_optimality(problem, x, prepared, tolerances=tolerances, extended_recovery=True)

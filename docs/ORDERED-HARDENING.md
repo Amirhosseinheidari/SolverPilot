@@ -6,7 +6,7 @@ promotion of a learned model or publication of a new package.
 | Step | Acceptance rule | Status |
 |---|---|---|
 | 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; final integration pending |
-| 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Pending |
+| 2. Certificate coverage | Additional original-model bounds with adversarial rejection tests; no tolerance relaxation | Implemented; public replay retains an explicit incomplete case |
 | 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Pending |
 | 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Pending |
 | 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Pending |
@@ -41,3 +41,17 @@ optimality from the owned worker, gated again by parent primal validation.
 
 The paired verifier-only benchmark uses three planted bounded LP sizes and three
 alternating repetitions. It is not an industrial or full-solve speed claim.
+
+## Step 2: optional equality-basis certificate recovery
+
+`solverpilot.validate.lp_dual.recover_lp_optimality` can eliminate coupled free
+variables using exact linear combinations of original equality rows. Pivot,
+nonzero-visit and rational-bit caps bound work. Inequalities never become
+equalities, original primal checks still apply, and incomplete recovery returns
+an unverified check. This explicit API is separate from ordinary solve costs.
+
+Constructed coupled systems recover exact bounds, including ten seeded integer
+systems with known unique solutions. Adversarial primal, dual and resource-cap
+tests reject invalid or incomplete evidence. Replay of consumed public cases
+keeps unitcal_7 verified but pilot4 still has no finite residual lower bound.
+This is a coverage improvement, not a generic certificate algorithm.

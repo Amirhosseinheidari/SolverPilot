@@ -26,7 +26,8 @@ class OptimalityCheck:
     domain_refined: bool = False
 
 
-def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False) -> OptimalityCheck:
+def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
+                      extended_recovery=False) -> OptimalityCheck:
     tol = tolerances or ValidationTolerances()
     bad = lambda reason: OptimalityCheck(False, False, False, np.inf, np.inf, np.inf, reason)
     linear = problem.linear if isinstance(problem, QuadraticProblem) else problem
@@ -83,6 +84,9 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False) -
             correction = box_min(residual, lower, upper)
             if correction is None:
                 correction = row_residual_lower_bound(problem, residual, lower, upper)
+            if correction is None and extended_recovery:
+                from .lp_dual import equality_residual_lower_bound
+                correction = equality_residual_lower_bound(problem, residual, lower, upper)
             domain_refined = correction is not None
         half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
         exact_primal = half_xpx + dot(sign*linear.c, x)
