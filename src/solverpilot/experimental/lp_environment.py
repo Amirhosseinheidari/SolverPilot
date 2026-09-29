@@ -23,7 +23,7 @@ def bind_lp_environment(model, training_protocol: str | Path, current: dict) -> 
     if hashlib.sha256(raw).hexdigest() != model.protocol_sha256:
         raise ValueError("training protocol digest mismatch")
     protocol = json.loads(raw)
-    if (protocol.get("schema") != "solverpilot.local-learned-lp.v1"
+    if (protocol.get("schema") not in {"solverpilot.local-learned-lp.v1", "solverpilot.robust-public-lp.v1"}
             or protocol.get("cpu_only") is not True):
         raise ValueError("unsupported training environment protocol")
     training = protocol["environment"]

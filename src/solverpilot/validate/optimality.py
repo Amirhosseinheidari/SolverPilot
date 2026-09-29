@@ -23,6 +23,7 @@ class OptimalityCheck:
     gap: float
     reason: str
     dual_bound: float | None = None
+    domain_refined: bool = False
 
 
 def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
@@ -66,6 +67,14 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
         exact_bty = matvec(B.T, y)
         residual = [p + rational(sign*c) + b for p, c, b in zip(exact_px, linear.c, exact_bty)]
         correction = box_min(residual, linear.variable_lower, linear.variable_upper)
+        domain_refined = False
+        if correction is None and isinstance(problem, LinearProblem):
+            from .lp_dual import implied_lp_box, row_residual_lower_bound
+            lower, upper = implied_lp_box(problem)
+            correction = box_min(residual, lower, upper)
+            if correction is None:
+                correction = row_residual_lower_bound(problem, residual, lower, upper)
+            domain_refined = correction is not None
         half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
         exact_primal = half_xpx + dot(sign*linear.c, x)
         exact_dual = None if correction is None else -half_xpx-dot(y[active], bound[active])+correction
@@ -94,7 +103,7 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
     return OptimalityCheck(verified, primal, dual_ok, st, cp, gap,
                            'numerically verified KKT and domain-corrected gap' if verified else
                            ('stationarity error has no finite lower bound' if exact_dual is None else 'certificate outside tolerances'),
-                           None if exact_dual is None else dual_value)
+                           None if exact_dual is None else dual_value, domain_refined)
 
 
 def verify_infeasibility(problem: LinearProblem, dual, *, atol=1e-8) -> bool:
