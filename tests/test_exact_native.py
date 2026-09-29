@@ -34,3 +34,37 @@ def test_real_exact_runtime(tmp_path):
                              text=True, timeout=30)
     (evidence / "vipr.log").write_text(checked.stdout + checked.stderr, encoding="utf-8")
     assert checked.returncode == 0, checked.stdout + checked.stderr
+
+
+@pytest.mark.native
+@pytest.mark.parametrize("case", ["milp", "lp", "infeasible", "maximize", "binary", "fractional"])
+def test_exact_adapter_original_model(case):
+    from fractions import Fraction
+    import numpy as np
+    from solverpilot import LinearProblem
+    from solverpilot.exact import solve_exact, verify_exact_certificate
+    scip, vipr = os.getenv("SOLVERPILOT_EXACT_SCIP"), os.getenv("SOLVERPILOT_VIPR")
+    if not scip or not vipr:
+        pytest.skip("explicit exact SCIP and VIPR executables required")
+    cases = {
+        "milp": (LinearProblem([[2, 2]], [1, 1], [0, 0], [2, 2], [3], [np.inf], ["integer"] * 2), Fraction(2)),
+        "lp": (LinearProblem([[3]], [1], [0], [2], [1], [np.inf], ["continuous"]), Fraction(1, 3)),
+        "infeasible": (LinearProblem([[1]], [1], [0], [2], [0.5], [0.5], ["integer"]), None),
+        "maximize": (LinearProblem([[1]], [1], [0], [3], [-np.inf], [2.5], ["integer"], "maximize", 7), Fraction(9)),
+        "binary": (LinearProblem([[1, 1]], [2, 3], [0, 0], [1, 1], [1], [np.inf], ["binary"] * 2), Fraction(2)),
+        "fractional": (LinearProblem([[0.1]], [0.3], [0], [3], [0.2], [np.inf], ["continuous"]), Fraction(0.3) * 2),
+    }
+    p, expected = cases[case]
+    r = solve_exact(p, scip_executable=scip, checker_executable=vipr, time_limit=30,
+                    evidence_directory=Path("exact-native-evidence") / case)
+    (Path(r.evidence_directory) / "result.txt").write_text(repr(r), encoding="utf-8")
+    assert r.independently_verified, r
+    assert r.status == ("infeasible" if expected is None else "optimal"), r
+    assert r.objective == expected, r
+    certificate = Path(r.evidence_directory) / "checked.vipr"
+    replay = verify_exact_certificate(p, certificate, checker_executable=vipr)
+    assert replay.independently_verified and replay.objective == expected
+    # A certificate from this model must not silently prove a different objective.
+    wrong = LinearProblem(p.A, p.c * 2 + 1, p.variable_lower, p.variable_upper,
+                          p.constraint_lower, p.constraint_upper, p.domains, p.objective_sense)
+    assert not verify_exact_certificate(wrong, certificate, checker_executable=vipr).independently_verified
