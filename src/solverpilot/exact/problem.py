@@ -97,11 +97,10 @@ class ExactModel:
                     lines.append(f" r{i}u: {expr(row)} <= {hi}")
         lines.append("Bounds")
         for j, (lo, hi) in enumerate(zip(self.lower, self.upper)):
-            lines.append(f" x{j} free")
-            if lo is not None:
-                lines.append(f" x{j} >= {lo}")
-            if hi is not None:
-                lines.append(f" x{j} <= {hi}")
+            # Each LP bound record must be self-contained; later records can reset
+            # the opposite side in native readers.
+            lines.append(f" {lo if lo is not None else '-inf'} <= x{j} <= "
+                         f"{hi if hi is not None else '+inf'}")
         if self.integers:
             lines.append("Generals")
             lines.extend(f" x{j}" for j in sorted(self.integers))

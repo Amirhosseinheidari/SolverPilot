@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add `solverpilot.exact.solve_exact` and certificate replay for LP/MILP with explicit exact SCIP and VIPR executables.
+- Bind every certificate assumption to the original model and validate rational primal solutions before accepting proof results.
+- Preserve binary64 input coefficients exactly, restore objective sense/offset, and distinguish optimality, infeasibility, bounds and unverified outcomes.
+- Add pinned native Linux build/qualification and adversarial certificate/process tests. This development API is separate from the published 0.4 release and automatic routing.
+
 ## 0.4 — Conservative certificates and explicit global optimization
 
 - Reject the near-indefinite QP counterexample; require exact represented-data PSD evidence before independent QP bounds.

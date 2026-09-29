@@ -25,8 +25,11 @@ class Tokens:
         if len(payload) > MAX_CERTIFICATE_BYTES:
             raise ValueError("certificate exceeds size limit")
         content = payload.decode("ascii")
-        self.tokens = iter("\n".join(line for line in content.splitlines()
-                                     if not line.lstrip().startswith("%")).split())
+        # SCIP adds an informational `global` suffix after a complete derivation.
+        # VIPR ignores it at end of line. Accept only this known annotation.
+        lines = (re.sub(r"(\}\s+-?[0-9]+)\s+global\s*$", r"\1", line)
+                 for line in content.splitlines() if not line.lstrip().startswith("%"))
+        self.tokens = iter("\n".join(lines).split())
 
     def get(self):
         try:

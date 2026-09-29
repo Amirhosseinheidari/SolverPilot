@@ -111,7 +111,11 @@ def _verify(model, payload, checker, directory, deadline):
     path.write_bytes(payload)
     _run([checker, "checked.vipr"], directory, "vipr.log", deadline)
     output = (directory / "vipr.log").read_text(encoding="utf-8", errors="replace")
-    if "Successfully verified." not in output or "Verification failed." in output:
+    lines = output.splitlines()
+    success = ("Successfully verified infeasibility." in lines if bound.relation == "infeas"
+               else any(line.startswith("Successfully verified optimal value range ") for line in lines)
+               if bound.lower is not None else "Successfully verified." in lines)
+    if not success or "Verification failed." in output:
         raise ValueError("checker did not positively confirm verification")
     if _read_certificate(path) != payload:
         raise ValueError("certificate changed during checking")

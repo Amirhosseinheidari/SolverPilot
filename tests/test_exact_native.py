@@ -89,3 +89,48 @@ def test_native_checker_rejects_false_derivation(tmp_path):
     path.write_text(payload.replace("lin 1 0 1", "lin 1 0 0"), encoding="ascii")
     r = verify_exact_certificate(p, path, checker_executable=vipr)
     assert not r.independently_verified and r.status == "unverified"
+
+
+@pytest.mark.native
+def test_random_small_milps_match_exhaustive_reference():
+    from fractions import Fraction
+    from itertools import product
+    import numpy as np
+    from solverpilot import LinearProblem
+    from solverpilot.exact import solve_exact
+    scip, vipr = os.getenv("SOLVERPILOT_EXACT_SCIP"), os.getenv("SOLVERPILOT_VIPR")
+    if not scip or not vipr:
+        pytest.skip("explicit exact SCIP and VIPR executables required")
+    rng = np.random.default_rng(290926)
+    for seed in range(20):
+        a = rng.integers(-4, 5, size=(2, 2))
+        feasible = rng.integers(-2, 4, size=2)
+        upper = a @ feasible + rng.integers(0, 3, size=2)
+        c = rng.integers(-4, 5, size=2)
+        values = [int(c @ x) for x in product(range(-2, 4), repeat=2)
+                  if np.all(a @ x <= upper)]
+        sense = "minimize" if seed % 2 else "maximize"
+        expected = min(values) if sense == "minimize" else max(values)
+        p = LinearProblem(a, c, [-2, -2], [3, 3], [-np.inf] * 2, upper,
+                          ["integer"] * 2, sense, 0.5)
+        result = solve_exact(p, scip_executable=scip, checker_executable=vipr,
+                             evidence_directory=Path("exact-native-evidence") / f"random-{seed}")
+        (Path(result.evidence_directory) / "result.txt").write_text(repr(result), encoding="utf-8")
+        assert result.status == "optimal" and result.independently_verified, (seed, result)
+        assert result.objective == Fraction(expected) + Fraction(1, 2)
+
+
+@pytest.mark.native
+def test_unbounded_and_budget_do_not_claim_proof():
+    import numpy as np
+    from solverpilot import LinearProblem
+    from solverpilot.exact import solve_exact
+    scip, vipr = os.getenv("SOLVERPILOT_EXACT_SCIP"), os.getenv("SOLVERPILOT_VIPR")
+    if not scip or not vipr:
+        pytest.skip("explicit exact SCIP and VIPR executables required")
+    p = LinearProblem(np.zeros((0, 1)), [-1], [0], [np.inf], [], [], ["continuous"])
+    r = solve_exact(p, scip_executable=scip, checker_executable=vipr,
+                    evidence_directory=Path("exact-native-evidence") / "unbounded")
+    assert r.status == "unverified" and not r.independently_verified, r
+    r = solve_exact(p, scip_executable=scip, checker_executable=vipr, time_limit=0.000001)
+    assert r.status == "unverified" and not r.independently_verified, r

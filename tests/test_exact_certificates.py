@@ -91,6 +91,14 @@ def test_positive_row_scaling_is_equivalent():
     bind_certificate(ExactModel.from_problem(problem()), CERT.replace(b"r G 1 1 0 1", b"r G 2 1 0 2"))
 
 
+def test_native_global_annotation_and_complete_bound_records():
+    m = ExactModel.from_problem(problem())
+    bind_certificate(m, CERT.replace(b"} -1", b"} -1 global"))
+    assert " 0 <= x0 <= 3\n" in m.lp_text()
+    with pytest.raises(ValueError):
+        bind_certificate(m, CERT.replace(b"} -1", b"} -1 untrusted_annotation"))
+
+
 def test_integer_bound_rounding():
     p = LinearProblem([[1]], [1], [0.5], [3.5], [1], [np.inf], ["integer"])
     payload = CERT.replace(b"INT 0", b"INT 1\n0").replace(b"lo G 0", b"lo G 1")
@@ -101,7 +109,7 @@ def test_trusted_checker_contract_and_exact_result(tmp_path, monkeypatch):
     cert = tmp_path / "certificate.vipr"
     cert.write_bytes(CERT)
     def run(command, directory, log_name, deadline):
-        (directory / log_name).write_text("Successfully verified.\n")
+        (directory / log_name).write_text("Successfully verified optimal value range [1, 1].\n")
     monkeypatch.setattr(runtime, "_run", run)
     r = verify_exact_certificate(problem(offset=10), cert, checker_executable=sys.executable,
                                  evidence_directory=tmp_path)
@@ -122,7 +130,7 @@ def test_checker_failure_never_verifies(tmp_path, monkeypatch, mode):
         if mode == "timeout":
             raise TimeoutError("checker timed out")
         (directory / log_name).write_text("Verification failed." if mode == "negative" else
-                                          "" if mode == "empty" else "Successfully verified.")
+                                          "" if mode == "empty" else "Successfully verified optimal value range [1, 1].")
         if mode == "mutated":
             (directory / "checked.vipr").write_bytes(CERT + b" ")
     monkeypatch.setattr(runtime, "_run", run)
