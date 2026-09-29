@@ -1,0 +1,26 @@
+{
+  "schema": "solverpilot.experimental.lp-leaf-gain.v2",
+  "model_sha256": "da57bb47b974e89cb46a74f983edbf4eee78e6befa3a11a5824d1f2dcad2b9d1",
+  "implementation_sha256": "28ef9dc5e3bbec41b18d27bc78e600be2c46df109077d5f65aa9a3e9a6f97a3b",
+  "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+  "cutoff_s": 2.0,
+  "protocol_sha256": "5cfeaf9cbfa151407d04432f122a76b1aa7a0cd18af439e76cf626bec967737a",
+  "calibration_sha256": "ec18cc04049ea7afa6467ff0cd5195e0cbc7b7ecb99bb0240e546f9a7a0b809f",
+  "overhead_limit_s": 0.005,
+  "setup_charge_s": 0.0,
+  "min_families": 2,
+  "certified_leaves": [],
+  "calibration_instances": [
+    "demo-epigraph",
+    "demo-transport"
+  ],
+  "calibration_groups": [
+    "synthetic-template:epigraph",
+    "synthetic-template:transport"
+  ],
+  "calibration_hashes": [
+    "e94f3197e3474ecd63a55425675d1f52b36fccb097a7c901b5b141dc1ccde87f",
+    "050a35eb0c559a4889d0db2233c0ad9de2a6e1258aa76dbe47a2003cee32d06f"
+  ],
+  "sha256": "99de20ca5c4ef635732947ff8819283d7fb635587da3510a7e166c8269f76a1a"
+}

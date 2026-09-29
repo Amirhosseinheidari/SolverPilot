@@ -44,3 +44,22 @@ def test_development_outcomes_do_not_claim_promotion():
     assert measured['setup_excluded_from_warm_decision'] is True
     assert measured['summary']['session']['switches'] == 8
     assert measured['eligible_summary']['session']['calls'] == 8
+
+
+def test_balanced_development_replay_preserves_order_and_safe_fallback():
+    prefix = 'development-balanced-run/'
+    summary = read(prefix+'summary.json')
+    assert summary['total_api_calls'] == 52
+    assert not summary['automatic_production_routing_enabled']
+    assert not summary['production_promotion_supported']
+    assert not read(prefix+'guard.json')['certified_leaves']
+    for split in ('train', 'calibration', 'test'):
+        rows = read(prefix+split+'-outcomes.json')
+        for name in {row['name'] for row in rows}:
+            orders = [[row['strategy'] for row in rows
+                       if row['name'] == name and row['repeat'] == repeat]
+                      for repeat in (0, 1)]
+            assert orders[1] == list(reversed(orders[0]))
+    rows = read(prefix+'test-outcomes.json')
+    assert len(rows) == 20 and all(row['verified'] for row in rows)
+    assert sum(row['strategy'] == 'v2' for row in rows) == 4

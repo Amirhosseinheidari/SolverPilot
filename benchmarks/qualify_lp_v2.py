@@ -186,6 +186,15 @@ def strategies(split):
     return CANDIDATES if split == "train" else (*CANDIDATES, *BASELINES) if split == "calibration" else ("v2", *CANDIDATES, *BASELINES)
 
 
+def strategy_order(split, case_index, repeat):
+    order = list(strategies(split))
+    shift = case_index % len(order)
+    order = order[shift:]+order[:shift]
+    # Pair each order with its exact reverse. Including repeat in the rotation
+    # would cancel the reversal for two candidates and bias first-call costs.
+    return order if repeat % 2 == 0 else list(reversed(order))
+
+
 def validate_outcome_coverage(rows, cases, repeats, split):
     expected = {(case["name"], strategy, repeat) for case in cases
                 for strategy in strategies(split) for repeat in range(repeats)}
@@ -353,10 +362,7 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
             if split != "test":
                 features[case["name"]] = tuple(runtime.features(problems[case["name"]]))
             for repeat in range(config["repeats"]):
-                order = list(strategies(split))
-                shift = (case_index+repeat) % len(order)
-                order = order[shift:]+order[:shift]
-                if repeat % 2: order.reverse()
+                order = strategy_order(split, case_index, repeat)
                 for strategy in order:
                     verify_frozen(sources, frozen)
                     start = perf_counter()

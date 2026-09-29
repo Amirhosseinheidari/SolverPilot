@@ -5,6 +5,7 @@ certificate checker must still validate the candidate and its corrected gap.
 """
 from collections import deque
 from collections.abc import Mapping
+from dataclasses import replace
 import math
 from time import perf_counter
 import numpy as np
@@ -332,7 +333,11 @@ def recover_lp_optimality(problem, x, dual, *, tolerances=None, time_limit_s=10.
     Work limits do not imply a wall-clock guarantee; use process isolation when
     a hard stopping boundary is needed. No additional solver is invoked.
     """
-    from .optimality import verify_optimality
+    started = perf_counter()
+    from .optimality import OptimalityCheck, verify_optimality
+    if time_limit_s is not None and (isinstance(time_limit_s, bool) or
+            not np.isfinite(time_limit_s) or time_limit_s <= 0):
+        raise ValueError('recovery time limit must be finite and positive')
     for value in (max_pivots, max_visits, max_bits):
         if type(value) is not int or value < 0:
             raise ValueError('recovery work limits must be nonnegative integers')
@@ -340,6 +345,18 @@ def recover_lp_optimality(problem, x, dual, *, tolerances=None, time_limit_s=10.
     if prepared is None:
         raise ValueError('extended recovery requires a finite continuous LP dual')
     if basis is not None: validate_lp_basis(problem, basis)
-    return verify_optimality(problem, x, prepared, tolerances=tolerances, extended_recovery=True,
-        recovery_options=dict(time_limit_s=time_limit_s, max_pivots=max_pivots, basis=basis,
+    elapsed = perf_counter()-started
+    remaining = None if time_limit_s is None else time_limit_s-elapsed
+    if remaining is not None and remaining <= 0:
+        return OptimalityCheck(False, False, False, np.inf, np.inf, np.inf,
+            'recovery time limit exceeded during preparation',
+            recovery_diagnostics={'wrapper': {'reason': 'time_limit', 'elapsed_s': elapsed}})
+    result = verify_optimality(problem, x, prepared, tolerances=tolerances, extended_recovery=True,
+        recovery_options=dict(time_limit_s=remaining, max_pivots=max_pivots, basis=basis,
                               max_visits=max_visits, max_bits=max_bits))
+    elapsed = perf_counter()-started
+    if time_limit_s is not None and elapsed >= time_limit_s:
+        return replace(result, verified=False, reason='recovery time limit exceeded',
+            recovery_diagnostics={**(result.recovery_diagnostics or {}),
+                'wrapper': {'reason': 'time_limit', 'elapsed_s': elapsed}})
+    return result

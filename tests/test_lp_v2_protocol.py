@@ -12,6 +12,14 @@ protocol = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(protocol)
 
 
+@pytest.mark.parametrize('split', protocol.SPLITS)
+def test_paired_repeats_reverse_order_without_rotating_again(split):
+    for index in range(5):
+        first = protocol.strategy_order(split, index, 0)
+        assert protocol.strategy_order(split, index, 1) == list(reversed(first))
+        assert protocol.strategy_order(split, index, 2) == first
+
+
 @pytest.fixture
 def demo(tmp_path):
     path = protocol.generate_development_demo(tmp_path/"corpus")

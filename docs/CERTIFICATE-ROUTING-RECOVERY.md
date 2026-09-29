@@ -65,6 +65,10 @@ each integer component is smaller. The parser now bounds components separately
 Numerical time checks are cooperative, including preparation and final checking;
 they are not a hard latency guarantee. Work caps apply separately to each algebra
 stage. Use an owned isolated process where a hard stopping boundary is needed.
+The public recovery wrapper deducts dual preparation and basis validation before
+starting verification, and rejects a positive result returned after its total
+budget. Deterministic clock tests cover expiry in either preparation stage and at
+the final return boundary.
 Greedy basis recovery remains incomplete; resource limits or an unsuitable basis
 can return unverified without implying infeasibility or nonoptimality.
 
@@ -144,3 +148,14 @@ It did not establish a learned speed advantage: cold mean test cost was about
 17.60 ms and the fixed 20-call amortized scenario about 13.32 ms, versus 12.95 ms
 for production. These tiny synthetic examples validate execution/accounting only;
 they do not support a public-family performance claim.
+
+Final review found that the initial scheduler's repeat-dependent rotation could
+cancel its odd-repeat reversal for two candidates. The runner now rotates by case
+only and reverses alternate repeats. The original measurements above are retained
+unchanged; `development-balanced-run/` captures a second 52-call replay on the same
+already-consumed development templates, with exactly reversed strategy order for
+every repeat pair. All four guarded test calls verified, and again no leaf
+qualified. Cold mean was 17.89 ms; fixed-20 amortized mean was 14.33 ms versus
+15.61 ms for production. The guard used production fallback throughout, so the
+small timing difference is not evidence of a learned speed advantage. Neither run
+is an independent industrial qualification or authorizes automatic activation.
