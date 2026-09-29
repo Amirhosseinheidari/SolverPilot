@@ -1,5 +1,6 @@
 """Bounded local/CI soak; observed RSS is not a proof of absence of memory leaks."""
 import argparse
+from importlib.util import find_spec
 import json
 from pathlib import Path
 from time import perf_counter
@@ -17,18 +18,18 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     args=parser.parse_args()
     if args.output.exists(): raise SystemExit('refusing to overwrite evidence')
+    if find_spec('osqp') is None: raise SystemExit('qualification requires the optional osqp package')
     lp=LinearProblem.from_data(A=[[1.,1.]],c=[1.,2.],variable_lower=[0.,0.],variable_upper=[2.,2.],
                               constraint_lower=[1.],constraint_upper=[np.inf])
     qp=QuadraticProblem.from_data(P=np.eye(2),q=[-1.,-1.],A=[[1.,1.]],
         variable_lower=[0.,0.],variable_upper=[2.,2.],constraint_lower=[0.],constraint_upper=[1.])
-    process=psutil.Process(); observations=[];pids=[]
+    process=psutil.Process(); observations=[]
     for name, problem in (('scipy-highs-ds',lp),('osqp-native',qp)):
         with BatchExecutor(backend=name,max_workers=1,max_pending=1,timeout_s=30) as executor:
             for i,item in enumerate(executor.iter(problem for _ in range(35))):
                 workers=[p for p in process.children(recursive=True) if p.is_running()]
-                pids.extend(p.pid for p in workers)
                 observations.append({'backend':name,'iteration':i,'verified':item.independently_verified_optimal,
-                    'valid':item.validation_valid,'elapsed_s':item.elapsed_s,
+                    'valid':item.validation_valid,'status':item.status,'error':item.error,'elapsed_s':item.elapsed_s,
                     'parent_rss':process.memory_info().rss,
                     'children_rss':sum(p.memory_info().rss for p in workers)})
     deadlines=[]

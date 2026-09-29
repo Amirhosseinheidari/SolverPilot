@@ -43,12 +43,14 @@ def run(p, strategy, cutoff, model=None, guard=None, environment=None):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--seed-offset', type=int, default=0,
+                        help='freeze a different cohort before collecting any outcomes')
     args=parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     env=capture_environment(packages=('numpy','scipy','highspy'))
     environment=_digest(env)
-    protocol={'scope': __doc__, 'train_seeds': list(range(731100,731124)),
-              'test_seeds':list(range(942200,942212)), 'cutoff_s':2., 'repeats':2,
+    protocol={'scope': __doc__, 'train_seeds': list(range(731100+args.seed_offset,731124+args.seed_offset)),
+              'test_seeds':list(range(942200+args.seed_offset,942212+args.seed_offset)), 'cutoff_s':2., 'repeats':2,
               'overhead_limit_s':.005, 'min_groups':4,
               'family':'bounded random sparse packing LP; groups are seeds, not independent application families'}
     def save(name, data):
