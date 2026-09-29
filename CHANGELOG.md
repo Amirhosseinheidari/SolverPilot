@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Speed up exact binary64 certificate arithmetic while preserving exact Fraction results; account for setup and verification in call budgets and add explicit isolated CPU deadline calls.
+- Add opt-in bounded equality-basis LP certificate recovery without relaxing validation; incomplete cases remain unverified.
+- Add training-only total-cost gain guards bound to model, source, environment and time budget; automatic learned routing stays disabled.
+- Tighten built-in OSQP solve tolerances after cold-start failures found by repeated-call qualification; preserve explicit adapter settings.
+- Exercise repeated LP/QP solves, cancellation, worker-crash recovery and memory observations on the CI platform matrix.
+- Separate feasibility, proof scope/reason and deadline compliance in common summaries, including owned batch and exact-certificate results.
+- Add a passive `solverpilot-doctor` with imported-code fingerprint, distribution ownership and feature maturity. This development code is not the published 0.4 artifact.
+
+
 - Add an explicit experimental public-trained LP route that falls back to the ordinary production planner on support, environment or availability abstention, using one remaining budget.
 - Recover additional numerical LP certificates through independently rechecked multiplier projection, outward-rounded implied bounds and exact original-row residual substitutions; retain raw solver candidates and fail closed when recovery is incomplete.
 
@@ -21,7 +30,7 @@
 - Preserve binary64 input coefficients exactly, restore objective sense/offset, and distinguish optimality, infeasibility, bounds and unverified outcomes.
 - Add pinned native Linux build/qualification and adversarial certificate/process tests. This development API is separate from the published 0.4 release and automatic routing.
 
-## 0.4 — Conservative certificates and explicit global optimization
+## 0.4 â€” Conservative certificates and explicit global optimization
 
 - Reject the near-indefinite QP counterexample; require exact represented-data PSD evidence before independent QP bounds.
 - Add a separate matrix nonconvex QP/MIQP IR and bounded factorable SCIP global path, including nonlinear equalities, two-sided rows, general integers, explicit nonsmooth atoms and interval-certified indicators.
@@ -35,7 +44,7 @@
 - Harden global model snapshots, domains, callback cleanup and numerical result storage; add analytic, exhaustive-reference and adversarial regressions.
 - Preserve historical API/release artifacts; current top-level signatures gain only the documented optional recovery keyword.
 
-## 0.3 — Numerical trust, sparse modeling and scenario analysis
+## 0.3 â€” Numerical trust, sparse modeling and scenario analysis
 
 - Correct Farkas, recession and LP/QP optimality checks using domain-aware bounds and exact operations on represented binary64 coefficients. Bound free QP residuals when a conservative strong-convexity bound is available.
 - Restore OSQP defaults when optional settings are cleared, and preserve owned solver workspaces under call-local budgets.
@@ -51,7 +60,7 @@
 - Add adversarial scale/permutation regressions, typed common API checks and a required optional-integration coverage floor.
 - Preserve the historical 78-name top-level signatures and previous release evidence.
 
-## 0.2 — Runtime, modeling and direct conic upgrade
+## 0.2 â€” Runtime, modeling and direct conic upgrade
 
 - Serialize process start/close across concurrent batches to prevent the Windows child-handle race found during release qualification.
 
@@ -67,14 +76,14 @@
 - Add numerical campaigns, repeated-solve RSS benchmarks and three public examples.
 - Extend exact-artifact qualification with Clarabel on all supported platforms.
 
-## 0.1 — Final release numbering
+## 0.1 â€” Final release numbering
 
 - Promote the published 0.1.0rc2 code to the short final version 0.1.
 - Align package metadata, API snapshots, documentation, and release checks.
 - No algorithm, solver policy, public API, or performance changes.
 - Preserve historical release candidate evidence; qualify the new artifacts separately.
 
-## 0.1.0rc2 — Correctness and trust hardening
+## 0.1.0rc2 â€” Correctness and trust hardening
 
 - canonicalizes every accepted QP Hessian to one symmetric matrix before hashing, validation, or backend translation; pairwise symmetry checks can no longer be relaxed by an unrelated large coefficient;
 - replaces raw-scale convexity tolerance with PSD-preserving local congruence scaling so a huge positive coefficient cannot hide material negative curvature;
@@ -83,18 +92,18 @@
 - makes runtime and CP result payloads immutable snapshots so post-solve mutation cannot manufacture stronger proof claims or desynchronize a validated candidate from its report;
 - makes reference-free benchmark/oracle success proof-aware, requires protocol/environment/instance identity, and rejects non-finite timing costs;
 - records solver-reported objective values for native HiGHS/OSQP paths instead of validating a value recomputed from the same candidate;
-- hardens final pre-public release engineering by replacing production `assert` invariants with explicit exceptions, adding destructive CP/MPS/proof regressions, expanding optional-integration qualification across macOS/Windows Python 3.12–3.14, and gating release qualification on static correctness, dependency audit, SBOM generation, and least-privilege artifact/SBOM attestation;
+- hardens final pre-public release engineering by replacing production `assert` invariants with explicit exceptions, adding destructive CP/MPS/proof regressions, expanding optional-integration qualification across macOS/Windows Python 3.12â€“3.14, and gating release qualification on static correctness, dependency audit, SBOM generation, and least-privilege artifact/SBOM attestation;
 - supersedes the locally audited `0.1.0rc1` source artifact; public publication remains fail-closed pending exact-artifact external qualification.
 
-## 0.1.0rc1 — Integrated trust/application release candidate
+## 0.1.0rc1 â€” Integrated trust/application release candidate
 
-- promotes the locally verified S2–S10 additive layers into a distinct prerelease version rather than overwriting the historical `0.0.40rc2` artifact;
+- promotes the locally verified S2â€“S10 additive layers into a distinct prerelease version rather than overwriting the historical `0.0.40rc2` artifact;
 - adds strict JSON/CSV ingestion and provenance, oracle/regret evaluation, versioned feature/OOD diagnostics, claim-safe reporting, explicit extension staging, TSP and CVRP/VRPTW application packs, and opt-in SQLite history;
 - preserves the frozen 78-symbol top-level API by keeping new capabilities under explicit submodules;
 - hardens cross-system trust boundaries around oracle comparability, report immutability, and independent optimality-proof issuance;
 - retains learned LP performance routing as disabled and keeps public publication fail-closed pending exact-artifact external qualification.
 
-## 0.0.40rc2 — Trust and numerical hardening after Track P merge
+## 0.0.40rc2 â€” Trust and numerical hardening after Track P merge
 
 - fail closed for unverified/unknown quadratic convexity at capability, inspection, planning, runtime, and guarded backend boundaries;
 - use scale-aware PSD/symmetry checks and primal feasibility validation while continuing to report raw residuals;
@@ -107,7 +116,7 @@
 - constrain declared Python/runtime dependency ranges to the qualification line;
 - isolate OR-Tools CP-SAT native solving in a subprocess and revalidate results in the parent process to avoid a verified HiGHS shared-library ABI collision.
 
-- forward-ports the frozen Track P P0–P9 feature line onto the hardened SolverPilot rc8 codebase instead of overwriting M27–M33/release-hardening changes;
+- forward-ports the frozen Track P P0â€“P9 feature line onto the hardened SolverPilot rc8 codebase instead of overwriting M27â€“M33/release-hardening changes;
 - adds the semantic modeling kernel, parameter compiler/cache, Capability Protocol 2.0, bridge/transformation-tape engine, persistent sessions, conic layer, smooth NLP/AD, certified convex binary MINLP orchestration, and CP/CP-SAT core;
 - renames all live Track P Python modules/schema identifiers/metadata to the `solverpilot` namespace while preserving original OptiMind naming only in frozen history;
 - keeps the M30-frozen 78-symbol top-level API unchanged; Track P APIs are canonical under explicit submodules;
@@ -115,7 +124,7 @@
 - expands README, examples, API docs, and limitations around the exact guarantee boundaries of the merged functionality;
 - retains the rejected learned LP performance selector as disabled; no new performance-ranking claim is introduced by this merge.
 
-## 0.0.36rc7 — Final pre-GitHub release cleanup
+## 0.0.36rc7 â€” Final pre-GitHub release cleanup
 
 - removes the pre-public `optimind` compatibility package to eliminate nested-import class identity duplication;
 - removes the internal `OptiMindError` compatibility alias from live source;
@@ -125,29 +134,29 @@
 - moves historical M31/M32/M33 release helper scripts out of live `tools/`;
 - refreshes pre-GitHub hardening/verification documentation.
 
-## 0.0.36rc6 — SolverPilot brand and package migration
+## 0.0.36rc6 â€” SolverPilot brand and package migration
 
 - renames the public brand, distribution, CLI entry points, and canonical Python namespace to SolverPilot / `solverpilot`;
 - records author/maintainer metadata;
 - creates SolverPilot API/backend contract snapshots while preserving historical backend IDs;
 - retains the old OptiMind naming only as historical research provenance.
 
-## 0.0.36rc5 — Apache-2.0 license decision
+## 0.0.36rc5 â€” Apache-2.0 license decision
 
 - adopts Apache License 2.0 (`Apache-2.0`);
 - adds the root `LICENSE` and PEP 639 license metadata;
 - keeps publication fail-closed pending final repository/service configuration.
 
-## 0.0.36rc4 — Pre-GitHub hardening
+## 0.0.36rc4 â€” Pre-GitHub hardening
 
 - fixes atomic benchmark reacquisition, download verification semantics, and relative verification paths;
 - separates lightweight PR CI from manual exact-artifact release qualification;
 - binds disabled publishing to an exact successful qualification run/commit;
 - removes release binaries from the source tree and adds repository security/contribution policy files.
 
-## 0.0.36rc3 — M33 External CI & Publication Decision
+## 0.0.36rc3 â€” M33 External CI & Publication Decision
 
-- narrows intended 1.0 support to CPython 3.12–3.14 and adds Python 3.14 to the exact-artifact matrix;
+- narrows intended 1.0 support to CPython 3.12â€“3.14 and adds Python 3.14 to the exact-artifact matrix;
 - raises runtime floors to NumPy 2.2 and SciPy 1.15, with a dedicated minimum-dependency regression;
 - runs compatibility cells inside isolated virtual environments;
 - adds PyPA pip-audit runtime dependency checks and CycloneDX evidence;
@@ -157,7 +166,7 @@
 - keeps public RC/1.0 authorization fail-closed until external execution and owner metadata complete.
 
 
-## 0.0.36rc2 — M32 External Compatibility & Supply-Chain Hardening
+## 0.0.36rc2 â€” M32 External Compatibility & Supply-Chain Hardening
 
 - preserves the M30/M31 frozen 78-symbol public API and backend IDs;
 - changes CI to build-once/test-many using the exact release wheel;
@@ -167,7 +176,7 @@
 - keeps public RC/1.0 fail-closed until the complete external matrix and owner publication metadata are available.
 
 
-## 0.0.36rc1 — M31 Technical Release Candidate Compatibility Checkpoint
+## 0.0.36rc1 â€” M31 Technical Release Candidate Compatibility Checkpoint
 
 - froze M30 public API/backend contract into M31 snapshots;
 - added a fail-closed 3-OS x 4-Python compatibility workflow;
@@ -177,7 +186,7 @@
 - public 1.0 compatibility remains unauthorized until CI matrix execution.
 
 
-## 0.0.35 — M30 Release Consolidation
+## 0.0.35 â€” M30 Release Consolidation
 
 - Freeze a stable top-level public API for the 1.0 release line.
 - Move milestone-specific evidence translators and the rejected selective-LP evaluator to `solverpilot.experimental`.
@@ -185,9 +194,9 @@
 - Replace stale research-oriented README content with a product-facing scope/claim boundary.
 - Add explicit release/provenance/API documentation and public-API manifest tests.
 - Remove generated `egg-info`, bytecode caches, and stale root-level milestone clutter from the release source tree.
-- Keep learned LP performance routing disabled after M24–M29 negative generalization evidence.
+- Keep learned LP performance routing disabled after M24â€“M29 negative generalization evidence.
 
-## 0.0.34 — M29
+## 0.0.34 â€” M29
 
 - Value-of-information/feature-representation audit for LP DS/IPM selection.
 - No feature family passed cross-cohort authorization; learned LP routing closed for the 1.0 line.

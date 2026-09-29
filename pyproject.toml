@@ -33,6 +33,7 @@ dependencies = [
 solverpilot-backend-health = "solverpilot.cli.backend_health:main"
 solverpilot-bench = "solverpilot.cli.benchmark:main"
 solverpilot-capabilities = "solverpilot.cli.capabilities:main"
+solverpilot-doctor = "solverpilot.cli.doctor:main"
 
 [project.urls]
 Repository = "https://github.com/Amirhosseinheidari/SolverPilot"

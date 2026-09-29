@@ -46,7 +46,7 @@ def builtin_backend_candidates() -> tuple[Backend, ...]:
         # our primal checks on the first call and only pass after warm starts.
         # Tighten the built-in route; explicitly constructed adapters retain
         # their caller-selected settings. Independent checks remain unchanged.
-        OSQPNativeBackend(eps_abs=1e-8, eps_rel=1e-8, polishing=True),
+        OSQPNativeBackend(eps_abs=1e-8, eps_rel=1e-8),
         PySCIPOptNativeBackend(),
         ScipyHighsLPBackend(method="highs-ds"),
         ScipyHighsLPBackend(method="highs-ipm"),

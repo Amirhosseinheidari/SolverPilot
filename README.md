@@ -1,6 +1,11 @@
 # SolverPilot
 
-> **Current version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
+> **Published version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
+
+This checkout contains **unreleased development after 0.4**. The version string
+alone does not identify these changes. Run `solverpilot-doctor` (or
+`python -m solverpilot.cli.doctor`) for imported-code identity, installed-package
+ownership and feature maturity. See the [ordered hardening record](docs/ORDERED-HARDENING.md).
 
 Development after 0.4: an explicit [exact LP/MILP certificate API](docs/EXACT-MILP.md)
 is being qualified separately. It requires exact SCIP and VIPR executables and is
@@ -33,7 +38,7 @@ SolverPilot has two complementary layers.
 - repeated-solve `Session` support;
 - auditable production-routing decisions with learned LP performance routing disabled.
 
-### Extended modeling platform — Track P P0–P9
+### Extended modeling platform â€” Track P P0â€“P9
 
 - semantic `Model`, `Variable`, `Parameter`, and expression DAG;
 - parameter-aware compile cache and partial recompilation;
@@ -49,7 +54,7 @@ The extended APIs are canonically imported from submodules such as `solverpilot.
 
 ### Verified trust, evaluation, extension, and application layers
 
-The current release keeps the S2–S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
+The current release keeps the S2â€“S10 additive layers and adds correctness/trust hardening discovered during adversarial review of `0.1.0rc1`. The historical `0.0.40rc2` artifacts remain separate provenance and are not overwritten.
 
 - `solverpilot.io`: strict local JSON/CSV ingestion, bounded reads, explicit mapping, content hashes, and source provenance;
 - `solverpilot.evaluation`: direct-run oracle construction and decomposed quality/runtime/failure regret;
@@ -66,24 +71,24 @@ These APIs remain submodule-scoped and do not change the frozen 78-symbol top-le
 
 | Family | Current support | Guarantee boundary |
 | --- | --- | --- |
-| LP | ✅ solve | validated candidate + backend termination semantics |
-| MILP | ✅ solve | validated candidate/integrality + backend termination semantics |
-| Continuous convex QP | ✅ solve | validated candidate; bridge-specific optimality claims stay conservative |
-| Semantic LP/MILP/QP modeling | ✅ | compiles to canonical core IR |
-| Indicator constraints | ✅ restricted exact bridges | fixed-state simplification or finite-bound-certified Big-M; otherwise fail-closed |
-| SOC | ✅ direct Clarabel + original validation | conservative independent original-domain bounds when dual evidence is available |
-| RSOC | ✅ direct Clarabel + original validation | reconstructed duals and exact cone membership checks |
-| PSD | ✅ direct Clarabel + original validation | independent bounds require conservative PSD evidence; generic matrices can remain unverified |
-| Exponential / power / generalized power | ✅ direct Clarabel | numerical original-space validation; independent dual certification remains unsupported |
-| Smooth continuous NLP | ✅ optional | local-optimal candidate only after validation/KKT checks; **no global NLP proof** |
-| Convex binary MINLP | ✅ restricted | `globally_proven` is solver-certified inside the certified P8 binary/convex scope; `independently_verified_global` remains false until the full proof chain is independently reconstructed |
-| Nonconvex QP / MIQP | ✅ explicit `GlobalQuadraticProblem` / SCIP | solver-reported numerical global bound; original candidate validation |
-| General integer/nonconvex MINLP | ✅ explicit bounded factorable SCIP path | nonlinear equality/two-sided rows, abs/max/min and interval-certified indicators; no independent generic global proof |
-| CPU PDLP | ✅ optional LP / diagonal convex QP | isolated worker; explicit selection |
-| Constraint programming | ✅ reference solver | exhaustive proof only within reference state budget |
-| OR-Tools CP-SAT | ✅ optional | exact verified integration target: OR-Tools `9.15.6755` |
-| TSP application | ✅ reference / MILP / restricted CP / heuristics | independent route validation; only exhaustive reference paths issue an independent optimality proof |
-| CVRP / VRPTW application | ✅ reference / MILP / heuristics | independent route/timeline validation; exponential reference solver is for small instances only |
+| LP | âœ… solve | validated candidate + backend termination semantics |
+| MILP | âœ… solve | validated candidate/integrality + backend termination semantics |
+| Continuous convex QP | âœ… solve | validated candidate; bridge-specific optimality claims stay conservative |
+| Semantic LP/MILP/QP modeling | âœ… | compiles to canonical core IR |
+| Indicator constraints | âœ… restricted exact bridges | fixed-state simplification or finite-bound-certified Big-M; otherwise fail-closed |
+| SOC | âœ… direct Clarabel + original validation | conservative independent original-domain bounds when dual evidence is available |
+| RSOC | âœ… direct Clarabel + original validation | reconstructed duals and exact cone membership checks |
+| PSD | âœ… direct Clarabel + original validation | independent bounds require conservative PSD evidence; generic matrices can remain unverified |
+| Exponential / power / generalized power | âœ… direct Clarabel | numerical original-space validation; independent dual certification remains unsupported |
+| Smooth continuous NLP | âœ… optional | local-optimal candidate only after validation/KKT checks; **no global NLP proof** |
+| Convex binary MINLP | âœ… restricted | `globally_proven` is solver-certified inside the certified P8 binary/convex scope; `independently_verified_global` remains false until the full proof chain is independently reconstructed |
+| Nonconvex QP / MIQP | âœ… explicit `GlobalQuadraticProblem` / SCIP | solver-reported numerical global bound; original candidate validation |
+| General integer/nonconvex MINLP | âœ… explicit bounded factorable SCIP path | nonlinear equality/two-sided rows, abs/max/min and interval-certified indicators; no independent generic global proof |
+| CPU PDLP | âœ… optional LP / diagonal convex QP | isolated worker; explicit selection |
+| Constraint programming | âœ… reference solver | exhaustive proof only within reference state budget |
+| OR-Tools CP-SAT | âœ… optional | exact verified integration target: OR-Tools `9.15.6755` |
+| TSP application | âœ… reference / MILP / restricted CP / heuristics | independent route validation; only exhaustive reference paths issue an independent optimality proof |
+| CVRP / VRPTW application | âœ… reference / MILP / heuristics | independent route/timeline validation; exponential reference solver is for small instances only |
 
 ## Important current limitations
 
@@ -94,7 +99,7 @@ These APIs remain submodule-scoped and do not change the frozen 78-symbol top-le
 - Local-file symlink/path checks are fail-closed for static paths, but they are not a sandbox against a hostile process racing filesystem entries between validation and open.
 - `HistoryStore` is a local plaintext SQLite store. It is opt-in and minimizes persisted solver/problem payloads, but it is not encrypted and caller-supplied metadata can still contain sensitive information.
 - TSP/VRP exact reference algorithms are exponential and intentionally state-budgeted; the routing layer does not yet claim pickup-and-delivery, split delivery, stochastic travel time, live traffic, or real-time redispatch support.
-- Exact SCIP and cuOpt GPU execution adapters are not shipped; readiness probes cannot qualify execution. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md).
+- Exact SCIP and cuOpt GPU execution adapters are available in this development source, but absent from the published 0.4 wheel; readiness probes cannot qualify execution. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md).
 
 ## Requirements
 
@@ -104,7 +109,7 @@ Base runtime:
 - NumPy `>=2.2,<3`
 - SciPy `>=1.15,<2`
 
-Optional integrations are installed separately. OR-Tools 9.15 provides Python 3.12–3.14 wheels upstream; SolverPilot still requires its own cross-platform qualification before public support is promoted.
+Optional integrations are installed separately. OR-Tools 9.15 provides Python 3.12â€“3.14 wheels upstream; SolverPilot still requires its own cross-platform qualification before public support is promoted.
 
 ## Installation
 
@@ -131,7 +136,7 @@ python -m pip install ".[test]"
 python -m pytest
 ```
 
-## Quick Start — LP
+## Quick Start â€” LP
 
 ```python
 import numpy as np
@@ -439,23 +444,23 @@ See [Known Limitations](KNOWN-LIMITATIONS.md).
 
 Core/runtime:
 
-1. [`01_lp_basic.py`](examples/01_lp_basic.py) — LP
-2. [`02_milp_binary.py`](examples/02_milp_binary.py) — binary MILP
-3. [`03_qp_convex.py`](examples/03_qp_convex.py) — convex QP
-4. [`04_choose_backend.py`](examples/04_choose_backend.py) — backend selection
-5. [`05_infeasible.py`](examples/05_infeasible.py) — diagnostics
-6. [`06_validation_diagnostics.py`](examples/06_validation_diagnostics.py) — result validation
-7. [`07_reoptimization_session.py`](examples/07_reoptimization_session.py) — repeated solves
+1. [`01_lp_basic.py`](examples/01_lp_basic.py) â€” LP
+2. [`02_milp_binary.py`](examples/02_milp_binary.py) â€” binary MILP
+3. [`03_qp_convex.py`](examples/03_qp_convex.py) â€” convex QP
+4. [`04_choose_backend.py`](examples/04_choose_backend.py) â€” backend selection
+5. [`05_infeasible.py`](examples/05_infeasible.py) â€” diagnostics
+6. [`06_validation_diagnostics.py`](examples/06_validation_diagnostics.py) â€” result validation
+7. [`07_reoptimization_session.py`](examples/07_reoptimization_session.py) â€” repeated solves
 
 Extended modeling:
 
-8. [`08_semantic_model.py`](examples/08_semantic_model.py) — semantic model/compiler
-9. [`09_conic_model.py`](examples/09_conic_model.py) — SOC representation
-10. [`10_nlp_optional.py`](examples/10_nlp_optional.py) — optional smooth NLP
-11. [`11_minlp_optional.py`](examples/11_minlp_optional.py) — optional certified binary MINLP
-12. [`12_cp_reference.py`](examples/12_cp_reference.py) — dependency-free CP reference backend
-13. [`13_cp_sat_optional.py`](examples/13_cp_sat_optional.py) — optional OR-Tools CP-SAT
-14. [`14_persistent_session_optional.py`](examples/14_persistent_session_optional.py) — persistent semantic-model session
+8. [`08_semantic_model.py`](examples/08_semantic_model.py) â€” semantic model/compiler
+9. [`09_conic_model.py`](examples/09_conic_model.py) â€” SOC representation
+10. [`10_nlp_optional.py`](examples/10_nlp_optional.py) â€” optional smooth NLP
+11. [`11_minlp_optional.py`](examples/11_minlp_optional.py) â€” optional certified binary MINLP
+12. [`12_cp_reference.py`](examples/12_cp_reference.py) â€” dependency-free CP reference backend
+13. [`13_cp_sat_optional.py`](examples/13_cp_sat_optional.py) â€” optional OR-Tools CP-SAT
+14. [`14_persistent_session_optional.py`](examples/14_persistent_session_optional.py) â€” persistent semantic-model session
 
 New in 0.4: [global optimization](examples/22_global_optimization_optional.py),
 [generalized power](examples/23_generalized_power_optional.py), and
@@ -472,7 +477,7 @@ See all 24 examples in [`examples/README.md`](examples/README.md).
 
 ## Trust and provenance
 
-The original frozen Track P P0–P9 bundle was verified before forward-porting:
+The original frozen Track P P0â€“P9 bundle was verified before forward-porting:
 
 - source bundle SHA-256: `6cc282b9428450ab7bbc39cd6c768de2da2fc092f8d7f79cbbf319f657df24a2`
 - internal checksum rows: `816`
@@ -493,7 +498,7 @@ Frozen historical Track P documents remain under [`docs/history/track-p-p0-p9-fr
 - [Release process](RELEASING.md)
 - [Known limitations](KNOWN-LIMITATIONS.md)
 
-Normal CI targets Python 3.12–3.14. The exact-artifact cross-platform release qualification workflow remains the authority for public release support.
+Normal CI targets Python 3.12â€“3.14. The exact-artifact cross-platform release qualification workflow remains the authority for public release support.
 
 ## License
 

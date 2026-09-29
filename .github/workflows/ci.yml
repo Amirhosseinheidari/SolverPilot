@@ -110,6 +110,7 @@ jobs:
         run: |
           python -m pip install dist/*.whl
           python tools/release_smoke.py --forbid-source-root "$GITHUB_WORKSPACE"
+          python -m solverpilot.cli.doctor --compact > installed-readiness.json
       - name: Audit runtime dependencies
         run: |
           python -m pip install --target audit-site dist/*.whl
@@ -124,6 +125,7 @@ jobs:
             dist/
             dependency-audit.json
             runtime-requirements.txt
+            installed-readiness.json
           if-no-files-found: warn
           retention-days: 14
 

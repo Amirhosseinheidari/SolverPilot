@@ -10,7 +10,7 @@ promotion of a learned model or publication of a new package.
 | 3. Learned routing value | Measured total-cost gain guard, training-only calibration, fresh evaluation; remain opt-in unless promotion passes | Implemented; synthetic development evaluation only, public promotion pending |
 | 4. Operational qualification | Repeated solves, resource observations, cancellation/recovery, multiple timing budgets and CI platforms | Local qualification passed; full CI pending |
 | 5. Result meaning | Feasibility, proof source and deadline reported separately without breaking legacy status | Implemented with legacy statuses preserved |
-| 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Pending |
+| 6. Distribution and readiness | Installed artifact distinguishes shipped/experimental capabilities; readiness is separate from execution qualification | Implemented; installed-wheel and CI qualification pending |
 
 ## Step 1: exact arithmetic and deadline accounting
 
@@ -78,7 +78,7 @@ public cohorts remain consumed. A new public qualification is still required.
 
 A 35-call LP plus 35-call QP soak found that native OSQP defaults produced invalid
 cold candidates before warm starts improved them. The built-in registry now uses
-1e-8 absolute/relative OSQP tolerances and polishing; explicitly constructed
+1e-8 absolute/relative OSQP tolerances; explicitly constructed
 adapters keep their own settings. Independent validation is unchanged. All 70
 calls then passed primal and independent optimality checks.
 
@@ -108,3 +108,29 @@ reported budget does not invent deadline compliance.
 See `examples/26_evidence_and_deadline.py`. The legacy `valid_optimal` status
 continues to mean backend-reported optimality plus validated primal feasibility;
 inspect `optimality` for the stronger independently checked evidence.
+
+## Step 6: distribution identity and readiness
+
+`solverpilot-doctor` reports the imported Python source fingerprint, whether
+distribution metadata owns that import, dependency module presence and feature
+maturity. It runs no solve and grants no execution or performance qualification.
+A source checkout overriding an installed wheel is visible as an ownership
+mismatch. An editable-install flag is reported separately, not treated as proof
+of ownership. Package metadata remains 0.4 until a release is cut, so development
+lineage and source identity are explicitly shown alongside that version.
+
+The installed-wheel CI job emits the same report. README distinguishes the
+published 0.4 wheel from these development APIs. New publication requires a new
+version, the existing release-qualification matrix, artifact attestations and
+the exact-artifact publish workflow; no existing PyPI artifact is replaced.
+
+## Remaining qualification boundaries
+
+- pilot4 still lacks an independent finite residual lower bound on the replay.
+- Learned routing has new synthetic development evidence, not a passed new public
+  promotion gate. It remains opt-in and disabled in automatic production routes.
+- Resource observations cover short runs on the available machine and CI hosts;
+  multi-hour industrial workloads and additional physical GPU hardware are not qualified.
+- Generic nonlinear global proofs and generic PSD certificates remain out of scope.
+- This work prepares and tests a development distribution; it does not publish a
+  new stable PyPI version or claim all remaining research limitations are solved.
