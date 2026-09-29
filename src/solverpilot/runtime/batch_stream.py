@@ -43,6 +43,8 @@ def _loop(connection, backend, tolerances, memory_mb, budget):
                         "x": None if result.x is None else result.x.tolist(),
                         "objective": result.objective,
                         "backend": result.trace.backend,
+                        "verified": result.optimality_evidence.independently_verified_optimal,
+                        "problem_data_hash": problem.data_hash,
                     }
                 )
             except Exception as exc:
@@ -145,6 +147,12 @@ class _Worker:
                         )
                     )
                     valid = validation is not None and validation.valid
+                    if payload.get("problem_data_hash") != problem.data_hash:
+                        self.close()
+                        return stopped("error", "worker result model identity mismatch")
+                    if owner.timeout_s is not None and monotonic()-start >= owner.timeout_s:
+                        self.close()
+                        return stopped("timeout", "result validation exceeded deadline")
                     return BatchItem(
                         index,
                         payload["status"] if x is None or valid else "invalid_solution",
@@ -153,6 +161,8 @@ class _Worker:
                         valid,
                         payload["backend"],
                         monotonic() - start,
+                        independently_verified_optimal=bool(valid and payload.get("verified") is True),
+                        problem_data_hash=problem.data_hash,
                     )
                 if not self.process.is_alive():
                     error = f"worker exited with code {self.process.exitcode}"

@@ -132,7 +132,13 @@ def solve(
     else:
         chosen = backend
 
-    chosen = apply_budget(chosen, budget)
+    remaining_budget = budget
+    if budget is not None and budget.wall_time_s is not None:
+        remaining = budget.wall_time_s-(perf_counter()-total_t0)
+        if remaining <= 0:
+            raise TimeoutError('solve setup exhausted the call budget')
+        remaining_budget = replace(budget, wall_time_s=remaining)
+    chosen = apply_budget(chosen, remaining_budget)
     result = execute(problem, chosen, tolerances=tolerances)
     recovery_s = 0.0
     if certificate_recovery is not None:
@@ -152,11 +158,12 @@ def solve(
     diagnostics = None
     if diagnose_infeasible and result.status is PublicStatus.INFEASIBLE and isinstance(problem, LinearProblem):
         diagnose_t0 = perf_counter()
+        remaining = None if budget is None or budget.wall_time_s is None else budget.wall_time_s-(perf_counter()-total_t0)
         diagnostics = diagnose_infeasibility(
             problem,
             backend=chosen,
-            time_limit_s=None if budget is None else budget.wall_time_s,
-        )
+            time_limit_s=remaining,
+        ) if remaining is None or remaining > 0 else None
         diagnose_s = perf_counter() - diagnose_t0
         result = replace(result, diagnostics=diagnostics)
 
@@ -182,7 +189,12 @@ def solve(
         planner_health_policy=None if plan is None else plan.health_policy.value,
         parameters={**dict(result.trace.parameters), 'budget': None if budget is None else asdict(budget)},
     )
-    return replace(result, trace=trace, plan=plan)
+    raw = dict(result.raw_statistics or {})
+    raw['call_budget'] = {'requested_s': None if budget is None else budget.wall_time_s,
+                          'elapsed_s': total_s,
+                          'within_budget': None if budget is None or budget.wall_time_s is None else total_s <= budget.wall_time_s,
+                          'enforcement': 'native_soft_limit; use solve_with_deadline for process isolation'}
+    return replace(result, trace=trace, plan=plan, raw_statistics=raw)
 
 
 # Backward-compatible internal alias retained for M1-M7 regression tests and callers
@@ -208,6 +220,7 @@ def solve_production(
     certificate_recovery: float | None = None,
 ) -> tuple[SolveResult, ProductionDecision]:
     """Conservative proof-safe solve plus the auditable production routing decision."""
+    start = perf_counter()
     registry = default_registry() if registry is None else registry
     fingerprint = inspect_problem(problem)
     decision = plan_production_solve(
@@ -216,10 +229,22 @@ def solve_production(
         health_policy=health_policy, performance_policy=performance_policy,
         performance_override=performance_override,
     )
+    remaining_budget = budget
+    if budget is not None and budget.wall_time_s is not None:
+        remaining = budget.wall_time_s-(perf_counter()-start)
+        if remaining <= 0:
+            raise TimeoutError('production planning exhausted the call budget')
+        remaining_budget = replace(budget, wall_time_s=remaining)
     result = solve(
         problem, registry=registry, backend=decision.plan.selected_backend, intent=intent,
-        budget=budget, context=context, health_reports=health_reports,
+        budget=remaining_budget, context=context, health_reports=health_reports,
         health_policy=health_policy, diagnose_infeasible=diagnose_infeasible, tolerances=tolerances,
         certificate_recovery=certificate_recovery,
     )
-    return replace(result, plan=decision.plan), decision
+    elapsed = perf_counter()-start
+    raw = dict(result.raw_statistics or {})
+    raw['call_budget'] = {**dict(raw['call_budget']), 'requested_s': None if budget is None else budget.wall_time_s,
+                          'elapsed_s': elapsed,
+                          'within_budget': None if budget is None or budget.wall_time_s is None else elapsed <= budget.wall_time_s}
+    trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
+    return replace(result, plan=decision.plan, trace=trace, raw_statistics=raw), decision

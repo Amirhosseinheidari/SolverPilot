@@ -46,6 +46,8 @@ class BatchItem:
     backend: str | None
     elapsed_s: float
     error: str | None = None
+    independently_verified_optimal: bool = False
+    problem_data_hash: str | None = None
 
     def __post_init__(self):
         if self.x is not None:
