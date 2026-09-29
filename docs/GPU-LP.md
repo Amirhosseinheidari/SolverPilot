@@ -44,10 +44,16 @@ API is unchanged; `CuOptBackend` lives in `solverpilot.backends`.
   does not import CUDA, cuOpt or cuDF. Worker startup, import and transport count
   against the adapter's wall-time limit; validation after the solve is separate.
 - PDLP is selected explicitly. Concurrent CPU simplex, presolve and crossover are
-  disabled for this initial path. The response must report a CUDA device and PDLP.
+  disabled for this initial path. FP64 is explicit. The response must report a CUDA device and PDLP.
 - Original variable bounds, equality/ranged rows, maximization and objective
   offsets are preserved. Native primal objectives are independently recomputed;
   native duals are mapped back and checked by SolverPilot's numerical verifier.
+- cuOpt 26.8 PDLP was observed returning zero reduced costs at active variable
+  bounds. The adapter retains those raw values but reconstructs bound-dual
+  candidates from the objective and row duals. Independent original-domain gap,
+  residual-correction and complementarity checks still decide verification.
+  For a bounds-only model, transport repeats one original bound as a redundant
+  row because cuOpt rejects zero-row CSR; that row is removed on return.
 - A native optimal status is not an independent proof. Inspect
   `optimality_evidence.independently_verified_optimal`. Free domains, insufficient
   accuracy or large residual corrections can leave a candidate unverified.

@@ -71,6 +71,29 @@ def test_maximize_uses_minimization_duals_and_native_objective(worker):
     assert not r.validation.valid
 
 
+def test_zero_native_reduced_costs_are_reconstructed_and_independently_checked(worker):
+    payload, _ = worker
+    payload.update(x=[0.0], dual=[0.0], reduced_costs=[0.0], objective=0.0)
+    r = solve(lp(constraint_lower=[-np.inf]), backend=CuOptBackend())
+    assert r.optimality_evidence.independently_verified_optimal
+    assert r.raw_statistics["native_reduced_costs"] == (0.0,)
+    assert r.raw_statistics["canonical_dual"] == (0.0, -2.0)
+
+    # Reconstructing stationarity is not enough: this feasible but nonoptimal
+    # point must fail the original-domain gap/complementarity check.
+    payload.update(x=[1.0], objective=2.0)
+    r = solve(lp(constraint_lower=[-np.inf]), backend=CuOptBackend())
+    assert r.validation.valid
+    assert not r.optimality_evidence.independently_verified_optimal
+
+
+def test_wrong_row_dual_cannot_be_repaired_into_false_optimality(worker):
+    worker[0]["dual"] = [0.0]
+    r = solve(lp(), backend=CuOptBackend())
+    assert r.validation.valid
+    assert not r.optimality_evidence.independently_verified_optimal
+
+
 @pytest.mark.parametrize(
     "change",
     [

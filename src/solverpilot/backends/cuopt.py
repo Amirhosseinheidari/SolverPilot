@@ -63,6 +63,8 @@ class CuOptBackend:
             raise TypeError("cuOpt GPU adapter requires a continuous LinearProblem")
         if problem.has_integer_variables:
             raise ValueError("cuOpt GPU adapter does not support integer variables")
+        if problem.n_variables == 0:
+            raise ValueError("cuOpt GPU adapter requires at least one variable")
         for name in ("time_limit_s", "tolerance"):
             value = getattr(self, name)
             if isinstance(value, bool) or not np.isfinite(value) or value <= 0:
@@ -84,6 +86,7 @@ class CuOptBackend:
             "time_limit_s": self.time_limit_s,
             "tolerance": self.tolerance,
             "iteration_limit": self.iteration_limit,
+            "precision": "float64",
         }
         with TemporaryDirectory(prefix="solverpilot-cuopt-") as directory:
             request = Path(directory) / "problem.npz"
@@ -113,6 +116,8 @@ class CuOptBackend:
                 completed = subprocess.run(
                     [
                         sys.executable,
+                        # Do not let this directory's cuopt.py shadow NVIDIA's package.
+                        "-P",
                         str(Path(__file__).with_name("_cuopt_worker.py")),
                         str(request),
                     ],
@@ -162,14 +167,26 @@ class CuOptBackend:
         if candidate is not None and status in {"optimal", "limit_feasible"}:
             x = _vector(candidate, problem.n_variables, "primal")
         dual = None
-        if (
-            x is not None
-            and payload.get("dual") is not None
-            and payload.get("reduced_costs") is not None
-        ):
+        native_reduced_costs = None
+        if x is not None and payload.get("reduced_costs") is not None:
+            native_reduced_costs = _vector(
+                payload["reduced_costs"], problem.n_variables, "reduced costs"
+            ).tolist()
+        if x is not None and payload.get("dual") is not None:
             y = _vector(payload["dual"], problem.n_constraints, "dual")
-            r = _vector(payload["reduced_costs"], problem.n_variables, "reduced costs")
-            dual = np.r_[-y, -r].tolist()
+            # cuOpt 26.8 PDLP can return all-zero reduced costs even with
+            # active variable bounds. Reconstruct a bound-dual candidate from
+            # the objective and row duals; never treat it as a verified proof.
+            # The canonical verifier checks signs, complementarity, exact
+            # represented-data residual correction, and the original-domain gap.
+            bound_dual = problem.A.T @ y - sign * problem.c
+            bound_dual = np.where(
+                np.isfinite(problem.variable_upper), bound_dual, np.minimum(bound_dual, 0.0)
+            )
+            bound_dual = np.where(
+                np.isfinite(problem.variable_lower), bound_dual, np.maximum(bound_dual, 0.0)
+            )
+            dual = np.r_[-y, bound_dual].tolist()
         # Preserve the native objective, so the public validator can detect a
         # transport/objective mismatch instead of comparing a recomputed value to itself.
         objective = payload.get("objective") if x is not None else None
@@ -182,6 +199,8 @@ class CuOptBackend:
         raw = {
             "native_termination": reason,
             "canonical_dual": dual,
+            "native_reduced_costs": native_reduced_costs,
+            "bound_dual_origin": "reconstructed_from_objective_and_row_duals",
             "gpu_execution_reported": True,
             "gpu_device": payload.get("gpu_device"),
             "native_solved_by": payload["solved_by"],

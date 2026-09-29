@@ -66,6 +66,14 @@ def main():
         "python": platform.python_version(),
         "versions": {name: version(name) for name in ("cuopt-cu12", "numpy", "scipy", "highspy")},
         "automatic_routing_enabled": False,
+        "settings": {
+            "sizes": args.sizes,
+            "repeats": args.repeats,
+            "time_limit_s": args.time_limit,
+            "cpu_threads": 1,
+            "gpu_tolerance": 1e-9,
+            "gpu_precision": "float64",
+        },
         "adapter_sha256": hashlib.sha256(Path(cuopt_adapter.__file__).read_bytes()).hexdigest(),
         "worker_sha256": hashlib.sha256(
             Path(cuopt_adapter.__file__).with_name("_cuopt_worker.py").read_bytes()
