@@ -20,10 +20,11 @@ def test_real_exact_runtime(tmp_path):
     )
     (tmp_path / "exact.set").write_text(
         'exact/enable = TRUE\ncertificate/filename = "proof.vipr"\n'
-        'presolving/maxrounds = 0\npresolving/maxrestarts = 0\nlimits/time = 30\n',
+        'presolving/maxrounds = 0\npresolving/maxrestarts = 0\nlimits/time = 30\n'
+        'separating/maxrounds = 0\nseparating/maxroundsroot = 0\n',
         encoding="ascii",
     )
-    run = subprocess.run([scip, "-c", "set load exact.set", "-c", "set separating off",
+    run = subprocess.run([scip, "-c", "set load exact.set",
                           "-c", "read problem.lp", "-c", "optimize", "-c", "quit"],
                          cwd=tmp_path, capture_output=True, text=True, timeout=45)
     (evidence / "scip.log").write_text(run.stdout + run.stderr, encoding="utf-8")
@@ -68,3 +69,23 @@ def test_exact_adapter_original_model(case):
     wrong = LinearProblem(p.A, p.c * 2 + 1, p.variable_lower, p.variable_upper,
                           p.constraint_lower, p.constraint_upper, p.domains, p.objective_sense)
     assert not verify_exact_certificate(wrong, certificate, checker_executable=vipr).independently_verified
+
+
+@pytest.mark.native
+def test_native_checker_rejects_false_derivation(tmp_path):
+    import numpy as np
+    from solverpilot import LinearProblem
+    from solverpilot.exact import verify_exact_certificate
+    vipr = os.getenv("SOLVERPILOT_VIPR")
+    if not vipr:
+        pytest.skip("explicit VIPR executable required")
+    p = LinearProblem([[1]], [1], [0], [3], [1], [np.inf], ["continuous"])
+    payload = ("VER 1.0\nVAR 1\nx0\nINT 0\nOBJ min\n1 0 1\nCON 1 0\n"
+               "r G 1 1 0 1\nRTP range 1 1\nSOL 1\ns 1 0 1\nDER 1\n"
+               "d G 1 OBJ { lin 1 0 1 } -1\n")
+    path = tmp_path / "proof.vipr"
+    path.write_text(payload, encoding="ascii")
+    assert verify_exact_certificate(p, path, checker_executable=vipr).independently_verified
+    path.write_text(payload.replace("lin 1 0 1", "lin 1 0 0"), encoding="ascii")
+    r = verify_exact_certificate(p, path, checker_executable=vipr)
+    assert not r.independently_verified and r.status == "unverified"

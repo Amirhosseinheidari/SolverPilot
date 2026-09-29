@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CI = ROOT / ".github/workflows/ci.yml"
 QUAL = ROOT / ".github/workflows/release-qualification.yml"
 PUBLISH = ROOT / ".github/workflows/publish.yml"
+EXACT = ROOT / ".github/workflows/exact-milp.yml"
 AUDIT = ROOT / "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json"
 
 
@@ -55,7 +56,7 @@ def test_current_backend_contract_matches_runtime_and_keeps_learning_off():
 
 def test_only_ci_qualification_and_manual_publication_are_active_workflows():
     active = sorted(path.name for path in (ROOT / ".github/workflows").glob("*.yml"))
-    assert active == ["ci.yml", "publish.yml", "release-qualification.yml"]
+    assert active == ["ci.yml", "exact-milp.yml", "publish.yml", "release-qualification.yml"]
     assert PUBLISH.is_file()
     frozen = ROOT / "docs/history/frozen-workflows"
     assert all((frozen / name).is_file() for name in ["m31-compatibility.yml", "m32-external-compatibility.yml", "m33-external-ci.yml"])
@@ -74,11 +75,18 @@ def test_normal_ci_is_lightweight_and_release_qualification_is_manual_only():
 
 
 def test_every_active_or_publish_action_uses_full_commit_sha():
-    for path in (CI, QUAL, PUBLISH):
+    for path in (CI, QUAL, PUBLISH, EXACT):
         uses = re.findall(r"uses:\s*([^\s#]+)", path.read_text(encoding="utf-8"))
         assert uses
         for use in uses:
             assert re.fullmatch(r"[0-9a-f]{40}", use.rsplit("@", 1)[1]), use
+
+
+def test_exact_qualification_has_no_publication_permissions():
+    text = EXACT.read_text(encoding="utf-8")
+    assert yaml.safe_load(text)["permissions"] == {"contents": "read"}
+    assert "pull_request_target" not in text and "secrets." not in text
+    assert "persist-credentials: false" in text
 
 
 def test_release_qualification_exact_pins_tooling_and_limits_write_permissions():
