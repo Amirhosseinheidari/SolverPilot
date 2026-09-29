@@ -1,0 +1,57 @@
+{
+  "schema": "solverpilot.robust-public-lp.v1",
+  "captured_at": "2026-09-30T09:41:58.135298+00:00",
+  "cpu_only": true,
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/solverpilot/cuopt-venv/bin/python",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "hostname": "amir",
+    "cpu_model": "12th Gen Intel(R) Core(TM) i7-12650H",
+    "logical_cpus": 16,
+    "memory_bytes": 8131272704,
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.18.1",
+      "highspy": "1.15.1",
+      "ortools": "9.15.6755"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1"
+    }
+  },
+  "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+  "affinity_cpu": 0,
+  "training_cohort_sha256": "508940793563548bf422d7e2e2f5a24b2816868240df2d49a1d60a0c87f263f6",
+  "heldout_cohort_sha256": "e79ebb7ca3c246930a712b8b7cc0d8866fed5e9762cad8d56c379f6e13214c94",
+  "source_hashes": {
+    "benchmarks/qualify_robust_lp.py": "ae44a372b0ea2e0b01cd5eb9d56f213a0ddb3a91f73fc51524908f6bbbfc09ff",
+    "benchmarks/robust_lp_worker.py": "662074c18c6281474856afd7866b71fff92baf61b9cf3739504d9bace22ba76d",
+    "benchmarks/qualify_public_lp.py": "8fdb9b3bf4b31f6557740956ad5a7c9ed27eaa17daf4b9269de51910326e275a",
+    "benchmarks/public_lp_worker.py": "381aab9d9e9215bb0901ce458903f84f0a330eced4e0e74f5cc6a7fa1cfc65d5",
+    "benchmarks/prepare_public_lp.py": "9d095118d30d8cd7ced0734361871aab71172d46f338d9f2ff5b3c6fb932ea37",
+    "src/solverpilot/experimental/learned_lp.py": "b3b49830a059cea8a5bc1dbd809ab6586cf3162e4a73a4ebac46383a9da99a32",
+    "src/solverpilot/experimental/robust_lp.py": "8ece4b2583881b65e0f96e86fb6994e00b244d95949da4a40002ca99d5460f7b",
+    "src/solverpilot/experimental/lp_environment.py": "4e8ec2b9dea4183cae59cbfb9c5421c48e623e3fb11e72f0ac15786817c2277b",
+    "src/solverpilot/validate/lp_dual.py": "ef04b0a51d85915987ceb20b29a52d303f1df0907f4501c697eb8d1bbe8e710d",
+    "src/solverpilot/validate/optimality.py": "73826bda85f34802d061f57d0b47336af74135f18f52f2dfc8ba5331a1a67000",
+    "src/solverpilot/runtime/executor.py": "9bd39d7c77fbfff310d072b62b2467893daf5dd8707448e676971482f65f2d12"
+  },
+  "api_budget_s": 2.0,
+  "controller_deadline_s": 12.0,
+  "repeats": 2,
+  "parallel_solves": 1,
+  "training": "24 consumed public stage4 models; no synthetic-only baseline; min_leaf_groups=4; margin=.005",
+  "cost": "all repeats: full process wall if independently verified within 2s API and 12s process; otherwise 120s",
+  "training_cutoff_s": 12.0,
+  "abstention": "ordinary solve_production with remaining budget",
+  "gate": "stage4 preregistered gate against both default APIs; >=20 groups; actual learned switches; no verified objective mismatch; ratio<=.97; bootstrap upper<1; p90<=1.25; no lost successes",
+  "retuning_allowed": false,
+  "automatic_production_routing_enabled": false
+}

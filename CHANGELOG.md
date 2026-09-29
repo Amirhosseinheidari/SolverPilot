@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add an explicit experimental public-trained LP route that falls back to the ordinary production planner on support, environment or availability abstention, using one remaining budget.
+- Recover additional numerical LP certificates through independently rechecked multiplier projection, outward-rounded implied bounds and exact original-row residual substitutions; retain raw solver candidates and fail closed when recovery is incomplete.
+
 - Add frozen public LP qualification against actual default/production routes, with prior-corpus exclusions, two-reader MPS admission, complete timing/timeout accounting and process-tree deadlines.
 - Add explicit experimental environment binding that tolerates at most 1 MiB guest-RAM reporting drift while retaining raw identities and rejecting material environment or thread-setting changes.
 

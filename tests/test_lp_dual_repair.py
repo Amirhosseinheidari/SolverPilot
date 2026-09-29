@@ -49,6 +49,25 @@ def test_wrong_inequality_direction_cannot_bound_a_residual():
     assert row_residual_lower_bound(p, [Fraction(-1), Fraction(1)], p.variable_lower, p.variable_upper) is None
 
 
+@pytest.mark.parametrize('seed', range(10))
+def test_exact_residual_bounds_do_not_exceed_feasible_objectives(seed):
+    rng = np.random.default_rng(seed)
+    a = rng.integers(-8, 9, size=(1, 8)).astype(float)
+    a[0, 0] = -3. if seed % 2 else 3.
+    points = rng.integers(-10, 11, size=(10, 8)).astype(float)
+    values = a @ points.T
+    p = LinearProblem.from_data(A=a, c=a[0], variable_lower=[-np.inf]*8,
+        variable_upper=[np.inf]*8, constraint_lower=values.min(axis=1),
+        constraint_upper=values.max(axis=1))
+    for sign in (-1, 1):
+        coefficients = [Fraction(sign*float(v)) for v in a[0]]
+        bound = row_residual_lower_bound(p, coefficients, p.variable_lower, p.variable_upper)
+        assert bound is not None
+        for point in points:
+            exact_value = sum(c*Fraction(float(x)) for c, x in zip(coefficients, point))
+            assert bound <= exact_value
+
+
 def test_projected_dual_is_not_automatically_a_proof():
     p = free_box()
     raw = [-1., 1e-12]

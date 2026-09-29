@@ -7,6 +7,8 @@ registry, or GPU routing. It is not in the published 0.4 wheel.
 The subsequent [public-workload qualification](PUBLIC-LP-QUALIFICATION.md) tests
 the frozen model against actual default/production API calls and three explicit
 CPU configurations, with full process timing and separate stress cases.
+The [robust LP follow-up](ROBUST-LP.md) keeps these artifacts unchanged while
+adding production fallback on abstention and a separately frozen public-trained model.
 
 The historical M26/M27/M29 experiments did not establish production-quality LP
 routing. Their test outcomes have already been consumed and must not be reused as

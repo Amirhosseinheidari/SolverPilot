@@ -1,0 +1,1178 @@
+[
+  {
+    "instance": "miplib-neos-3004026-krka.mps",
+    "group": "miplib:neos-pseudoapplication-38",
+    "data_hash": "d15b0c31ab277080d2acf3d76d288b41c8e821b7facb009ad1b40113b07bf32b",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.742790491838836,
+      9.437157168656688,
+      10.642109884868974,
+      0.00019593585230574513,
+      0.33678756476683935,
+      1.0,
+      0.0,
+      0.8012422360248447
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.5873349270000006,
+          true
+        ],
+        [
+          1.9233829580000048,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.6314148740000007,
+          true
+        ],
+        [
+          1.721047869000003,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          2.636295709999999,
+          true
+        ],
+        [
+          1.8031072950000038,
+          true
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-germanrr.mps",
+    "group": "miplib:germanrr",
+    "data_hash": "6507052f93ac1ccb648aeff0b35f9474c2189697166e69550178f3e9cba49d6a",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.28859686994195,
+      9.285447844462988,
+      12.075667788766086,
+      0.0015061517720553785,
+      0.02217274329715187,
+      0.9889022472949228,
+      9.248127254231018e-05,
+      0.6264191356161029
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.4916731799999923,
+          true
+        ],
+        [
+          3.403923510999988,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          4.320107368999999,
+          false
+        ],
+        [
+          4.280079019999988,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          4.786031281000007,
+          false
+        ],
+        [
+          4.293193417999987,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-brazil3.mps",
+    "group": "miplib:timetabling",
+    "data_hash": "66bec46eb61b52297176ddfd76989d032be485ceb0990c857b7c3940267deab4",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      10.08451660774299,
+      9.591990815318308,
+      11.799494418134536,
+      0.000379403408650653,
+      0.6476853748463745,
+      0.9960781041388518,
+      4.172229639519359e-05,
+      0.6632703628063431
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.5141896480000128,
+          false
+        ],
+        [
+          4.025217044999977,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          3.5427745659999914,
+          false
+        ],
+        [
+          3.6073489550000204,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.725934900999988,
+          false
+        ],
+        [
+          4.776542759999984,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-pilot4.mps",
+    "group": "netlib:pilot",
+    "data_hash": "84461a38b1aa9f716f91660e9551682e92715c6805e6ee38995a300a3718c7ef",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      6.90875477931522,
+      6.018593214496234,
+      8.545197387825835,
+      0.012539024390243902,
+      0.7,
+      0.277,
+      0.004,
+      0.25831550282046295
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.321903925000015,
+          false
+        ],
+        [
+          1.1697209929999985,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.1925245719999964,
+          false
+        ],
+        [
+          1.4333249869999918,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          2.636557460000006,
+          false
+        ],
+        [
+          3.3446527429999833,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-greenbea.mps",
+    "group": "netlib:greenbea",
+    "data_hash": "6cf18f306b78330dae6dfc89967e3b8ec130d11485b06950b4dd4191478a493e",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      8.595264726836392,
+      7.780303087908373,
+      10.337799235201873,
+      0.0023882414090755804,
+      0.919314381270903,
+      0.07271045328399629,
+      0.1150786308973173,
+      0.7367296045600285
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.7620304609999948,
+          false
+        ],
+        [
+          2.825124226000014,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.0363096920000032,
+          false
+        ],
+        [
+          3.285854210999986,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.101113916999992,
+          false
+        ],
+        [
+          3.6443507200000056,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-fit1p.mps",
+    "group": "netlib:fit",
+    "data_hash": "62e73447d68afe210bc68aedfd53366af1df7e88a51fbac35824ab3ac618818c",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      7.425357887027151,
+      6.4425401664681985,
+      9.197153810172008,
+      0.00938487596994329,
+      1.0,
+      0.23792486583184258,
+      0.6118067978533095,
+      0.5472233481961897
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.6027922049999859,
+          false
+        ],
+        [
+          1.7420025749999866,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.9002598990000195,
+          false
+        ],
+        [
+          1.629475004999989,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.2023913109999853,
+          false
+        ],
+        [
+          3.056416982999991,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-grow7.mps",
+    "group": "netlib:grow",
+    "data_hash": "1d3c5f8698e4e2b89be85d56e735e145bebd5005d2144f213e3a3c62e0fd8986",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      5.71042701737487,
+      4.948759890378168,
+      7.868254265520613,
+      0.061983863312766965,
+      1.0,
+      0.9302325581395349,
+      0.06976744186046512,
+      0.10222052067381317
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.075257770999997,
+          true
+        ],
+        [
+          1.826250299999998,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.023147067999986,
+          true
+        ],
+        [
+          1.8810283749999996,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          2.7208896970000183,
+          true
+        ],
+        [
+          2.7576423019999936,
+          true
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-kb2.mps",
+    "group": "netlib:kb",
+    "data_hash": "bd843d9b86ef7c87bddb6bbd1852581ffbb4d8f52c3d52df3de7d9d33b1d2a04",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      3.7376696182833684,
+      3.784189633918261,
+      5.659482215759621,
+      0.16222348269994327,
+      0.37209302325581395,
+      0.21951219512195122,
+      0.12195121951219512,
+      0.7202797202797203
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.6574584070000071,
+          true
+        ],
+        [
+          2.1291523129999916,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.5359814339999787,
+          true
+        ],
+        [
+          2.176966964000002,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          1.9352394359999892,
+          true
+        ],
+        [
+          2.697561578999995,
+          true
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-sctap1.mps",
+    "group": "netlib:sctap",
+    "data_hash": "d36090d2319cff92d30e50821b03e209272ad0a221fd09b816280e930028a96b",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      6.175867270105761,
+      5.707110264748875,
+      7.4342573821331355,
+      0.01175,
+      0.4,
+      0.0,
+      0.75,
+      0.6382978723404256
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.000384795000002,
+          false
+        ],
+        [
+          1.4957447230000014,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.061421363000022,
+          true
+        ],
+        [
+          1.6617781799999989,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          2.728960919000002,
+          false
+        ],
+        [
+          1.9056978910000169,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-ship12l.mps",
+    "group": "netlib:ship",
+    "data_hash": "c7cf5ce399ada50aebca541e90c6a3b0816c85a57eaefc13fcc4e038eb0f81aa",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      8.59932602095476,
+      7.049254841255837,
+      9.690974793577944,
+      0.0025886591754039918,
+      0.9079061685490878,
+      0.0,
+      1.0,
+      0.664378478664193
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.348517641000001,
+          false
+        ],
+        [
+          1.8143172519999666,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.348829890000019,
+          false
+        ],
+        [
+          3.063510836999967,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          4.714493175999991,
+          false
+        ],
+        [
+          3.9574471539999934,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-adlittle.mps",
+    "group": "netlib:adlittle",
+    "data_hash": "f6108c87d85c14f63da834588574bb43ed93bede23612d15e8ea946998e77588",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      4.584967478670572,
+      4.04305126783455,
+      5.950642552587727,
+      0.0705081001472754,
+      0.26785714285714285,
+      0.0,
+      0.845360824742268,
+      0.6109660574412533
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          0.9833752970000091,
+          true
+        ],
+        [
+          0.9808272760000136,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.1050714799999923,
+          true
+        ],
+        [
+          0.9644534220000196,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          1.3084743680000201,
+          false
+        ],
+        [
+          1.3514191119999737,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-irp.mps",
+    "group": "miplib:irp",
+    "data_hash": "61fd283a79a631015c8af9abf1ab9697a06ea32268947a2cb749634d987b1885",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.919164031921136,
+      3.6888794541139363,
+      11.495321419021867,
+      0.12401345475428666,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.8477771429999734,
+          true
+        ],
+        [
+          1.849689866999995,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.386960673000033,
+          true
+        ],
+        [
+          2.178607888999977,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.3755293330000313,
+          false
+        ],
+        [
+          3.3356239309999864,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-agg2.mps",
+    "group": "netlib:agg",
+    "data_hash": "d2e9072c60dde68d724c1875c32de4f3d8342209a80fd058f95e38dd13cb51b2",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      5.713732805509369,
+      6.248042874508429,
+      8.36287583103188,
+      0.027491144309256123,
+      0.11627906976744186,
+      0.0,
+      0.7649006622516556,
+      0.9056956115779645
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.3567364660000294,
+          true
+        ],
+        [
+          1.2514934929999981,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.362348293000025,
+          true
+        ],
+        [
+          1.1299759929999595,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          1.4313364170000114,
+          false
+        ],
+        [
+          1.3801361579999707,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-piperout-08.mps",
+    "group": "miplib:piperout",
+    "data_hash": "06480f3d4c75d786e29e6113fa5a7fd978f7ffdb6e6491a09e2c623774992f4b",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.249561085129464,
+      9.588091641516831,
+      10.713528484567572,
+      0.0002963463212304346,
+      0.011378435807800397,
+      1.0,
+      9.616309260505818e-05,
+      0.5293489623879535
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.4328715739999893,
+          true
+        ],
+        [
+          2.643298157000004,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.2948704990000124,
+          false
+        ],
+        [
+          3.6393851189999964,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.2833686060000105,
+          false
+        ],
+        [
+          3.9845992339999725,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-25fv47.mps",
+    "group": "netlib:25fv47",
+    "data_hash": "4fd988ab81870d60dcc7c53ed00d86472d2bd613765d1edc40482102ee8835bd",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      7.360103972989152,
+      6.71174039505618,
+      9.249657234353133,
+      0.008063321887034411,
+      0.6285018270401949,
+      0.0,
+      0.4627625716104392,
+      0.5616346153846153
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.851198833000012,
+          false
+        ],
+        [
+          3.360806814,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          3.0561568629999556,
+          false
+        ],
+        [
+          2.866135272000008,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.894133375000024,
+          false
+        ],
+        [
+          4.229620990000001,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-hypothyroid-k1.mps",
+    "group": "miplib:hypothyroid",
+    "data_hash": "aef799e852a7cb8a15d04e3523c2189710d719efba3b9a165db3ad1e275f1338",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      7.864419904994565,
+      8.55564437779049,
+      12.98053480101142,
+      0.032098208307964775,
+      0.0005774783445620789,
+      1.0,
+      0.0003843197540353574,
+      0.5024545731117073
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          7.128081905999977,
+          false
+        ],
+        [
+          6.238248474999978,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          6.431597346000046,
+          false
+        ],
+        [
+          6.298668877000011,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          6.508995979000019,
+          false
+        ],
+        [
+          6.291619728000001,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-unitcal_7.mps",
+    "group": "miplib:unitcal",
+    "data_hash": "0f0c761a294004f877f6249360a3fe02e57d24338e106256c5b01e771f5b89a6",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      10.156422888658074,
+      10.798350336996663,
+      11.756624301439086,
+      0.0001012318121265143,
+      0.059400478146263716,
+      0.6653465346534654,
+      0.3652882935352359,
+      0.5599827579450606
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          5.089690777000044,
+          false
+        ],
+        [
+          5.975890257999993,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          4.866602020000016,
+          false
+        ],
+        [
+          5.17183238399997,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          4.698735594000027,
+          false
+        ],
+        [
+          5.033263070999965,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-ns1952667.mps",
+    "group": "miplib:neos-pseudoapplication-78",
+    "data_hash": "8a43065190a4553fad2f6108f57676048359ea576f76d1134b5f9262473a3e71",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.49288426657184,
+      3.7376696182833684,
+      12.72380635344368,
+      0.6171904880990908,
+      1.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          5.494133734000002,
+          true
+        ],
+        [
+          6.023671595999986,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          6.176687775000005,
+          false
+        ],
+        [
+          6.361733338000022,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          5.864638089000039,
+          false
+        ],
+        [
+          5.714819143,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-cbs-cta.mps",
+    "group": "miplib:cta",
+    "data_hash": "5ff90ccc822cac0084e5c011e4c1dd8f05579d5942d51c3bf0edd55b9909c22b",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      10.118356967398093,
+      9.221577003902171,
+      11.072698090049775,
+      0.00025682588541988424,
+      0.024129746835443038,
+      1.0,
+      0.039043278344694066,
+      0.5766291855625272
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.350566158999982,
+          true
+        ],
+        [
+          3.275156874000004,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          4.772823862999985,
+          false
+        ],
+        [
+          4.595577838999986,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          4.486551800999962,
+          false
+        ],
+        [
+          4.534984554000005,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-blp-ar98.mps",
+    "group": "miplib:blp",
+    "data_hash": "b08ebd25e83a7128a13e1c96dbacd4bc21e3808f04c48a5f88ebd201f3cbd144",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.681718056775063,
+      7.029087564149662,
+      12.209078124550002,
+      0.01110029124008781,
+      0.19060283687943264,
+      0.994944135821734,
+      6.241807627488921e-05,
+      0.9201399793620172
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.655991598000014,
+          true
+        ],
+        [
+          3.5623644149999905,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          5.7266382370000315,
+          false
+        ],
+        [
+          4.3145135660000165,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          4.935165635999965,
+          false
+        ],
+        [
+          4.684287526000048,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-bnl2.mps",
+    "group": "netlib:bnl",
+    "data_hash": "2207dc5d13666d1a1e56d2cd96c1b15a98a112b3d69491dc16b1b7bba5cd89d5",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      8.157657015196472,
+      7.751475318021456,
+      9.546812608597396,
+      0.0017264735147443971,
+      0.5709982788296041,
+      0.0,
+      0.6090570364001147,
+      0.47667690549324954
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          2.451689746999989,
+          false
+        ],
+        [
+          2.438400535000028,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          2.703010930000005,
+          false
+        ],
+        [
+          2.5225386349999894,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.6697295100000247,
+          false
+        ],
+        [
+          3.6554730220000238,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "netlib-modszk1.mps",
+    "group": "netlib:modszk",
+    "data_hash": "d4b75f3886c488f50f6f5d4faa25178895761c40e0fe5742162c2f4998dd1533",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      7.390798521735676,
+      6.5337888379333435,
+      8.06117135969092,
+      0.00284651463690765,
+      1.0,
+      0.0,
+      0.6111111111111112,
+      0.4485479797979798
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          1.701290696000001,
+          false
+        ],
+        [
+          1.7335062619999917,
+          false
+        ]
+      ],
+      "highs-ipm": [
+        [
+          1.7792812019999928,
+          false
+        ],
+        [
+          1.7295911850000039,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          3.6804916849999927,
+          false
+        ],
+        [
+          3.8356852690000096,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-neos-5195221-niemur.mps",
+    "group": "miplib:neos-pseudoapplication-32",
+    "data_hash": "4e7aebadced72d4c6436eec2ba898cdd185b396ad28b567eef4d9be0d2f91ec5",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.585140065773462,
+      10.6515252995352,
+      12.081568951758419,
+      0.0002872925089050168,
+      0.13465543354789852,
+      0.673174755946652,
+      0.00013749484394335213,
+      0.44741938772043083
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.719130259999929,
+          true
+        ],
+        [
+          3.7597014619999527,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          4.860745036000026,
+          false
+        ],
+        [
+          4.792806638999991,
+          false
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          5.117497853000032,
+          false
+        ],
+        [
+          5.08081461300003,
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "instance": "miplib-nursesched-sprint02.mps",
+    "group": "miplib:nursescheduling",
+    "data_hash": "159b98bc9f90b94b790e78da56f6571603693ed43c094eefa216f88b28f9de45",
+    "split": "train",
+    "environment_id": "bd37f4992cdd180ef76afe48b79b4cb2b9cad7c551f37e4e46ad5d4e055f9717",
+    "features": [
+      9.235130540783402,
+      8.167068178341237,
+      12.225880174775122,
+      0.00565089126189388,
+      0.28449744463373083,
+      1.0,
+      0.675609756097561,
+      0.7881372549019607
+    ],
+    "samples": {
+      "highs-simplex": [
+        [
+          3.617591292000043,
+          true
+        ],
+        [
+          3.7764976250000473,
+          true
+        ]
+      ],
+      "highs-ipm": [
+        [
+          4.12201500499998,
+          true
+        ],
+        [
+          4.089687315999981,
+          true
+        ]
+      ],
+      "ortools-pdlp": [
+        [
+          5.059386507999989,
+          false
+        ],
+        [
+          4.989638970999977,
+          false
+        ]
+      ]
+    }
+  }
+]
