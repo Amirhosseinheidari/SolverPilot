@@ -1,0 +1,100 @@
+{
+  "instances": 24,
+  "groups": 24,
+  "outcomes": 288,
+  "cost": "mean across all repeats; independently verified within 2s API / 12s controller deadline costs full process wall; otherwise PAR10=120s",
+  "mean_par10_s": {
+    "default": 49.417353262312496,
+    "production": 61.445412837,
+    "highs-simplex": 54.118316805250004,
+    "highs-ipm": 56.4899165605625,
+    "ortools-pdlp": 95.67150119902082,
+    "robust": 51.74832955495835
+  },
+  "verified_within_budget": {
+    "default": 29,
+    "production": 24,
+    "highs-simplex": 27,
+    "highs-ipm": 26,
+    "ortools-pdlp": 10,
+    "robust": 28
+  },
+  "independently_verified_total": {
+    "default": 34,
+    "production": 32,
+    "highs-simplex": 34,
+    "highs-ipm": 30,
+    "ortools-pdlp": 10,
+    "robust": 34
+  },
+  "comparisons": {
+    "default": {
+      "ratio": 1.0471691852915066,
+      "bootstrap_95pct": [
+        0.9974248356983836,
+        1.1768595621560511
+      ],
+      "p90_ratio": 1.0924087075609672,
+      "no_lost_verified_solves": false
+    },
+    "production": {
+      "ratio": 0.8421837719966876,
+      "bootstrap_95pct": [
+        0.6302637930797302,
+        0.9992038472103772
+      ],
+      "p90_ratio": 1.0164043884568783,
+      "no_lost_verified_solves": true
+    },
+    "highs-simplex": {
+      "ratio": 0.9562072992990472,
+      "bootstrap_95pct": [
+        0.8316913633647405,
+        1.0015122460700607
+      ],
+      "p90_ratio": 1.0919035633027245,
+      "no_lost_verified_solves": true
+    },
+    "highs-ipm": {
+      "ratio": 0.9160631260532892,
+      "bootstrap_95pct": [
+        0.635888273058458,
+        1.2324145328941518
+      ],
+      "p90_ratio": 1.0461190810755059,
+      "no_lost_verified_solves": false
+    },
+    "ortools-pdlp": {
+      "ratio": 0.5408959711765031,
+      "bootstrap_95pct": [
+        0.3180676625069762,
+        0.7952845938243065
+      ],
+      "p90_ratio": 1.0,
+      "no_lost_verified_solves": false
+    }
+  },
+  "decision_reasons": {
+    "training_baseline": 24,
+    "outside_training_support": 16,
+    "learned_stump": 8
+  },
+  "objective_mismatches": [],
+  "gates": {
+    "complete_outcomes": true,
+    "no_verified_objective_mismatch": true,
+    "at_least_20_groups": true,
+    "some_in_support_decisions": true,
+    "default_gain_at_least_3_percent": false,
+    "default_bootstrap_upper_below_one": false,
+    "default_p90_at_most_1_25": true,
+    "default_no_lost_verified_solves": false,
+    "production_gain_at_least_3_percent": true,
+    "production_bootstrap_upper_below_one": true,
+    "production_p90_at_most_1_25": true,
+    "production_no_lost_verified_solves": true
+  },
+  "public_gate_passed": false,
+  "automatic_production_routing_enabled": false,
+  "policy": "public-trained stump with production fallback on abstention"
+}

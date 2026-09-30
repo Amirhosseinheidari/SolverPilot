@@ -1,0 +1,70 @@
+{
+  "robust": {
+    "calls": 48,
+    "backend_claimed_optimal": 44,
+    "primal_valid": 44,
+    "independently_verified": 34,
+    "verified_within_budget": 28,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "default": {
+    "calls": 48,
+    "backend_claimed_optimal": 44,
+    "primal_valid": 44,
+    "independently_verified": 34,
+    "verified_within_budget": 29,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "production": {
+    "calls": 48,
+    "backend_claimed_optimal": 44,
+    "primal_valid": 44,
+    "independently_verified": 32,
+    "verified_within_budget": 24,
+    "statuses": {
+      "valid_optimal": 44,
+      "error": 4
+    }
+  },
+  "highs-simplex": {
+    "calls": 48,
+    "backend_claimed_optimal": 43,
+    "primal_valid": 43,
+    "independently_verified": 34,
+    "verified_within_budget": 27,
+    "statuses": {
+      "valid_optimal": 43,
+      "error": 5
+    }
+  },
+  "highs-ipm": {
+    "calls": 48,
+    "backend_claimed_optimal": 40,
+    "primal_valid": 40,
+    "independently_verified": 30,
+    "verified_within_budget": 26,
+    "statuses": {
+      "valid_optimal": 40,
+      "error": 8
+    }
+  },
+  "ortools-pdlp": {
+    "calls": 48,
+    "backend_claimed_optimal": 20,
+    "primal_valid": 18,
+    "independently_verified": 10,
+    "verified_within_budget": 10,
+    "statuses": {
+      "valid_optimal": 16,
+      "error": 24,
+      "invalid_solution": 6,
+      "feasible_limit": 2
+    }
+  }
+}

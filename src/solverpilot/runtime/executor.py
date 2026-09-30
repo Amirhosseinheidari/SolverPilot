@@ -126,6 +126,14 @@ def execute(
     if backend_result.x is not None and raw_stats.get("canonical_dual") is not None:
         from solverpilot.validate.optimality import verify_optimality
         checked = verify_optimality(problem, backend_result.x, raw_stats["canonical_dual"], tolerances=tolerances)
+        if (not checked.verified and isinstance(problem, LinearProblem)
+                and checked.reason == "dual multiplier points toward an infinite bound"):
+            from solverpilot.validate.lp_dual import prepare_lp_dual
+            repaired = prepare_lp_dual(problem, raw_stats["canonical_dual"])
+            if repaired is not None:
+                raw_stats["original_optimality_check"] = asdict(checked)
+                checked = verify_optimality(problem, backend_result.x, repaired, tolerances=tolerances)
+                raw_stats["prepared_canonical_dual"] = repaired.tolist()
         raw_stats["optimality_check"] = asdict(checked)
         evidence = replace(evidence, dual_verified=checked.dual_valid,
                            gap_verified=checked.verified)

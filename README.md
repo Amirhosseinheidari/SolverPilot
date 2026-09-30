@@ -11,6 +11,8 @@ An experimental [learned LP selector](docs/LEARNED-LP.md) adds training and
 held-out evaluation tools; it does not enable automatic production routing.
 The subsequent [public-workload challenge](docs/evidence/public-lp-local/README.md)
 failed its promotion gate, so the synthetic-trained policy remains experimental.
+The follow-up [robust LP work](docs/ROBUST-LP.md) adds conservative abstention,
+public retraining and independently checked residual-bound recovery.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 

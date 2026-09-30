@@ -1,0 +1,21 @@
+{
+  "execution_source_commit": "2dca4c10218c57aa15aaf55b65decb7102c4356d",
+  "host_recorded_date": "2026-09-29",
+  "clock_note": "WSL guest UTC is ahead of host; original timestamps retained; durations use perf_counter.",
+  "files": {
+    "development-diagnostics.json": "10f4898200d8dccd7c1c1e40be457c0d155ff46b7a4eb420be71a76ce4389499",
+    "diagnostic-runner.py": "1918aebb1099466c62a184a69514ba7ec14959f2cd6eb071e5a15c4650b0cd65",
+    "frozen-code-diagnostics.json": "9c64a913453f06afc6387b9b95f2ca9376ca1dcbaf336f5c29817590a9a5448a",
+    "heldout-cohort.json": "e79ebb7ca3c246930a712b8b7cc0d8866fed5e9762cad8d56c379f6e13214c94",
+    "heldout-observations.json": "b767f0156e63ca16e857441a9761867b37d0cc9d3f52eefdecbb09c41375bc5e",
+    "model-freeze.json": "dcb0876416ca08229c576a940d5685335dce0fa7ce24c0b65c91cd634fdac1a1",
+    "model.json": "d2cc10b41db0ea5c8c4654b3c43a1c7110c8237920652638f10e22f8afcfc958",
+    "outcome-breakdown.json": "bdaf544b06f872d085c21bf663e7f9978ca6c4d73fde0cc36e3225a821e08622",
+    "protocol.json": "e73fda4975244c98bea50987821f923409a7361842165ed36e8c7e28f6283386",
+    "stress.json": "ae390a03158eb2a96ec3f56666844be102adc24aaf794200f39566c3fe832a44",
+    "summary.json": "95e9275e382c61455193279f286144f1f70ddda6e13bfeeb1a0a9a1b75cb04f0",
+    "training-cohort.json": "508940793563548bf422d7e2e2f5a24b2816868240df2d49a1d60a0c87f263f6",
+    "training-observations.json": "62f3e1dfbf28df0af53e09dd73793616d214c92189998d5083b6f33b6f42159e",
+    "training-rows.json": "717e38c4f3589b9f070d6594e21c0ec7c137c0b71fe6f45e244b5f86900814bc"
+  }
+}
