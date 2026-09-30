@@ -101,6 +101,9 @@ def solve(
     if registry is None and backend == "ortools-pdlp":
         from solverpilot.backends.pdlp import PDLPBackend
         backend = PDLPBackend()
+    if registry is None and backend == "cuopt-gpu":
+        from solverpilot.backends.cuopt import CuOptBackend
+        backend = CuOptBackend()
     if registry is None and (backend is None or isinstance(backend, str)):
         registry = default_registry()
 

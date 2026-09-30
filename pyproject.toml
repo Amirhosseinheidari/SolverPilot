@@ -57,6 +57,7 @@ nlp = ["casadi==3.7.2"]
 minlp = ["casadi==3.7.2"]
 cp = ["ortools==9.15.6755"]
 pdlp = ["ortools==9.15.6755"]
+gpu = ["cuopt-cu12==26.8.0"]
 global = ["pyscipopt>=6.2.1,<7"]
 
 [tool.setuptools.packages.find]

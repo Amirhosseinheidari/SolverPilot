@@ -73,6 +73,7 @@ def test_rc8_live_tools_only_contain_current_release_helpers():
     names = sorted(p.name for p in (ROOT / "tools").glob("*.py"))
     assert names == [
         "benchmark_02.py",
+        "qualify_cuopt.py",
         "release_cell_runner.py",
         "release_dist_manifest.py",
         "release_repro_build_compare.py",

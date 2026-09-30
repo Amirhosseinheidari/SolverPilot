@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add an explicit isolated cuOpt GPU PDLP adapter for continuous LP, with original-space objective/dual validation, wall-time termination, and no automatic routing or CPU fallback.
+- Add CPU-only adversarial transport checks, opt-in native GPU qualification and a bounded CPU/GPU comparison that preserves model hashes, package versions and complete timing observations.
+
 - Add `solverpilot.exact.solve_exact` and certificate replay for LP/MILP with explicit exact SCIP and VIPR executables.
 - Bind every certificate assumption to the original model and validate rational primal solutions before accepting proof results.
 - Preserve binary64 input coefficients exactly, restore objective sense/offset, and distinguish optimality, infeasibility, bounds and unverified outcomes.

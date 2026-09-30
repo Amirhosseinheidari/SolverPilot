@@ -8,6 +8,7 @@ def backend_catalog():
     from solverpilot.cp import ORToolsCPSATBackend
     from solverpilot.globalopt import SCIPGlobalBackend
     from solverpilot.backends.pdlp import PDLPBackend
+    from solverpilot.backends.cuopt import CuOptBackend
 
     result = {b.manifest.name: b for b in builtin_backend_candidates()}
     for backend in (
@@ -17,6 +18,7 @@ def backend_catalog():
         ORToolsCPSATBackend(),
         SCIPGlobalBackend(),
         PDLPBackend(),
+        CuOptBackend(),
     ):
         result[backend.name] = backend
     return result

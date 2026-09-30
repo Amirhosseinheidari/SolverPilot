@@ -1,0 +1,51 @@
+{
+  "native_tests": {
+    "tests": "8",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "32.069"
+  },
+  "cases": [
+    {
+      "name": "test_gpu_ranged_rows_and_objective_offset[minimize]",
+      "seconds": "5.331"
+    },
+    {
+      "name": "test_gpu_ranged_rows_and_objective_offset[maximize]",
+      "seconds": "2.406"
+    },
+    {
+      "name": "test_gpu_free_variable_equalities",
+      "seconds": "1.518"
+    },
+    {
+      "name": "test_gpu_bounds_only",
+      "seconds": "1.550"
+    },
+    {
+      "name": "test_gpu_random_lps_match_highs",
+      "seconds": "15.234"
+    },
+    {
+      "name": "test_gpu_nonoptimal_termination_never_independently_optimal[False]",
+      "seconds": "2.665"
+    },
+    {
+      "name": "test_gpu_nonoptimal_termination_never_independently_optimal[True]",
+      "seconds": "1.513"
+    },
+    {
+      "name": "test_gpu_wall_timeout_cleans_up_worker",
+      "seconds": "0.054"
+    }
+  ],
+  "installed_wheel_sha256": "af15d4362e7c0530d46917ae6eedb5e842ea6cd0167923da0b916f421625a556",
+  "wheel_scope": "unreleased development build labelled 0.4; not the published PyPI 0.4 wheel",
+  "installed_wheel_campaign": "gpu-qualification-pdlp.json",
+  "cpu_ci_url": "https://github.com/Amirhosseinheidari/SolverPilot/actions/runs/36677643956",
+  "cpu_ci_claim": "All 12 jobs passed for source commit 78a1012; these jobs do not run GPU kernels.",
+  "adapter_source_commit": "78a1012e033fcf9bf5aacd76250e21a355d7b8a9",
+  "reproduction_harness_sha256": "d72e05c005f70429e6a5e15ad303ffc307dde5be4a479364486ad86f3f53f292",
+  "benchmark_harness_note": "The default campaign used the committed initial harness; local extensions added IPM and CPU-PDLP baseline selection. The reproduction harness is included with this record."
+}
