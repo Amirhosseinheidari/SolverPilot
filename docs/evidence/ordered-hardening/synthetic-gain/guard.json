@@ -1,0 +1,11 @@
+{
+  "schema": "solverpilot.experimental.lp-gain.v1",
+  "model_sha256": "6cf9f8d416a4765668c624828c8353b73449cbb62343e0987eec5582320c5941",
+  "implementation_sha256": "02b75876cbc08ae9722a3f9910158b3d8d2ad269c09cd211f546966246d9fe3c",
+  "environment_id": "4c8e5651b5b2d1aff32c86f70977be9b8eb2764457ceaeff49d22b2d3632d9a0",
+  "cutoff_s": 2.0,
+  "calibration_sha256": "33db99aa983a08a7d2ea7126dc523e91fac3675288ab3aa4ea51ca22dc6869b7",
+  "overhead_limit_s": 0.005,
+  "candidate_gains": [],
+  "sha256": "e9b9a7ca02c15554654a736085dd8d2a19ced49cdb87286bc6d4bd499b6ace6b"
+}

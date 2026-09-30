@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Speed up exact binary64 certificate arithmetic while preserving exact Fraction results; account for setup and verification in call budgets and add explicit isolated CPU deadline calls.
+- Add opt-in bounded equality-basis LP certificate recovery without relaxing validation; incomplete cases remain unverified.
+- Add training-only total-cost gain guards bound to model, source, environment and time budget; automatic learned routing stays disabled.
+- Tighten built-in OSQP solve tolerances after cold-start failures found by repeated-call qualification; preserve explicit adapter settings.
+- Exercise repeated LP/QP solves, cancellation, worker-crash recovery and memory observations on the CI platform matrix.
+- Separate feasibility, proof scope/reason and deadline compliance in common summaries, including owned batch and exact-certificate results.
+- Add a passive `solverpilot-doctor` with imported-code fingerprint, distribution ownership and feature maturity. This development code is not the published 0.4 artifact.
+
+
+
 - Add an explicit experimental public-trained LP route that falls back to the ordinary production planner on support, environment or availability abstention, using one remaining budget.
 - Recover additional numerical LP certificates through independently rechecked multiplier projection, outward-rounded implied bounds and exact original-row residual substitutions; retain raw solver candidates and fail closed when recovery is incomplete.
 

@@ -43,6 +43,8 @@ def _loop(connection, backend, tolerances, memory_mb, budget):
                         "x": None if result.x is None else result.x.tolist(),
                         "objective": result.objective,
                         "backend": result.trace.backend,
+                        "verified": result.optimality_evidence.independently_verified_optimal,
+                        "problem_data_hash": problem.data_hash,
                     }
                 )
             except Exception as exc:
@@ -77,7 +79,10 @@ class _Worker:
         start = monotonic()
 
         def stopped(status, error=None):
-            return BatchItem(index, status, None, None, False, None, monotonic() - start, error)
+            elapsed = monotonic()-start
+            return BatchItem(index, status, None, None, False, None, elapsed, error,
+                             problem_data_hash=problem.data_hash, requested_time_s=owner.timeout_s,
+                             within_budget=None if owner.timeout_s is None else elapsed <= owner.timeout_s)
 
         def cancelled():
             return (
@@ -145,6 +150,15 @@ class _Worker:
                         )
                     )
                     valid = validation is not None and validation.valid
+                    if cancelled():
+                        self.close()
+                        return stopped("cancelled")
+                    if payload.get("problem_data_hash") != problem.data_hash:
+                        self.close()
+                        return stopped("error", "worker result model identity mismatch")
+                    if owner.timeout_s is not None and monotonic()-start >= owner.timeout_s:
+                        self.close()
+                        return stopped("timeout", "result validation exceeded deadline")
                     return BatchItem(
                         index,
                         payload["status"] if x is None or valid else "invalid_solution",
@@ -153,6 +167,10 @@ class _Worker:
                         valid,
                         payload["backend"],
                         monotonic() - start,
+                        independently_verified_optimal=bool(valid and payload.get("verified") is True),
+                        problem_data_hash=problem.data_hash,
+                        requested_time_s=owner.timeout_s,
+                        within_budget=None if owner.timeout_s is None else True,
                     )
                 if not self.process.is_alive():
                     error = f"worker exited with code {self.process.exitcode}"
@@ -297,5 +315,7 @@ def iter_solve_batch(problems, *, cancellation=None, mode="process", **options):
                 bool(result.validation and result.validation.valid),
                 result.trace.backend,
                 monotonic() - start,
+                independently_verified_optimal=result.optimality_evidence.independently_verified_optimal,
+                problem_data_hash=problem.data_hash,
             )
             index += 1

@@ -1,0 +1,39 @@
+{
+  "scope": "Replay consumed public cases; this is certificate diagnosis, not held-out routing.",
+  "observations": [
+    {
+      "instance": "netlib-pilot4",
+      "data_hash": "84461a38b1aa9f716f91660e9551682e92715c6805e6ee38995a300a3718c7ef",
+      "default_verified": false,
+      "extended_check": {
+        "verified": false,
+        "primal_valid": true,
+        "dual_valid": false,
+        "stationarity_inf": 4.147793219999585e-13,
+        "complementarity_inf": 1.7791412024468719e-12,
+        "gap": "inf",
+        "reason": "stationarity error has no finite lower bound",
+        "dual_bound": null,
+        "domain_refined": false
+      },
+      "recovery_s": 0.13372600000002421
+    },
+    {
+      "instance": "miplib-unitcal_7",
+      "data_hash": "0f0c761a294004f877f6249360a3fe02e57d24338e106256c5b01e771f5b89a6",
+      "default_verified": true,
+      "extended_check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 4.729372449219227e-11,
+        "complementarity_inf": 7.694325176998972e-11,
+        "gap": 1.2536753817832976e-09,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 19387553.381270695,
+        "domain_refined": true
+      },
+      "recovery_s": 1.0917946999979904
+    }
+  ]
+}

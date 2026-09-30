@@ -56,3 +56,5 @@ Optional scripts exit successfully with an explanatory message when their verifi
 ## Development after 0.4
 
 - `25_exact_milp_optional.py`: optional exact SCIP execution and independent VIPR certificate verification.
+
+- `26_evidence_and_deadline.py`: separate feasibility, independent evidence and deadline compliance.

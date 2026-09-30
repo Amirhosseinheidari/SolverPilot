@@ -1,0 +1,97 @@
+{
+  "run_id": 36705960396,
+  "sha": "c72693e29588257f96c86927a5218b6323c5657f",
+  "jobs_passed": 12,
+  "platform_reports": [
+    {
+      "artifact": "tests-macos-latest-py3.12",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    },
+    {
+      "artifact": "tests-ubuntu-latest-py3.14",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    },
+    {
+      "artifact": "tests-macos-latest-py3.14",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    },
+    {
+      "artifact": "tests-windows-latest-py3.14",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 116
+      }
+    },
+    {
+      "artifact": "tests-windows-latest-py3.13",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 116
+      }
+    },
+    {
+      "artifact": "tests-macos-latest-py3.13",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    },
+    {
+      "artifact": "tests-windows-latest-py3.12",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 116
+      }
+    },
+    {
+      "artifact": "tests-ubuntu-latest-py3.12",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    },
+    {
+      "artifact": "tests-ubuntu-latest-py3.13",
+      "functional_gate_passed": true,
+      "test_totals": {
+        "tests": 1482,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 115
+      }
+    }
+  ]
+}

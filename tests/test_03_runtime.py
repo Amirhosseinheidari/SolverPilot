@@ -35,7 +35,8 @@ def test_budget_preserves_workspace_and_restores_settings():
             assert result.trace.reuse_applied == (i != 0)
             assert result.x[0] == pytest.approx(i, abs=1e-5)
             assert backend.time_limit_s is None
-            assert result.trace.parameters["backend_configuration"]["time_limit_s"] == 10.0
+            assert 0 < result.trace.parameters["backend_configuration"]["time_limit_s"] <= 10.0
+            assert result.raw_statistics['call_budget']['requested_s'] == 10.0
 
 
 def test_stream_does_not_consume_cancelled_input():

@@ -1,0 +1,44 @@
+{
+  "schema": "solverpilot.robust-public-lp.v1",
+  "experiment": "total-cost gain guard",
+  "cpu_only": true,
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/solverpilot/cuopt-venv/bin/python",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "hostname": "amir",
+    "cpu_model": "12th Gen Intel(R) Core(TM) i7-12650H",
+    "logical_cpus": 16,
+    "memory_bytes": 8131268608,
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.18.1",
+      "highspy": "1.15.1",
+      "ortools": "9.15.6755"
+    },
+    "env_threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1"
+    }
+  },
+  "captured_at": "2026-09-30T11:03:15.364206+00:00",
+  "affinity_cpu": 0,
+  "implementation_sha256": "02b75876cbc08ae9722a3f9910158b3d8d2ad269c09cd211f546966246d9fe3c",
+  "runner_sha256": "8fc74df931e4a753a5ec8ff9cfa33837c6a6686cd6cc4034a968347dbf2c16dd",
+  "training_cohort_sha256": "508940793563548bf422d7e2e2f5a24b2816868240df2d49a1d60a0c87f263f6",
+  "heldout_cohort_sha256": "4af6093aa848bb0b412c02656ccf1b5880e449faf311cbe6c8cc06c96eff2e53",
+  "api_budget_s": 2.0,
+  "controller_budget_s": 12.0,
+  "repeats": 2,
+  "guard_overhead_s": 0.005,
+  "cost": "full API time including routing/solver/verification; failed or late = 20 seconds",
+  "artifact_preparation": "outside API; retained inside full controller wall measurement",
+  "gate": "24 unseen cases/families; both baselines: >=3% gain, bootstrap upper<1, p90<=1.25, no lost successes; actual switches, zero objective mismatches",
+  "retuning_allowed": false,
+  "automatic_production_routing_enabled": false
+}

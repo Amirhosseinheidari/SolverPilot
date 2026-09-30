@@ -26,7 +26,8 @@ class OptimalityCheck:
     domain_refined: bool = False
 
 
-def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
+def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
+                      extended_recovery=False) -> OptimalityCheck:
     tol = tolerances or ValidationTolerances()
     bad = lambda reason: OptimalityCheck(False, False, False, np.inf, np.inf, np.inf, reason)
     linear = problem.linear if isinstance(problem, QuadraticProblem) else problem
@@ -41,6 +42,8 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
     if x.shape != (linear.n_variables,) or y.shape != lo.shape or not np.isfinite(x).all() or not np.isfinite(y).all():
         return bad('certificate shape or finite-value check failed')
     primal = validate_solution(problem, CandidateSolution(x), tolerances=tol).valid
+    if fast_reject and not primal:
+        return bad('primal candidate outside tolerances')
     sign = 1. if linear.objective_sense is ObjectiveSense.MINIMIZE else -1.
     px = problem.P@x if isinstance(problem, QuadraticProblem) else np.zeros_like(x)
     if isinstance(problem, QuadraticProblem):
@@ -59,6 +62,13 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
         stationarity = px + sign*linear.c + B.T@y
         comp = np.zeros_like(y); comp[active] = y[active]*(bound[active]-(B@x)[active])
         primal_value = float(.5*x@px + sign*linear.c@x)
+        st = float(np.max(np.abs(stationarity), initial=0))
+        cp = float(np.max(np.abs(comp), initial=0))
+        scale = np.maximum(1., np.abs(px)+np.abs(linear.c)+abs(B.T)@abs(y))
+        st_ok = bool(np.all(np.abs(stationarity) <= tol.feasibility+tol.feasibility_rel*scale))
+        if fast_reject and (not np.isfinite([st, cp]).all() or not np.isfinite(scale).all() or not st_ok):
+            return OptimalityCheck(False, True, False, st, cp, np.inf,
+                                   'stationarity outside tolerances')
         # A small stationarity residual can have a large effect on a wide box.
         # The tangent Lagrangian gives a valid lower bound after minimizing
         # this residual over the variable domain. Exact binary64 arithmetic
@@ -74,6 +84,9 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
             correction = box_min(residual, lower, upper)
             if correction is None:
                 correction = row_residual_lower_bound(problem, residual, lower, upper)
+            if correction is None and extended_recovery:
+                from .lp_dual import equality_residual_lower_bound
+                correction = equality_residual_lower_bound(problem, residual, lower, upper)
             domain_refined = correction is not None
         half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
         exact_primal = half_xpx + dot(sign*linear.c, x)
@@ -92,10 +105,6 @@ def verify_optimality(problem, x, dual, *, tolerances=None) -> OptimalityCheck:
                 exact_dual = strong_bound if exact_dual is None else max(exact_dual, strong_bound)
         dual_value = -np.inf if exact_dual is None else bounded_float(exact_dual)
         gap = np.inf if exact_dual is None else bounded_float(abs(exact_primal-exact_dual))
-        st = float(np.max(np.abs(stationarity), initial=0))
-        cp = float(np.max(np.abs(comp), initial=0))
-        scale = np.maximum(1., np.abs(px)+np.abs(linear.c)+abs(B.T)@abs(y))
-        st_ok = bool(np.all(np.abs(stationarity) <= tol.feasibility+tol.feasibility_rel*scale))
         allowed = tol.objective_abs+tol.objective_rel*max(1., abs(primal_value), abs(dual_value))
     finite = bool(np.isfinite([st, cp, gap, allowed]).all() and np.isfinite(scale).all())
     dual_ok = finite and st_ok

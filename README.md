@@ -1,6 +1,11 @@
 # SolverPilot
 
-> **Current version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
+> **Published version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
+
+This checkout contains **unreleased development after 0.4**. The version string
+alone does not identify these changes. Run `solverpilot-doctor` (or
+`python -m solverpilot.cli.doctor`) for imported-code identity, installed-package
+ownership and feature maturity. See the [ordered hardening record](docs/ORDERED-HARDENING.md).
 
 Development after 0.4: an explicit [exact LP/MILP certificate API](docs/EXACT-MILP.md)
 is being qualified separately. It requires exact SCIP and VIPR executables and is
@@ -94,7 +99,7 @@ These APIs remain submodule-scoped and do not change the frozen 78-symbol top-le
 - Local-file symlink/path checks are fail-closed for static paths, but they are not a sandbox against a hostile process racing filesystem entries between validation and open.
 - `HistoryStore` is a local plaintext SQLite store. It is opt-in and minimizes persisted solver/problem payloads, but it is not encrypted and caller-supplied metadata can still contain sensitive information.
 - TSP/VRP exact reference algorithms are exponential and intentionally state-budgeted; the routing layer does not yet claim pickup-and-delivery, split delivery, stochastic travel time, live traffic, or real-time redispatch support.
-- Exact SCIP and cuOpt GPU execution adapters are not shipped; readiness probes cannot qualify execution. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md).
+- Exact SCIP and cuOpt GPU execution adapters are available in this development source, but absent from the published 0.4 wheel; readiness probes cannot qualify execution. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md).
 
 ## Requirements
 

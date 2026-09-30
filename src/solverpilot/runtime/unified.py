@@ -18,6 +18,12 @@ class SolutionSummary:
     x: Any = None
     assignment: Mapping | None = None
     run_id: str = field(default_factory=lambda: str(uuid4()))
+    optimality_reason: str = "evidence not available"
+    termination_evidence: str = "not_established"
+    requested_time_s: float | None = None
+    elapsed_s: float | None = None
+    within_budget: bool | None = None
+    deadline_enforcement: str = "not_reported"
 
     def __post_init__(self):
         if self.x is not None:
@@ -31,7 +37,10 @@ def summarize(result: Any) -> SolutionSummary:
     feasible = bool(getattr(validation, "valid", getattr(result, "validation_valid", False)))
     raw = getattr(result, "raw_statistics", None) or {}
     trust = getattr(result, "optimality_evidence", None)
-    independent = bool(trust is not None and trust.independently_verified_optimal)
+    from .batch import BatchItem
+    from solverpilot.exact.runtime import ExactSolveResult
+    independent = bool((trust is not None and trust.independently_verified_optimal)
+                       or (isinstance(result, BatchItem) and result.independently_verified_optimal))
     reported = bool(
         getattr(trust, "backend_reported_optimal", False)
         or raw.get("backend_reported_optimal", False)
@@ -55,6 +64,28 @@ def summarize(result: Any) -> SolutionSummary:
     trace = getattr(result, "trace", None)
     status = getattr(result, "status", getattr(result, "backend_status", "unknown"))
     status = str(getattr(status, "value", status))
+    proof_reason = str(raw.get("optimality_check", {}).get("reason", "independent optimality not established"))
+    termination_evidence = "not_established"
+    certificate = raw.get("termination_certificate", {})
+    if certificate.get("verified") is True:
+        termination_evidence = "independent_numerical_termination_certificate"
+    budget = raw.get("call_budget", {})
+    requested = budget.get("requested_s", getattr(result, "requested_time_s", None))
+    elapsed = budget.get("elapsed_s", getattr(result, "elapsed_s", None))
+    within = budget.get("within_budget", getattr(result, "within_budget", None))
+    enforcement = str(budget.get("enforcement", "not_reported"))
+    if isinstance(result, BatchItem):
+        enforcement = "process_deadline_with_cleanup" if requested is not None else "not_requested"
+        proof_reason = "owned worker verified; parent primal rechecked" if independent else (result.error or proof_reason)
+    if isinstance(result, ExactSolveResult):
+        # A verified lower bound, or infeasibility proof, is not optimality.
+        feasible = result.x is not None
+        exact_optimal = (result.independently_verified and status == "optimal"
+                         and result.absolute_gap == 0 and feasible)
+        evidence = "independent_exact_certificate" if exact_optimal else "not_established"
+        proof_reason = result.reason
+        if result.independently_verified and status in {"bound_verified", "infeasible"}:
+            termination_evidence = "independent_exact_" + ("bound" if status == "bound_verified" else "infeasibility")
     objective = getattr(validation, "objective_recomputed", getattr(validation, "objective", None))
     if objective is None:
         objective = getattr(result, "objective", getattr(result, "objective_reported", None))
@@ -68,9 +99,15 @@ def summarize(result: Any) -> SolutionSummary:
         else getattr(result, "backend", getattr(result, "algorithm", "unknown")),
         trace.problem_data_hash
         if trace is not None
-        else getattr(result, "problem_data_hash", None),
+        else getattr(result, "problem_data_hash", getattr(result, "problem_hash", None)),
         getattr(result, "x", None),
         getattr(result, "assignment", None),
+        optimality_reason=proof_reason,
+        termination_evidence=termination_evidence,
+        requested_time_s=requested,
+        elapsed_s=elapsed,
+        within_budget=within,
+        deadline_enforcement=enforcement,
     )
 
 

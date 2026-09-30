@@ -94,6 +94,7 @@ def test_expected_public_examples_exist():
         "23_generalized_power_optional.py",
         "24_pdlp_and_certificates_optional.py",
         "25_exact_milp_optional.py",
+        "26_evidence_and_deadline.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

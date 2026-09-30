@@ -20,19 +20,40 @@ def bounded_float(value):
 
 
 def dot(left, right):
-    return sum((rational(a) * rational(b) for a, b in zip(left, right)), Fraction())
+    return _sum_products((_dyadic(a), _dyadic(b)) for a, b in zip(left, right))
+
+
+def _dyadic(value):
+    """Exact integer numerator and power-of-two denominator of binary64."""
+    numerator, denominator = float(value).as_integer_ratio()
+    return numerator, denominator.bit_length()-1
+
+
+def _sum_products(pairs):
+    # Align integer products, reducing to Fraction only once per dot product.
+    # No floating-point multiply/add or discarded low bits are involved.
+    total, exponent = 0, 0
+    for (a, ae), (b, be) in pairs:
+        product = a*b
+        if not product:
+            continue
+        power = ae+be
+        if power > exponent:
+            total <<= power-exponent
+            exponent = power
+        total += product << (exponent-power)
+    return Fraction(total, 1 << exponent)
 
 
 def matvec(matrix, vector):
     matrix = matrix.tocsr()
-    values = [rational(v) for v in vector]
+    values = [_dyadic(v) for v in vector]
     return [
-        sum(
+        _sum_products(
             (
-                rational(matrix.data[k]) * values[matrix.indices[k]]
+                (_dyadic(matrix.data[k]), values[matrix.indices[k]])
                 for k in range(matrix.indptr[i], matrix.indptr[i + 1])
             ),
-            Fraction(),
         )
         for i in range(matrix.shape[0])
     ]

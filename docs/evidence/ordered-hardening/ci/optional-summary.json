@@ -1,0 +1,9 @@
+{
+  "tests": 1515,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 20,
+  "coverage_line_rate": 0.8721,
+  "coverage_branch_rate": 0.723,
+  "run_id": 36705960396
+}
