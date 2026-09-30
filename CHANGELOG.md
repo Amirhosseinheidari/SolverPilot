@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Report numerical dual bounds in the original objective sense and units, including offsets and conservative outward rounding.
+- Reject contradictory recorded evidence flags, claims, objectives and budget metadata while preserving valid evidence v1 records.
+- Fix production cancellation passed through SolveOptions and retain valid scenarios when a numeric input overflows during conversion.
+- Add a seeded mutation challenge and matched-HiGHS comparisons with direct highspy, CVXPY and Pyomo, plus a prospective independent participant protocol. These development experiments do not establish general performance or productivity superiority.
+
 - Add a reproducible production pilot kit with a directly formulated SciPy reference, attributed educational data, explicit synthetic diagnostics, balanced machine timings, strict replay in two clean wheel installations and blank participant feedback forms.
 - Fix installed-wheel release qualification to validate and execute the complete contiguous public-example sequence instead of assuming exactly 24 examples.
 

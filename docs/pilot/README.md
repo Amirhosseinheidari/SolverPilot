@@ -75,6 +75,11 @@ Formulation agreement, independent contract candidate checks and numerical optim
 
 ## Human feedback, when available
 
+For an independently observed comparison with another workflow, use the
+[prospective comparison protocol](COMPARISON-PROTOCOL.md) and its
+[blank observation template](comparison-feedback-template.json). These artifacts
+prepare a study; they do not report participant results.
+
 Copy [feedback-template.md](feedback-template.md) or [feedback-template.json](feedback-template.json) into a separate local result file. Both are blank templates; `null` means no response or measurement has been supplied. Keep unknown fields null. A participant can review the generated report, explain a decision and a capacity shortage in their own words, and identify requirements missing from the contract. Only record responses they actually provide.
 
 The form distinguishes observed elapsed time from estimates. Record a manual baseline only when a person actually performs or measures that baseline under a described task. Do not convert machine timings into manual effort saved. Use a participant alias where needed; sharing feedback remains an explicit participant decision.

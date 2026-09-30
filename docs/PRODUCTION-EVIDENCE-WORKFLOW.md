@@ -52,6 +52,11 @@ propagates errors. Names, including generated error names, remain unique.
 Cancellation stops input collection and subsequent solves; `input_complete`
 reports whether the finite source was exhausted. Already collected unexecuted
 rows are cancelled, with no invented execution or zero profit.
+The token can be supplied as `cancellation=token` or inside `SolveOptions`;
+both provide cancellation between scenarios, not interruption of an active
+native solve. A direct token takes precedence when both are supplied.
+Numeric conversion overflow is an input validation error and follows the same
+`on_error` policy as other malformed scenario values.
 
 `SolveOptions` controls the existing solver. Its feasibility tolerances also
 govern candidate checks and the capacity-shortfall diagnostic. Each scenario's
