@@ -1,0 +1,7 @@
+{
+  "before_test": true,
+  "implementation_sha256": "50edb3ea497a44bbb12229da526b41b0e37bd569ba1891955e16a1201964f4b6",
+  "model_sha256": "ce5546ba0f53220070ca02c45e66ecd313772c3f1c1d5e6f09bcd159ca3f9d2e",
+  "retuning_allowed": false,
+  "sha256": "d236d6b6b9fcc7dc57d117b8b5f2c1a1e93084f152608dcd1718ab2af749aea6"
+}

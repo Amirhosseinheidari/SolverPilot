@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Recover transformed equality fill-in and retain original inequality/bound slack penalties for LP certificates; expose native basis hints and budgeted optional exact escalation. pilot4 now passes both numerical recovery and a separate zero-gap SCIP/VIPR proof replay.
+- Add validated repeated-routing sessions, a versioned 13-feature shallow tree, family-isolated per-leaf calibration, and manifest-driven cold/amortized development qualification. Automatic learned routing remains disabled.
+- Charge routing overhead before each repetition's cutoff; tolerate disappearing native proof fragments and separately bound long rational numerator/denominator tokens.
+
 - Speed up exact binary64 certificate arithmetic while preserving exact Fraction results; account for setup and verification in call budgets and add explicit isolated CPU deadline calls.
 - Add opt-in bounded equality-basis LP certificate recovery without relaxing validation; incomplete cases remain unverified.
 - Add training-only total-cost gain guards bound to model, source, environment and time budget; automatic learned routing stays disabled.

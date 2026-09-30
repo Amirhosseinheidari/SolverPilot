@@ -5,6 +5,7 @@ Dual ordering is linear rows then variable bounds; positive multipliers bind
 upper bounds and negative multipliers bind lower bounds.
 """
 from dataclasses import dataclass
+from time import perf_counter
 import numpy as np
 from scipy import sparse
 from solverpilot.problem import LinearProblem, QuadraticProblem, ObjectiveSense
@@ -24,10 +25,16 @@ class OptimalityCheck:
     reason: str
     dual_bound: float | None = None
     domain_refined: bool = False
+    recovery_diagnostics: dict | None = None
 
 
 def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
-                      extended_recovery=False) -> OptimalityCheck:
+                      extended_recovery=False, recovery_options=None) -> OptimalityCheck:
+    call_start = perf_counter()
+    options = dict(recovery_options or {})
+    limit = options.get('time_limit_s', 10.) if extended_recovery else None
+    if limit is not None and (isinstance(limit, bool) or not np.isfinite(limit) or limit <= 0):
+        raise ValueError('recovery time limit must be finite and positive')
     tol = tolerances or ValidationTolerances()
     bad = lambda reason: OptimalityCheck(False, False, False, np.inf, np.inf, np.inf, reason)
     linear = problem.linear if isinstance(problem, QuadraticProblem) else problem
@@ -78,6 +85,7 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
         residual = [p + rational(sign*c) + b for p, c, b in zip(exact_px, linear.c, exact_bty)]
         correction = box_min(residual, linear.variable_lower, linear.variable_upper)
         domain_refined = False
+        recovery_diagnostics = None
         if correction is None and isinstance(problem, LinearProblem):
             from .lp_dual import implied_lp_box, row_residual_lower_bound
             lower, upper = implied_lp_box(problem)
@@ -85,8 +93,19 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
             if correction is None:
                 correction = row_residual_lower_bound(problem, residual, lower, upper)
             if correction is None and extended_recovery:
-                from .lp_dual import equality_residual_lower_bound
-                correction = equality_residual_lower_bound(problem, residual, lower, upper)
+                from .lp_dual import equality_residual_lower_bound, dual_slack_residual_lower_bound
+                basis = options.pop('basis', None)
+                options['time_limit_s'] = None if limit is None else max(1e-12, limit-(perf_counter()-call_start))
+                recovery_diagnostics = {'equality': {}}
+                correction = equality_residual_lower_bound(problem, residual, lower, upper,
+                    diagnostics=recovery_diagnostics['equality'], **options)
+                if correction is None:
+                    remaining = None if limit is None else limit-(perf_counter()-call_start)
+                    if remaining is None or remaining > 0:
+                        options['time_limit_s'] = remaining
+                        recovery_diagnostics['dual_slack'] = {}
+                        correction = dual_slack_residual_lower_bound(problem, residual, lower, upper, y, x=x, basis=basis,
+                            diagnostics=recovery_diagnostics['dual_slack'], **options)
             domain_refined = correction is not None
         half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
         exact_primal = half_xpx + dot(sign*linear.c, x)
@@ -109,10 +128,13 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
     finite = bool(np.isfinite([st, cp, gap, allowed]).all() and np.isfinite(scale).all())
     dual_ok = finite and st_ok
     verified = primal and dual_ok and gap <= allowed and cp <= allowed
+    late = limit is not None and perf_counter()-call_start >= limit
+    if late: verified = False
     return OptimalityCheck(verified, primal, dual_ok, st, cp, gap,
                            'numerically verified KKT and domain-corrected gap' if verified else
-                           ('stationarity error has no finite lower bound' if exact_dual is None else 'certificate outside tolerances'),
-                           None if exact_dual is None else dual_value, domain_refined)
+                           ('recovery time limit exceeded' if late else
+                            'stationarity error has no finite lower bound' if exact_dual is None else 'certificate outside tolerances'),
+                           None if exact_dual is None else dual_value, domain_refined, recovery_diagnostics)
 
 
 def verify_infeasibility(problem: LinearProblem, dual, *, atol=1e-8) -> bool:

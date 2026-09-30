@@ -1,0 +1,57 @@
+{
+  "scope": "Replay consumed public cases; this is certificate diagnosis, not held-out routing.",
+  "recovery_budget_s": 30.0,
+  "observations": [
+    {
+      "instance": "netlib-pilot4",
+      "data_hash": "84461a38b1aa9f716f91660e9551682e92715c6805e6ee38995a300a3718c7ef",
+      "default_verified": false,
+      "basis_available": true,
+      "extended_check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 4.147793219999585e-13,
+        "complementarity_inf": 1.7791412024468719e-12,
+        "gap": 4.2418345367031843e-07,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": -2581.139259308071,
+        "domain_refined": true,
+        "recovery_diagnostics": {
+          "equality": {
+            "reason": "no_equality_pivot",
+            "pivots": 170,
+            "nonzero_visits": 5273,
+            "elapsed_s": 0.16787616600004185
+          },
+          "dual_slack": {
+            "reason": "bounded",
+            "pivots": 478,
+            "nonzero_visits": 107025,
+            "elapsed_s": 6.474818110000001
+          }
+        }
+      },
+      "recovery_s": 6.794790324000019
+    },
+    {
+      "instance": "miplib-unitcal_7",
+      "data_hash": "0f0c761a294004f877f6249360a3fe02e57d24338e106256c5b01e771f5b89a6",
+      "default_verified": true,
+      "basis_available": true,
+      "extended_check": {
+        "verified": true,
+        "primal_valid": true,
+        "dual_valid": true,
+        "stationarity_inf": 4.729372449219227e-11,
+        "complementarity_inf": 7.694325176998972e-11,
+        "gap": 1.2536753817832976e-09,
+        "reason": "numerically verified KKT and domain-corrected gap",
+        "dual_bound": 19387553.381270695,
+        "domain_refined": true,
+        "recovery_diagnostics": null
+      },
+      "recovery_s": 1.0599620519999462
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "candidates": [
+    "highs-simplex",
+    "highs-ipm"
+  ],
+  "description": "Eight deterministic, different structural templates. Consumed development evidence; no public/generalization promotion.",
+  "protocol": {
+    "calibration_min_families": 2,
+    "cutoff_s": 2.0,
+    "min_leaf_families": 2,
+    "repeats": 2,
+    "reuse_count": 20
+  },
+  "schema": "solverpilot.lp-v2-development-manifest.v1",
+  "scope": "development",
+  "splits": {
+    "calibration": [
+      {
+        "data_hash": "050a35eb0c559a4889d0db2233c0ad9de2a6e1258aa76dbe47a2003cee32d06f",
+        "family": "synthetic-template:transport",
+        "format": "linear-json",
+        "name": "demo-transport",
+        "path": "transport.json",
+        "raw_sha256": "83a1e99153f9fa07813400ae23f638d46ee94278e15262406b7a19f57650dbaf"
+      },
+      {
+        "data_hash": "e94f3197e3474ecd63a55425675d1f52b36fccb097a7c901b5b141dc1ccde87f",
+        "family": "synthetic-template:epigraph",
+        "format": "linear-json",
+        "name": "demo-epigraph",
+        "path": "epigraph.json",
+        "raw_sha256": "bcf57ed6824cc4744762dbd5c79f3cd5683668e1481307f643cbe772a5630c40"
+      }
+    ],
+    "test": [
+      {
+        "data_hash": "30e28daf294a6c195cdaa4752104d3a948a1954dd5136bba21f1a40f88219db3",
+        "family": "synthetic-template:triangular-equality",
+        "format": "linear-json",
+        "name": "demo-triangular-equality",
+        "path": "triangular-equality.json",
+        "raw_sha256": "e896aac7f94e0654fe5aa728de59b212ccb100734c36604c0560109821ba86dc"
+      },
+      {
+        "data_hash": "c2455f6bbfb1c44b27645fdaa7798e1660f28274e0887a0ccc7ddaa27c5075fb",
+        "family": "synthetic-template:ranged-band",
+        "format": "linear-json",
+        "name": "demo-ranged-band",
+        "path": "ranged-band.json",
+        "raw_sha256": "90d10409d7d081d04b232d91941ee5ac4cef28b01707a69df7413765d4267d16"
+      }
+    ],
+    "train": [
+      {
+        "data_hash": "3f19c5ea03659d3d3dc79c4a091eb6fe56785c554fcddfa0c32eb99d9917943e",
+        "family": "synthetic-template:box",
+        "format": "linear-json",
+        "name": "demo-box",
+        "path": "box.json",
+        "raw_sha256": "9837a49d0ee71d5d200b209548a390ceee6e21c42dc3b67e22b944053bf853f3"
+      },
+      {
+        "data_hash": "c5bf2396e0f2189c3bd205cb7f76c0219049551022d68e9186833fa050174ac4",
+        "family": "synthetic-template:packing",
+        "format": "linear-json",
+        "name": "demo-packing",
+        "path": "packing.json",
+        "raw_sha256": "e5867dc4833d65af7c7876e76cf6ee5e540d77bdf0ee8fee2b02860aaa4f322a"
+      },
+      {
+        "data_hash": "98f2ae243761fc43221bc22b54756037abe44fe02e373e31e25049fd1bcb51c4",
+        "family": "synthetic-template:covering",
+        "format": "linear-json",
+        "name": "demo-covering",
+        "path": "covering.json",
+        "raw_sha256": "3a980096805e66090445393b0adebd3f7e63c7711bee4b67dead6d8f4abc3e0f"
+      },
+      {
+        "data_hash": "349a8d665c8aecf601ae82ddf6508c587343d3771647f3afa8f3d8791fbabfed",
+        "family": "synthetic-template:path-flow",
+        "format": "linear-json",
+        "name": "demo-path-flow",
+        "path": "path-flow.json",
+        "raw_sha256": "17aab8b92b880a9308f2feb8dca11f257795f36bb774a4ff1b2d34b2dc9b8a96"
+      }
+    ]
+  }
+}

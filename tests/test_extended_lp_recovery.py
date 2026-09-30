@@ -30,6 +30,27 @@ def test_inequalities_are_never_promoted_to_equalities():
     assert equality_residual_lower_bound(p,[Fraction(1)],p.variable_lower,p.variable_upper) is None
 
 
+def test_elimination_fill_in_supplies_missing_original_column_pivot():
+    p = LinearProblem.from_data(A=[[1., 1., 0.], [1., 0., 1.]], c=[1., 0., 0.],
+        variable_lower=[-np.inf, -np.inf, 0.], variable_upper=[np.inf, np.inf, 1.],
+        constraint_lower=[3., 4.], constraint_upper=[3., 4.])
+    details = {}
+    bound = equality_residual_lower_bound(p, [Fraction(1), Fraction(0), Fraction(0)],
+        p.variable_lower, p.variable_upper, diagnostics=details)
+    assert bound == 3
+    assert details['reason'] == 'bounded' and details['pivots'] == 2
+
+
+@pytest.mark.parametrize('options,reason', [({'max_pivots': 0}, 'pivot_limit'),
+    ({'max_visits': 0}, 'work_limit'), ({'max_bits': 1}, 'bit_limit'),
+    ({'time_limit_s': 1e-12}, 'time_limit')])
+def test_recovery_explains_resource_stop(options, reason):
+    p = coupled(); details = {}
+    assert equality_residual_lower_bound(p, [Fraction(1), Fraction(0)],
+        p.variable_lower, p.variable_upper, diagnostics=details, **options) is None
+    assert details['reason'] == reason
+
+
 @pytest.mark.parametrize('seed',range(10))
 def test_exact_equality_basis_matches_constructed_unique_solution(seed):
     rng=np.random.default_rng(seed)
