@@ -85,6 +85,36 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  workflow-comparisons:
+    name: workflow comparisons / ubuntu / py3.12
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Install comparison interfaces
+        run: python -m pip install ".[test,highs]" "cvxpy==1.9.3" "pyomo==6.10.1"
+      - name: Validate challenge and comparison protocols
+        run: python -m pytest -q tests/test_production_challenge.py tests/test_compare_lp_workflows.py
+      - name: Exercise scoped mutations and all comparison adapters
+        run: |
+          python benchmarks/challenge_production_evidence.py --output challenge.json
+          python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 4 --warmups 1 --max-wall-s 120 --output comparison.json
+      - name: Preserve functional comparison observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: workflow-comparison-observations
+          path: |
+            challenge.json
+            comparison.json
+          if-no-files-found: warn
+          retention-days: 14
+
   distribution:
     name: build and verify installed wheel
     runs-on: ubuntu-latest
@@ -116,6 +146,8 @@ jobs:
           python -m pip install --target audit-site dist/*.whl
           python tools/release_runtime_requirements.py --path audit-site --output runtime-requirements.txt
           python -m pip_audit -r runtime-requirements.txt --strict --format json --output dependency-audit.json
+      - name: Qualify production pilot in two clean wheel installations
+        run: python benchmarks/qualify_production_install.py --wheel dist/solverpilot-*.whl --output pilot-install --repeats 2 --include-model
       - name: Preserve build and audit evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -126,6 +158,11 @@ jobs:
             dependency-audit.json
             runtime-requirements.txt
             installed-readiness.json
+            pilot-install/qualification.json
+            pilot-install/runtime-lock.txt
+            pilot-install/portable-pilot.zip
+            pilot-install/*/qualification.json
+            pilot-install/*-clean-replay.json
           if-no-files-found: warn
           retention-days: 14
 

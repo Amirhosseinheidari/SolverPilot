@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from dataclasses import replace
 
 import pytest
@@ -228,3 +229,242 @@ def test_invalid_nonfinite_candidate_remains_exportable_without_a_claim():
     assert payload["explanation"]["claims"] == []
     verify_evidence_bundle(payload)
     json.dumps(payload, allow_nan=False)
+
+
+@pytest.fixture(scope="module")
+def recorded_evidence_examples():
+    """Existing v1 wire shapes, including results without an independent bound."""
+    import numpy as np
+    from solverpilot import PublicStatus
+    from solverpilot.backends import ScipyHighsBackend
+    from solverpilot.validate import CandidateSolution, validate_solution
+
+    p = problem()
+    optimal = solve(p, backend="scipy-highs-ds")
+    assert optimal.optimality_evidence.independently_verified_optimal
+    examples = {"numerical": evidence_bundle(p, optimal),
+                "backend_only": evidence_bundle(p, solve(p, backend=ScipyHighsBackend()))}
+    milp = LinearProblem.from_data(A=[[1.]], c=[1.], variable_lower=[0.], variable_upper=[2.],
+        constraint_lower=[0.5], constraint_upper=[float("inf")], domains=["integer"])
+    examples["milp"] = evidence_bundle(milp, solve(milp, backend=ScipyHighsBackend()))
+    infeasible = LinearProblem.from_data(A=[[1.]], c=[1.], variable_lower=[0.], variable_upper=[1.],
+        constraint_lower=[2.], constraint_upper=[float("inf")])
+    examples["infeasible"] = evidence_bundle(infeasible, solve(infeasible, backend="scipy-highs-ds"))
+    examples["confirmed_infeasible"] = evidence_bundle(infeasible,
+        solve(infeasible, backend="scipy-highs-ds", diagnose_infeasible=True))
+    unbounded = LinearProblem.from_data(A=[[0.]], c=[-1.], variable_lower=[0.],
+        variable_upper=[float("inf")], constraint_lower=[float("-inf")], constraint_upper=[0.])
+    examples["unbounded"] = evidence_bundle(unbounded, solve(unbounded, backend="scipy-highs-ds"))
+    for name, status, backend_status in (
+        ("feasible", PublicStatus.VALID_FEASIBLE, "converged_candidate"),
+        ("limit", PublicStatus.FEASIBLE_LIMIT, "limit_feasible"),
+        ("unknown_candidate", PublicStatus.UNKNOWN, "unknown"),
+    ):
+        examples[name] = evidence_bundle(p, replace(optimal, status=status, backend_status=backend_status,
+                                                   raw_statistics={}))
+    examples["error"] = evidence_bundle(p, replace(optimal, status=PublicStatus.ERROR, x=None,
+        objective=None, validation=None, backend_status="solver_error", raw_statistics={}))
+    for name, x in (("invalid", np.array([0.])), ("unavailable", np.array([np.nan]))):
+        validation = validate_solution(p, CandidateSolution(x, None))
+        examples[name] = evidence_bundle(p, replace(optimal, status=PublicStatus.INVALID_SOLUTION, x=x,
+            objective=validation.objective_recomputed, validation=validation, raw_statistics={}))
+    # An unavailable explanation can also result from nonfinite timing metadata;
+    # it does not erase a separately recorded, valid summary.
+    examples["unavailable_with_candidate"] = evidence_bundle(p, replace(optimal,
+        trace=replace(optimal.trace, timings=replace(optimal.trace.timings, total_s=float("inf")))))
+    return examples
+
+
+@pytest.mark.parametrize("kind", ["numerical", "backend_only", "milp", "infeasible", "confirmed_infeasible",
+    "unbounded", "feasible", "limit", "unknown_candidate", "error", "invalid", "unavailable", "unavailable_with_candidate"])
+def test_existing_v1_evidence_shapes_remain_loadable(recorded_evidence_examples, kind, tmp_path):
+    payload = deepcopy(recorded_evidence_examples[kind])
+    assert payload["schema"] == "solverpilot.evidence.v1"
+    # Wording is not a machine claim: existing report prose remains valid.
+    payload["explanation"]["summary"] = "Previously recorded explanation wording."
+    payload = _seal(payload)
+    path = tmp_path / "legacy-evidence-v1.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert load_evidence_bundle(path) == payload
+
+
+def _reseal_evidence(payload):
+    payload["run"] = _seal(payload["run"])
+    return _seal(payload)
+
+
+@pytest.mark.parametrize("key", ["independently_verified_optimal", "primal_validated", "dual_verified",
+                                     "gap_verified", "backend_reported_optimal"])
+def test_resealed_optimality_flags_cannot_contradict_other_evidence(recorded_evidence_examples, key):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    assert payload["explanation"]["optimality"][key] is True
+    payload["explanation"]["optimality"][key] = False
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("kind", ["backend_only", "milp", "infeasible", "error"])
+def test_resealed_summary_cannot_promote_unverified_evidence(recorded_evidence_examples, kind):
+    payload = deepcopy(recorded_evidence_examples[kind])
+    assert payload["summary"]["optimality"] != "independent_numerical_bound"
+    payload["summary"]["optimality"] = "independent_numerical_bound"
+    payload["run"]["summary"]["optimality"] = "independent_numerical_bound"
+    with pytest.raises(ValueError, match="optimality"):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("field,value", [
+    ("valid", False), ("valid", 1), ("objective_consistent", "true"),
+    ("objective_consistent", False), ("objective_consistent", None), ("objective_difference", 1.),
+    ("objective_recomputed", None), ("objective_reported", None),
+    ("objective_recomputed", 12345.), ("max_bound_violation", "zero"),
+    ("max_constraint_violation", -1.), ("max_integrality_violation", True),
+])
+def test_resealed_validation_contradictions_and_types_rejected(recorded_evidence_examples, field, value):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    payload["explanation"]["validation"][field] = value
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("value", [1, 0, "true", None, [], {}])
+def test_evidence_flags_require_actual_booleans(recorded_evidence_examples, value):
+    for section, key in (("optimality", "independently_verified_optimal"), ("runtime", "reuse_applied")):
+        if section == "runtime" and value is None:
+            continue  # Unreported reuse has always been represented by null.
+        payload = deepcopy(recorded_evidence_examples["numerical"])
+        payload["explanation"][section][key] = value
+        with pytest.raises(ValueError):
+            verify_evidence_bundle(_reseal_evidence(payload))
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    payload["summary"]["feasible"] = payload["run"]["summary"]["feasible"] = value
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+def test_unknown_optimality_flags_are_not_a_supported_schema_extension(recorded_evidence_examples):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    payload["explanation"]["optimality"]["independent_exact_proof"] = True
+    with pytest.raises(ValueError, match="optimality flags"):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("field,value", [("feasible", 1), ("objective", True)])
+def test_nested_summary_boolean_number_equality_cannot_hide_malformed_fields(recorded_evidence_examples, field, value):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    assert payload["summary"][field] == value  # Equal in Python, but not the wire type.
+    payload["run"]["summary"][field] = value
+    with pytest.raises(ValueError, match="summary"):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("requested,elapsed,within", [
+    (1., 2., True), (2., 1., False), (1., 1., False), (0., 0., False),
+    (-1., 0., None), (1., -1., None), (None, -1., None),
+])
+def test_resealed_budget_values_cannot_contradict_recorded_times(recorded_evidence_examples, requested, elapsed, within):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    for summary in (payload["summary"], payload["run"]["summary"]):
+        summary.update(requested_time_s=requested, elapsed_s=elapsed, within_budget=within)
+    with pytest.raises(ValueError, match="summary"):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("requested,elapsed,within", [
+    (1., 1., True), (1., 2., False), (2., 1., True), (0., 0., True),
+    (None, 2., None), (1., None, None), (None, None, None),
+    (None, 2., True), (1., None, False), (1., 2., None),
+])
+def test_recorded_budget_boundary_and_nullable_legacy_fields_remain_loadable(recorded_evidence_examples, requested, elapsed, within):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    for summary in (payload["summary"], payload["run"]["summary"]):
+        summary.update(requested_time_s=requested, elapsed_s=elapsed, within_budget=within)
+    payload = _reseal_evidence(payload)
+    assert verify_evidence_bundle(payload) is payload
+
+
+def test_actual_budgeted_solve_evidence_roundtrip(tmp_path):
+    from solverpilot import SolveBudget
+    p = problem()
+    result = solve(p, backend="scipy-highs-ds", budget=SolveBudget(wall_time_s=5.))
+    assert result.validation.valid
+    path = tmp_path / "budgeted-evidence.json"
+    save_evidence_bundle(path, p, result)
+    summary = load_evidence_bundle(path)["summary"]
+    assert summary["requested_time_s"] == 5.
+    assert summary["elapsed_s"] >= 0
+    assert summary["within_budget"] is (summary["elapsed_s"] <= summary["requested_time_s"])
+
+
+@pytest.mark.parametrize("field,value", [("confirmed_infeasible", 1), ("iis_valid", "false"),
+                                        ("iis_available", 0), ("conflict_irreducible", "true")])
+def test_diagnostic_evidence_flags_are_typed(recorded_evidence_examples, field, value):
+    payload = deepcopy(recorded_evidence_examples["confirmed_infeasible"])
+    assert payload["explanation"]["diagnostics"] is not None
+    payload["explanation"]["diagnostics"][field] = value
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("mutation", ["downgrade", "wrong_kind", "duplicate", "missing", "extra", "unknown_ref"])
+def test_resealed_claims_must_agree_with_structured_evidence(recorded_evidence_examples, mutation):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    claims = payload["explanation"]["claims"]
+    optimality = next(claim for claim in claims if claim["claim_id"] == "solution.optimality")
+    if mutation == "downgrade":
+        optimality["disposition"] = "blocked"
+    elif mutation == "wrong_kind":
+        optimality["kind"] = "feasibility"
+    elif mutation == "duplicate":
+        claims.append(deepcopy(optimality))
+    elif mutation == "missing":
+        claims.remove(optimality)
+    elif mutation == "extra":
+        claims.append({**optimality, "claim_id": "solution.unrecorded_proof"})
+    else:
+        optimality["evidence_refs"] = ["result.untrusted_proof"]
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("kind,claim_id", [("infeasible", "solution.infeasibility"),
+                                         ("unbounded", "solution.unboundedness"),
+                                         ("error", "solution.feasibility")])
+def test_qualified_or_blocked_claims_cannot_be_promoted_without_evidence(recorded_evidence_examples, kind, claim_id):
+    payload = deepcopy(recorded_evidence_examples[kind])
+    claim = next(claim for claim in payload["explanation"]["claims"] if claim["claim_id"] == claim_id)
+    claim["disposition"] = "supported"
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("field,value", [("schema_version", "future"), ("schema_version", None),
+    ("schema_version", {}), ("claims", {}), ("claims", [None]), ("validation", []),
+    ("optimality", []), ("runtime", None), ("diagnostics", []), ("planner", [])])
+def test_malformed_explanation_shapes_raise_value_error(recorded_evidence_examples, field, value):
+    payload = deepcopy(recorded_evidence_examples["numerical"])
+    payload["explanation"][field] = value
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+@pytest.mark.parametrize("field", ["optimality", "claims", "validation", "planner", "diagnostics", "runtime"])
+def test_unavailable_explanation_cannot_smuggle_available_claims(recorded_evidence_examples, field):
+    payload = deepcopy(recorded_evidence_examples["unavailable"])
+    if field == "runtime":
+        payload["explanation"]["runtime"]["reuse_applied"] = True
+    elif field == "claims":
+        payload["explanation"][field] = deepcopy(recorded_evidence_examples["error"]["explanation"][field])
+    elif field == "optimality":
+        payload["explanation"][field] = {"independently_verified_optimal": False}
+    else:
+        payload["explanation"][field] = {}
+    with pytest.raises(ValueError):
+        verify_evidence_bundle(_reseal_evidence(payload))
+
+
+def test_recorded_verification_does_not_rerun_solver_or_authenticate(recorded_evidence_examples, monkeypatch):
+    def unexpected_solve(*args, **kwargs):
+        pytest.fail("loading recorded evidence must not claim to recertify it")
+    monkeypatch.setattr("solverpilot.runtime.auto.solve", unexpected_solve)
+    assert verify_evidence_bundle(recorded_evidence_examples["numerical"]) is recorded_evidence_examples["numerical"]

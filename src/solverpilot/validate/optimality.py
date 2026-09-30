@@ -6,16 +6,28 @@ upper bounds and negative multipliers bind lower bounds.
 """
 from dataclasses import dataclass
 from time import perf_counter
+
 import numpy as np
 from scipy import sparse
-from solverpilot.problem import LinearProblem, QuadraticProblem, ObjectiveSense
+
+from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem
+
+from ._certificate_arithmetic import bounded_float, box_min, dot, matvec, rational
 from .core import validate_solution
 from .result import CandidateSolution, ValidationTolerances
-from ._certificate_arithmetic import box_min, dot, matvec, rational, bounded_float
 
 
 @dataclass(frozen=True, slots=True)
 class OptimalityCheck:
+    """Numerical evidence with a bound in the original objective's coordinates.
+
+    ``dual_bound`` includes the objective offset and is a lower bound for
+    minimization or an upper bound for maximization. Its binary64 representation
+    is rounded outward; an outward infinity can represent overflow. ``None``
+    means no bound was recovered. The gap and verification tolerances are checked
+    internally before this reporting conversion.
+    """
+
     verified: bool
     primal_valid: bool
     dual_valid: bool
@@ -26,6 +38,23 @@ class OptimalityCheck:
     dual_bound: float | None = None
     domain_refined: bool = False
     recovery_diagnostics: dict | None = None
+
+
+def _original_dual_bound(linear, exact_dual):
+    if exact_dual is None:
+        return None
+    lower = linear.objective_sense is ObjectiveSense.MINIMIZE
+    exact = (exact_dual if lower else -exact_dual) + rational(linear.objective_offset)
+    rounded = bounded_float(exact)
+    outward = -np.inf if lower else np.inf
+    if np.isinf(rounded):
+        # Overflow toward the unsafe side must saturate to the largest finite
+        # float instead: +inf is not a lower bound on a finite optimum.
+        return float(np.nextafter(rounded, outward)) if rounded != outward else rounded
+    if (lower and rational(rounded) > exact) or (not lower and rational(rounded) < exact):
+        with np.errstate(over='ignore', under='ignore'):
+            rounded = float(np.nextafter(rounded, outward))
+    return rounded
 
 
 def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
@@ -93,7 +122,7 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
             if correction is None:
                 correction = row_residual_lower_bound(problem, residual, lower, upper)
             if correction is None and extended_recovery:
-                from .lp_dual import equality_residual_lower_bound, dual_slack_residual_lower_bound
+                from .lp_dual import dual_slack_residual_lower_bound, equality_residual_lower_bound
                 basis = options.pop('basis', None)
                 options['time_limit_s'] = None if limit is None else max(1e-12, limit-(perf_counter()-call_start))
                 recovery_diagnostics = {'equality': {}}
@@ -134,7 +163,7 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
                            'numerically verified KKT and domain-corrected gap' if verified else
                            ('recovery time limit exceeded' if late else
                             'stationarity error has no finite lower bound' if exact_dual is None else 'certificate outside tolerances'),
-                           None if exact_dual is None else dual_value, domain_refined, recovery_diagnostics)
+                           _original_dual_bound(linear, exact_dual), domain_refined, recovery_diagnostics)
 
 
 def verify_infeasibility(problem: LinearProblem, dual, *, atol=1e-8) -> bool:
