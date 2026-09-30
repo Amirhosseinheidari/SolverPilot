@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add frozen public LP qualification against actual default/production routes, with prior-corpus exclusions, two-reader MPS admission, complete timing/timeout accounting and process-tree deadlines.
+- Add explicit experimental environment binding that tolerates at most 1 MiB guest-RAM reporting drift while retaining raw identities and rejecting material environment or thread-setting changes.
+
 - Add an experimental, JSON-serialized cost-sensitive LP selector with training-only baselines, group-separated evaluation, measured feature/decision overhead and conservative abstention. Automatic production routing remains disabled.
 - Count every failed or late repetition in new selector experiments using PAR10; freeze protocols/models before evaluation and preserve unconsumed tests after failed validation.
 - Require correctness/accounting evidence and candidate membership for production performance overrides; report ranking inactive when an override is rejected or unused.

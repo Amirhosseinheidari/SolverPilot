@@ -1,0 +1,15 @@
+{
+  "host_recorded_date": "2026-09-29",
+  "execution_source_commit": "1415f2c048d5e3aaf4df5b994bcaff742b3ace4a",
+  "clock_note": "Guest UTC is about one day ahead of the Windows host; raw timestamp retained; measured durations use monotonic perf_counter.",
+  "files": {
+    "cohort.json": "508940793563548bf422d7e2e2f5a24b2816868240df2d49a1d60a0c87f263f6",
+    "observations.json": "9dc527653693e3de584fdf7971e560eb8d2bcc078087836398062a685346ea46",
+    "outcome-breakdown.json": "a94bd4324a789c6ede6add0a6ca255c80c609405eab2952812e3fd3be345f1f5",
+    "posthoc-diagnostics.json": "0a8d9cf3cb1bde8c6aabfa51482340268bb53db208f40249f22f6ab9ac77666f",
+    "posthoc-runner.py": "cd70e36be558c7621695d37936873006d803caf7ae5d64ccbb09e882ad92251d",
+    "protocol.json": "4d62cfb2f7f0e74536b0ccda7d0a6fefde0bd8835bab8d9db3023ef77ad13131",
+    "stress.json": "c0f1f4d88b10928b7e33bd36aea67ef0dc79d475685aad91106b8eb0bf025f1d",
+    "summary.json": "800c42e8116add5322687778ce82729534e5f157ccdcfa150f87c34bf275b7b3"
+  }
+}

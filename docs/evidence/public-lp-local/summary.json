@@ -1,0 +1,97 @@
+{
+  "instances": 24,
+  "groups": 24,
+  "outcomes": 288,
+  "cost": "mean across all repeats; independently verified within 2s API / 12s controller deadline costs full process wall; otherwise PAR10=120s",
+  "mean_par10_s": {
+    "learned": 115.08938341116668,
+    "default": 76.217861559375,
+    "production": 76.26960719027083,
+    "highs-simplex": 76.2273404004375,
+    "highs-ipm": 90.90577579908334,
+    "ortools-pdlp": 115.09579315758333
+  },
+  "verified_within_budget": {
+    "learned": 2,
+    "default": 18,
+    "production": 18,
+    "highs-simplex": 18,
+    "highs-ipm": 12,
+    "ortools-pdlp": 2
+  },
+  "independently_verified_total": {
+    "learned": 4,
+    "default": 18,
+    "production": 18,
+    "highs-simplex": 18,
+    "highs-ipm": 18,
+    "ortools-pdlp": 4
+  },
+  "comparisons": {
+    "default": {
+      "ratio": 1.510005411546611,
+      "bootstrap_95pct": [
+        1.1926279385755412,
+        2.11205282544598
+      ],
+      "p90_ratio": 42.24794021147726,
+      "no_lost_verified_solves": false
+    },
+    "production": {
+      "ratio": 1.5089809381612733,
+      "bootstrap_95pct": [
+        1.1923084437871792,
+        2.110723392530078
+      ],
+      "p90_ratio": 41.407206203948185,
+      "no_lost_verified_solves": false
+    },
+    "highs-simplex": {
+      "ratio": 1.5098176429425332,
+      "bootstrap_95pct": [
+        1.1925033686119768,
+        2.1117049800654573
+      ],
+      "p90_ratio": 40.38882566877683,
+      "no_lost_verified_solves": false
+    },
+    "highs-ipm": {
+      "ratio": 1.2660293848163517,
+      "bootstrap_95pct": [
+        1.0704908834010995,
+        1.5968308937271283
+      ],
+      "p90_ratio": 31.053833159596053,
+      "no_lost_verified_solves": false
+    },
+    "ortools-pdlp": {
+      "ratio": 0.9999443094639621,
+      "bootstrap_95pct": [
+        0.999817364252522,
+        1.0
+      ],
+      "p90_ratio": 1.0,
+      "no_lost_verified_solves": true
+    }
+  },
+  "decision_reasons": {
+    "outside_training_support": 48
+  },
+  "objective_mismatches": [],
+  "gates": {
+    "complete_outcomes": true,
+    "no_verified_objective_mismatch": true,
+    "at_least_20_groups": true,
+    "some_in_support_decisions": false,
+    "default_gain_at_least_3_percent": false,
+    "default_bootstrap_upper_below_one": false,
+    "default_p90_at_most_1_25": false,
+    "default_no_lost_verified_solves": false,
+    "production_gain_at_least_3_percent": false,
+    "production_bootstrap_upper_below_one": false,
+    "production_p90_at_most_1_25": false,
+    "production_no_lost_verified_solves": false
+  },
+  "public_gate_passed": false,
+  "automatic_production_routing_enabled": false
+}
