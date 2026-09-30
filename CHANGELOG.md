@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Link execution identity across summaries, reports, history and versioned evidence exports; retain replay lineage and code-source checks, with explicit raw-statistics/model export opt-ins and legacy v1 reading.
+- Add an immutable continuous-production contract, optional minimum commitments, independent formulation/candidate checks, named scenario comparisons, scoped capacity-shortfall diagnostics, Markdown/JSON studies and checked replay.
+- Preserve completed worker identities across batch modes and record malformed scenario entries without losing later scenarios.
+
 - Recover transformed equality fill-in and retain original inequality/bound slack penalties for LP certificates; expose native basis hints and budgeted optional exact escalation. pilot4 now passes both numerical recovery and a separate zero-gap SCIP/VIPR proof replay.
 - Add validated repeated-routing sessions, a versioned 13-feature shallow tree, family-isolated per-leaf calibration, and manifest-driven cold/amortized development qualification. Automatic learned routing remains disabled.
 - Charge routing overhead before each repetition's cutoff; tolerate disappearing native proof fragments and separately bound long rational numerator/denominator tokens.

@@ -57,6 +57,8 @@ def _sha256_text(text: str) -> str:
 
 
 def _run_id_from_result(result: SolveResult) -> str:
+    if result.execution_id:
+        return result.execution_id
     raw = "\0".join(
         [
             result.trace.problem_data_hash,
@@ -471,7 +473,7 @@ class HistoryStore:
             total_s=trace.timings.total_s,
             environment_id=environment_id,
             trace_created_at_utc=trace.created_at_utc,
-            metadata=dict(metadata or {}),
+            metadata={**dict(metadata or {}), "execution_id": result.execution_id},
         )
         self.record_solve(record)
         return record

@@ -1,5 +1,6 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from solverpilot._identity import new_execution_id
 from typing import Any
 import importlib.util
 import numpy as np
@@ -21,6 +22,7 @@ class NLPSolveResult:
     kkt_stationarity_inf:float|None
     raw_statistics:dict[str,Any]
     problem_data_hash: str | None = None
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
     def __post_init__(self):
         from solverpilot._immutability import deep_freeze, readonly_array

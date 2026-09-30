@@ -14,6 +14,7 @@ class ScenarioResult:
     summary: object = None
     result: object = None
     error: str | None = None
+    problem: object = None
 
     def __post_init__(self):
         object.__setattr__(self, "updates", deep_freeze(self.updates))
@@ -38,15 +39,17 @@ def scenario_sweep(
                 item = next(source)
             except StopIteration:
                 return
-            name, updates = item if isinstance(item, tuple) else (str(index), item)
-            updates = dict(updates)
+            name, updates = str(index), {}
             try:
+                name, updates = item if isinstance(item, tuple) else (str(index), item)
+                updates = dict(updates)
                 result = session.solve(
                     updates={**baseline, **updates},
                     **({} if options is None else {"options": options}),
                 )
                 summary = summarize(result)
-                yield ScenarioResult(index, str(name), updates, summary, result)
+                yield ScenarioResult(index, str(name), updates, summary, result,
+                                     problem=session.problem_snapshot())
             except Exception as exc:
                 if on_error == "raise":
                     raise

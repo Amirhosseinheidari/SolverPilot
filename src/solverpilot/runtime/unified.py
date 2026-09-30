@@ -4,6 +4,7 @@ from dataclasses import dataclass, field, replace
 from typing import Any, Mapping
 from uuid import uuid4
 from solverpilot._immutability import deep_freeze, readonly_array
+from solverpilot._identity import execution_id
 from .options import SolveOptions
 
 
@@ -30,6 +31,10 @@ class SolutionSummary:
             object.__setattr__(self, "x", readonly_array(self.x))
         if self.assignment is not None:
             object.__setattr__(self, "assignment", deep_freeze(self.assignment))
+
+    @property
+    def execution_id(self) -> str:
+        return self.run_id
 
 
 def summarize(result: Any) -> SolutionSummary:
@@ -102,6 +107,7 @@ def summarize(result: Any) -> SolutionSummary:
         else getattr(result, "problem_data_hash", getattr(result, "problem_hash", None)),
         getattr(result, "x", None),
         getattr(result, "assignment", None),
+        run_id=execution_id(result) or "",
         optimality_reason=proof_reason,
         termination_evidence=termination_evidence,
         requested_time_s=requested,

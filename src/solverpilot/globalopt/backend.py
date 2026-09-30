@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field, replace, asdict
+from solverpilot._identity import new_execution_id
 from importlib.util import find_spec
 from threading import RLock
 from time import perf_counter
@@ -24,6 +25,7 @@ class GlobalSolveResult:
     validation: ValidationReport
     raw_statistics: dict
     problem_data_hash: str
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
     def __post_init__(self):
         if self.x is not None:

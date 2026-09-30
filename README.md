@@ -18,6 +18,9 @@ The subsequent [public-workload challenge](docs/evidence/public-lp-local/README.
 failed its promotion gate, so the synthetic-trained policy remains experimental.
 The follow-up [robust LP work](docs/ROBUST-LP.md) adds conservative abstention,
 public retraining and independently checked residual-bound recovery.
+The [production evidence workflow](docs/PRODUCTION-EVIDENCE-WORKFLOW.md) adds
+stable execution identity, explicit export policies, and a complete capacity
+study with independent template-contract checks, named comparisons and replay.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 

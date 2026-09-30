@@ -59,3 +59,4 @@ Optional scripts exit successfully with an explanatory message when their verifi
 
 - `26_evidence_and_deadline.py`: separate feasibility, independent evidence and deadline compliance.
 - `27_extended_lp_recovery.py`: exact slack-penalty recovery of a numerical LP certificate.
+- `28_production_evidence_workflow.py`: capacity scenarios, independent contract checks, linked execution evidence, history and replay.
