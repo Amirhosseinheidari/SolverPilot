@@ -28,7 +28,7 @@ Batch accepts canonical LP/QP, uses spawn and requires a script main guard. Time
 
 ReoptimizationSession owns a model clone and serializes update+solve. Session/PersistentSession serialize their public methods, but direct external model/backend mutations require caller coordination. Compiler caches are not shared mutable workspaces for uncoordinated modeling. Reuse is conditional on structure/settings and is not guaranteed faster. Session history can intentionally grow.
 
-PDLP supports only continuous LP/nonnegative diagonal QP and is process-isolated. It is not automatically selected. Exact SCIP and GPU readiness probes do not qualify execution; neither corresponding execution adapter is shipped.
+PDLP supports only continuous LP/nonnegative diagonal QP and is process-isolated. It is not automatically selected. Exact SCIP and GPU readiness probes do not qualify execution. Separate execution adapters exist in the development source, but are not included in the published 0.4 wheel.
 
 CP-SAT remains process-isolated to avoid known HiGHS ABI collisions. Reference CP and exact TSP/VRP are exhaustive and only suitable for small oracle cases.
 
@@ -36,7 +36,7 @@ CP-SAT remains process-isolated to avoid known HiGHS ABI collisions. Reference C
 
 Soft helpers accept affine relations and require explicit penalty use in the objective. Lexicographic solving currently supports canonical LP/MILP with linear objectives; locks include numerical tolerances. Named conflict diagnostics support LP/MILP. Named values reject stale compiled models and retain IDs for duplicate labels.
 
-Learned routing remains disabled; OOD indicators are not calibrated probabilities. History is opt-in plaintext SQLite; user metadata can be sensitive. Extension registry mutation requires caller coordination. Development pickle caches are trusted artifacts, not a safe untrusted interchange format.
+Automatic learned routing remains disabled. The development [LP selector](docs/LEARNED-LP.md) is an experimental training/shadow-evaluation API, not production authority. Its feature-range guard does not detect every distribution shift, and OOD indicators are not calibrated probabilities. History is opt-in plaintext SQLite; user metadata can be sensitive. Extension registry mutation requires caller coordination. Development pickle caches are trusted artifacts, not a safe untrusted interchange format.
 
 ## Qualification
 

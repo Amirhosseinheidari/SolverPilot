@@ -79,6 +79,10 @@ def validate_split_records(
 
     group_splits: dict[str, set[str]] = {}
     for r in records:
+        if r.split not in _ALLOWED_SPLITS:
+            errors.append(f"invalid split for {r.instance!r}: {r.split!r}")
+        if not r.instance or r.group == "":
+            errors.append("empty instance or group in split artifact")
         group = r.group if r.group is not None else r.instance
         group_splits.setdefault(group, set()).add(r.split)
     leaked = sorted(group for group, splits in group_splits.items() if len(splits) > 1)

@@ -1,0 +1,32 @@
+{
+  "model_sha256": "90333470414abd395b1a688006a5dc691258c99e160af394af34c8a9504806f2",
+  "protocol_sha256": "839f77fd5cfb1fccfa7cf47b70be17f90a02858021081aa3e4e06ddbd81f789b",
+  "split": "validation",
+  "instances": 12,
+  "groups": 6,
+  "baseline": "ortools-pdlp",
+  "baseline_par10_mean_s": 0.3725647773333331,
+  "policy_par10_mean_s": 0.09073751737500164,
+  "policy_to_baseline": 0.24354829789456706,
+  "bootstrap_95pct": [
+    0.08195644592119641,
+    0.47739592063415986
+  ],
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 314159,
+  "p90_ratio": 0.39188094150881086,
+  "switches": 11,
+  "gates": {
+    "enough_groups": true,
+    "at_least_two_switches": true,
+    "three_percent_improvement": true,
+    "bootstrap_upper_below_one": true,
+    "p90_slowdown_at_most_25_percent": true,
+    "no_lost_verified_solves": true
+  },
+  "research_gate_passed": true,
+  "production_authorized": false,
+  "verified_repeats": 24,
+  "baseline_verified_repeats": 24,
+  "cost_definition": "mean of all repeats; unsuccessful/late repeat = 10*cutoff; plus measured decision cost"
+}
