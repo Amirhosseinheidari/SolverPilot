@@ -2,6 +2,10 @@
 
 > **Current version:** `0.4`. Repairs near-indefinite QP certificates and adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, bounded LP witness recovery and reuse observations. Historical `0.1.0rc2` correctness/trust hardening remains in place. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for examples and precise guarantees.
 
+Development after 0.4: an explicit [exact LP/MILP certificate API](docs/EXACT-MILP.md)
+is being qualified separately. It requires exact SCIP and VIPR executables and is
+not part of the published 0.4 wheel.
+
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
 The project is deliberately conservative about claims: candidate solutions are independently validated where possible, backend capabilities are version/evidence aware, and local or backend-reported success is not silently promoted to a stronger proof category.

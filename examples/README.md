@@ -52,3 +52,7 @@ Optional scripts exit successfully with an explanatory message when their verifi
 - `22_global_optimization_optional.py`: bounded general MINLP with nonsmooth terms and indicators.
 - `23_generalized_power_optional.py`: multidimensional power cone.
 - `24_pdlp_and_certificates_optional.py`: CPU PDLP and independent LP witness recovery.
+
+## Development after 0.4
+
+- `25_exact_milp_optional.py`: optional exact SCIP execution and independent VIPR certificate verification.

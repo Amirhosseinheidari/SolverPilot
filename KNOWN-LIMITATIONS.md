@@ -2,6 +2,11 @@
 
 Version 0.4 adds explicit global optimization, generalized power cones, CPU PDLP and conservative certificate recovery. See the [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for exact scope and APIs.
 
+Development after 0.4 adds an explicit [exact LP/MILP path](docs/EXACT-MILP.md).
+It needs separately built trusted executables and does not qualify generic MIQP/MINLP,
+unboundedness, or unsupported presolve transformations. The release-specific statements
+below describe the published 0.4 wheel.
+
 ## Numerical evidence
 
 Primal validation is independent of backend termination. Continuous LP/QP duals from SciPy LP, native HiGHS and OSQP can additionally be checked for stationarity, complementarity and numerical gap. These are tolerance-qualified checks, not exact-arithmetic proofs. MILP/global nonlinear optimality is not proved by primal feasibility. Backend-only infeasible/unbounded statuses remain claims unless a certificate is checked.

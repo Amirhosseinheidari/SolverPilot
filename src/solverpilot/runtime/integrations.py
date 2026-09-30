@@ -24,10 +24,11 @@ class IntegrationReadiness:
 
 
 def integration_readiness():
-    """Report prerequisites for future exact MILP and cuOpt qualification.
+    """Report installed PySCIPOpt/cuOpt prerequisites without executing either.
 
-    ``qualified`` deliberately remains false: neither integration has an
-    independently tested SolverPilot execution adapter in this release.
+    ``qualified`` remains false because a package/parameter probe does not run a
+    solve or check a certificate. The optional exact CLI API takes explicit
+    executable paths independently of the PySCIPOpt installation inspected here.
     """
     from solverpilot.globalopt import SCIPGlobalBackend
 
@@ -35,7 +36,7 @@ def integration_readiness():
         scip = SCIPGlobalBackend().capabilities()
         exact = bool(scip.get("exact_milp") and scip.get("certificate_output"))
         exact_reason = (
-            "exact parameters detected; external certificate verification and adapter qualification still required"
+            "exact parameters detected; use solverpilot.exact with explicitly qualified SCIP/VIPR executables"
             if exact
             else "installed SCIP does not expose both exact mode and certificate output"
         )
@@ -43,6 +44,8 @@ def integration_readiness():
         scip = {"available": False, "probe_error": type(exc).__name__}
         exact = False
         exact_reason = "SCIP runtime could not be loaded"
+    scip = dict(scip, explicit_cli_api="solverpilot.exact.solve_exact",
+                cli_executables_probed=False)
     linux = platform.system() == "Linux"
     installed = find_spec("cuopt") is not None
     gpu = {
