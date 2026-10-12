@@ -125,8 +125,13 @@ not another PyPI release. Its SHA-256 is
 `3b8c5337507ab7a5ca609edc06163433a6364dc6b2afc44aac8c135ab5892196`;
 its Python-source digest is
 `ee0e8ae320ddf4f6a46ceace3d6f49811dab778a974639731b4fc6b1b7dab7b2`.
-All 246 Python files match the final checkout. Result tables were written after
-the wheel build; wheel metadata therefore predates these tables. These hashes
+All 246 Python files match the measured Windows checkout. Seven pre-existing
+files use CRLF locally and LF in Git; every Python AST matches. The Git source
+byte digest is `b45028829db169c3cd82464c4e918f9416414de872f9ede40f0e6cdcc810da30`.
+The JSON evidence lists the seven files. Use the exact supplied wheel for strict
+replay rather than treating these different byte identities as interchangeable.
+Result tables were written after the wheel build; wheel metadata therefore
+predates these tables. These hashes
 identify source bytes, not author identity or the running native binary's trust.
 
 Windows 11 / Python 3.12.14 / highspy 1.15.1 observations:

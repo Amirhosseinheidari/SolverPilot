@@ -81,6 +81,22 @@
     "repeat_reason": "Final review found a concurrent configuration snapshot race and strict routing hash collisions; repeat the same protocol after fixes, preserve all predecessor observations."
   },
   "source_sha256": "ee0e8ae320ddf4f6a46ceace3d6f49811dab778a974639731b4fc6b1b7dab7b2",
+  "source_identity": {
+    "measured_source_is_exact_wheel_bytes": true,
+    "python_files": 246,
+    "git_python_source_sha256": "b45028829db169c3cd82464c4e918f9416414de872f9ede40f0e6cdcc810da30",
+    "line_endings_only_differences": [
+      "conic/backend.py",
+      "cp/reference.py",
+      "exact/runtime.py",
+      "globalopt/backend.py",
+      "minlp/orchestrator.py",
+      "nlp/backend.py",
+      "runtime/batch.py"
+    ],
+    "all_python_asts_match_git": true,
+    "note": "Seven pre-existing Windows files have CRLF locally and LF in Git. Strict replay uses the provided exact wheel; the Git byte digest is intentionally distinct."
+  },
   "regression": {
     "passed": 1995,
     "skipped": 49,
