@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PILOT_FILES = ("README.md", "GUIDE-FA.md", "nd-production.json",
                "synthetic-minimum-commitments.json", "feedback-template.md",
                "feedback-template.json", "LICENSE-ND-PYOMO-CODE.txt",
-               "COMPARISON-PROTOCOL.md", "comparison-feedback-template.json")
+               "COMPARISON-PROTOCOL.md", "comparison-feedback-template.json", "PARTICIPANT-RUN.md")
 
 
 def digest(path):

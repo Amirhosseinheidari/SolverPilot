@@ -1,5 +1,8 @@
 # Production workflow technical trial
 
+The [participant run checklist](PARTICIPANT-RUN.md) describes the first observed
+session once an independent participant and permitted operating data are available.
+
 This folder provides an attributed public educational example, a separate synthetic diagnostic case, and blank feedback templates. It supports a reproducible technical trial of the continuous-production workflow. It contains no real participant feedback, customer operating data, measured human time savings or evidence of adoption. A real human pilot requires a participant to review the workflow with their own stated task and provide feedback.
 
 ## Inputs and reference results

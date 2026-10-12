@@ -35,6 +35,7 @@ import numpy as np
 from scipy import sparse
 
 WORKFLOWS = ("solverpilot", "direct-highspy", "cvxpy-highs", "pyomo-appsi-highs")
+AVAILABLE_WORKFLOWS = WORKFLOWS + ("solverpilot-reuse",)
 PRESETS = {"smoke": (8,), "quick": (16, 64), "standard": (32, 128, 512)}
 CHECK_TOLERANCES = {"atol": 1e-7, "rtol": 1e-9, "objective_atol": 1e-7,
                     "objective_rtol": 1e-7}
@@ -50,6 +51,7 @@ class Config:
     max_wall_s: float = 120.0
     solve_limit_s: float = 5.0
     workflows: tuple[str, ...] = WORKFLOWS
+    presolve: bool = False
 
     def __post_init__(self):
         if self.preset not in PRESETS:
@@ -66,8 +68,10 @@ class Config:
             raise ValueError("time budgets must be positive and bounded")
         object.__setattr__(self, "workflows", tuple(self.workflows))
         if (not self.workflows or len(set(self.workflows)) != len(self.workflows)
-                or not set(self.workflows) <= set(WORKFLOWS)):
+                or not set(self.workflows) <= set(AVAILABLE_WORKFLOWS)):
             raise ValueError("workflows must be a nonempty unique supported selection")
+        if not isinstance(self.presolve, bool):
+            raise TypeError("presolve must be boolean")
 
 
 def json_safe(value):
@@ -236,6 +240,7 @@ class DirectHighs:
     def __init__(self, case, settings):
         import highspy as hp
         self.hp, self.h = hp, hp.Highs()
+        self.limit = settings["time_limit"]
         for key, value in settings.items():
             self.ok(self.h.setOptionValue(key, value))
         A = case.A.tocsc()
@@ -259,6 +264,7 @@ class DirectHighs:
     def solve(self, warm):
         # kWarning may report a legitimate time/iteration limit; retain its
         # actual model status and any incumbent instead of hiding the outcome.
+        self.ok(self.h.setOptionValue("time_limit", self.h.getRunTime() + self.limit))
         run_status = self.h.run()
         if run_status == self.hp.HighsStatus.kError:
             raise RuntimeError(f"HiGHS run returned {run_status}")
@@ -275,11 +281,13 @@ class DirectHighs:
 class SolverPilot:
     reuse = "canonical_rebuild_and_cold_native_solve"
     builtin_validation = True
+    native_reuse = False
 
     def __init__(self, case, settings):
         from solverpilot.backends import HighspyNativeBackend
-        self.backend = HighspyNativeBackend(threads=settings["threads"], presolve=False,
-                                           solver="simplex", time_limit_s=settings["time_limit"])
+        self.backend = HighspyNativeBackend(threads=settings["threads"],
+            presolve=settings["presolve"] == "on", solver="simplex",
+            time_limit_s=settings["time_limit"], **({"reuse": True} if self.native_reuse else {}))
         self.update(case)
 
     def update(self, case):
@@ -293,7 +301,22 @@ class SolverPilot:
         return {"status": r.status.value, "optimal": r.backend_status == "optimal",
                 "x": r.x, "objective": r.raw_statistics.get("objective_internal"),
                 "iterations": r.raw_statistics.get("simplex_iteration_count"),
-                "internal_candidate_valid": bool(r.validation and r.validation.valid)}
+                "internal_candidate_valid": bool(r.validation and r.validation.valid),
+                "solverpilot_phases": asdict(r.trace.timings),
+                "solverpilot_evidence": {**asdict(r.optimality_evidence),
+                    "independently_verified_optimal": r.optimality_evidence.independently_verified_optimal},
+                "native_reuse_applied": r.trace.reuse_applied,
+                "native_reuse_mode": r.trace.reuse_mode}
+
+    def close(self):
+        close = getattr(self.backend, "close", None)
+        if callable(close):
+            close()
+
+
+class SolverPilotReuse(SolverPilot):
+    reuse = "opt_in_fixed_matrix_continuous_simplex_native_model_updates"
+    native_reuse = True
 
 
 class CvxpyHighs:
@@ -356,7 +379,10 @@ class PyomoHighs:
     def __init__(self, case, settings):
         import pyomo.environ as pyo
         from pyomo.contrib.appsi.solvers.highs import Highs
+        if version("pyomo") != "6.10.1":
+            raise RuntimeError("Pyomo cumulative-clock adapter is qualified only for 6.10.1")
         self.pyo, self.model, self.solver = pyo, pyo.ConcreteModel(), Highs()
+        self.limit = settings["time_limit"]
         m, A = self.model, case.A
         m.x = pyo.Var(range(len(case.c)), bounds=lambda _, j: (case.lower[j], case.upper[j]))
         m.c = pyo.Param(range(len(case.c)), mutable=True, initialize=dict(enumerate(case.c)))
@@ -380,6 +406,14 @@ class PyomoHighs:
 
     def solve(self, warm):
         from pyomo.contrib.appsi.base import TerminationCondition
+        # Pinned APPSI preserves this native handle but assigns an absolute
+        # HiGHS time limit each call. Offset both sources of that option so
+        # updates receive the same per-run allowance as the other adapters.
+        native = self.solver._solver_model
+        elapsed = 0.0 if native is None else float(native.getRunTime())
+        limit = elapsed + self.limit
+        self.solver.config.time_limit = limit
+        self.solver.highs_options["time_limit"] = limit
         result = self.solver.solve(self.model)
         x = None
         if result.best_feasible_objective is not None:
@@ -392,7 +426,7 @@ class PyomoHighs:
 
 def discover(config):
     factories, availability = {}, {}
-    settings = {"solver": "simplex", "presolve": "off", "threads": 1,
+    settings = {"solver": "simplex", "presolve": "on" if config.presolve else "off", "threads": 1,
                 "time_limit": config.solve_limit_s, "output_flag": False}
     native = {"version": None, "extension_sha256": None}
     try:
@@ -411,13 +445,15 @@ def discover(config):
         reason = f"shared highspy unavailable: {type(exc).__name__}: {exc}"
         return {}, {name: {"available": False, "reason": reason} for name in config.workflows}, settings, native
     classes = dict(zip(WORKFLOWS, (SolverPilot, DirectHighs, CvxpyHighs, PyomoHighs), strict=True))
+    classes["solverpilot-reuse"] = SolverPilotReuse
     apis = dict(zip(WORKFLOWS, ("solverpilot.execute with HighspyNativeBackend",
         "highspy.Highs public matrix/update API", "cvxpy.Problem.solve(HIGHS), DPP parameters",
         "pyomo.contrib.appsi.solvers.highs.Highs.solve, mutable parameters"), strict=True))
+    apis["solverpilot-reuse"] = "solverpilot.execute with opt-in persistent HighspyNativeBackend"
     for name in config.workflows:
         try:
             formulation_probes = []
-            if name == "solverpilot":
+            if name in {"solverpilot", "solverpilot-reuse"}:
                 import_module("solverpilot")
             elif name == "cvxpy-highs":
                 cp = import_module("cvxpy")
@@ -455,6 +491,11 @@ def run_sequence(factory, cases, mode, settings, deadline):
         if perf_counter() >= deadline:
             rows.append(row)
             continue
+        if mode == "cold" and adapter is not None:
+            close = getattr(adapter, "close", None)
+            if callable(close):
+                close()
+            adapter = None
         start = perf_counter()
         try:
             fresh = mode == "cold" or adapter is None
@@ -476,11 +517,20 @@ def run_sequence(factory, cases, mode, settings, deadline):
                 workflow_s=solved - start, construction_or_update_s=built - start,
                 solve_api_s=solved - built, independent_check_s=checked - solved,
                 checked_total_s=checked - start)
+            for field in ("solverpilot_phases", "solverpilot_evidence", "native_reuse_applied", "native_reuse_mode"):
+                if field in output:
+                    row[field] = output[field]
         except Exception as exc:  # noqa: BLE001 -- preserve all failed benchmark observations
             row.update(state="error", error=f"{type(exc).__name__}: {exc}",
                        failed_elapsed_s=perf_counter() - start)
+            close = getattr(adapter, "close", None)
+            if callable(close):
+                close()
             adapter = None  # A failed update/solve never contaminates subsequent scenarios.
         rows.append(row)
+    close = getattr(adapter, "close", None)
+    if callable(close):
+        close()
     return rows
 
 
@@ -500,6 +550,19 @@ def summarize(rows):
         for metric in ("workflow_s", "independent_check_s", "checked_total_s"):
             values = [r[metric] for r in group if r["accepted"] and r[metric] is not None]
             item[metric] = {"count": len(values), "min": min(values) if values else None,
+                "median": float(np.median(values)) if values else None,
+                "p95": float(np.quantile(values, .95)) if values else None}
+        observed = [r for r in group if "solverpilot_evidence" in r]
+        item["solverpilot_evidence_observations"] = len(observed)
+        item["independently_verified_optimal"] = sum(
+            r["solverpilot_evidence"]["independently_verified_optimal"] for r in observed)
+        item["native_reuse_applied"] = sum(r.get("native_reuse_applied") is True for r in group)
+        item["solverpilot_phases"] = {}
+        for metric in ("backend_build_s", "backend_update_s", "solve_s", "backend_total_s",
+                       "primal_validate_s", "certificate_s", "validate_s", "total_s"):
+            values = [r["solverpilot_phases"][metric] for r in group
+                      if r["accepted"] and metric in r.get("solverpilot_phases", {})]
+            item["solverpilot_phases"][metric] = {"count": len(values),
                 "median": float(np.median(values)) if values else None,
                 "p95": float(np.quantile(values, .95)) if values else None}
         result.append(item)
@@ -547,7 +610,7 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
     complete = (len(measured) == expected and bool(measured)
                 and all(row["accepted"] for row in measured))
     dataset = [[case.payload() for case in sequence] for sequence in cases]
-    return json_safe({"schema": "solverpilot.lp-workflow-comparison.v1", "config": config_payload,
+    return json_safe({"schema": "solverpilot.lp-workflow-comparison.v2", "config": config_payload,
         "config_sha256": digest(config_payload), "runner_sha256": sha256(Path(__file__).read_bytes()).hexdigest(),
         "solverpilot_source_sha256": source_digest, "packages": packages,
         "python": platform.python_version(), "platform": platform.platform(),
@@ -568,6 +631,8 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
             "warm": "retained wrapper, objective/RHS updates; native reuse depends on recorded workflow policy",
             "timing": "workflow_s includes construction/update and solve API, including wrapper-specific checks; checked_total_s adds common checker",
             "phase_caveat": "canonicalization/native construction can occur inside solve_api_s; phases are not identical across APIs",
+            "assurance": "SolverPilot retains actual primal/dual/gap evidence flags and split validation timings; accepted is not synonymous with an independent certificate; other wrappers' certificate work is unobserved",
+            "cleanup": "explicit SolverPilot native cleanup occurs outside measured calls, after each cold solve or sequence",
             "formulation": "all adapters use native column bounds; CVXPY discovery checks representative canonical A/c/b/bounds exactly and records its interface; no extra canonicalization is timed",
             "order": "cyclic positions then reversed cycles; each case and mode counterbalanced separately",
             "complete_position_blocks": not names or config.repeats % len(names) == 0,
@@ -579,6 +644,7 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
             "scaling": "power16 is coefficient row-scale spread, not a measured matrix condition number",
             "scope_exclusions": ["integer models", "infeasible/unbounded challenges", "evidence/export parity", "SolverPilot automatic routing and production contracts", "JuMP/MOI (Julia interface not implemented)", "real-user productivity", "industrial performance claims"],
             "budget": "global soft stop checked before each operation; native time limit excludes construction/checking",
+            "retained_clock": "direct highspy, SolverPilot and pinned Pyomo APPSI offset cumulative native run clocks per call; CVXPY conic HIGHS builds a new native handle",
             "statistics": "timing summaries include accepted measured rows only; failed/unavailable counts remain explicit; p95 descriptive without significance claims"}})
 
 
@@ -593,11 +659,12 @@ def main(argv=None):
     parser.add_argument("--max-wall-s", type=float, default=120)
     parser.add_argument("--solve-limit-s", type=float, default=5)
     parser.add_argument("--workflows", default=",".join(WORKFLOWS))
+    parser.add_argument("--presolve", action=argparse.BooleanOptionalAction, default=False)
     args = parser.parse_args(argv)
     if args.output.exists():
         parser.error("output must be a new file")
     config = Config(args.preset, args.seed, args.steps, args.repeats, args.warmups,
-                    args.max_wall_s, args.solve_limit_s, tuple(args.workflows.split(",")))
+                    args.max_wall_s, args.solve_limit_s, tuple(args.workflows.split(",")), args.presolve)
     result = run_benchmark(config)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as handle:

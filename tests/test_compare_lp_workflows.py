@@ -137,6 +137,38 @@ def test_failed_update_discards_adapter_before_next_step():
     assert rows[2]["accepted"] and rows[2]["fresh_model"]
 
 
+def test_accepted_candidate_is_not_counted_as_independent_certificate():
+    class FeasibleOnly(OracleAdapter):
+        def solve(self, warm):
+            output = super().solve(warm)
+            output.update(solverpilot_phases={"primal_validate_s": .001, "certificate_s": .002},
+                solverpilot_evidence={"independently_verified_optimal": False},
+                native_reuse_applied=warm, native_reuse_mode="observed_test_reuse")
+            return output
+
+    rows = bench.run_sequence(FeasibleOnly, bench.make_sequence("production", 8, 0, 1, 4),
+                              "warm_sequence", {}, perf_counter() + 10)
+    for row in rows:
+        row.update(warmup=False, mode="warm_sequence", workflow="solverpilot")
+    groups = bench.summarize(rows)
+    assert all(row["accepted"] for row in rows)
+    assert all(item["independently_verified_optimal"] == 0 for item in groups)
+    assert sum(item["native_reuse_applied"] for item in groups) == 3
+    assert sum(item["solverpilot_evidence_observations"] for item in groups) == 4
+    assert all(item["solverpilot_phases"]["certificate_s"]["median"] == .002 for item in groups)
+    assert all(item["solverpilot_phases"]["backend_build_s"]["median"] is None for item in groups)
+
+
+def test_five_workflow_protocol_counterbalances_without_changing_legacy_default():
+    assert bench.Config().workflows == bench.WORKFLOWS
+    names = bench.AVAILABLE_WORKFLOWS
+    config = bench.Config(workflows=names, repeats=10, presolve=True)
+    assert config.presolve and "solverpilot-reuse" in config.workflows
+    orders = [bench.counterbalanced_order(names, r) for r in range(10)]
+    for name in names:
+        assert all(sum(order.index(name) == position for order in orders) == 2 for position in range(5))
+
+
 @pytest.mark.parametrize("kwargs", [{"steps": 1}, {"repeats": 0}, {"seed": -1},
     {"max_wall_s": float("nan")}, {"workflows": ("solverpilot", "solverpilot")}])
 def test_config_rejects_invalid_or_unbounded_protocol(kwargs):
@@ -154,10 +186,10 @@ def test_available_real_adapters_pass_shared_checker_for_cold_and_updates():
 import runpy
 from time import perf_counter
 b = runpy.run_path({str(PATH)!r})
-config = b['Config'](preset='smoke', steps=3, repeats=1, warmups=0)
+config = b['Config'](preset='smoke', steps=3, repeats=1, warmups=0, workflows=b['AVAILABLE_WORKFLOWS'])
 factories, availability, settings, native = b['discover'](config)
 assert native['version']
-assert {{'solverpilot', 'direct-highspy'}} <= factories.keys()
+assert {{'solverpilot', 'solverpilot-reuse', 'direct-highspy'}} <= factories.keys()
 assert settings['threads'] == 1
 if 'cvxpy-highs' in factories:
     assert len(availability['cvxpy-highs']['canonicalization_probes']) == 2
@@ -186,7 +218,15 @@ for family in ('production', 'network'):
         for mode in ('cold', 'warm_sequence'):
             rows = b['run_sequence'](factory, sequence, mode, settings, perf_counter() + 20)
             assert all(row['accepted'] for row in rows), (name, rows)
-for name in set(b['WORKFLOWS']) - factories.keys():
+            if name.startswith('solverpilot'):
+                for row in rows:
+                    phases = row['solverpilot_phases']
+                    assert abs(phases['validate_s']-phases['primal_validate_s']-phases['certificate_s']) < 1e-10
+                    assert row['solverpilot_evidence']['primal_validated']
+                if name == 'solverpilot-reuse' and mode == 'warm_sequence':
+                    assert not rows[0]['native_reuse_applied']
+                    assert all(row['native_reuse_applied'] for row in rows[1:])
+for name in set(b['AVAILABLE_WORKFLOWS']) - factories.keys():
     assert not availability[name]['available'] and availability[name]['reason']
 """
     environment = dict(os.environ)

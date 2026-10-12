@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add opt-in fixed-matrix continuous-simplex native HiGHS reuse with safe rebuilds, serialized lifecycle and independent per-call budgets.
+- Split primal/certificate timings and reuse an owned candidate's immediate primal check internally; capture configuration and mutable buffers within owned execution locks, preserve third-party lock compatibility, and keep public verification self-contained.
+- Bind experimental routing to strict serializable public settings without native handles; reject opaque, nonfinite and ambiguous mapping-key settings.
+- Qualify reuse through analytic state transitions, a separately frozen fresh-public admission set and installed-wheel comparisons; keep learned routing experimental and real participant observations pending.
+
 - Report numerical dual bounds in the original objective sense and units, including offsets and conservative outward rounding.
 - Reject contradictory recorded evidence flags, claims, objectives and budget metadata while preserving valid evidence v1 records.
 - Fix production cancellation passed through SolveOptions and retain valid scenarios when a numeric input overflows during conversion.

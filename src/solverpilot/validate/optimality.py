@@ -14,7 +14,7 @@ from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem
 
 from ._certificate_arithmetic import bounded_float, box_min, dot, matvec, rational
 from .core import validate_solution
-from .result import CandidateSolution, ValidationTolerances
+from .result import CandidateSolution, ValidationReport, ValidationTolerances
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +59,24 @@ def _original_dual_bound(linear, exact_dual):
 
 def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
                       extended_recovery=False, recovery_options=None) -> OptimalityCheck:
+    # Public verification always checks the supplied candidate independently.
+    return _verify_optimality_with_primal_report(
+        problem, x, dual, None, tolerances=tolerances, fast_reject=fast_reject,
+        extended_recovery=extended_recovery, recovery_options=recovery_options,
+    )
+
+
+def _verify_optimality_with_primal_report(
+    problem, x, dual, primal_report: ValidationReport | None, *, tolerances=None,
+    fast_reject=False, extended_recovery=False, recovery_options=None,
+) -> OptimalityCheck:
+    """Internal reuse of a report computed for this candidate and tolerances.
+
+    Only the executor supplies a report, from its own immediate validation.
+    It must exclude any inconsistent backend-reported objective: the public
+    certificate contract checks the canonical candidate, not that claim.
+    ``None`` selects the self-contained public verification path.
+    """
     call_start = perf_counter()
     options = dict(recovery_options or {})
     limit = options.get('time_limit_s', 10.) if extended_recovery else None
@@ -77,7 +95,8 @@ def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
     lo, hi = np.r_[linear.constraint_lower, linear.variable_lower], np.r_[linear.constraint_upper, linear.variable_upper]
     if x.shape != (linear.n_variables,) or y.shape != lo.shape or not np.isfinite(x).all() or not np.isfinite(y).all():
         return bad('certificate shape or finite-value check failed')
-    primal = validate_solution(problem, CandidateSolution(x), tolerances=tol).valid
+    primal = (validate_solution(problem, CandidateSolution(x), tolerances=tol)
+              if primal_report is None else primal_report).valid
     if fast_reject and not primal:
         return bad('primal candidate outside tolerances')
     sign = 1. if linear.objective_sense is ObjectiveSense.MINIMIZE else -1.

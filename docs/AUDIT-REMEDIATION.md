@@ -2,6 +2,9 @@
 
 Development after published 0.4. This work repairs the audit findings at source
 commit `736fafc`; it does not publish a new PyPI version or enable learned routing.
+The observations below were recorded for development commit `11c4aeb`. Subsequent
+[opt-in native reuse and qualification](REPEATED-LP-QUALIFICATION.md) are reported
+separately; this historical table does not describe their performance.
 
 ## Correctness repairs
 

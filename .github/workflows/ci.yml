@@ -99,11 +99,12 @@ jobs:
       - name: Install comparison interfaces
         run: python -m pip install ".[test,highs]" "cvxpy==1.9.3" "pyomo==6.10.1"
       - name: Validate challenge and comparison protocols
-        run: python -m pytest -q tests/test_production_challenge.py tests/test_compare_lp_workflows.py
+        run: python -m pytest -q tests/test_production_challenge.py tests/test_compare_lp_workflows.py tests/test_highs_reuse_qualification.py tests/test_public_reuse_qualification.py
       - name: Exercise scoped mutations and all comparison adapters
         run: |
           python benchmarks/challenge_production_evidence.py --output challenge.json
-          python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 4 --warmups 1 --max-wall-s 120 --output comparison.json
+          python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 5 --warmups 1 --max-wall-s 120 --presolve --workflows solverpilot,solverpilot-reuse,direct-highspy,cvxpy-highs,pyomo-appsi-highs --output comparison.json
+          python benchmarks/qualify_highs_reuse.py --sizes 2 4 --scales 1 --output reuse-challenge
       - name: Preserve functional comparison observations
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -112,6 +113,7 @@ jobs:
           path: |
             challenge.json
             comparison.json
+            reuse-challenge/
           if-no-files-found: warn
           retention-days: 14
 
