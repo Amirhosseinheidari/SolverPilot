@@ -104,7 +104,7 @@ jobs:
         run: |
           python benchmarks/challenge_production_evidence.py --output challenge.json
           python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 5 --warmups 1 --max-wall-s 120 --presolve --workflows solverpilot,solverpilot-reuse,direct-highspy,cvxpy-highs,pyomo-appsi-highs --output comparison.json
-          python benchmarks/qualify_highs_reuse.py --sizes 2 4 --scales 1 --output reuse-challenge
+          python benchmarks/qualify_highs_reuse.py --sizes 2 4 --scales 1 100 --output reuse-challenge
       - name: Preserve functional comparison observations
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
