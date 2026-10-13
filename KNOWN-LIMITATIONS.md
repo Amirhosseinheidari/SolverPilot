@@ -44,6 +44,10 @@ LP basis. Recovery is optional, work-bounded and incomplete, with cooperative ti
 checks. It does not provide a generic exact LP oracle. V2 leaf calibration and
 validated sessions are experimental; neither synthetic development results nor
 previously consumed public cases authorize automatic routing.
+The [v2 public qualification gate](docs/LP-V2-PUBLIC-GATE.md) now preserves test
+inputs when admission/calibration/setup fails and scores actual routed calls.
+The audited Netlib pool alone lacks enough unused families for its frozen
+calibration/test requirements; more independently audited inputs are needed.
 
 ## Qualification
 

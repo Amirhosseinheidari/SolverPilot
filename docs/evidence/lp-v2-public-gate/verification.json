@@ -1,0 +1,16 @@
+{
+  "regression": {
+    "tests": "2071",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "49",
+    "time": "136.650"
+  },
+  "passed": 2022,
+  "development_api_calls": 52,
+  "development_test_outcomes_verified": 20,
+  "public_holdout_solves": 0,
+  "independent_review": "completed; family, switch-identity and isolated-test-import findings repaired",
+  "published_to_pypi": false,
+  "automatic_routing_enabled": false
+}

@@ -22,7 +22,7 @@ from time import perf_counter
 
 import numpy as np
 from prepare_public_lp import crosscheck_reader, fetch
-from public_lp_families import family
+from public_lp_families import conservative_family
 
 from solverpilot import LinearProblem, read_mps
 from solverpilot.backends import HighspyNativeBackend
@@ -52,21 +52,6 @@ def normalize_name(name):
         name = name.removesuffix(suffix)
     name = name.removesuffix(".netlib")
     return name.removeprefix("netlib-").removeprefix("miplib-")
-
-
-def conservative_family(name):
-    name = normalize_name(name)
-    if name in {"gfrd-pnc", "sierra"}:
-        return "forest-helgason"
-    if re.match(r"^(sc205|scagr|scfxm|scorpion|scrs|scsd|sctap)", name):
-        return "ho-loute-staircase"
-    if name in {"25fv47", "bp", "bp1"}:
-        return "25fv47"
-    if name in {"fffff800", "powell"}:
-        return "powell"
-    if name.startswith("maros"):
-        return "maros-conservative"
-    return family(name)
 
 
 def metadata_cases(text):
