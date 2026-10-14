@@ -93,7 +93,7 @@ def verify_conic_optimality(problem, x, linear_dual, cone_duals, *, tolerances=N
         x = np.asarray(x, dtype=float)
         y = np.asarray(linear_dual, dtype=float)
         zs = tuple(np.asarray(v, dtype=float) for v in cone_duals)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return bad("non-numeric witness")
     if (
         x.shape != (problem.n_variables,)
