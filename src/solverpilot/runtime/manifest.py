@@ -64,6 +64,8 @@ def environment():
         "clarabel",
         "casadi",
         "ortools",
+        "cuopt-cu12",
+        "cuopt-cu13",
     ):
         try:
             packages[name] = version(name)
@@ -222,7 +224,7 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
     from solverpilot.problem import LinearProblem, QuadraticProblem
     from solverpilot.validate import ValidationTolerances
     from solverpilot.plan import SolveBudget
-    from .auto import builtin_backend_candidates, solve
+    from .auto import builtin_backend_candidates, explicit_optional_backend, solve
 
     schema = payload.get("schema")
     if schema not in {"solverpilot.run.v1", "solverpilot.run.v2"} or "model" not in payload:
@@ -258,9 +260,10 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
         raise ValueError("model data hash differs from manifest")
     parameters = payload["parameters"]
     backends = {b.manifest.name: b for b in builtin_backend_candidates()}
-    if payload["backend"] not in backends:
+    backend = explicit_optional_backend(payload['backend']) or backends.get(payload['backend'])
+    if backend is None:
         raise ValueError("replay requires an available built-in backend")
-    backend = replace(backends[payload["backend"]], **parameters.get("backend_configuration", {}))
+    backend = replace(backend, **parameters.get("backend_configuration", {}))
     budget = parameters.get("budget")
     result = solve(
         problem,

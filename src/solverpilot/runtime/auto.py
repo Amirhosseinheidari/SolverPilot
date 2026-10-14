@@ -81,6 +81,17 @@ def default_registry() -> BackendRegistry:
     return registry
 
 
+def explicit_optional_backend(name):
+    """Allowlisted explicit-only adapters shared by solving and replay."""
+    if name == 'ortools-pdlp':
+        from solverpilot.backends.pdlp import PDLPBackend
+        return PDLPBackend()
+    if name == 'cuopt-gpu':
+        from solverpilot.backends.cuopt import CuOptBackend
+        return CuOptBackend()
+    return None
+
+
 def solve(
     problem: LinearProblem | QuadraticProblem,
     *,
@@ -102,12 +113,10 @@ def solve(
         import math
         if isinstance(certificate_recovery, bool) or not math.isfinite(certificate_recovery) or certificate_recovery <= 0:
             raise ValueError("certificate_recovery must be a positive time budget in seconds")
-    if registry is None and backend == "ortools-pdlp":
-        from solverpilot.backends.pdlp import PDLPBackend
-        backend = PDLPBackend()
-    if registry is None and backend == "cuopt-gpu":
-        from solverpilot.backends.cuopt import CuOptBackend
-        backend = CuOptBackend()
+    if registry is None and isinstance(backend, str):
+        explicit = explicit_optional_backend(backend)
+        if explicit is not None:
+            backend = explicit
     if registry is None and (backend is None or isinstance(backend, str)):
         registry = default_registry()
 
