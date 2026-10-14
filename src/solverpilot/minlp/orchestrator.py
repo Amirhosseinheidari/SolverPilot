@@ -50,7 +50,11 @@ class MINLPSolveResult:
 
 def _bound_closure(ub: float, lb: float, atol: float, rtol: float | None = None):
     rtol=float(atol if rtol is None else rtol)
+    if not all(np.isfinite(v) for v in (ub, lb, atol, rtol)) or min(atol, rtol) < 0:
+        return False, float('inf'), float('inf'), 0.0
     tol=float(atol)+rtol*max(abs(float(ub)),abs(float(lb)))
+    if not np.isfinite(tol):
+        return False, float('inf'), float('inf'), 0.0
     primal_dual_gap=max(0.0,float(ub)-float(lb))
     bound_inversion=max(0.0,float(lb)-float(ub))
     return (max(primal_dual_gap,bound_inversion) <= tol, primal_dual_gap, bound_inversion, tol)
@@ -146,6 +150,10 @@ def _binary_nogood_cut(problem:MINLPProblem, bits):
 
 
 def solve_outer_approximation(problem:MINLPProblem, *, nlp_backend=None, milp_backend=None, max_iter=None, atol=1e-7):
+    if isinstance(atol, bool) or not isinstance(atol, (int, float)) or not np.isfinite(atol) or atol < 0:
+        raise ValueError('atol must be finite and non-negative')
+    if max_iter is not None and (isinstance(max_iter, bool) or not isinstance(max_iter, int) or max_iter < 1):
+        raise ValueError('max_iter must be a positive integer')
     backend=nlp_backend or CasadiIpoptBackend(); mip=milp_backend or ScipyHighsBackend()
     iteration_budget = min((1 << len(problem.binary_indices)) + 5, 10000) if max_iter is None else int(max_iter)
     if iteration_budget <= 0: raise ValueError("max_iter must be positive")
@@ -154,6 +162,8 @@ def solve_outer_approximation(problem:MINLPProblem, *, nlp_backend=None, milp_ba
     if not (relax.local_optimal_candidate and relax.validation.valid and relax.x is not None):
         return MINLPSolveResult('unknown',None,None,None,None,False,False,'outer_approximation',(),{'reason':'continuous relaxation unresolved'})
     relax_lb=float(relax.validation.objective_recomputed)
+    if not np.isfinite(relax_lb):
+        return MINLPSolveResult('unknown',None,None,None,None,False,False,'outer_approximation',(),{'reason':'non-finite continuous relaxation bound'})
     relax_minlp=validate_minlp_solution(problem,relax.x,objective_reported=relax_lb,atol=atol,rtol=atol)
     if relax_minlp.valid:
         return MINLPSolveResult('proven_optimal',relax.x.copy(),relax_lb,relax_lb,0.0,True,True,'outer_approximation',(),{'continuous_relaxation_lb':relax_lb,'integral_relaxation':True,'cuts':0,'convexity_certificate':problem.convexity_certificate.schema},'solver_certified_under_convexity_assumptions',False)
@@ -167,8 +177,13 @@ def solve_outer_approximation(problem:MINLPProblem, *, nlp_backend=None, milp_ba
         if near.local_optimal_candidate and near.validation.valid and near.x is not None:
             ub0=float(near.validation.objective_recomputed)
             v0=validate_minlp_solution(problem,near.x,objective_reported=ub0,atol=atol,rtol=atol)
-            if v0.valid and ub0-relax_lb <= atol*(1+abs(ub0)):
-                return MINLPSolveResult('proven_optimal',near.x.copy(),ub0,relax_lb,max(0.0,ub0-relax_lb),True,True,'outer_approximation',(),{'continuous_relaxation_lb':relax_lb,'near_integral_relaxation_certified':True,'integrality_distance':dist,'cuts':0,'convexity_certificate':problem.convexity_certificate.schema},'solver_certified_under_convexity_assumptions',False)
+            closed, gap, inversion, proof_tol = _bound_closure(ub0, relax_lb, atol)
+            if v0.valid and inversion > proof_tol:
+                # A feasible fixed assignment below the relaxation lower bound
+                # disproves that bound. Do not feed it into an OA master.
+                return MINLPSolveResult('valid_feasible',near.x.copy(),ub0,None,None,False,True,'outer_approximation',(),{'reason':'continuous relaxation bound contradicts feasible assignment','rejected_continuous_relaxation_lb':relax_lb,'bound_inversion':inversion,'proof_tolerance':proof_tol,'integrality_distance':dist})
+            if v0.valid and closed:
+                return MINLPSolveResult('proven_optimal',near.x.copy(),ub0,relax_lb,gap,True,True,'outer_approximation',(),{'continuous_relaxation_lb':relax_lb,'near_integral_relaxation_certified':True,'integrality_distance':dist,'bound_inversion':inversion,'proof_tolerance':proof_tol,'cuts':0,'convexity_certificate':problem.convexity_certificate.schema},'solver_certified_under_convexity_assumptions',False)
     cuts=_oa_cuts_at(problem,relax.x)
     incumbent=None; ub=np.inf; lb=relax_lb; hist=[]; seen=set(); unresolved=False; evaluated_values=[]
     for itn in range(1,iteration_budget+1):
