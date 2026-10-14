@@ -206,6 +206,13 @@ def solve_outer_approximation(problem:MINLPProblem, *, nlp_backend=None, milp_ba
         added=0
         if nr.local_optimal_candidate and nr.validation.valid and nr.x is not None:
             obj=float(nr.validation.objective_recomputed)
+            valid_sub = validate_minlp_solution(problem,nr.x,objective_reported=obj,atol=atol,rtol=atol).valid
+            _, _, inversion, proof_tol = _bound_closure(obj, relax_lb, atol)
+            if valid_sub and inversion > proof_tol:
+                return MINLPSolveResult('valid_feasible',nr.x.copy(),obj,None,None,False,True,'outer_approximation',tuple(hist),{'reason':'continuous relaxation bound contradicts feasible assignment','rejected_continuous_relaxation_lb':relax_lb,'bound_inversion':inversion,'proof_tolerance':proof_tol,'evaluated_assignments':len(evaluated_values)+1})
+            if not valid_sub:
+                unresolved=True
+                break
             if obj < ub-atol: ub=obj; incumbent=nr.x.copy()
             evaluated_values.append(obj)
             newcuts=_oa_cuts_at(problem,nr.x)
