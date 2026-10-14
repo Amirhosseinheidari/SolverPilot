@@ -22,6 +22,9 @@ def problem():
     (CuOptBackend, dict(threads=3, tolerance=2e-8, iteration_limit=321)),
 ])
 def test_optional_replay_restores_exact_configuration_and_new_identity(monkeypatch, tmp_path, cls, settings):
+    if cls is PDLPBackend:
+        import solverpilot.backends.pdlp as pdlp
+        monkeypatch.setattr(pdlp, 'version', lambda _: 'fixture-version')
     calls = []
     monkeypatch.setattr(cls, 'is_available', lambda _: True)
     def execute(self, p):

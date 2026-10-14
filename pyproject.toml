@@ -99,4 +99,4 @@ python_version = "3.12"
 follow_imports = "silent"
 ignore_missing_imports = true
 check_untyped_defs = true
-files = ["src/solverpilot/runtime/options.py", "src/solverpilot/runtime/unified.py", "tests/typing/common_api.py"]
+files = ["src/solverpilot/runtime/options.py", "src/solverpilot/runtime/unified.py", "src/solverpilot/runtime/result.py", "src/solverpilot/_immutability.py", "src/solverpilot/experimental/_repeat_quality.py", "tests/typing/common_api.py"]

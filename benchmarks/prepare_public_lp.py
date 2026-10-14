@@ -14,7 +14,6 @@ import subprocess
 import urllib.request
 from public_lp_families import family as audited_family
 
-import highspy
 import numpy as np
 from scipy import sparse
 from solverpilot import LinearProblem, read_mps
@@ -44,6 +43,7 @@ def relax(p):
 
 
 def crosscheck_reader(path, p):
+    import highspy
     h = highspy.Highs()
     h.setOptionValue("output_flag", False)
     if h.readModel(str(path)) != highspy.HighsStatus.kOk:

@@ -57,16 +57,21 @@ jobs:
           retention-days: 14
 
   optional-integrations:
-    name: optional integrations / ubuntu / py3.12
-    runs-on: ubuntu-latest
+    name: optional integrations / ${{ matrix.platform }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.platform }}-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu, windows, macos]
+        python: ["3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
           cache: pip
       - name: Install optional solver environment
         run: python -m pip install ".[ci,native,casadi,cp,clarabel,quality]"
@@ -78,10 +83,35 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: optional-integration-results
+          name: optional-integration-results-${{ matrix.platform }}-py${{ matrix.python }}
           path: |
             optional-results.xml
             coverage.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+  minimum-dependencies:
+    name: minimum core dependencies / py3.12
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install declared minimum runtime versions
+        run: python -m pip install ".[test]" "numpy==2.2.0" "scipy==1.15.0"
+      - name: Exercise full core suite at dependency floors
+        run: python -m pytest -ra --junitxml=minimum-results.xml
+      - name: Preserve minimum dependency results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: minimum-dependency-results
+          path: minimum-results.xml
           if-no-files-found: warn
           retention-days: 14
 
