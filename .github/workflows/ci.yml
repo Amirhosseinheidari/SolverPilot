@@ -41,6 +41,7 @@ jobs:
           for example in examples/[0-9][0-9]_*.py; do
             python "$example"
           done
+          python examples/production_inventory.py
       - name: Observe repeated solve resources and deadlines
         run: |
           python -m pip install "psutil>=7,<8"
@@ -133,7 +134,7 @@ jobs:
       - name: Exercise scoped mutations and all comparison adapters
         run: |
           python benchmarks/challenge_production_evidence.py --output challenge.json
-          python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 5 --warmups 1 --max-wall-s 120 --presolve --workflows solverpilot,solverpilot-reuse,direct-highspy,cvxpy-highs,pyomo-appsi-highs --output comparison.json
+          python benchmarks/compare_lp_workflows.py --preset smoke --steps 3 --repeats 5 --warmups 1 --max-wall-s 120 --presolve --common-proof --workflows solverpilot,solverpilot-reuse,direct-highspy,cvxpy-highs,pyomo-appsi-highs --output comparison.json
           python benchmarks/qualify_highs_reuse.py --sizes 2 4 --scales 1 100 --output reuse-challenge
       - name: Preserve functional comparison observations
         if: always()
@@ -172,6 +173,7 @@ jobs:
         run: |
           python -m pip install dist/*.whl
           python tools/release_smoke.py --forbid-source-root "$GITHUB_WORKSPACE"
+          python examples/production_inventory.py
           python -m solverpilot.cli.doctor --compact > installed-readiness.json
       - name: Audit runtime dependencies
         run: |

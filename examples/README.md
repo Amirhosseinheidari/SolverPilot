@@ -55,6 +55,8 @@ Optional scripts exit successfully with an explanatory message when their verifi
 
 ## Development after 0.4
 
+- `production_inventory.py`: synthetic batch/setup/lead-time/PWL/CVaR fixture, independently checked against nine release plans; see [the modeling guide](../docs/CONVEX-MODELING-NEXT.md).
+
 - `25_exact_milp_optional.py`: optional exact SCIP execution and independent VIPR certificate verification.
 
 - `26_evidence_and_deadline.py`: separate feasibility, independent evidence and deadline compliance.
