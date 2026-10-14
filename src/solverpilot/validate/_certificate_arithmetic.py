@@ -32,8 +32,13 @@ def _dyadic(value):
 def _sum_products(pairs):
     # Align integer products, reducing to Fraction only once per dot product.
     # No floating-point multiply/add or discarded low bits are involved.
+    from .workspace import _CURRENT
+    call=_CURRENT.get()
     total, exponent = 0, 0
+    count=0
     for (a, ae), (b, be) in pairs:
+        count+=1
+        if call is not None and count%256==0: call.tick(256)
         product = a*b
         if not product:
             continue
@@ -42,12 +47,20 @@ def _sum_products(pairs):
             total <<= power-exponent
             exponent = power
         total += product << (exponent-power)
+    if call is not None: call.tick(count%256)
     return Fraction(total, 1 << exponent)
 
 
 def matvec(matrix, vector):
     matrix = matrix.tocsr()
+    from .workspace import _CURRENT
+    call=_CURRENT.get()
+    if call is not None: call.tick(len(vector)+matrix.nnz)
     values = [_dyadic(v) for v in vector]
+    prepared = None if call is None or call.workspace is None else call.workspace.prepare(matrix)
+    if prepared is not None:
+        pointers,indices,coefficients=prepared
+        return [_sum_products((coefficients[k],values[indices[k]]) for k in range(pointers[i],pointers[i+1])) for i in range(matrix.shape[0])]
     return [
         _sum_products(
             (
@@ -62,6 +75,9 @@ def matvec(matrix, vector):
 def box_min(coefficients, lower, upper):
     """Return an exact support bound, or None for an unbounded direction."""
     result = Fraction()
+    from .workspace import _CURRENT
+    call=_CURRENT.get()
+    if call is not None: call.tick(len(coefficients))
     for coefficient, lo, hi in zip(coefficients, lower, upper):
         if not coefficient:
             continue

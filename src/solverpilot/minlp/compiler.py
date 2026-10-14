@@ -35,8 +35,6 @@ def compile_minlp_model(model, *, use_cache=True):
         if not isinstance(c.set,(LessThan,GreaterThan,EqualTo,Interval)):
             raise CompileError(f'P8 supports scalar-set algebraic constraints only, got {type(c.set).__name__}')
         size=int(np.prod(c.function.shape)) if c.function.shape else 1
-        if size != 1 and (c.function.polynomial_degree is None or c.function.polynomial_degree>1):
-            raise CompileError('P8 nonlinear constraints must be scalar in v1')
         if isinstance(c.set,LessThan): lo=np.full(size,-np.inf); hi=_broadcast(c.set.upper,size)
         elif isinstance(c.set,GreaterThan): lo=_broadcast(c.set.lower,size); hi=np.full(size,np.inf)
         elif isinstance(c.set,EqualTo): lo=hi=_broadcast(c.set.value,size)

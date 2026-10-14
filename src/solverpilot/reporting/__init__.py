@@ -28,3 +28,5 @@ __all__ = [
 
 from .quality import solution_quality
 __all__.append("solution_quality")
+from .common import explain_any
+__all__.append('explain_any')

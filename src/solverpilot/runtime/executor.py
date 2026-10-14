@@ -53,8 +53,16 @@ def execute(
     backend: Backend,
     *,
     tolerances: ValidationTolerances | None = None,
+    proof_policy=None,
+    verification_workspace=None,
 ) -> SolveResult:
     total_t0 = perf_counter()
+    from solverpilot.validate.workspace import (ProofPolicy, ProofRequirementNotMetError, VerificationWorkspace,
+                                               _VerificationCall, verification_scope, VerificationLimit)
+    policy=proof_policy or ProofPolicy()
+    if not isinstance(policy,ProofPolicy): raise TypeError('proof_policy must be ProofPolicy')
+    if verification_workspace is not None and not isinstance(verification_workspace,VerificationWorkspace):
+        raise TypeError('verification_workspace must be VerificationWorkspace')
     if not backend.is_available():
         raise BackendUnavailableError(f"backend is unavailable: {backend.manifest.name}")
     manifest = backend.manifest
@@ -146,6 +154,14 @@ def execute(
         certificate_verified=False,
     )
     certificate_s = 0.0
+    proof_call=_VerificationCall(policy,verification_workspace)
+    def check_optimality(*args,**kwargs):
+        from solverpilot.validate.optimality import _verify_optimality_with_primal_report, OptimalityCheck
+        try:
+            with verification_scope(policy,verification_workspace,existing=proof_call):
+                return _verify_optimality_with_primal_report(*args,**kwargs)
+        except VerificationLimit as exc:
+            return OptimalityCheck(False,False,False,float('inf'),float('inf'),float('inf'),str(exc))
     if candidate_x is not None and raw_stats.get("canonical_dual") is not None:
         primal_report = validation
         if primal_report.objective_consistent is False:
@@ -159,9 +175,10 @@ def execute(
             primal_validate_s += perf_counter() - validate_t0
         proof_start = perf_counter()
         from solverpilot.validate.optimality import _verify_optimality_with_primal_report
-        checked = _verify_optimality_with_primal_report(
+        checked = check_optimality(
             problem, candidate_x, raw_stats["canonical_dual"], primal_report,
             tolerances=tolerances, fast_reject=True,
+            proof_policy=policy, workspace=verification_workspace,
         )
         if (not checked.verified and isinstance(problem, LinearProblem)
                 and checked.reason == "dual multiplier points toward an infinite bound"):
@@ -169,9 +186,10 @@ def execute(
             repaired = prepare_lp_dual(problem, raw_stats["canonical_dual"])
             if repaired is not None:
                 raw_stats["original_optimality_check"] = asdict(checked)
-                checked = _verify_optimality_with_primal_report(
+                checked = check_optimality(
                     problem, candidate_x, repaired, primal_report,
                     tolerances=tolerances, fast_reject=True,
+                    proof_policy=policy, workspace=verification_workspace,
                 )
                 raw_stats["prepared_canonical_dual"] = repaired.tolist()
         raw_stats["optimality_check"] = asdict(checked)
@@ -190,18 +208,27 @@ def execute(
     if 'termination_certificate' in raw_stats:
         from solverpilot.validate.recovery import checked_termination_certificate
         proof_start = perf_counter()
-        checked = checked_termination_certificate(problem, raw_stats['termination_certificate'],
-            termination=backend_result.backend_status, tolerances=tolerances)
+        try:
+            with verification_scope(policy,verification_workspace,existing=proof_call):
+                checked = checked_termination_certificate(problem, raw_stats['termination_certificate'],
+                    termination=backend_result.backend_status, tolerances=tolerances)
+        except VerificationLimit as exc:
+            from solverpilot.validate.recovery import LPCertificate
+            checked=LPCertificate(problem.data_hash,'unknown',False,str(exc))
         raw_stats['termination_certificate'] = asdict(checked)
         if checked.verified and not contradictory_infeasibility and public_status in {
                 PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED}:
             termination_certificate = checked
         certificate_s += perf_counter() - proof_start
-    trace = replace(trace, timings=replace(trace.timings,
+    trace = replace(trace, parameters={**dict(trace.parameters),'proof_policy':asdict(policy)}, timings=replace(trace.timings,
                     validate_s=primal_validate_s+certificate_s,
                     primal_validate_s=primal_validate_s, certificate_s=certificate_s,
                     total_s=perf_counter()-total_t0))
-    return _with_termination_certificate(SolveResult(
+    raw_stats['proof_policy'] = asdict(policy)
+    raw_stats['verification_resources']={'terms':proof_call.terms,'elapsed_s':perf_counter()-proof_call.started}
+    raw_stats['proof_requirement_met'] = evidence.independently_verified_optimal or termination_certificate is not None
+    if verification_workspace is not None: raw_stats['verification_workspace']=verification_workspace.info()
+    result = _with_termination_certificate(SolveResult(
         status=public_status,
         x=candidate_x,
         objective=objective,
@@ -210,3 +237,6 @@ def execute(
         trace=trace,
         raw_statistics=raw_stats,
     ), termination_certificate)
+    if policy.mode == 'required' and not raw_stats['proof_requirement_met']:
+        raise ProofRequirementNotMetError(result)
+    return result

@@ -245,6 +245,8 @@ class Expression:
         return self._coerce(other)._binary(self, "matmul")
 
     def __pow__(self, exponent: int) -> "Expression":
+        if isinstance(exponent, (bool, np.bool_)) or not isinstance(exponent, (int, np.integer)):
+            raise DomainError("symbolic powers require an integer exponent")
         exponent = int(exponent)
         if exponent < 0:
             raise DomainError("negative symbolic powers are outside P7 smooth-core scope")
@@ -288,16 +290,23 @@ class Expression:
             raise ShapeError("P1 transpose supports at most 2-D expressions")
         return Expression(self._model, ExprNode("transpose", (self.shape[1], self.shape[0]), args=(self._node,), variable_dependencies=self.variable_dependencies, parameter_dependencies=self.parameter_dependencies, sign=self.sign, degree=self.polynomial_degree, curvature=self.curvature))
 
-    def sum(self, axis: int | None = None) -> "Expression":
+    def sum(self, axis: int | None = None, *, keepdims: bool = False) -> "Expression":
+        if not isinstance(keepdims, (bool, np.bool_)):
+            raise TypeError("keepdims must be Boolean")
         if axis is not None:
+            if isinstance(axis, (bool, np.bool_)) or not isinstance(axis, (int, np.integer)):
+                raise ShapeError("sum axis must be an integer or None")
             axis = int(axis)
+            if self.ndim == 0 and axis in (0, -1):
+                axis = None
+        if axis is not None:
             if axis < 0:
                 axis += self.ndim
             if axis < 0 or axis >= self.ndim:
                 raise ShapeError("sum axis out of range")
-            shape = self.shape[:axis] + self.shape[axis + 1:]
+            shape = self.shape[:axis] + ((1,) if keepdims else ()) + self.shape[axis + 1:]
         else:
-            shape = ()
+            shape = (1,) * self.ndim if keepdims else ()
         return Expression(self._model, ExprNode("sum", shape, args=(self._node,), payload=axis, variable_dependencies=self.variable_dependencies, parameter_dependencies=self.parameter_dependencies, sign=self.sign, degree=self.polynomial_degree, curvature=self.curvature))
 
     def __le__(self, other: Any):
@@ -327,6 +336,8 @@ class Expression:
     def __array_ufunc__(self, ufunc, method, *inputs, **kwargs):
         if method != "__call__" or kwargs.get("out") is not None:
             return NotImplemented
+        if any(k != "out" for k in kwargs):
+            raise TypeError("symbolic ufunc keyword options are unsupported")
         if ufunc is np.add:
             return _as_expression(inputs[0], self._model) + inputs[1]
         if ufunc is np.subtract:
@@ -356,8 +367,20 @@ class Expression:
     def __array_function__(self, func, types, args, kwargs):
         if func is np.sum:
             expr = _as_expression(args[0], self._model)
-            return expr.sum(axis=kwargs.get("axis"))
+            names = ("axis", "dtype", "out", "keepdims", "initial", "where")
+            if len(args) > 7 or any(k not in names for k in kwargs):
+                raise TypeError("unsupported symbolic np.sum arguments")
+            options = dict(zip(names, args[1:]))
+            if options.keys() & kwargs.keys(): raise TypeError("np.sum argument supplied twice")
+            options.update(kwargs)
+            defaults = {"dtype": None, "out": None, "initial": None, "where": True}
+            for k, default in defaults.items():
+                if k in options and options[k] is not default:
+                    raise TypeError(f"symbolic np.sum does not support {k}")
+            return expr.sum(axis=options.get("axis"), keepdims=options.get("keepdims", False))
         if func is np.dot:
+            if len(args) != 2 or kwargs:
+                raise TypeError("symbolic np.dot supports two operands only")
             return _as_expression(args[0], self._model) @ args[1]
         return NotImplemented
 

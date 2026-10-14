@@ -4,6 +4,7 @@ from enum import Enum
 from types import MappingProxyType
 from typing import Any, Mapping
 import hashlib, json
+from ._integers import integer
 
 class CPObjectiveSense(str, Enum):
     MINIMIZE='minimize'
@@ -18,7 +19,10 @@ class CPIntVarIR:
     derived_from:tuple[int,int] | None=None  # (start_var_id, fixed_size)
     def __post_init__(self):
         if not self.domain: raise ValueError('CP variable domain cannot be empty')
-        vals=tuple(sorted(set(int(v) for v in self.domain)))
+        vals=tuple(sorted(set(integer(v, 'domain value') for v in self.domain)))
+        object.__setattr__(self,'var_id',integer(self.var_id, 'variable id'))
+        if self.derived_from is not None:
+            object.__setattr__(self,'derived_from',tuple(integer(v, 'derived variable') for v in self.derived_from))
         object.__setattr__(self,'domain',vals)
         if self.kind not in {'int','bool'}: raise ValueError('invalid CP variable kind')
         if self.kind=='bool' and not set(vals).issubset({0,1}): raise ValueError('bool domain must be subset of {0,1}')
@@ -30,9 +34,10 @@ class CPLinearExprIR:
     def __post_init__(self):
         merged={}
         for vid,c in self.terms:
-            merged[int(vid)]=merged.get(int(vid),0)+int(c)
+            vid=integer(vid, 'variable id'); c=integer(c, 'coefficient')
+            merged[vid]=merged.get(vid,0)+c
         object.__setattr__(self,'terms',tuple(sorted((v,c) for v,c in merged.items() if c)))
-        object.__setattr__(self,'constant',int(self.constant))
+        object.__setattr__(self,'constant',integer(self.constant, 'constant'))
 
 @dataclass(frozen=True, slots=True)
 class CPIntervalIR:
@@ -42,11 +47,16 @@ class CPIntervalIR:
     size:int
     end_var:int
     def __post_init__(self):
+        for name in ('interval_id','start_var','size','end_var'):
+            object.__setattr__(self,name,integer(getattr(self,name),name))
         if self.size < 0: raise ValueError('interval size must be nonnegative')
 
 @dataclass(frozen=True, slots=True)
 class CPLinearConstraintIR:
     expr:CPLinearExprIR; lower:int|None=None; upper:int|None=None; kind:str='linear'
+    def __post_init__(self):
+        for name in ('lower','upper'):
+            if getattr(self,name) is not None: object.__setattr__(self,name,integer(getattr(self,name),name))
 @dataclass(frozen=True, slots=True)
 class CPAllDifferentIR:
     var_ids:tuple[int,...]; kind:str='all_different'
@@ -112,6 +122,13 @@ class CPProblem:
 
         for c in self.constraints:
             where=f'{c.kind} constraint'
+            from dataclasses import fields
+            def check_integer_values(value):
+                if isinstance(value,(tuple,list)):
+                    for item in value: check_integer_values(item)
+                elif value is not None: integer(value,where)
+            for item in fields(c):
+                if item.name not in {'expr','kind'}: check_integer_values(getattr(c,item.name))
             if isinstance(c,CPLinearConstraintIR):
                 require_expr(c.expr,where)
             elif isinstance(c,CPAllDifferentIR):

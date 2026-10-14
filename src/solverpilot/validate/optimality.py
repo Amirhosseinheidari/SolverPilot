@@ -15,6 +15,7 @@ from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem
 from ._certificate_arithmetic import bounded_float, box_min, dot, matvec, rational
 from .core import validate_solution
 from .result import CandidateSolution, ValidationReport, ValidationTolerances
+from .workspace import controlled_verification
 
 
 @dataclass(frozen=True, slots=True)
@@ -58,17 +59,25 @@ def _original_dual_bound(linear, exact_dual):
 
 
 def verify_optimality(problem, x, dual, *, tolerances=None, fast_reject=False,
-                      extended_recovery=False, recovery_options=None) -> OptimalityCheck:
+                      extended_recovery=False, recovery_options=None, proof_policy=None, workspace=None, curvature_witness=None) -> OptimalityCheck:
     # Public verification always checks the supplied candidate independently.
-    return _verify_optimality_with_primal_report(
-        problem, x, dual, None, tolerances=tolerances, fast_reject=fast_reject,
-        extended_recovery=extended_recovery, recovery_options=recovery_options,
-    )
+    from .workspace import verification_scope, VerificationLimit
+    try:
+        with verification_scope(proof_policy,workspace):
+            return _verify_optimality_with_primal_report(
+                problem, x, dual, None, tolerances=tolerances, fast_reject=fast_reject,
+                extended_recovery=extended_recovery, recovery_options=recovery_options,
+                curvature_witness=curvature_witness,
+            )
+    except VerificationLimit as exc:
+        return OptimalityCheck(False,False,False,np.inf,np.inf,np.inf,str(exc))
 
 
+@controlled_verification
 def _verify_optimality_with_primal_report(
     problem, x, dual, primal_report: ValidationReport | None, *, tolerances=None,
     fast_reject=False, extended_recovery=False, recovery_options=None,
+    curvature_witness=None,
 ) -> OptimalityCheck:
     """Internal reuse of a report computed for this candidate and tolerances.
 
@@ -103,9 +112,12 @@ def _verify_optimality_with_primal_report(
     px = problem.P@x if isinstance(problem, QuadraticProblem) else np.zeros_like(x)
     if isinstance(problem, QuadraticProblem):
         from solverpilot.problem.quadratic import require_confirmed_convexity
-        require_confirmed_convexity(problem)
+        if curvature_witness is None: require_confirmed_convexity(problem)
         from solverpilot.problem.curvature import certify_psd
-        curvature = certify_psd(problem.P)
+        if curvature_witness is None: curvature = certify_psd(problem.P)
+        else:
+            from solverpilot.problem.curvature import certify_psd_factor
+            curvature=certify_psd_factor(problem.P,**dict(curvature_witness))
         if not curvature.certified:
             return bad("independent PSD evidence unavailable: " + curvature.reason)
     bound = np.where(y > 0, hi, lo)

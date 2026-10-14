@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import isclose
+from math import isclose, fsum
 from typing import Sequence
 
 from .errors import TSPValidationError
@@ -54,7 +54,4 @@ def analyze_distance_matrix(
 def route_cost(instance: TSPInstance, route: Sequence[int]) -> float:
     if len(route) < 2:
         raise TSPValidationError("route must contain at least two entries")
-    total = 0.0
-    for a, b in zip(route, route[1:]):
-        total += instance.distances.edge_cost(a, b)
-    return float(total)
+    return float(fsum(instance.distances.edge_cost(a, b) for a, b in zip(route, route[1:])))

@@ -101,7 +101,7 @@ def evaluate(model, node, x):
     if kind == "transpose":
         return args[0].T
     if kind == "sum":
-        return np.sum(args[0], axis=node.payload)
+        return np.asarray(np.sum(args[0], axis=node.payload)).reshape(node.shape)
     if kind == "concat":
         return np.concatenate([np.asarray(a).reshape(-1) for a in args])
     if kind == "atom_abs":
@@ -255,7 +255,7 @@ def compile_atoms(model, *, use_cache=True, bridge_policy=None, capabilities=Non
             elif node.kind == "transpose":
                 out = args[0].T
             elif node.kind == "sum":
-                out = args[0].sum(axis=node.payload)
+                out = args[0].sum(axis=node.payload, keepdims=len(node.shape) == len(node.args[0].shape) and bool(node.shape))
             elif node.kind == "concat":
                 out = lowered._concat(*args)
             else:

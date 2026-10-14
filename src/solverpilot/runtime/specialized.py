@@ -13,6 +13,8 @@ def core_controls(kwargs):
 
 def nlp_controls(backend, kwargs):
     kwargs = dict(kwargs)
+    if kwargs.pop('proof_policy',None) is not None:
+        raise BudgetNotSupportedError('independent proof policy currently covers continuous LP/convex QP only')
     if isinstance(backend, str):
         from .catalog import backend_catalog
 
@@ -32,15 +34,17 @@ def nlp_controls(backend, kwargs):
 
 def minlp_controls(kwargs):
     kwargs = dict(kwargs)
+    if kwargs.pop('proof_policy',None) is not None:
+        raise BudgetNotSupportedError('independent proof policy currently covers continuous LP/convex QP only')
     budget = kwargs.pop("budget", None)
     if (
-        budget is not None
-        or kwargs.pop("progress", None) is not None
+        kwargs.pop("progress", None) is not None
         or kwargs.pop("cancellation", None) is not None
     ):
         raise BudgetNotSupportedError(
-            "MINLP aggregate resource/callback controls are not implemented; max_iter bounds OA iterations"
+            "MINLP callback controls are not implemented; use an aggregate wall time budget"
         )
+    if budget is not None: kwargs['budget']=budget
     tol = kwargs.pop("tolerances", None)
     if tol is not None:
         if "atol" in kwargs:

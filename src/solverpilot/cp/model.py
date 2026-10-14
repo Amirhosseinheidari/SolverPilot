@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 from .ir import *
+from ._integers import integer
 
 @dataclass(frozen=True, slots=True, eq=False)
 class CPIntVar:
@@ -27,7 +28,9 @@ class CPBoolVar(CPIntVar): pass
 @dataclass(frozen=True, slots=True)
 class CPLinearExpr:
     model:'CPModel'; terms:Mapping[int,int]; constant:int=0
-    def __post_init__(self): object.__setattr__(self,'terms',{int(k):int(v) for k,v in self.terms.items() if int(v)})
+    def __post_init__(self):
+        object.__setattr__(self,'terms',{integer(k):integer(v) for k,v in self.terms.items() if integer(v)})
+        object.__setattr__(self,'constant',integer(self.constant))
     def _coerce(self,o):
         if isinstance(o,CPIntVar):
             if o.model is not self.model: raise ValueError('cross-model CP expression')
@@ -66,16 +69,17 @@ class CPModel:
     def __init__(self,name=None):
         self.name=name; self._vars=[]; self._intervals=[]; self._constraints=[]; self._objective=None; self._sense=CPObjectiveSense.MINIMIZE
     def int_var(self,lower:int,upper:int,name=None):
-        if int(lower)>int(upper): raise ValueError('lower > upper')
-        return self.int_var_from_values(range(int(lower),int(upper)+1),name)
+        lower=integer(lower, 'lower'); upper=integer(upper, 'upper')
+        if lower>upper: raise ValueError('lower > upper')
+        return self.int_var_from_values(range(lower,upper+1),name)
     def int_var_from_values(self,values:Iterable[int],name=None):
-        vals=tuple(sorted(set(int(x) for x in values)))
+        vals=tuple(sorted(set(integer(x, 'domain value') for x in values)))
         if not vals: raise ValueError('domain cannot be empty')
         vid=len(self._vars); v=CPIntVar(self,vid,name or f'x{vid}',vals); self._vars.append((v,None,'int')); return v
     def bool_var(self,name=None):
         vid=len(self._vars); v=CPBoolVar(self,vid,name or f'b{vid}',(0,1)); self._vars.append((v,None,'bool')); return v
     def interval_var(self,start:CPIntVar,size:int,name=None):
-        self._check(start); size=int(size)
+        self._check(start); size=integer(size, 'interval size')
         if size<0: raise ValueError('interval size must be nonnegative')
         end_dom=tuple(v+size for v in start.domain); vid=len(self._vars); end=CPIntVar(self,vid,(name or f'i{len(self._intervals)}')+'_end',end_dom); self._vars.append((end,(start.var_id,size),'int'))
         iid=len(self._intervals); iv=CPIntervalVar(self,iid,name or f'i{iid}',start,size,end); self._intervals.append(iv); return iv
@@ -95,11 +99,11 @@ class CPModel:
     def add_allowed_assignments(self,vars,tuples_list):
         vs=tuple(vars); self._check(*vs)
         if not vs: raise ValueError('table requires variables')
-        rows=tuple(tuple(int(x) for x in row) for row in tuples_list)
+        rows=tuple(tuple(integer(x, 'table value') for x in row) for row in tuples_list)
         if any(len(r)!=len(vs) for r in rows): raise ValueError('table tuple arity mismatch')
         self._constraints.append(CPTableIR(tuple(v.var_id for v in vs),rows)); return self
     def add_element(self,index:CPIntVar,values,target:CPIntVar):
-        self._check(index,target); vals=tuple(int(v) for v in values)
+        self._check(index,target); vals=tuple(integer(v, 'element value') for v in values)
         if not vals: raise ValueError('element values cannot be empty')
         self._constraints.append(CPElementIR(index.var_id,vals,target.var_id)); return self
     def add_circuit(self,arcs):
@@ -107,7 +111,7 @@ class CPModel:
         for tail,head,lit in arcs:
             self._check(lit)
             if tuple(lit.domain)!=(0,1): raise ValueError('circuit arc literal must be BoolVar')
-            out.append((int(tail),int(head),lit.var_id))
+            out.append((integer(tail, 'tail node'),integer(head, 'head node'),lit.var_id))
         if not out: raise ValueError('circuit requires arcs')
         if any(t<0 or h<0 for t,h,_ in out): raise ValueError('circuit node ids must be nonnegative')
         loops=[(t,h) for t,h,_ in out if t==h]
@@ -118,7 +122,7 @@ class CPModel:
         if any(not isinstance(i,CPIntervalVar) or i.model is not self for i in ivs): raise ValueError('interval belongs to another model')
         self._constraints.append(CPNoOverlapIR(tuple(i.interval_id for i in ivs))); return self
     def add_cumulative(self,intervals,demands,capacity):
-        ivs=tuple(intervals); ds=tuple(int(x) for x in demands); cap=int(capacity)
+        ivs=tuple(intervals); ds=tuple(integer(x, 'demand') for x in demands); cap=integer(capacity, 'capacity')
         if len(ivs)!=len(ds): raise ValueError('cumulative interval/demand length mismatch')
         if any(d<0 for d in ds): raise ValueError('cumulative demands must be nonnegative')
         if any(not isinstance(i,CPIntervalVar) or i.model is not self for i in ivs): raise ValueError('interval belongs to another model')

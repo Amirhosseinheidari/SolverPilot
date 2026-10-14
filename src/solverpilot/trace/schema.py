@@ -1,9 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field, fields
 from datetime import datetime, timezone
 from typing import Any
 from solverpilot._identity import new_execution_id, process_source_sha256
+from solverpilot._immutability import deep_freeze, deep_thaw
+
+
+def _restore_trace(values):
+    return SolveTrace(**values)
 
 
 TRACE_SCHEMA_VERSION = "0.3"
@@ -57,5 +62,15 @@ class SolveTrace:
     source_sha256: str | None = field(default_factory=process_source_sha256, kw_only=True, compare=False)
     replay_of: str | None = field(default=None, kw_only=True, compare=False)
 
+    def __post_init__(self):
+        object.__setattr__(self, "parameters", deep_freeze(self.parameters))
+        object.__setattr__(self, "fingerprint", deep_freeze(self.fingerprint))
+        object.__setattr__(self, "transformations", tuple(self.transformations))
+        object.__setattr__(self, "warnings", tuple(self.warnings))
+
+    def __reduce__(self):
+        return _restore_trace, ({f.name: deep_thaw(getattr(self, f.name)) for f in fields(self)},)
+
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        from solverpilot.runtime.manifest import json_value
+        return json_value(self)

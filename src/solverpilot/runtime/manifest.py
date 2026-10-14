@@ -128,6 +128,7 @@ def _summary_payload(result):
     if payload["deadline_enforcement"] not in {
         "not_reported", "not_requested", "process_deadline_with_cleanup",
         "native_soft_limit; use solve_with_deadline for process isolation",
+        "native_soft_limit; aggregate elapsed includes setup and validation",
     }:
         payload["deadline_enforcement"] = "not_reported"
     return payload
@@ -162,7 +163,7 @@ def run_manifest(problem, result, *, include_model=False, include_raw_statistics
             "scope": "package Python source snapshot at first traced execution in process",
             "binary_attestation": False,
         },
-        "backend": trace.backend if trace else result.backend,
+        "backend": trace.backend if trace else getattr(result,'backend',getattr(result,'algorithm','unknown')),
         "parameters": (trace.parameters if trace else raw.get("run_parameters", {})) if include_model else {},
         "status": getattr(result, "status", getattr(result, "backend_status", "unknown")),
         "statistics": raw if include_raw_statistics else {},
@@ -265,11 +266,13 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
         raise ValueError("replay requires an available built-in backend")
     backend = replace(backend, **parameters.get("backend_configuration", {}))
     budget = parameters.get("budget")
+    from solverpilot.validate.workspace import ProofPolicy
     result = solve(
         problem,
         backend=backend,
         tolerances=ValidationTolerances(**parameters.get("validation_tolerances", {})),
         budget=None if budget is None else SolveBudget(**budget),
+        proof_policy=ProofPolicy(**parameters.get('proof_policy',{})),
     )
     from .result import replace_solve_result
     return replace_solve_result(result, trace=replace(result.trace, replay_of=payload.get("execution_id")))

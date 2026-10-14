@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from itertools import permutations
 from math import comb, factorial
+from fractions import Fraction
 from time import perf_counter
 
 from .errors import VRPReferenceLimitError
@@ -47,6 +48,19 @@ def solve_vrp_reference(
     customer_ids = tuple(c.id for c in instance.customers)
     best_routes: tuple[VRPRoute, ...] | None = None
     best_objective = float("inf")
+    best_exact = None
+    ratios=[[v.as_integer_ratio() for v in row] for row in instance.distances.values]
+    denominator=max(d for row in ratios for _,d in row)
+    costs=[[a*(denominator//b) for a,b in row] for row in ratios]
+    node_index=instance.node_index; customers=instance.customer_map
+    def exact_cost(routes):
+        total=0
+        for route in routes:
+            if not route.customer_ids: continue
+            vehicle=instance.vehicle_map[route.vehicle_id]
+            nodes=[vehicle.start_node_id,*[customers[c].node_id for c in route.customer_ids],vehicle.end_node_id]
+            total+=sum(costs[node_index[a]][node_index[b]] for a,b in zip(nodes,nodes[1:]))
+        return total
     evaluations = 0
     started = perf_counter()
     for order in permutations(customer_ids):
@@ -59,12 +73,14 @@ def solve_vrp_reference(
                 pos += size
                 routes.append(VRPRoute(vehicle.id, route_ids))
             objective = sum(route_distance(instance, route) for route in routes)
-            if objective >= best_objective - 1e-12:
+            exact=exact_cost(routes)
+            if best_exact is not None and exact >= best_exact:
                 continue
             candidate = VRPSolution(routes, objective, method="reference-exhaustive", is_exact=True, optimality_proven=True, _proof_token=_INDEPENDENT_PROOF_TOKEN)
             report = validate_vrp_solution(instance, candidate)
             if report.valid:
                 best_objective = objective
+                best_exact = exact
                 best_routes = tuple(routes)
     if best_routes is None:
         return VRPReferenceResult(None, evaluations, search_space)
@@ -76,6 +92,7 @@ def solve_vrp_reference(
         optimality_proven=True,
         runtime_seconds=perf_counter() - started,
         _proof_token=_INDEPENDENT_PROOF_TOKEN,
-        metadata={"evaluations": evaluations, "search_space_upper_bound": search_space},
+        metadata={"evaluations": evaluations, "search_space_upper_bound": search_space,
+                  "comparison_arithmetic":"exact-dyadic","exact_objective":str(Fraction(best_exact,denominator))},
     )
     return VRPReferenceResult(solution, evaluations, search_space)

@@ -43,8 +43,8 @@ def readonly_array(value: np.ndarray | Any, *, dtype=None) -> np.ndarray:
         # Object pointers cannot safely be reconstructed from a byte buffer.
         arr = arr.copy()
         arr.flags.writeable = False
-        return arr
-    return np.frombuffer(arr.tobytes(order="C"), dtype=arr.dtype).reshape(arr.shape)
+        return arr.view(_CanonicalArray)
+    return np.frombuffer(arr.tobytes(order="C"), dtype=arr.dtype).reshape(arr.shape).view(_CanonicalArray)
 
 
 def deep_freeze(value: Any) -> Any:

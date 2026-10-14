@@ -47,6 +47,8 @@ class NLPProblem:
             self.constraints, self.objective_sense, self.name, deep_thaw(self.metadata))
 
     def __post_init__(self) -> None:
+        if self.objective_sense not in {"minimize", "maximize"}:
+            raise ValueError("NLP objective_sense must be minimize or maximize")
         vl = np.asarray(self.variable_lower, dtype=float).reshape(-1).copy()
         vu = np.asarray(self.variable_upper, dtype=float).reshape(-1).copy()
         if vl.shape != (self.n_variables,) or vu.shape != (self.n_variables,):

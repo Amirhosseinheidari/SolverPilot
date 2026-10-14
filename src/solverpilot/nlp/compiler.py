@@ -82,7 +82,6 @@ def _collect_domain_hazards(node, *, variable_layout, variable_lower, variable_u
 
 def compile_nlp_model(model, *, use_cache=True):
     if model.objective is None: raise CompileError('model has no objective')
-    if model.objective.sense is not ObjectiveSense.MINIMIZE: raise CompileError('P7 NLP compiler currently supports minimization only')
     if model.objective.expression.shape != (): raise CompileError('P7 NLP objective must be scalar')
     if any(d.domain is not VariableDomain.CONTINUOUS for d in model._variables.values()): raise CompileError('P7 NLP supports continuous variables only; MINLP is P8')
     offsets,n,vl,vu,domains,source_vars=_variable_layout(model)
