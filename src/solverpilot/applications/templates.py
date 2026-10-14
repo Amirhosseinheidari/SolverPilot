@@ -16,8 +16,8 @@ def _finite(value, name, *, nonnegative=False):
     return value
 
 
-def production_model(profit, resources, capacity, *, maximum=None):
-    """Continuous production quantities maximizing profit under resource caps."""
+def production_model(profit, resources, capacity, *, maximum=None, minimum=None):
+    """Continuous production under resource caps and optional minimum commitments."""
     profit = _finite(profit, "profit")
     resources = sparse.csr_matrix(resources, dtype=float)
     capacity = _finite(capacity, "capacity", nonnegative=True)
@@ -25,9 +25,17 @@ def production_model(profit, resources, capacity, *, maximum=None):
         raise ValueError("resources must have shape (resources, products)")
     if not np.isfinite(resources.data).all() or np.any(resources.data < 0):
         raise ValueError("resource consumption must be finite and nonnegative")
+    lower = np.zeros(profit.size) if minimum is None else _finite(minimum, "minimum", nonnegative=True)
+    if lower.shape != profit.shape:
+        raise ValueError("minimum must match profit")
+    upper = np.full(profit.size, np.inf) if maximum is None else np.asarray(maximum, dtype=float)
+    if upper.ndim == 0:
+        upper = np.full(profit.size, upper.item())
+    if upper.shape != profit.shape or np.isnan(upper).any() or np.any(upper < lower):
+        raise ValueError("maximum must match profit and be at least minimum")
     model = Model("production")
     x = model.variable(
-        profit.size, lower=0, upper=np.inf if maximum is None else maximum, name="production"
+        profit.size, lower=lower, upper=upper, name="production"
     )
     gains = model.parameter(profit.shape, value=profit, name="profit")
     limits = model.parameter(capacity.shape, value=capacity, sign="nonnegative", name="capacity")

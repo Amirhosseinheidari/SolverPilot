@@ -5,12 +5,42 @@ this detects ordinary edits/replacements, not adversarial metadata-preserving
 rewrites. Recreate after code reload, dependency/configuration changes, or a new
 measured environment. This is not a security boundary or production promotion.
 """
-from dataclasses import dataclass, asdict, is_dataclass
 import math
+from collections.abc import Mapping
+from dataclasses import dataclass, fields, is_dataclass
+from enum import Enum
 from time import perf_counter
 
-from .lp_gain import implementation_id, implementation_paths
+import numpy as np
+
 from .learned_lp import _digest
+from .lp_gain import implementation_id, implementation_paths
+
+
+def _settings_value(value):
+    """Strict configuration JSON; nonfinite values cannot collide with text."""
+    if value is None or isinstance(value, (str, bool, int)):
+        return value
+    if isinstance(value, (float, np.floating)):
+        if not math.isfinite(value):
+            raise ValueError('bound routing requires finite numeric settings')
+        return float(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.ndarray):
+        return _settings_value(value.tolist())
+    if isinstance(value, Mapping):
+        if not all(isinstance(k, str) for k in value):
+            raise TypeError('bound routing requires string settings keys')
+        return {k: _settings_value(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_settings_value(v) for v in value]
+    if isinstance(value, Enum):
+        return _settings_value(value.value)
+    if is_dataclass(value):
+        return {f.name: _settings_value(getattr(value, f.name)) for f in fields(value)
+                if f.init and not f.name.startswith('_')}
+    raise TypeError(f'not JSON-serializable: {type(value).__name__}')
 
 
 def _backend_snapshot(backends):
@@ -18,8 +48,11 @@ def _backend_snapshot(backends):
     for name, backend in sorted(backends.items()):
         if not is_dataclass(backend):
             raise ValueError('bound routing requires dataclass backend settings')
+        # Bind serializable public constructor settings, never private native
+        # handles/locks. Unlike descriptive backend_configuration(), this strict
+        # conversion rejects opaque public settings instead of hashing a label.
         result.append((name, id(backend), type(backend).__module__, type(backend).__qualname__,
-                       _digest(asdict(backend))))
+                       _digest(_settings_value(backend))))
     return tuple(result)
 
 
@@ -59,9 +92,9 @@ class LPRoutingSession:
             raise ValueError('implementation changed during session preparation')
         settings = None if backends is None else _backend_snapshot(backends)
         obj = object.__new__(cls)
-        for name, value in dict(model=model, guard=guard, environment_id=environment_id,
-                cutoff_s=cutoff_s, preparation_s=perf_counter()-start, _paths=paths,
-                _source_snapshot=before, _backend_settings=settings).items():
+        for name, value in {"model": model, "guard": guard, "environment_id": environment_id,
+                "cutoff_s": cutoff_s, "preparation_s": perf_counter()-start, "_paths": paths,
+                "_source_snapshot": before, "_backend_settings": settings}.items():
             object.__setattr__(obj, name, value)
         return obj
 

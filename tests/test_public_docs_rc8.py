@@ -96,6 +96,7 @@ def test_expected_public_examples_exist():
         "25_exact_milp_optional.py",
         "26_evidence_and_deadline.py",
         "27_extended_lp_recovery.py",
+        "28_production_evidence_workflow.py",
     ]
     assert (EXAMPLES / "README.md").is_file()
 

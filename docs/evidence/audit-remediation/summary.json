@@ -1,0 +1,4619 @@
+{
+  "schema": "solverpilot.audit-remediation-evidence.v1",
+  "audit_base_commit": "736fafce2c5d37f1299dac98eed5e8830d303060",
+  "source_sha256": "73235ae0fd70869062c79fffd330c96244e77f720444efda090d53b8c0bd7e77",
+  "regression": {
+    "passed": 1866,
+    "skipped": 49,
+    "failures": 0,
+    "errors": 0
+  },
+  "coverage": {
+    "line_percent": 85.75,
+    "branch_percent": 71.65,
+    "combined_percent": 81.91
+  },
+  "mutation_challenge": {
+    "protocol": {
+      "schema": "solverpilot.production-challenge-protocol.v1",
+      "seed": 20260929,
+      "sizes": [
+        2,
+        8,
+        32
+      ],
+      "scales": [
+        0.01,
+        1.0,
+        10000.0
+      ],
+      "atol": 1e-07,
+      "rtol": 1e-09
+    },
+    "runner_sha256": "db9ec00d23a836663c0a78739d5bb2bcd58c9c6021d0bb98030c0855eefffe66",
+    "summary": {
+      "cases": 234,
+      "positive_controls": 46,
+      "invalid_cases": 188,
+      "false_acceptances": 0,
+      "false_rejections": 0,
+      "unexpected_errors": 0,
+      "passed": true
+    },
+    "independent_holdout": false,
+    "scope_demonstrations": [
+      {
+        "name": "n2-scale0.01/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n2-scale0.01/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n2-scale1.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n2-scale1.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n2-scale10000.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n2-scale10000.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n8-scale0.01/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n8-scale0.01/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n8-scale1.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n8-scale1.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n8-scale10000.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n8-scale10000.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n32-scale0.01/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n32-scale0.01/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n32-scale1.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n32-scale1.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      },
+      {
+        "name": "n32-scale10000.0/unchecked_unit_label",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "unit labels have no dimensional semantics"
+      },
+      {
+        "name": "n32-scale10000.0/wrong_input_in_both_paths",
+        "in_scope": false,
+        "accepted": true,
+        "reason": "no external source of business truth was provided"
+      }
+    ]
+  },
+  "comparison": {
+    "config": {
+      "preset": "standard",
+      "seed": 94173,
+      "steps": 4,
+      "repeats": 8,
+      "warmups": 1,
+      "max_wall_s": 300.0,
+      "solve_limit_s": 5,
+      "workflows": [
+        "solverpilot",
+        "direct-highspy",
+        "cvxpy-highs",
+        "pyomo-appsi-highs"
+      ]
+    },
+    "runner_sha256": "f988b90c279d8e3d0f8dcac7edaff9c1ade8e23f0cdd4ef2fee37c296f26e04f",
+    "dataset_sha256": "78d3510b11ad4b2f3ad9ab960ec4195d8c6640a4a4863f0f4c64a6cd01f91731",
+    "native_highs": {
+      "version": "1.15.1",
+      "extension_sha256": "f733d7369f647f8afe481bbaf569164f7cd7c127e41ca53cd7c205c2fb9038e2"
+    },
+    "native_options": {
+      "solver": "simplex",
+      "presolve": "off",
+      "threads": 1,
+      "time_limit": 5,
+      "output_flag": false,
+      "primal_feasibility_tolerance": 1e-07,
+      "dual_feasibility_tolerance": 1e-07,
+      "simplex_strategy": 1,
+      "random_seed": 0
+    },
+    "packages": {
+      "solverpilot": "0.4",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "highspy": "1.15.1",
+      "cvxpy": "1.9.3",
+      "pyomo": "6.10.1"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "complete": true,
+    "measured": 3072,
+    "accepted": 3072,
+    "warmups": 384,
+    "warmups_accepted": 384,
+    "aggregate": {
+      "method": "Pooled median of checked_total_s; equal observation counts per case, no significance or generalization claim",
+      "table": [
+        {
+          "phase": "cold",
+          "workflow": "solverpilot",
+          "n": 384,
+          "passed": 384,
+          "median_ms": 6.82799999776762
+        },
+        {
+          "phase": "cold",
+          "workflow": "direct-highspy",
+          "n": 384,
+          "passed": 384,
+          "median_ms": 1.8410000047879294
+        },
+        {
+          "phase": "cold",
+          "workflow": "cvxpy-highs",
+          "n": 384,
+          "passed": 384,
+          "median_ms": 8.807999998680316
+        },
+        {
+          "phase": "cold",
+          "workflow": "pyomo-appsi-highs",
+          "n": 384,
+          "passed": 384,
+          "median_ms": 19.296899998153094
+        },
+        {
+          "phase": "sequence_initial",
+          "workflow": "solverpilot",
+          "n": 96,
+          "passed": 96,
+          "median_ms": 6.195449997903779
+        },
+        {
+          "phase": "sequence_initial",
+          "workflow": "direct-highspy",
+          "n": 96,
+          "passed": 96,
+          "median_ms": 1.7649000001256354
+        },
+        {
+          "phase": "sequence_initial",
+          "workflow": "cvxpy-highs",
+          "n": 96,
+          "passed": 96,
+          "median_ms": 8.476000002701767
+        },
+        {
+          "phase": "sequence_initial",
+          "workflow": "pyomo-appsi-highs",
+          "n": 96,
+          "passed": 96,
+          "median_ms": 15.78305000293767
+        },
+        {
+          "phase": "sequence_update",
+          "workflow": "solverpilot",
+          "n": 288,
+          "passed": 288,
+          "median_ms": 6.207899998116773
+        },
+        {
+          "phase": "sequence_update",
+          "workflow": "direct-highspy",
+          "n": 288,
+          "passed": 288,
+          "median_ms": 0.34035000135190785
+        },
+        {
+          "phase": "sequence_update",
+          "workflow": "cvxpy-highs",
+          "n": 288,
+          "passed": 288,
+          "median_ms": 2.5223499978892505
+        },
+        {
+          "phase": "sequence_update",
+          "workflow": "pyomo-appsi-highs",
+          "n": 288,
+          "passed": 288,
+          "median_ms": 3.3628000019234605
+        }
+      ]
+    },
+    "by_case": [
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.012245799996890128,
+          "median": 0.013870799994037952,
+          "p95": 0.015381095001794165
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00010080001084133983,
+          "median": 0.0001315500048804097,
+          "p95": 0.00021301999659044667
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.012361300003249198,
+          "median": 0.013992949992825743,
+          "p95": 0.015515905004576778
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.011396300003980286,
+          "median": 0.012631600002350751,
+          "p95": 0.013375720007024939
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.789999992586672e-05,
+          "median": 0.00010135000047739595,
+          "p95": 0.00011244499328313395
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.011506599999847822,
+          "median": 0.012730550006381236,
+          "p95": 0.013479365004604916
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0016019000031519681,
+          "median": 0.002416049988823943,
+          "p95": 0.00270799000718398
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.159999561030418e-05,
+          "median": 9.919999865815043e-05,
+          "p95": 0.00013247000097180715
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0016983999958029017,
+          "median": 0.0025210999956470914,
+          "p95": 0.0028092800042941236
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.010767399988253601,
+          "median": 0.012802249992091674,
+          "p95": 0.017926970002736194
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 9.050000517163426e-05,
+          "median": 0.00011575000098673627,
+          "p95": 0.00020718499872600659
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.010870799989788793,
+          "median": 0.01292134999675909,
+          "p95": 0.01808635999768739
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.011445099997217767,
+          "median": 0.012187450003693812,
+          "p95": 0.013369069999316707
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.38999985717237e-05,
+          "median": 9.544999193167314e-05,
+          "p95": 0.000129704998107627
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.01152899999578949,
+          "median": 0.012306349999562372,
+          "p95": 0.013469719995919149
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0013413999986369163,
+          "median": 0.0022502999927382916,
+          "p95": 0.002872205003950512
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.46000005165115e-05,
+          "median": 9.490000229561701e-05,
+          "p95": 0.0001277649964322336
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0014159999991534278,
+          "median": 0.0023449000000255182,
+          "p95": 0.002988320003350963
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.004335999998147599,
+          "median": 0.005398149995016865,
+          "p95": 0.006136234999576118
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.609999738633633e-05,
+          "median": 9.744999988470227e-05,
+          "p95": 0.0001469849965360481
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.004412099995533936,
+          "median": 0.005502550004166551,
+          "p95": 0.006233745001372882
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.004991400011931546,
+          "median": 0.0055632000003242865,
+          "p95": 0.00623454499655054
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 9.259999205823988e-05,
+          "median": 9.770000906428322e-05,
+          "p95": 0.0001353949977783486
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.005086000004666857,
+          "median": 0.005659050002577715,
+          "p95": 0.006341054999211337
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0010975000041071326,
+          "median": 0.001516450007329695,
+          "p95": 0.0018152299904613755
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.6299998909235e-05,
+          "median": 9.314999624621123e-05,
+          "p95": 0.00011589499699766747
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0011738000030163676,
+          "median": 0.001611250001587905,
+          "p95": 0.001947140000993386
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.004666100008762442,
+          "median": 0.005509650000021793,
+          "p95": 0.006433435003418708
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.999999797903001e-05,
+          "median": 0.00010214999201707542,
+          "p95": 0.0001185450004413724
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.004752799999550916,
+          "median": 0.005604049998510163,
+          "p95": 0.006540204996417742
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0046147000102791935,
+          "median": 0.005092250001325738,
+          "p95": 0.005627079995610984
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.030000026337802e-05,
+          "median": 8.754999726079404e-05,
+          "p95": 0.00011147999612148851
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.004721500008599833,
+          "median": 0.005190149997361004,
+          "p95": 0.005718239995621844
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0011615999974310398,
+          "median": 0.0014001000017742626,
+          "p95": 0.0018561599899840073
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.140000525396317e-05,
+          "median": 8.445000275969505e-05,
+          "p95": 0.00011986499448539687
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0012372000055620447,
+          "median": 0.0014827000049990602,
+          "p95": 0.0020161749984254126
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.008144799998262897,
+          "median": 0.010067850002087653,
+          "p95": 0.017152015004103304
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00011310000263620168,
+          "median": 0.00015160000475589186,
+          "p95": 0.00027128999863634806
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.008259599999291822,
+          "median": 0.010216700000455603,
+          "p95": 0.017444490007619606
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.008401099999900907,
+          "median": 0.008884700000635348,
+          "p95": 0.009868374998040963
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00012339999375399202,
+          "median": 0.00014725000073667616,
+          "p95": 0.00016598000438534653
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.008534399996278808,
+          "median": 0.009039200005645398,
+          "p95": 0.0100298749988724
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0021704999962821603,
+          "median": 0.006676299999526236,
+          "p95": 0.008055870003590825
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00010170000314246863,
+          "median": 0.00014060000830795616,
+          "p95": 0.000165849995391909
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.002272199999424629,
+          "median": 0.006815849999838974,
+          "p95": 0.008211095004662636
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.009030700006405823,
+          "median": 0.00968789999751607,
+          "p95": 0.010811974998796358
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00011389999417588115,
+          "median": 0.00013425000361166894,
+          "p95": 0.00020388999691931531
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.009235799996531568,
+          "median": 0.009824950000620447,
+          "p95": 0.01096454000507947
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.009754400001838803,
+          "median": 0.010137350000150036,
+          "p95": 0.013076090001413831
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.0001205000007757917,
+          "median": 0.00016585000412305817,
+          "p95": 0.00034050999965984363
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.009874900002614595,
+          "median": 0.010313250000763219,
+          "p95": 0.01334359000175027
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.002752100001089275,
+          "median": 0.007292899994354229,
+          "p95": 0.009352840006613404
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00012240000069141388,
+          "median": 0.00016685000446159393,
+          "p95": 0.00028384000688674843
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0028830000082962215,
+          "median": 0.007518249993154313,
+          "p95": 0.009535699995467438
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.006052700002328493,
+          "median": 0.007107900004484691,
+          "p95": 0.008978515007765964
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.490000280085951e-05,
+          "median": 9.054999827640131e-05,
+          "p95": 0.00011034000417566858
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.006132000009529293,
+          "median": 0.007196800004749093,
+          "p95": 0.009065735003969167
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.006365599998389371,
+          "median": 0.007206199996289797,
+          "p95": 0.008025850002013613
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.579999510198832e-05,
+          "median": 8.83999964571558e-05,
+          "p95": 0.00011115000088466329
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.006448200001614168,
+          "median": 0.0072981499979505315,
+          "p95": 0.008126820005418266
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0011908000014955178,
+          "median": 0.002624599997943733,
+          "p95": 0.003215125011774944
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.150000601541251e-05,
+          "median": 8.914999489206821e-05,
+          "p95": 0.0001346150027529802
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0012623000075109303,
+          "median": 0.0027364999987185,
+          "p95": 0.0033215200099220962
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.005895399997825734,
+          "median": 0.006857050007965881,
+          "p95": 0.008083614998759004
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.619999814778566e-05,
+          "median": 8.734999573789537e-05,
+          "p95": 0.00010580999878584407
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.00597159999597352,
+          "median": 0.0069526500010397285,
+          "p95": 0.008178980000229786
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.00637540000025183,
+          "median": 0.007239749997097533,
+          "p95": 0.007548680000763852
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.680000271648169e-05,
+          "median": 8.579999848734587e-05,
+          "p95": 9.41949947446119e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.006458500007283874,
+          "median": 0.007332049994147383,
+          "p95": 0.007639724996988661
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0012652000004891306,
+          "median": 0.002591999997093808,
+          "p95": 0.003425089995289454
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.589999586343765e-05,
+          "median": 8.860000525601208e-05,
+          "p95": 0.0001342399918939918
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0013450999977067113,
+          "median": 0.0026796499951160513,
+          "p95": 0.0035687199975654943
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0029839999915566295,
+          "median": 0.003522000006341841,
+          "p95": 0.004102069992950419
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 6.900000153109431e-05,
+          "median": 7.795000419719145e-05,
+          "p95": 0.0001265149941900745
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0030556999990949407,
+          "median": 0.0036048500041943043,
+          "p95": 0.0041900849930243565
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.003351699997438118,
+          "median": 0.003645249998953659,
+          "p95": 0.003942980006104335
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.610001193825155e-05,
+          "median": 7.879999611759558e-05,
+          "p95": 9.303499755333177e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0034278000093763694,
+          "median": 0.003725750000739936,
+          "p95": 0.004026025002531242
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0009627000108594075,
+          "median": 0.0012207000036141835,
+          "p95": 0.001554304997989675
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.979999307077378e-05,
+          "median": 7.805000495864078e-05,
+          "p95": 8.681999606778844e-05
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0010325000039301813,
+          "median": 0.0013024000072618946,
+          "p95": 0.0016408099960244726
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0030085000034887344,
+          "median": 0.0036411999899428338,
+          "p95": 0.004066469993267674
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.169999298639596e-05,
+          "median": 8.040000102482736e-05,
+          "p95": 9.898999051074497e-05
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0030802999972365797,
+          "median": 0.003724949994648341,
+          "p95": 0.004151415000524139
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0031766000029165298,
+          "median": 0.003703500005940441,
+          "p95": 0.005647490001865662
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.550000736955553e-05,
+          "median": 8.425000123679638e-05,
+          "p95": 0.00010349999865866266
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.003284300008090213,
+          "median": 0.0037951999984215945,
+          "p95": 0.005731815003673545
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0010137999925063923,
+          "median": 0.0012848000042140484,
+          "p95": 0.0016100749962788539
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.090000144671649e-05,
+          "median": 7.964999531395733e-05,
+          "p95": 0.00014057999505894252
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0010846999939531088,
+          "median": 0.0013747500051977113,
+          "p95": 0.0017083899889257733
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.03455810000014026,
+          "median": 0.03783770000882214,
+          "p95": 0.04059555000785622
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.0001134999911300838,
+          "median": 0.00013505000242730603,
+          "p95": 0.0002585499954875558
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.03467159999127034,
+          "median": 0.03806770000664983,
+          "p95": 0.04079266499611549
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.036443599994527176,
+          "median": 0.04028134999680333,
+          "p95": 0.049247509997076125
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.0001213000068673864,
+          "median": 0.00014940000255592167,
+          "p95": 0.00016150999945239164
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.03656490000139456,
+          "median": 0.040430900000501424,
+          "p95": 0.049400970003625845
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.002426300008664839,
+          "median": 0.024348750004719477,
+          "p95": 0.02950129000164452
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 9.759998647496104e-05,
+          "median": 0.00013929999840911478,
+          "p95": 0.0001659949979512021
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0025238999951398,
+          "median": 0.024487900001986418,
+          "p95": 0.02965509000205202
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.03300179999496322,
+          "median": 0.040255549996800255,
+          "p95": 0.04907857500002137
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00010990000737365335,
+          "median": 0.00013514999591279775,
+          "p95": 0.00021611999545712019
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.03311190000385977,
+          "median": 0.04038750000472646,
+          "p95": 0.04923855999368243
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.03624040000431705,
+          "median": 0.03822119999676943,
+          "p95": 0.0454926499944122
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010489999840501696,
+          "median": 0.00014494999777525663,
+          "p95": 0.00016247001112787985
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.03634530000272207,
+          "median": 0.03835699999763165,
+          "p95": 0.04565512000554008
+        }
+      },
+      {
+        "workflow": "cvxpy-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0025676000077510253,
+          "median": 0.02300449999893317,
+          "p95": 0.028979620010795768
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 9.469999349676073e-05,
+          "median": 0.0001276499970117584,
+          "p95": 0.00017591499999980437
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0026815000019269064,
+          "median": 0.02313614999729907,
+          "p95": 0.029130940011964413
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale0-s94283",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0013501999928848818,
+          "median": 0.0015405000012833625,
+          "p95": 0.0019124200072837994
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.0001382999907946214,
+          "median": 0.00016234999930020422,
+          "p95": 0.00020406000621733255
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0014919999957783148,
+          "median": 0.0017177500049001537,
+          "p95": 0.0020821449979848694
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0013463000068441033,
+          "median": 0.001415750004525762,
+          "p95": 0.0015535200021986385
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00012450000212993473,
+          "median": 0.00013059999764664099,
+          "p95": 0.0002015900041442364
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0014720000035595149,
+          "median": 0.0015481000009458512,
+          "p95": 0.0017208550016221125
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00017729999672155827,
+          "median": 0.00020685000345110893,
+          "p95": 0.0002444549994834233
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00010540000221226364,
+          "median": 0.00012335000064922497,
+          "p95": 0.00015915000258246435
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00028310000197961926,
+          "median": 0.00032550000469200313,
+          "p95": 0.0004141650053497869
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale16-s94284",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0012266000121599063,
+          "median": 0.0015717999995104037,
+          "p95": 0.002396429996588267
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.0001145999995060265,
+          "median": 0.00013509999553207308,
+          "p95": 0.0002145399987057317
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0013412000116659328,
+          "median": 0.0016998999926727265,
+          "p95": 0.002587290002702502
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0013079000054858625,
+          "median": 0.0014645500050392002,
+          "p95": 0.0016431350071798077
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010479999764356762,
+          "median": 0.00012884999887319282,
+          "p95": 0.0001523899962194264
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0014127000031294301,
+          "median": 0.001596499998413492,
+          "p95": 0.0017750250008248258
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00016900000628083944,
+          "median": 0.00020599999697878957,
+          "p95": 0.00023284999770112336
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.990000060293823e-05,
+          "median": 0.00011970000196015462,
+          "p95": 0.00016005499564926136
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0002589000068837777,
+          "median": 0.00032914998882915825,
+          "p95": 0.00038746000354876735
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale0-s94273",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0004668000037781894,
+          "median": 0.0005745500020566396,
+          "p95": 0.0008106350011075847
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 8.189999789465219e-05,
+          "median": 0.00010045000090030953,
+          "p95": 0.0002090749971102923
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0005489000031957403,
+          "median": 0.0006760999967809767,
+          "p95": 0.0009963349963072687
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.00048630000674165785,
+          "median": 0.0005950999984634109,
+          "p95": 0.0006384800050000195
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.620000153314322e-05,
+          "median": 0.00010394999844720587,
+          "p95": 0.00011544499211595394
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0005725000082748011,
+          "median": 0.0006968499947106466,
+          "p95": 0.0007528399990405887
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 9.159999899566174e-05,
+          "median": 0.00011379999341443181,
+          "p95": 0.00014166000255499964
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.940000457689166e-05,
+          "median": 9.375000809086487e-05,
+          "p95": 0.00019218499146518282
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00016250000044237822,
+          "median": 0.00021039999410277233,
+          "p95": 0.00033807499567046746
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale16-s94274",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.00046550000843126327,
+          "median": 0.000595899997279048,
+          "p95": 0.000718985002458794
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.919999188743532e-05,
+          "median": 0.0001135500060627237,
+          "p95": 0.00014864999684505165
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0005447000003186986,
+          "median": 0.0007050499989418313,
+          "p95": 0.0008504200028255582
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0005036000075051561,
+          "median": 0.0005356999972718768,
+          "p95": 0.000624985004105838
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.919999527279288e-05,
+          "median": 9.829999908106402e-05,
+          "p95": 0.00013601499958895146
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0005992000078549609,
+          "median": 0.0006384499938576482,
+          "p95": 0.0007610000036947894
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 8.120000711642206e-05,
+          "median": 0.00011470000026747584,
+          "p95": 0.00014645999908680096
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.140000186860561e-05,
+          "median": 8.605000039096922e-05,
+          "p95": 0.00012000999922747723
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00014260000898502767,
+          "median": 0.00020080000103916973,
+          "p95": 0.00026632000517565755
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale0-s94293",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.004771699997945689,
+          "median": 0.005639850001898594,
+          "p95": 0.0075285749997419755
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00014069999451749027,
+          "median": 0.00020349999977042899,
+          "p95": 0.00032011001167120407
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.004925200002617203,
+          "median": 0.0058314499983680435,
+          "p95": 0.007868405001499922
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.005074800006696023,
+          "median": 0.005506950001290534,
+          "p95": 0.006017799999972339
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00017139999545179307,
+          "median": 0.00018814999930327758,
+          "p95": 0.0002156549999199342
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.005261500002234243,
+          "median": 0.00570375000097556,
+          "p95": 0.006212264999339822
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0004975000047124922,
+          "median": 0.0005605999904219061,
+          "p95": 0.0006805349963542539
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.0001635000080568716,
+          "median": 0.00019565000548027456,
+          "p95": 0.0002918999991379678
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0006641000072704628,
+          "median": 0.0007626500009791926,
+          "p95": 0.0009044049933436326
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale16-s94294",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.005121700000017881,
+          "median": 0.006006600000546314,
+          "p95": 0.006621965007070685
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00015219999477267265,
+          "median": 0.00018529999942984432,
+          "p95": 0.00023140499761211685
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.005349099999875762,
+          "median": 0.00618564999604132,
+          "p95": 0.006822955002280651
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.005382100003771484,
+          "median": 0.0061224999953992665,
+          "p95": 0.007008525000856025
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00015690000145696104,
+          "median": 0.00020570000924635679,
+          "p95": 0.0002815949963405728
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.005540600002859719,
+          "median": 0.006328200004645623,
+          "p95": 0.0072762299962050745
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0005154999962542206,
+          "median": 0.000647550004941877,
+          "p95": 0.0007535850039857905
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00016119999054353684,
+          "median": 0.00019999999494757503,
+          "p95": 0.0003587700019124894
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.000683899997966364,
+          "median": 0.0008563500014133751,
+          "p95": 0.0010795450034493113
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale0-s94183",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0016029999969759956,
+          "median": 0.0018507999993744306,
+          "p95": 0.0020666950011218434
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 9.810000483412296e-05,
+          "median": 0.00011299999459879473,
+          "p95": 0.00013142000752850436
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.001705200003925711,
+          "median": 0.001962050002475735,
+          "p95": 0.002199009998003021
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.001731399999698624,
+          "median": 0.0018582499978947453,
+          "p95": 0.0019382250036869663
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010010000551119447,
+          "median": 0.00011385000834707171,
+          "p95": 0.00013988999780849553
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0018315000052098185,
+          "median": 0.001971800003957469,
+          "p95": 0.002078080001228955
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00011220001033507288,
+          "median": 0.0002495500011718832,
+          "p95": 0.000369749998935731
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.989999383222312e-05,
+          "median": 0.00010464999650139362,
+          "p95": 0.0001685700080997776
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.000182100004167296,
+          "median": 0.0003435500038904138,
+          "p95": 0.0004840200061153155
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale16-s94184",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0015005000022938475,
+          "median": 0.001790150003216695,
+          "p95": 0.002080714998737676
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 9.459999273531139e-05,
+          "median": 0.00011369999265298247,
+          "p95": 0.0001768049936799798
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0015998000017134473,
+          "median": 0.0019083000006503426,
+          "p95": 0.0022419499990064653
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0015361999976448715,
+          "median": 0.0017336500095552765,
+          "p95": 0.0019216950007830745
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 9.670000872574747e-05,
+          "median": 0.00011449999146861956,
+          "p95": 0.00012526999489637092
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.001632900006370619,
+          "median": 0.0018539000084274448,
+          "p95": 0.002039440005319193
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00012830000196117908,
+          "median": 0.000247500000114087,
+          "p95": 0.00042347999333287585
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.660000119358301e-05,
+          "median": 0.00010504999954719096,
+          "p95": 0.00013695000598090698
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00021149999520275742,
+          "median": 0.0003439499996602535,
+          "p95": 0.0006521449977299195
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale0-s94173",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.00042290000419598073,
+          "median": 0.000472849998914171,
+          "p95": 0.0005956399894785136
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.539999205619097e-05,
+          "median": 8.85499975993298e-05,
+          "p95": 0.00013216000370448454
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0004985999985365197,
+          "median": 0.0005628500075545162,
+          "p95": 0.0007240500010084361
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.000451600004453212,
+          "median": 0.00048299999616574496,
+          "p95": 0.0005099699992570095
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.319999324157834e-05,
+          "median": 8.905000140657648e-05,
+          "p95": 0.00011247500515310092
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0005397000059019774,
+          "median": 0.0005715500010410324,
+          "p95": 0.0006096249962865841
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 7.480000203941017e-05,
+          "median": 9.554999996908009e-05,
+          "p95": 0.00011488499949336983
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.27999979769811e-05,
+          "median": 7.634999928995967e-05,
+          "p95": 0.0001718450053886044
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00013760000001639128,
+          "median": 0.00017289999959757552,
+          "p95": 0.00025316999890492294
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale16-s94174",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.00041629999759607017,
+          "median": 0.0005071999985375442,
+          "p95": 0.0005502799998794216
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.37000082153827e-05,
+          "median": 9.454999963054433e-05,
+          "p95": 0.0001387149932270404
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0004962999955751002,
+          "median": 0.0006084500055294484,
+          "p95": 0.0006698500030324794
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0004326000052969903,
+          "median": 0.00048614999832352623,
+          "p95": 0.000552425000932999
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.959999493323267e-05,
+          "median": 8.7800006440375e-05,
+          "p95": 9.75849965470843e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0005122000002302229,
+          "median": 0.000571600001421757,
+          "p95": 0.0006481550037278793
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 7.350000669248402e-05,
+          "median": 0.0001237499964190647,
+          "p95": 0.0001794350013369694
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.629999552387744e-05,
+          "median": 7.495000318158418e-05,
+          "p95": 0.00011273499621893277
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00014030000602360815,
+          "median": 0.00020460000087041408,
+          "p95": 0.0002796549968479667
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale0-s94193",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.02071040000009816,
+          "median": 0.023222750001878012,
+          "p95": 0.030217129993252455
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00015180000627879053,
+          "median": 0.0001840999975684099,
+          "p95": 0.0002477250069205183
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.02088009999715723,
+          "median": 0.023417750002408866,
+          "p95": 0.03042973999181413
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.02147589999367483,
+          "median": 0.023243449999426957,
+          "p95": 0.027340704994276165
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.0001252999936696142,
+          "median": 0.00017660000594332814,
+          "p95": 0.0002261849978822283
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.021601199987344444,
+          "median": 0.023416500000166707,
+          "p95": 0.027566889992158394
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0002918999962275848,
+          "median": 0.0009465499970247038,
+          "p95": 0.0011141649920318741
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00013309999485500157,
+          "median": 0.00017099999968195334,
+          "p95": 0.0002130649947503116
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0004285000031813979,
+          "median": 0.001102250003896188,
+          "p95": 0.001323940003203461
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale16-s94194",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.019618499994976446,
+          "median": 0.025173899994115345,
+          "p95": 0.030993495009170147
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00015049999637994915,
+          "median": 0.00018514999828767031,
+          "p95": 0.00030207499730749987
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.019768999991356395,
+          "median": 0.02539789999718778,
+          "p95": 0.031175200007419336
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.022320100004435517,
+          "median": 0.023627299997315276,
+          "p95": 0.02665209500773926
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00016830000095069408,
+          "median": 0.00018605000514071435,
+          "p95": 0.00019938999685109593
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.022502200008602813,
+          "median": 0.02380970000376692,
+          "p95": 0.026840315001027192
+        }
+      },
+      {
+        "workflow": "direct-highspy",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00033549999352544546,
+          "median": 0.0009475999904680066,
+          "p95": 0.0014114500030700577
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00013630000466946512,
+          "median": 0.00018619999900693074,
+          "p95": 0.0002626149958814494
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0004861000052187592,
+          "median": 0.0011067999948863871,
+          "p95": 0.001663684998493408
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.020395899991854094,
+          "median": 0.022122199996374547,
+          "p95": 0.0448960700035968
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00014560000272467732,
+          "median": 0.0001673500082688406,
+          "p95": 0.00018693000019993631
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.020563500002026558,
+          "median": 0.022292850000667386,
+          "p95": 0.04507591000292447
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.018270700005814433,
+          "median": 0.02060564999555936,
+          "p95": 0.05303110999884664
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.0001416000013705343,
+          "median": 0.0001515500043751672,
+          "p95": 0.00019734499874175525
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.018412300007184967,
+          "median": 0.02075495000462979,
+          "p95": 0.053200295003625775
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0033448000031057745,
+          "median": 0.003966199998103548,
+          "p95": 0.004418089988757856
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.000123099991469644,
+          "median": 0.00014605000615119934,
+          "p95": 0.0001548850028484594
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0034776999964378774,
+          "median": 0.004107399996428285,
+          "p95": 0.0045715049905993505
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.019144699996104464,
+          "median": 0.021316600003046915,
+          "p95": 0.04651733500068074
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.0001416000013705343,
+          "median": 0.00016334999963873997,
+          "p95": 0.00023341000414802692
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.019286299997474998,
+          "median": 0.021469949999300297,
+          "p95": 0.04676690499763934
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.019511100006639026,
+          "median": 0.020109700002649333,
+          "p95": 0.021249344996613215
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00012670000432990491,
+          "median": 0.0001437499959138222,
+          "p95": 0.00014957000894355588
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.01963780001096893,
+          "median": 0.020253449998563156,
+          "p95": 0.021392350002861348
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0032377000025007874,
+          "median": 0.0038186500023584813,
+          "p95": 0.0045500800042646
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00011299998732283711,
+          "median": 0.00013580000086221844,
+          "p95": 0.00015098998992471024
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0033629000099608675,
+          "median": 0.003961250004067551,
+          "p95": 0.0046955699966929375
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.005999300003168173,
+          "median": 0.007760300002701115,
+          "p95": 0.010288685010164044
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00010900000052060932,
+          "median": 0.0001476500037824735,
+          "p95": 0.0001814199989894405
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.006130399997346103,
+          "median": 0.007915750007668976,
+          "p95": 0.010435580006014787
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0066113000066252425,
+          "median": 0.008094600001641084,
+          "p95": 0.009884974996384698
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010489999840501696,
+          "median": 0.00014200000441633165,
+          "p95": 0.00038398000106099045
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0067162000050302595,
+          "median": 0.00832030000310624,
+          "p95": 0.010112605003087081
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0014432000025408342,
+          "median": 0.0018319000009796582,
+          "p95": 0.002259454999148147
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 9.499999578110874e-05,
+          "median": 0.0001178499951492995,
+          "p95": 0.00014123000073595904
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.001538199998321943,
+          "median": 0.001946900003531482,
+          "p95": 0.0023917299964523408
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.006229899998288602,
+          "median": 0.007556650001788512,
+          "p95": 0.010456834997603437
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00012430000060703605,
+          "median": 0.00015335000352934003,
+          "p95": 0.0002170749954530038
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.006354199998895638,
+          "median": 0.007705550000537187,
+          "p95": 0.010635499995987629
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.00705319999542553,
+          "median": 0.0075848999913432635,
+          "p95": 0.009686590005730977
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00012490000517573208,
+          "median": 0.0001571000029798597,
+          "p95": 0.0002989750035339966
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.007178100000601262,
+          "median": 0.007759500003885478,
+          "p95": 0.00983682500445866
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0015275000041583553,
+          "median": 0.0017408500061719678,
+          "p95": 0.0020122250010899735
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.660000457894057e-05,
+          "median": 0.00011100000119768083,
+          "p95": 0.00016214999486692245
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0016299999988405034,
+          "median": 0.001855350004916545,
+          "p95": 0.002158105001581134
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.06868460000259802,
+          "median": 0.08024269999441458,
+          "p95": 0.14832162000020616
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00017919999663718045,
+          "median": 0.00022885000362293795,
+          "p95": 0.0003071000071940943
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.06887350000033621,
+          "median": 0.08046289999765577,
+          "p95": 0.14856562999411835
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.06752130000677425,
+          "median": 0.07361700000183191,
+          "p95": 0.11588431499549187
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00017330000991933048,
+          "median": 0.00018219999765278772,
+          "p95": 0.0002017850085394457
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.06769880000501871,
+          "median": 0.07381105000240495,
+          "p95": 0.11605768500085105
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.010680700012017041,
+          "median": 0.011901099998794962,
+          "p95": 0.012790155001857784
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.0001652000064495951,
+          "median": 0.00018465000175638124,
+          "p95": 0.00020512499249889516
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.010885900002904236,
+          "median": 0.01207369999610819,
+          "p95": 0.012985659998230403
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.07043859999976121,
+          "median": 0.07432130000233883,
+          "p95": 0.1275842850045592
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00016570001025684178,
+          "median": 0.00019445000361884013,
+          "p95": 0.0003024550002010073
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.07062640000367537,
+          "median": 0.07450574999529636,
+          "p95": 0.12778784500042092
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.07359519999590702,
+          "median": 0.08175035000022035,
+          "p95": 0.13841399000011734
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00016719999257475138,
+          "median": 0.00020279999444028363,
+          "p95": 0.00038754500492359505
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.07377299999643583,
+          "median": 0.08195314999466063,
+          "p95": 0.1387591450009495
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.010937200000626035,
+          "median": 0.012743250001221895,
+          "p95": 0.016516529994260055
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00016759999562054873,
+          "median": 0.00021570000535575673,
+          "p95": 0.0002941850048955529
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.011104799996246584,
+          "median": 0.012999200000194833,
+          "p95": 0.01675852499756729
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.009246099987649359,
+          "median": 0.010496300004888326,
+          "p95": 0.011722214995097601
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00011040001118090004,
+          "median": 0.000131050001073163,
+          "p95": 0.00020169499912299214
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.00936879999062512,
+          "median": 0.010659250001481269,
+          "p95": 0.011885214998619631
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.010332999998354353,
+          "median": 0.01139280000643339,
+          "p95": 0.012927660001878394
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010460001067258418,
+          "median": 0.00013069999840809032,
+          "p95": 0.00016118999265017918
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.010437600009026937,
+          "median": 0.011540949999471195,
+          "p95": 0.013077044999954523
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0016986999980872497,
+          "median": 0.0022548999986611307,
+          "p95": 0.0028559000063978594
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00010089999705087394,
+          "median": 0.00012215000606374815,
+          "p95": 0.0001732450116833206
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0018008000042755157,
+          "median": 0.0023699000012129545,
+          "p95": 0.0029883200091717294
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.009115099994232878,
+          "median": 0.010698650003178045,
+          "p95": 0.01358031999625382
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00010609999299049377,
+          "median": 0.00013174999912735075,
+          "p95": 0.00019076500029768792
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.00922290000016801,
+          "median": 0.010860150003281888,
+          "p95": 0.013771084996551507
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.010638799998559989,
+          "median": 0.01117934999638237,
+          "p95": 0.011938970003393478
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00012480000441428274,
+          "median": 0.0001336999994236976,
+          "p95": 0.0001437999992049299
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.010779999996884726,
+          "median": 0.011312200003885664,
+          "p95": 0.012071040007140255
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0017850000003818423,
+          "median": 0.002079649995721411,
+          "p95": 0.002494939994357992
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 9.689999569673091e-05,
+          "median": 0.0001157000006060116,
+          "p95": 0.00012874499516328796
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0018869999912567437,
+          "median": 0.002201749994128477,
+          "p95": 0.0026102549985807856
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0037105999945197254,
+          "median": 0.0047147499935817905,
+          "p95": 0.005832544999429956
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 9.519999730400741e-05,
+          "median": 0.00011470000026747584,
+          "p95": 0.00015540499371127222
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.003823599996394478,
+          "median": 0.004853849997743964,
+          "p95": 0.005965779994585319
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.004503599993768148,
+          "median": 0.005304149992298335,
+          "p95": 0.005899445006070892
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010629999451339245,
+          "median": 0.00011544999870238826,
+          "p95": 0.00014242000397644006
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.00461959998938255,
+          "median": 0.005431749996205326,
+          "p95": 0.0060207500035176055
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.001000700009171851,
+          "median": 0.0012533499975688756,
+          "p95": 0.0015387649880722165
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.620000153314322e-05,
+          "median": 9.709999721962959e-05,
+          "p95": 0.00011576000688364727
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0010983000101987273,
+          "median": 0.0013463999930536374,
+          "p95": 0.0016542849996767472
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0037241000100038946,
+          "median": 0.004314699996029958,
+          "p95": 0.005891584997880272
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 9.799998952075839e-05,
+          "median": 0.00011225000343983993,
+          "p95": 0.00015431000720127485
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.003822099999524653,
+          "median": 0.004424999999173451,
+          "p95": 0.006009439999616006
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.004563800001051277,
+          "median": 0.0048324000017601065,
+          "p95": 0.005731590004143072
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00010370000381954014,
+          "median": 0.00011274999269517139,
+          "p95": 0.00013720499773626216
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.004672099996241741,
+          "median": 0.004938550002407283,
+          "p95": 0.005867085001955274
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.001082599992514588,
+          "median": 0.0013457499953801744,
+          "p95": 0.0016934350082010497
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.669999078847468e-05,
+          "median": 9.639999188948423e-05,
+          "p95": 0.00015156499866861848
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0011763999937102199,
+          "median": 0.0014458999939961359,
+          "p95": 0.001840440007072175
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.04445760000089649,
+          "median": 0.05210309999529272,
+          "p95": 0.0895149000105448
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00014879999798722565,
+          "median": 0.00017890000162879005,
+          "p95": 0.0002039499973761849
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.044616999992285855,
+          "median": 0.052276999995228834,
+          "p95": 0.08969892000459367
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.052712000004248694,
+          "median": 0.05467800000769785,
+          "p95": 0.08735826999545677
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00017169999773614109,
+          "median": 0.0001899999988381751,
+          "p95": 0.00020151999706286006
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.05290260000037961,
+          "median": 0.054854350004461594,
+          "p95": 0.08755954999505773
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.005464899993967265,
+          "median": 0.006600949993298855,
+          "p95": 0.007611529993300791
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00014180000289343297,
+          "median": 0.0001829999964684248,
+          "p95": 0.0002373450057348236
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.005621499993139878,
+          "median": 0.006794699998863507,
+          "p95": 0.007812744992406806
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.048223799996776506,
+          "median": 0.0540073499942082,
+          "p95": 0.10567073999991407
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.000149500003317371,
+          "median": 0.00017854999896371737,
+          "p95": 0.00027706000182661225
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.04837330000009388,
+          "median": 0.054193199997826014,
+          "p95": 0.10584044000061112
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.04690830000618007,
+          "median": 0.05503160000080243,
+          "p95": 0.08399755999562329
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00015110000094864517,
+          "median": 0.00018049999926006421,
+          "p95": 0.0002570549972006119
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.047059400007128716,
+          "median": 0.05521464999765158,
+          "p95": 0.08425177999160949
+        }
+      },
+      {
+        "workflow": "pyomo-appsi-highs",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.00476929999422282,
+          "median": 0.006822499999543652,
+          "p95": 0.009348155009502078
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00012250000145286322,
+          "median": 0.00017360000492772087,
+          "p95": 0.0001978149972273968
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.004891799995675683,
+          "median": 0.006991199988988228,
+          "p95": 0.009523995001654838
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale0-s94283",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.006710000001476146,
+          "median": 0.007651400002941955,
+          "p95": 0.00834266000019852
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 8.850000449456275e-05,
+          "median": 0.00010579999798210338,
+          "p95": 0.00015052499948069452
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.006804400007240474,
+          "median": 0.007755250000627711,
+          "p95": 0.008466679997218307
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.005944900010945275,
+          "median": 0.006542800008901395,
+          "p95": 0.007762395000463584
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.600000001024455e-05,
+          "median": 9.204999514622614e-05,
+          "p95": 0.00011986999306827783
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0060545000014826655,
+          "median": 0.006632600001466926,
+          "p95": 0.007880339999246644
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale0-s94283",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.005738099993322976,
+          "median": 0.006802550000429619,
+          "p95": 0.008075005008140578
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.890000076964498e-05,
+          "median": 8.834999607643113e-05,
+          "p95": 0.00012162999701104127
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.005806999994092621,
+          "median": 0.0069077499938430265,
+          "p95": 0.008174345003499183
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale16-s94284",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.006417700002202764,
+          "median": 0.007506200003263075,
+          "p95": 0.009318609995534643
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 8.090000483207405e-05,
+          "median": 0.00010080000356538221,
+          "p95": 0.0003332099979161283
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0064990000100806355,
+          "median": 0.007600000004458707,
+          "p95": 0.009433614995214156
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.006253300001844764,
+          "median": 0.006873699996504001,
+          "p95": 0.039252010002383
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 8.159999561030418e-05,
+          "median": 9.325000428361818e-05,
+          "p95": 0.0001747200010868255
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.006334899997455068,
+          "median": 0.0069597499968949705,
+          "p95": 0.039405730001453754
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-128-scale16-s94284",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.006116899996413849,
+          "median": 0.006750849999662023,
+          "p95": 0.007517515002837171
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.9500005338341e-05,
+          "median": 8.414999319938943e-05,
+          "p95": 0.00011604999817791394
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.00619390000065323,
+          "median": 0.0068327999979374,
+          "p95": 0.007608570002048509
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale0-s94273",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0027914000093005598,
+          "median": 0.003237199991417583,
+          "p95": 0.003726345003087772
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 6.10999995842576e-05,
+          "median": 7.845000800443813e-05,
+          "p95": 0.00013011499831918624
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0028554000018630177,
+          "median": 0.0033202499980689026,
+          "p95": 0.003829655000299681
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.003257899996242486,
+          "median": 0.003451099997619167,
+          "p95": 0.0037565399914456063
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.12000037310645e-05,
+          "median": 7.815000572009012e-05,
+          "p95": 0.00010505001264391465
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0033297999907517806,
+          "median": 0.0035308000005898066,
+          "p95": 0.0038466650024929546
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale0-s94273",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0026863999955821782,
+          "median": 0.0032503999973414466,
+          "p95": 0.003541135001432849
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.19000056758523e-05,
+          "median": 7.689999620197341e-05,
+          "p95": 0.0001027499951305799
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0027483000012580305,
+          "median": 0.0033278999908361584,
+          "p95": 0.003641949994926108
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale16-s94274",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.002747799997450784,
+          "median": 0.003357100002176594,
+          "p95": 0.004474634992220672
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 6.729998858645558e-05,
+          "median": 8.059999527176842e-05,
+          "p95": 0.0001481049970607273
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0028894999995827675,
+          "median": 0.003438449995883275,
+          "p95": 0.00463787999615306
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.0027532000094652176,
+          "median": 0.0030876500022714026,
+          "p95": 0.003393685003538849
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 6.019999273121357e-05,
+          "median": 6.709999433951452e-05,
+          "p95": 7.592999172629788e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0028151000005891547,
+          "median": 0.003152199999021832,
+          "p95": 0.003468354994402034
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-32-scale16-s94274",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.002627900001243688,
+          "median": 0.0031186999985948205,
+          "p95": 0.004171534998749849
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.370000483002514e-05,
+          "median": 7.404999632854015e-05,
+          "p95": 0.0001946249954926314
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0026922000106424093,
+          "median": 0.003219750004063826,
+          "p95": 0.004277570003614528
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale0-s94293",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.020341800001915544,
+          "median": 0.023649750000913627,
+          "p95": 0.03200571500201477
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.0001331999956164509,
+          "median": 0.0001860999982454814,
+          "p95": 0.000280489998840494
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.020500500002526678,
+          "median": 0.023828299999877345,
+          "p95": 0.03221083499811357
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.02080680000653956,
+          "median": 0.02200539999466855,
+          "p95": 0.023836400005529865
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.00013169999874662608,
+          "median": 0.00016850000247359276,
+          "p95": 0.00024066999903880058
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.02095940000435803,
+          "median": 0.022188949995324947,
+          "p95": 0.02401332000372349
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale0-s94293",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.019991599998320453,
+          "median": 0.021936750003078487,
+          "p95": 0.025152890002209456
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.0001233000075444579,
+          "median": 0.00015260000509442762,
+          "p95": 0.00018236000614706426
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.020145899994531646,
+          "median": 0.02207500000076834,
+          "p95": 0.02532394500885857
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale16-s94294",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.020268899999791756,
+          "median": 0.022359799993864726,
+          "p95": 0.024206095006957185
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 0.00010649999603629112,
+          "median": 0.00015295000048354268,
+          "p95": 0.00018145999711123294
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.020380300004035234,
+          "median": 0.02251839999371441,
+          "p95": 0.02441177000582684
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.02055859999381937,
+          "median": 0.024831650000123773,
+          "p95": 0.039022479996492616
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 0.000145500001963228,
+          "median": 0.0002514000007067807,
+          "p95": 0.0004091249960765708
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0207040999957826,
+          "median": 0.02515904999745544,
+          "p95": 0.03940801499629742
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "network-512-scale16-s94294",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.02236260000790935,
+          "median": 0.02378694999788422,
+          "p95": 0.036644169997452986
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 0.00012589999823831022,
+          "median": 0.00019279999105492607,
+          "p95": 0.00029919500229880203
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.022499400001834147,
+          "median": 0.023962399995070882,
+          "p95": 0.036860244993295044
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale0-s94183",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.004741700002341531,
+          "median": 0.005406650008808356,
+          "p95": 0.007217545000457903
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 6.519998714793473e-05,
+          "median": 7.584999548271298e-05,
+          "p95": 0.00010025499796029179
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0048147000052267686,
+          "median": 0.00548269999853801,
+          "p95": 0.007304340004338883
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.004953900002874434,
+          "median": 0.005475750003824942,
+          "p95": 0.006128144996182527
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 6.620000931434333e-05,
+          "median": 7.724999886704609e-05,
+          "p95": 9.722499962663277e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.005020100012188777,
+          "median": 0.005546899999899324,
+          "p95": 0.006216824994771741
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale0-s94183",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.004776900008437224,
+          "median": 0.0053821000110474415,
+          "p95": 0.006265889999485807
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 6.429999484680593e-05,
+          "median": 7.734999962849542e-05,
+          "p95": 0.00010090000578202305
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.004853400008869357,
+          "median": 0.005460550004499964,
+          "p95": 0.006364120006765005
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale16-s94184",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.0045049000036669895,
+          "median": 0.005167499999515712,
+          "p95": 0.005630465007561725
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 6.690000009257346e-05,
+          "median": 7.88000033935532e-05,
+          "p95": 0.00010482499783392996
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0046058000007178634,
+          "median": 0.005254449999483768,
+          "p95": 0.005719435001083184
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.004810800004634075,
+          "median": 0.005270149995340034,
+          "p95": 0.00582857999324915
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 7.049999840091914e-05,
+          "median": 9.340000542579219e-05,
+          "p95": 0.00010270999628119171
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.004914000004646368,
+          "median": 0.005365899996832013,
+          "p95": 0.00592054999578977
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-128-scale16-s94184",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0047270000068238005,
+          "median": 0.005262349994154647,
+          "p95": 0.0057770049963437485
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 7.190000906120986e-05,
+          "median": 7.905000529717654e-05,
+          "p95": 0.00010328500284231267
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.004819200010388158,
+          "median": 0.005339449999155477,
+          "p95": 0.005877484997472493
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale0-s94173",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.002130099994246848,
+          "median": 0.0025567499978933483,
+          "p95": 0.0029655300051672382
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 5.9699988923966885e-05,
+          "median": 7.160000677686185e-05,
+          "p95": 0.00011350000058882869
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.0021924000029684976,
+          "median": 0.002647549998073373,
+          "p95": 0.003065330001118127
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.002240299989352934,
+          "median": 0.0024778500010143034,
+          "p95": 0.002956770007585874
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 5.77000027988106e-05,
+          "median": 6.34500029264018e-05,
+          "p95": 0.0001586950071214232
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.002300199994351715,
+          "median": 0.002541300003940705,
+          "p95": 0.0030261550062277817
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale0-s94173",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.0021807000011904165,
+          "median": 0.0024455000020680018,
+          "p95": 0.0028226399932464114
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 5.77000027988106e-05,
+          "median": 6.864999886602163e-05,
+          "p95": 0.0001033750064380001
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.002242399990791455,
+          "median": 0.002512750004825648,
+          "p95": 0.002909439995710272
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale16-s94174",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.002021199994487688,
+          "median": 0.0025738999975146726,
+          "p95": 0.0030969200051913504
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 5.740000051446259e-05,
+          "median": 7.045000529615209e-05,
+          "p95": 0.00011324500010232438
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.002082099992549047,
+          "median": 0.002646299995831214,
+          "p95": 0.0032044450017565396
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.002313799996045418,
+          "median": 0.002611850002722349,
+          "p95": 0.002733579996129265
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 6.10999995842576e-05,
+          "median": 6.785000005038455e-05,
+          "p95": 9.436999898753128e-05
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.0023787999962223694,
+          "median": 0.0026779500039992854,
+          "p95": 0.0028148149991466197
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-32-scale16-s94174",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.002169799990952015,
+          "median": 0.0024336000060429797,
+          "p95": 0.003257039996969978
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 5.990000499878079e-05,
+          "median": 7.114999607438222e-05,
+          "p95": 8.716500087757594e-05
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.0022333999950205907,
+          "median": 0.002506150005501695,
+          "p95": 0.003336714988836319
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale0-s94193",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.030016199991223402,
+          "median": 0.03251744999579387,
+          "p95": 0.037952805001987146
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 8.779999916441739e-05,
+          "median": 0.00011965000157942995,
+          "p95": 0.00017172500665765255
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.03010399999038782,
+          "median": 0.03262544999597594,
+          "p95": 0.038126825006474976
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.03099129999463912,
+          "median": 0.034037749996059574,
+          "p95": 0.043531670002994356
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 9.750000026542693e-05,
+          "median": 0.0001368000012007542,
+          "p95": 0.00035687999770743755
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.031123299995670095,
+          "median": 0.03434249999554595,
+          "p95": 0.04367981500181486
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale0-s94193",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.02898780000396073,
+          "median": 0.03372510000190232,
+          "p95": 0.03833061499317409
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 8.869999146554619e-05,
+          "median": 0.0001238999975612387,
+          "p95": 0.00015479999638046135
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.029093499993905425,
+          "median": 0.0338550500018755,
+          "p95": 0.03844368500067503
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale16-s94194",
+        "phase": "cold_model",
+        "attempts": 32,
+        "accepted": 32,
+        "failures": 0,
+        "states": {
+          "completed": 32
+        },
+        "workflow_s": {
+          "count": 32,
+          "min": 0.02881859999615699,
+          "median": 0.033997300000919495,
+          "p95": 0.04065351999888662
+        },
+        "independent_check_s": {
+          "count": 32,
+          "min": 7.88000033935532e-05,
+          "median": 0.00011240000458201393,
+          "p95": 0.00017588999398867594
+        },
+        "checked_total_s": {
+          "count": 32,
+          "min": 0.028933499997947365,
+          "median": 0.03411449999839533,
+          "p95": 0.04088191500268294
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_initial",
+        "attempts": 8,
+        "accepted": 8,
+        "failures": 0,
+        "states": {
+          "completed": 8
+        },
+        "workflow_s": {
+          "count": 8,
+          "min": 0.03161930000351276,
+          "median": 0.03332214999682037,
+          "p95": 0.03542942500134814
+        },
+        "independent_check_s": {
+          "count": 8,
+          "min": 9.420000424142927e-05,
+          "median": 0.0001341500028502196,
+          "p95": 0.000370120000297902
+        },
+        "checked_total_s": {
+          "count": 8,
+          "min": 0.03173889999743551,
+          "median": 0.03353685000183759,
+          "p95": 0.03558250999485608
+        }
+      },
+      {
+        "workflow": "solverpilot",
+        "case": "production-512-scale16-s94194",
+        "phase": "sequence_update",
+        "attempts": 24,
+        "accepted": 24,
+        "failures": 0,
+        "states": {
+          "completed": 24
+        },
+        "workflow_s": {
+          "count": 24,
+          "min": 0.028421299997717142,
+          "median": 0.03542675000062445,
+          "p95": 0.04023963500076207
+        },
+        "independent_check_s": {
+          "count": 24,
+          "min": 9.210000280290842e-05,
+          "median": 0.00011980000272160396,
+          "p95": 0.00023019499130896287
+        },
+        "checked_total_s": {
+          "count": 24,
+          "min": 0.02852540000458248,
+          "median": 0.03556350000144448,
+          "p95": 0.04035938500237535
+        }
+      }
+    ],
+    "protocol": {
+      "objective": "minimize",
+      "scope": "synthetic continuous LP only",
+      "cold": "fresh model after imports/probing; process startup excluded",
+      "warm": "retained wrapper, objective/RHS updates; native reuse depends on recorded workflow policy",
+      "timing": "workflow_s includes construction/update and solve API, including wrapper-specific checks; checked_total_s adds common checker",
+      "phase_caveat": "canonicalization/native construction can occur inside solve_api_s; phases are not identical across APIs",
+      "formulation": "all adapters use native column bounds; CVXPY discovery checks representative canonical A/c/b/bounds exactly and records its interface; no extra canonicalization is timed",
+      "order": "cyclic positions then reversed cycles; each case and mode counterbalanced separately",
+      "complete_position_blocks": true,
+      "warmups_measured_in_summary": false,
+      "completion_policy": "requested_matrix_complete covers measured rows only; warmup outcomes are separately counted and retained",
+      "reference": "production: -y'Ax >= -y'b for y>=0; network: c=A'y+r, r>=0 and r'x*=0; planted x* feasible",
+      "reference_limit": "analytic witnesses evaluated in floating point; shared HiGHS is not an independent backend cross-check",
+      "family_limit": "planted optima retain support/tight rows across updates; active-set changes and difficult degeneracy are not qualified",
+      "scaling": "power16 is coefficient row-scale spread, not a measured matrix condition number",
+      "scope_exclusions": [
+        "integer models",
+        "infeasible/unbounded challenges",
+        "evidence/export parity",
+        "SolverPilot automatic routing and production contracts",
+        "JuMP/MOI (Julia interface not implemented)",
+        "real-user productivity",
+        "industrial performance claims"
+      ],
+      "budget": "global soft stop checked before each operation; native time limit excludes construction/checking",
+      "statistics": "timing summaries include accepted measured rows only; failed/unavailable counts remain explicit; p95 descriptive without significance claims"
+    },
+    "availability": {
+      "solverpilot": {
+        "available": true,
+        "native_version": "1.15.1",
+        "api": "solverpilot.execute with HighspyNativeBackend",
+        "variable_bounds": "native_column_bounds",
+        "canonicalization_probes": [],
+        "reuse_policy": "canonical_rebuild_and_cold_native_solve",
+        "builtin_candidate_validation": true
+      },
+      "direct-highspy": {
+        "available": true,
+        "native_version": "1.15.1",
+        "api": "highspy.Highs public matrix/update API",
+        "variable_bounds": "native_column_bounds",
+        "canonicalization_probes": [],
+        "reuse_policy": "native_model_retained",
+        "builtin_candidate_validation": false
+      },
+      "cvxpy-highs": {
+        "available": true,
+        "native_version": "1.15.1",
+        "api": "cvxpy.Problem.solve(HIGHS), DPP parameters",
+        "variable_bounds": "native_column_bounds",
+        "canonicalization_probes": [
+          {
+            "family": "production",
+            "source_shape": [
+              4,
+              8
+            ],
+            "native_shape": [
+              4,
+              8
+            ],
+            "native_nnz": 22,
+            "native_column_bounds": true,
+            "exact_data_match": true,
+            "solver_interface": "cvxpy.reductions.solvers.conic_solvers.highs_conif",
+            "scope": "small discovery probe; not a native matrix snapshot of every timed solve"
+          },
+          {
+            "family": "network",
+            "source_shape": [
+              8,
+              23
+            ],
+            "native_shape": [
+              8,
+              23
+            ],
+            "native_nnz": 46,
+            "native_column_bounds": true,
+            "exact_data_match": true,
+            "solver_interface": "cvxpy.reductions.solvers.conic_solvers.highs_conif",
+            "scope": "small discovery probe; not a native matrix snapshot of every timed solve"
+          }
+        ],
+        "reuse_policy": "DPP_parameters_and_warm_start_requested_not_attested",
+        "builtin_candidate_validation": false
+      },
+      "pyomo-appsi-highs": {
+        "available": true,
+        "native_version": "1.15.1",
+        "api": "pyomo.contrib.appsi.solvers.highs.Highs.solve, mutable parameters",
+        "variable_bounds": "native_column_bounds",
+        "canonicalization_probes": [],
+        "reuse_policy": "APPSI_persistent_model_and_mutable_parameters",
+        "builtin_candidate_validation": false
+      }
+    }
+  },
+  "clean_installations": {
+    "passed": true,
+    "wheel_sha256": "0994eba6eb561d01185cfe8b80da7ea0bc5c34e8f1a06d4ea460c8e6bd13bb75",
+    "source_sha256": "73235ae0fd70869062c79fffd330c96244e77f720444efda090d53b8c0bd7e77",
+    "scope": "same candidate wheel in two fresh local environments and separate Python processes",
+    "fixtures": [
+      {
+        "fixture": "nd-production",
+        "fixture_sha256": "cf879137714ebbe8b66ddde67bce07ad59d03447465a154011a0b677991ce144",
+        "technical_gate_passed": true,
+        "clean_replay_passed": true,
+        "environment_matches": true,
+        "study_source_matches_wheel": true,
+        "cases": 5,
+        "qualification_sha256": "8ff4cbd823f5ee527c71211a03a486299b193ef2074168e0982fb950cd6a18e4",
+        "replay_sha256": "18e9ec6e7bd8bfda707c7bfafc9155a9b7d660d7947e40792ecdd5e1b4ac312d"
+      },
+      {
+        "fixture": "synthetic-minimum-commitments",
+        "fixture_sha256": "2bea175a6348b18ae9cb3e34fe1ab0d3bec4aa3a6b2e71d8e7a13979721b87a8",
+        "technical_gate_passed": true,
+        "clean_replay_passed": true,
+        "environment_matches": true,
+        "study_source_matches_wheel": true,
+        "cases": 3,
+        "qualification_sha256": "0fdc1ed554dbbd13eafad3388b2624a966f752daebf8a354c8ca33d7167d139e",
+        "replay_sha256": "a01d9015b6112475dfb8b018f30d089ed15c0ae6323f72f3f09a7c85a535ed00"
+      }
+    ]
+  },
+  "raw_artifacts": {
+    "comparison-standard.json": {
+      "sha256": "3940f986a314f17d4ef552a01c2f013af08cfb592e052a25c7230a0748d7540e",
+      "bytes": 33225512
+    },
+    "challenge.json": {
+      "sha256": "ccc2700f59333ca87b44266434a11eb8f9481b4ea35ad6475dd88daf9e1ad51f",
+      "bytes": 73538
+    },
+    "comparison-descriptive-summary.json": {
+      "sha256": "8921a1814a05f35ca87a30c8fd8391d6d29c7036d40b5ac821014ff11711eb9a",
+      "bytes": 2066
+    }
+  },
+  "raw_artifact_scope": "Full locally retained JSON; digests bind these summaries. Re-running produces fresh timings, not byte-identical evidence.",
+  "human_pilot_completed": false,
+  "real_operating_data_qualified": false,
+  "general_competitive_superiority_established": false,
+  "published_to_pypi": false
+}

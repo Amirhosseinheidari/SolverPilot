@@ -113,8 +113,7 @@ def test_release_cell_runner_has_explicit_installed_wheel_example_gate():
     assert 'env.pop("PYTHONPATH", None)' in text
     assert 'env["PYTHONNOUSERSITE"] = "1"' in text
     assert "def run_installed_public_examples" in text
-    assert 'glob("[0-9][0-9]_*.py")' in text
-    assert "expected 24 public examples" in text
+    assert 'public_examples(ROOT / "examples")' in text
     assert "run_installed_public_examples(py" in text
 
 

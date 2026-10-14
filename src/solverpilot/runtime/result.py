@@ -68,5 +68,9 @@ class SolveResult:
         ))
 
     @property
+    def execution_id(self) -> str:
+        return self.trace.execution_id
+
+    @property
     def optimality_evidence(self) -> OptimalityEvidence:
         return self._optimality_evidence

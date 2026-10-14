@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import inspect
+from legacy_api_02 import published_04_signature
 import json
 import re
 from pathlib import Path
@@ -21,10 +21,7 @@ AUDIT = ROOT / "PRE-PUBLIC-RELEASE-AUDIT-0.1.0rc2.json"
 
 
 def _sig(obj):
-    try:
-        return str(inspect.signature(obj))
-    except (TypeError, ValueError):
-        return None
+    return published_04_signature(obj)
 
 
 def test_current_version_and_build_backend_are_exactly_frozen():
@@ -34,7 +31,7 @@ def test_current_version_and_build_backend_are_exactly_frozen():
     assert pyproject["build-system"]["requires"] == ["setuptools==84.0.0", "wheel==0.48.0"]
 
 
-def test_current_public_api_snapshot_matches_runtime_without_surface_drift():
+def test_published_api_preserved_with_documented_optional_extensions():
     payload = json.loads((ROOT / "PUBLIC-API-V0_4_0.json").read_text(encoding="utf-8"))
     assert payload["package_version"] == solverpilot.__version__
     assert [row["name"] for row in payload["symbols"]] == solverpilot.__all__

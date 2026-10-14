@@ -1,5 +1,6 @@
 """Explicit subprocess execution. Native status alone never establishes a proof."""
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, replace, field
+from solverpilot._identity import new_execution_id
 from fractions import Fraction
 from hashlib import sha256
 import math
@@ -30,6 +31,7 @@ class ExactSolveResult:
     checker_sha256: str = ""
     solver_sha256: str = ""
     evidence_directory: str | None = None
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
 
 def _executable(path):

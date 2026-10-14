@@ -69,6 +69,11 @@ class ReoptimizationSession:
         return result
 
     @serialized
+    def problem_snapshot(self):
+        """Canonical problem for the last successful solve (or initial compilation)."""
+        return self._compiled.execution_ir
+
+    @serialized
     def values(self):
         from solverpilot.model import named_values
         return () if self.last_result is None else named_values(self._model, self._compiled, self.last_result)
