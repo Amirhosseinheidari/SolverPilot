@@ -89,6 +89,15 @@ def test_feasible_candidate_contradicts_backend_infeasibility():
     verify_evidence_bundle(evidence_bundle(p, r))
 
 
+def test_invalid_candidate_with_checked_termination_remains_consistent():
+    p = problem()
+    r = execute(p, WitnessBackend({'problem_data_hash':p.data_hash,'kind':'infeasible','dual':[-1.,1.]},x=[3.]))
+    assert r.status.value == 'invalid_solution'
+    assert r.raw_statistics['termination_certificate']['verified']
+    assert r.termination_certificate is None
+    verify_evidence_bundle(evidence_bundle(p,r))
+
+
 @pytest.mark.parametrize('mutation', ['hash', 'kind', 'shape'])
 def test_witness_must_match_model_status_and_shape(mutation):
     p = problem()

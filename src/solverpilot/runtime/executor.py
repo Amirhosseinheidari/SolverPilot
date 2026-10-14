@@ -193,7 +193,8 @@ def execute(
         checked = checked_termination_certificate(problem, raw_stats['termination_certificate'],
             termination=backend_result.backend_status, tolerances=tolerances)
         raw_stats['termination_certificate'] = asdict(checked)
-        if checked.verified and not contradictory_infeasibility:
+        if checked.verified and not contradictory_infeasibility and public_status in {
+                PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED}:
             termination_certificate = checked
         certificate_s += perf_counter() - proof_start
     trace = replace(trace, timings=replace(trace.timings,

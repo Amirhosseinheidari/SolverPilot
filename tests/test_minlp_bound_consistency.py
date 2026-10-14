@@ -34,12 +34,19 @@ def test_near_integral_relaxation_cannot_close_inverted_bounds():
     assert r.raw_statistics['bound_inversion'] == pytest.approx(100.)
 
 
-def test_fractional_oa_does_not_hide_inversion_by_clipping_evaluated_bounds():
+def test_fractional_oa_does_not_hide_inversion_by_clipping_evaluated_bounds(monkeypatch):
     m = sp.Model()
     x = m.variable(lower=0,upper=10)
     a, b = m.binary(), m.binary()
     m.minimize(x**2+(b-1)**2+.1*a)
     p = m.compile().execution_ir
+    class AnalyticDerivatives:
+        def __init__(self, problem): pass
+        def evaluate(self, point):
+            x, a, b = point
+            return float(x*x+(b-1)**2+.1*a),np.empty(0),np.array([2*x,.1,2*(b-1)]),np.empty((0,3))
+    import solverpilot.minlp.orchestrator as orchestrator
+    monkeypatch.setattr(orchestrator,'NLPDerivativeEngine',AnalyticDerivatives)
     class NLP:
         def solve(self, sub, **kwargs):
             bits = sub.metadata.get('fixed_binary_assignment')

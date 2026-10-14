@@ -168,7 +168,8 @@ def solve(
                 termination=result.backend_status, tolerances=tolerances)
             raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(checked)
             result=_with_termination_certificate(replace_solve_result(result,raw_statistics=raw),
-                           checked if checked.verified else None)
+                           checked if checked.verified and result.status in {
+                               PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED} else None)
             recovery_s = perf_counter() - recovery_t0
 
     diagnose_s = 0.0
