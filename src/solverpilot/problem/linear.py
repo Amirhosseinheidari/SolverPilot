@@ -5,6 +5,8 @@ from typing import Iterable, Sequence
 
 import numpy as np
 from scipy import sparse
+from types import MappingProxyType
+from solverpilot._immutability import canonical_array
 
 from .enums import ObjectiveSense, VariableDomain
 from .hashing import data_hash_linear, structural_hash_linear
@@ -16,8 +18,7 @@ def _readonly_f64(values: Sequence[float] | np.ndarray, *, name: str) -> np.ndar
         raise ValueError(f"{name} must be one-dimensional")
     if np.isnan(arr).any():
         raise ValueError(f"{name} must not contain NaN")
-    arr.flags.writeable = False
-    return arr
+    return canonical_array(arr)
 
 
 def _require_finite(values: np.ndarray, *, name: str) -> None:
@@ -44,8 +45,36 @@ def _normalize_domains(domains: Iterable[VariableDomain | str], n: int) -> np.nd
     if len(vals) != n:
         raise ValueError(f"domains must have length {n}, got {len(vals)}")
     arr = np.asarray(vals, dtype="U16")
-    arr.flags.writeable = False
-    return arr
+    return canonical_array(arr)
+
+
+class _CanonicalCSR(sparse.csr_matrix):
+    """Freeze only owned snapshots, allowing SciPy's derived matrices to mutate."""
+    def __setattr__(self, name, value):
+        if getattr(self, '_canonical_frozen', False):
+            raise ValueError('canonical sparse matrix is immutable; copy it before editing')
+        super().__setattr__(name, value)
+
+    def __delattr__(self, name):
+        if getattr(self, '_canonical_frozen', False):
+            raise ValueError('canonical sparse matrix is immutable')
+        super().__delattr__(name)
+
+    def __getattribute__(self, name):
+        value = super().__getattribute__(name)
+        if name == '__dict__' and value.get('_canonical_frozen', False):
+            return MappingProxyType(value)
+        return value
+
+    def __reduce__(self):
+        return _restore_csr, (np.asarray(self.data), np.asarray(self.indices), np.asarray(self.indptr), self.shape)
+
+    def __reduce_ex__(self, protocol):
+        return self.__reduce__()
+
+
+def _restore_csr(data, indices, indptr, shape):
+    return _readonly_csr(sparse.csr_matrix((data, indices, indptr), shape=shape))
 
 
 def _readonly_csr(A: sparse.spmatrix | np.ndarray) -> sparse.csr_matrix:
@@ -59,9 +88,13 @@ def _readonly_csr(A: sparse.spmatrix | np.ndarray) -> sparse.csr_matrix:
         raise ValueError("A coefficients must be finite after summing duplicates")
     matrix.eliminate_zeros()
     matrix.sort_indices()
-    matrix.data.flags.writeable = False
-    matrix.indices.flags.writeable = False
-    matrix.indptr.flags.writeable = False
+    matrix.data = canonical_array(matrix.data)
+    matrix.indices = canonical_array(matrix.indices)
+    matrix.indptr = canonical_array(matrix.indptr)
+    matrix.has_sorted_indices = True
+    matrix.has_canonical_format = True
+    matrix.__class__ = _CanonicalCSR
+    matrix._canonical_frozen = True
     return matrix
 
 
@@ -80,6 +113,12 @@ class LinearProblem:
     metadata: dict[str, object] = field(default_factory=dict, compare=False, repr=False)
     structural_hash: str = field(init=False)
     data_hash: str = field(init=False)
+
+    def __reduce__(self):
+        # Rebuild owned storage and identities; cached hashes are not authority.
+        return type(self), (self.A, self.c, self.variable_lower, self.variable_upper,
+            self.constraint_lower, self.constraint_upper, self.domains,
+            self.objective_sense, self.objective_offset, self.name, self.metadata)
 
     def __post_init__(self) -> None:
         A = _readonly_csr(self.A)

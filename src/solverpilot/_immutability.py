@@ -7,6 +7,35 @@ from typing import Any
 import numpy as np
 
 
+class _CanonicalArray(np.ndarray):
+    """Immutable stored data and metadata; derived copies remain ordinary arrays."""
+
+    def __setattr__(self, name, value):
+        if name in {'shape', 'dtype', 'strides', 'data', '__class__'}:
+            raise ValueError('canonical array metadata is immutable')
+        super().__setattr__(name, value)
+
+    def resize(self, *args, **kwargs):
+        raise ValueError('canonical array metadata is immutable')
+
+    def copy(self, order='C'):
+        return np.array(self, copy=True, subok=False, order=order)
+
+    def __reduce__(self):
+        return canonical_array, (np.asarray(self),)
+
+    def __reduce_ex__(self, protocol):
+        return self.__reduce__()
+
+
+def canonical_array(value, dtype=None):
+    """Own numeric storage whose values, shape and dtype cannot be changed."""
+    array = readonly_array(value, dtype=dtype)
+    if array.dtype.hasobject:
+        raise TypeError('canonical arrays require a non-object dtype')
+    return array.view(_CanonicalArray)
+
+
 def readonly_array(value: np.ndarray | Any, *, dtype=None) -> np.ndarray:
     """Return an independent read-only snapshot, with immutable numeric storage."""
     arr = np.asarray(value, dtype=dtype)
@@ -28,4 +57,15 @@ def deep_freeze(value: Any) -> Any:
         return tuple(deep_freeze(v) for v in value)
     if isinstance(value, (set, frozenset)):
         return frozenset(deep_freeze(v) for v in value)
+    return value
+
+
+def deep_thaw(value: Any) -> Any:
+    """Make immutable mappings pickleable without changing numeric contents."""
+    if isinstance(value, Mapping):
+        return {k: deep_thaw(v) for k, v in value.items()}
+    if isinstance(value, tuple):
+        return tuple(deep_thaw(v) for v in value)
+    if isinstance(value, frozenset):
+        return frozenset(deep_thaw(v) for v in value)
     return value
