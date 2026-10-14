@@ -19,16 +19,9 @@ from ._repeat_quality import paired_repeat_losses
 
 def implementation_paths():
     root = Path(__file__).resolve().parents[1]
-    names = ('experimental/learned_lp.py', 'experimental/robust_lp.py',
-             'experimental/lp_gain.py', 'experimental/lp_session.py',
-             'experimental/learned_lp_v2.py',
-             'experimental/_repeat_quality.py',
-             'backends/highspy_native.py', 'backends/scipy_highs_lp.py',
-             'experimental/lp_environment.py',
-             'runtime/auto.py', 'runtime/executor.py',
-             'validate/optimality.py', 'validate/lp_dual.py',
-             'validate/_certificate_arithmetic.py')
-    return tuple((name, root/name) for name in names)
+    # A verifier, transport or immutable-snapshot helper is execution code too.
+    # A hand-maintained subset can silently miss changes to those dependencies.
+    return tuple((path.relative_to(root).as_posix(), path) for path in sorted(root.rglob('*.py')))
 
 
 def implementation_id():

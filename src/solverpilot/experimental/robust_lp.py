@@ -64,6 +64,12 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
     if "production" in backends:
         raise ValueError("production is reserved for the conservative planner")
     start = perf_counter()
+    cached = None if session is None else session.artifact_digests(model, gain_guard)
+    if cached is None:
+        model_sha256 = model.payload()['sha256']
+        guard_sha256 = None if gain_guard is None else gain_guard.payload()['sha256']
+    else:
+        model_sha256, guard_sha256 = cached
     available = tuple(name for name, backend in backends.items() if backend.is_available())
     if session is not None and not session.backends_match(backends):
         available = ()
@@ -71,7 +77,19 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
         cutoff_s=time_limit_s, setup_elapsed_s=perf_counter()-start)
     decision = decide_robust_lp(problem, model, environment_id=environment_id, available=available,
                                session=session, **guard_options)
-    remaining = time_limit_s-(perf_counter()-start)
+    route = {**asdict(decision), 'model_sha256': model_sha256,
+             'automatic_production_routing_enabled': False}
+    if gain_guard is not None:
+        route['gain_guard_sha256'] = guard_sha256
+    if session is not None:
+        route['session_preparation_s'] = session.preparation_s
+        route['session_preparation_scope'] = 'once per explicit session; outside this call'
+    overhead_s = perf_counter()-start
+    if gain_guard is not None and decision.candidate != 'production' and overhead_s > gain_guard.overhead_limit_s:
+        decision = replace(decision, candidate='production', reason='gain_guard_fallback')
+        route.update(candidate=decision.candidate, reason=decision.reason)
+    route['overhead_s'] = overhead_s
+    remaining = time_limit_s-overhead_s
     if remaining <= 0:
         raise TimeoutError("robust LP setup exhausted the call budget")
     budget = SolveBudget(wall_time_s=remaining)
@@ -80,15 +98,9 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
     else:
         result = solve(problem, backend=backends[decision.candidate], budget=budget, tolerances=tolerances)
     raw = dict(result.raw_statistics)
-    raw["experimental_lp_route"] = {**asdict(decision), "model_sha256": model.payload()["sha256"],
-                                     "call_wall_s": perf_counter()-start,
-                                     "automatic_production_routing_enabled": False}
-    if gain_guard is not None:
-        raw["experimental_lp_route"]["gain_guard_sha256"] = gain_guard.payload()['sha256']
-    if session is not None:
-        raw['experimental_lp_route']['session_preparation_s'] = session.preparation_s
-        raw['experimental_lp_route']['session_preparation_scope'] = 'once per explicit session; outside this call'
+    raw['experimental_lp_route'] = route
     elapsed = perf_counter()-start
+    route['call_wall_s'] = elapsed
     raw['call_budget'] = {**dict(raw.get('call_budget', {})), 'requested_s': time_limit_s,
                           'elapsed_s': elapsed, 'within_budget': elapsed <= time_limit_s}
     trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
