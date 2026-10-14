@@ -125,6 +125,10 @@ previous CPU-PDLP comparison showed no GPU benefit at these sizes.
 
 ## Production gate repairs
 
+The [v2 public gate](LP-V2-PUBLIC-GATE.md) adds mandatory admission preflight,
+test-preserving stops and comparisons of actual routed calls. Its recorded pool
+audit finds insufficient unused Netlib families; automatic routing stays disabled.
+
 `ProductionEvidence.supports_performance_ranking` now also requires corpus
 integrity, complete outcome accounting, independent validation and reference
 cross-check flags. A requested backend must belong to the evidence's compared

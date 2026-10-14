@@ -1,17 +1,25 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+from contextlib import nullcontext
 from dataclasses import asdict, replace
 from time import perf_counter
 
+from solverpilot._immutability import deep_freeze, readonly_array
 from solverpilot.backends import Backend
-from solverpilot.exceptions import BackendUnavailableError, CapabilityMismatchError
 from solverpilot.capabilities import compatible, requirements_for
+from solverpilot.exceptions import BackendUnavailableError, CapabilityMismatchError
 from solverpilot.problem import LinearProblem, QuadraticProblem
 from solverpilot.trace import PhaseTimings, SolveTrace
-from solverpilot.validate import CandidateSolution, PublicStatus, ValidationTolerances, validate_solution
+from solverpilot.validate import (
+    CandidateSolution,
+    PublicStatus,
+    ValidationTolerances,
+    validate_solution,
+)
 
-from .result import OptimalityEvidence, SolveResult
 from .manifest import backend_configuration
+from .result import OptimalityEvidence, SolveResult
 
 
 def _problem_class(problem: LinearProblem | QuadraticProblem) -> str:
@@ -57,23 +65,31 @@ def execute(
             f"required capabilities {sorted(x.value for x in requirements.required)}"
         )
 
-    solve_t0 = perf_counter()
-    backend_result = backend.solve(problem)
-    solve_s = perf_counter() - solve_t0
+    # Owned backends explicitly expose a reentrant execution lock, also used by
+    # call-local budgets. A third-party private _lock has no such contract.
+    # Keep settings and result snapshots in that boundary: another call must
+    # neither lend us its temporary options nor overwrite a shared workspace.
+    with getattr(backend, "_execution_lock", nullcontext()):
+        configuration = backend_configuration(backend)
+        solve_t0 = perf_counter()
+        backend_result = backend.solve(problem)
+        solve_s = perf_counter() - solve_t0
+        candidate_x = None if backend_result.x is None else readonly_array(backend_result.x, dtype=float)
+        raw_stats = dict(deep_freeze(backend_result.raw_statistics or {}))
 
     validation = None
-    validate_s = 0.0
-    if backend_result.x is not None:
+    primal_validate_s = 0.0
+    if candidate_x is not None:
         validate_t0 = perf_counter()
         validation = validate_solution(
             problem,
             CandidateSolution(
-                x=backend_result.x,
+                x=candidate_x,
                 objective_reported=backend_result.objective_reported,
             ),
             tolerances=tolerances,
         )
-        validate_s = perf_counter() - validate_t0
+        primal_validate_s = perf_counter() - validate_t0
 
     public_status = _normalize_status(
         backend_result.backend_status,
@@ -83,14 +99,14 @@ def execute(
     source_digest = process_source_sha256()
     total_s = perf_counter() - total_t0
 
-    raw = backend_result.raw_statistics or {}
+    raw = raw_stats
     reuse_applied_raw = raw.get("reuse_applied")
     reuse_applied = reuse_applied_raw if isinstance(reuse_applied_raw, bool) else None
     reuse_mode_raw = raw.get("reuse_mode")
     reuse_mode = str(reuse_mode_raw) if reuse_mode_raw is not None else None
 
     phase = raw.get("phase_timings", {})
-    phase = phase if isinstance(phase, dict) else {}
+    phase = phase if isinstance(phase, Mapping) else {}
     measured = {k: float(v) for k, v in phase.items()
                 if k in {"backend_build_s", "backend_update_s", "solve_s"}
                 and isinstance(v, (int, float)) and 0 <= v <= solve_s}
@@ -102,11 +118,12 @@ def execute(
         backend=manifest.name,
         backend_version=manifest.version,
         parameters={"validation_tolerances": asdict(tolerances or ValidationTolerances()),
-                    "backend_configuration": backend_configuration(backend)},
+                    "backend_configuration": configuration},
         timings=PhaseTimings(solve_s=measured.get("solve_s", solve_s), backend_total_s=solve_s,
                             backend_build_s=measured.get("backend_build_s", 0.),
                             backend_update_s=measured.get("backend_update_s", 0.),
-                            validate_s=validate_s, total_s=total_s),
+                            validate_s=primal_validate_s,
+                            primal_validate_s=primal_validate_s, total_s=total_s),
         termination=backend_result.backend_status,
         validation_valid=None if validation is None else validation.valid,
         reuse_applied=reuse_applied,
@@ -115,7 +132,6 @@ def execute(
     )
 
     objective = None if validation is None else validation.objective_recomputed
-    raw_stats = dict(backend_result.raw_statistics or {})
     evidence = OptimalityEvidence(
         backend_reported_optimal=backend_result.backend_status == "optimal",
         primal_validated=bool(validation is not None and validation.valid),
@@ -125,22 +141,39 @@ def execute(
         gap_verified=False,
         certificate_verified=False,
     )
-    proof_start = perf_counter()
-    if backend_result.x is not None and raw_stats.get("canonical_dual") is not None:
-        from solverpilot.validate.optimality import verify_optimality
-        checked = verify_optimality(problem, backend_result.x, raw_stats["canonical_dual"], tolerances=tolerances, fast_reject=True)
+    certificate_s = 0.0
+    if candidate_x is not None and raw_stats.get("canonical_dual") is not None:
+        primal_report = validation
+        if primal_report.objective_consistent is False:
+            # The result report also checks the backend's objective claim, but
+            # the certificate verifier has always checked only canonical x.
+            # Preserve that distinction without charging this recheck to proof.
+            validate_t0 = perf_counter()
+            primal_report = validate_solution(
+                problem, CandidateSolution(candidate_x), tolerances=tolerances,
+            )
+            primal_validate_s += perf_counter() - validate_t0
+        proof_start = perf_counter()
+        from solverpilot.validate.optimality import _verify_optimality_with_primal_report
+        checked = _verify_optimality_with_primal_report(
+            problem, candidate_x, raw_stats["canonical_dual"], primal_report,
+            tolerances=tolerances, fast_reject=True,
+        )
         if (not checked.verified and isinstance(problem, LinearProblem)
                 and checked.reason == "dual multiplier points toward an infinite bound"):
             from solverpilot.validate.lp_dual import prepare_lp_dual
             repaired = prepare_lp_dual(problem, raw_stats["canonical_dual"])
             if repaired is not None:
                 raw_stats["original_optimality_check"] = asdict(checked)
-                checked = verify_optimality(problem, backend_result.x, repaired, tolerances=tolerances, fast_reject=True)
+                checked = _verify_optimality_with_primal_report(
+                    problem, candidate_x, repaired, primal_report,
+                    tolerances=tolerances, fast_reject=True,
+                )
                 raw_stats["prepared_canonical_dual"] = repaired.tolist()
         raw_stats["optimality_check"] = asdict(checked)
         evidence = replace(evidence, dual_verified=checked.dual_valid,
                            gap_verified=checked.verified)
-    proof_s = perf_counter() - proof_start
+        certificate_s = perf_counter() - proof_start
     raw_stats["solverpilot_trust"] = {
         "backend_reported_optimal": evidence.backend_reported_optimal,
         "primal_validated": evidence.primal_validated,
@@ -150,10 +183,12 @@ def execute(
         "independently_verified_optimal": evidence.independently_verified_optimal,
     }
     trace = replace(trace, timings=replace(trace.timings,
-                    validate_s=validate_s+proof_s, total_s=perf_counter()-total_t0))
+                    validate_s=primal_validate_s+certificate_s,
+                    primal_validate_s=primal_validate_s, certificate_s=certificate_s,
+                    total_s=perf_counter()-total_t0))
     return SolveResult(
         status=public_status,
-        x=backend_result.x,
+        x=candidate_x,
         objective=objective,
         backend_status=backend_result.backend_status,
         validation=validation,

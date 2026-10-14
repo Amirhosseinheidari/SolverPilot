@@ -30,6 +30,7 @@ from time import perf_counter
 
 
 SCHEMA = "solverpilot.lp-v2-development-manifest.v1"
+PUBLIC_SCHEMA = "solverpilot.lp-v2-public-manifest.v1"
 CANDIDATES = ("highs-simplex", "highs-ipm")
 BASELINES = ("production", "default")
 SPLITS = ("train", "calibration", "test")
@@ -89,8 +90,9 @@ def load_problem(path, file_format):
 
 def validate_manifest(manifest, base, *, loader=load_problem, max_calls=80):
     """Check every identity, byte string, and parsed hash before any solver call."""
-    if manifest.get("schema") != SCHEMA or manifest.get("scope") != "development":
-        raise ValueError("only the explicit development manifest schema is supported")
+    public = manifest.get('schema') == PUBLIC_SCHEMA and manifest.get('scope') == 'public'
+    if not public and (manifest.get("schema") != SCHEMA or manifest.get("scope") != "development"):
+        raise ValueError("an explicit development or public manifest schema is required")
     config = dict(repeats=2, cutoff_s=2., reuse_count=20, min_leaf_families=2,
                   calibration_min_families=2, max_depth=2, switch_margin_s=.005,
                   overhead_limit_s=.005)
@@ -151,8 +153,20 @@ def validate_manifest(manifest, base, *, loader=load_problem, max_calls=80):
             reference = case.get("reference")
             if reference is not None and (isinstance(reference, bool) or not isinstance(reference, (int, float)) or not math.isfinite(reference)):
                 raise ValueError("reference must be finite")
+            if public and split != 'train' and case.get('source') == 'netlib':
+                from public_lp_families import conservative_family as family
+                # Prior registers may use raw aliases or netlib- prefixes.
+                prior_names = {n.removeprefix('netlib-') for n in consumed['name']}
+                prior_families = {family(n) for n in prior_names}
+                prior_families.update(family(f.removeprefix('netlib:')) for f in consumed['family'])
+                name = case['name'].removeprefix('netlib-')
+                if name in prior_names or family(name) in prior_families:
+                    raise ValueError('consumed calibration/test Netlib family alias')
             case["path"] = str((Path(base)/case["path"]).resolve())
             cases[split].append(case)
+    if public:
+        from lp_public_gate import public_preflight
+        public_preflight(manifest, cases, config)
     calls = config["repeats"] * (2*len(cases["train"]) + 4*len(cases["calibration"]) + 5*len(cases["test"]))
     if type(max_calls) is not int or max_calls <= 0 or calls > max_calls:
         raise ValueError(f"planned {calls} API calls exceed explicit cap {max_calls}")
@@ -164,13 +178,17 @@ def validate_manifest(manifest, base, *, loader=load_problem, max_calls=80):
             problem = loader(case["path"], case["format"])
             if problem.data_hash != case["data_hash"]:
                 raise ValueError("canonical data hash mismatch: " + case["name"])
+            if public:
+                from prepare_public_lp import crosscheck_reader
+                crosscheck_reader(Path(case['path']), problem)
             problems[case["name"]] = problem
     return config, cases, problems, consumption_hashes, calls
 
 
 def source_hashes():
     root = Path(__file__).resolve().parents[1]
-    paths = [Path(__file__).resolve(), *sorted((root/"src"/"solverpilot").rglob("*.py"))]
+    paths = [*sorted((root/'benchmarks').glob('*.py')),
+             *sorted((root/"src"/"solverpilot").rglob("*.py"))]
     return {str(path.relative_to(root)): file_sha(path) for path in paths}
 
 
@@ -255,6 +273,9 @@ def summarize(rows, *, cutoff_s, reuse_count):
 class NativeRuntime:
     """Small adapter so protocol/accounting tests need no native solver."""
     def __init__(self):
+        import solverpilot
+        from lp_public_gate import check_loaded_source
+        check_loaded_source(solverpilot, Path(__file__).resolve().parents[1]/'src/solverpilot')
         from solverpilot.benchmark.environment import capture_environment, benchmark_environment_fingerprint
         self.environment = capture_environment(packages=("numpy", "scipy", "highspy"))
         self.environment_id = benchmark_environment_fingerprint(self.environment,
@@ -328,6 +349,7 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
         os.environ[name] = "1"
     manifest_path, output = Path(manifest_path).resolve(), Path(output).resolve()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    public = manifest.get('schema') == PUBLIC_SCHEMA and manifest.get('scope') == 'public'
     config, cases, problems, consumed_hashes, calls = validate_manifest(manifest, manifest_path.parent, max_calls=max_calls)
     runtime = runtime or NativeRuntime()
     output.mkdir(parents=True, exist_ok=False)
@@ -347,6 +369,11 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
         "family_scope": "manifest-declared structural families; no automatic independent family audit",
         "retuning_allowed": False, "test_evaluations": 1, "automatic_production_routing_enabled": False,
         "public_promotion_supported": False}
+    if public:
+        from lp_public_gate import POLICY
+        protocol.update(schema='solverpilot.lp-v2-public-protocol.v1', scope='public_qualification',
+                        acceptance_policy=dict(POLICY),
+                        family_scope='Declared public families, curated Netlib aliases and mandatory consumed-register exclusions; semantic audit remains required')
     write_json(output/"protocol.json", protocol)
     write_json(output/"manifest.json", manifest)
     frozen = {str(output/"protocol.json"): file_sha(output/"protocol.json"),
@@ -409,6 +436,17 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
         "model_sha256": frozen[str(output/"model.json")], "before_test": True,
         "implementation_sha256": digest(sources), "retuning_allowed": False})
     verify_frozen(sources, frozen)
+    def stop_before_test(reason):
+        summary = dict(scope='public_qualification', qualified=False, reason=reason,
+            test_consumed=False, test_evaluations=0, total_api_calls=len(train)+len(calibration),
+            implementation_sha256=digest(sources),
+            automatic_production_routing_enabled=False, production_promotion_supported=False)
+        write_json(output/'summary.json', summary)
+        return summary
+    if public and not guard.certified_leaves:
+        return stop_before_test('no_calibrated_leaves')
+    if public and not any(leaf.candidate != model.baseline for leaf in guard.certified_leaves):
+        return stop_before_test('no_learned_leaves_beyond_single_solver')
     start = perf_counter()
     try:
         prepared = runtime.prepare(output/"model.json", output/"guard.json", config)
@@ -417,6 +455,9 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
     prep_s = perf_counter()-start
     write_json(output/"session-preparation.json", {"preparation_s": prep_s,
         "reuse_count": config["reuse_count"], "error": preparation_error})
+    if public and preparation_error:
+        verify_frozen(sources, frozen)
+        return stop_before_test('session_preparation_failed')
     test = collect("test")
     verify_frozen(sources, frozen)
     summary = summarize(test, cutoff_s=config["cutoff_s"], reuse_count=config["reuse_count"])
@@ -424,6 +465,12 @@ def run_protocol(manifest_path, output, *, runtime=None, max_calls=80):
                    implementation_sha256=digest(sources), model_sha256=frozen[str(output/"model.json")],
                    guard_sha256=frozen[str(output/"guard.json")], preparation_s=prep_s,
                    test_evaluations=1)
+    if public:
+        from lp_public_gate import evaluate_actual_routes
+        summary.update(scope='public_qualification', test_consumed=True,
+            public_gate=evaluate_actual_routes(test, cases['test'], config,
+                baseline=model.baseline, model_sha256=model.payload()['sha256'],
+                guard_sha256=guard.payload()['sha256']))
     write_json(output/"summary.json", summary)
     return summary
 

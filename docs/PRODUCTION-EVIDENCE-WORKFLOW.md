@@ -52,6 +52,11 @@ propagates errors. Names, including generated error names, remain unique.
 Cancellation stops input collection and subsequent solves; `input_complete`
 reports whether the finite source was exhausted. Already collected unexecuted
 rows are cancelled, with no invented execution or zero profit.
+The token can be supplied as `cancellation=token` or inside `SolveOptions`;
+both provide cancellation between scenarios, not interruption of an active
+native solve. A direct token takes precedence when both are supplied.
+Numeric conversion overflow is an input validation error and follows the same
+`on_error` policy as other malformed scenario values.
 
 `SolveOptions` controls the existing solver. Its feasibility tolerances also
 govern candidate checks and the capacity-shortfall diagnostic. Each scenario's
@@ -156,6 +161,11 @@ truth of stored mathematical claims. Only a new checked solve establishes new
 execution evidence. Use trusted local JSON; never pickle or executable payloads.
 
 ## Validation and next qualification
+
+The [pilot kit](pilot/README.md) adds an independently formulated direct-SciPy reference,
+public educational and explicitly synthetic inputs, balanced repeated machine timings,
+two clean wheel installations and blank participant feedback forms. It does not substitute
+automated execution for independent users or confirmed business requirements.
 
 `tests/test_execution_evidence.py` covers identity, history aliases, export
 sentinels, lineage, source/version checks, legacy reading, batch transport and

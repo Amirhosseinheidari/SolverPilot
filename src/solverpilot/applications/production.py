@@ -22,7 +22,10 @@ from .templates import production_model
 
 
 def _array(value, name, *, shape=None, nonnegative=False, allow_inf=False):
-    array = np.asarray(value, dtype=float)
+    try:
+        array = np.asarray(value, dtype=float)
+    except OverflowError as exc:
+        raise ValueError(f"{name} contains a number outside the float64 range") from exc
     if shape is not None and array.shape != shape:
         raise ValueError(f"{name} must have shape {shape}")
     if np.isnan(array).any() or (not allow_inf and not np.isfinite(array).all()):
@@ -321,6 +324,8 @@ def run_production_scenarios(contract, scenarios=(), *, backend=None, options=No
     Inputs are validated before solving. Invalid entries remain error rows when
     requested. Omitted parameters reset to baseline; comparison never substitutes
     zero for errors/infeasibility or compares different profit definitions.
+    Cancellation supplied directly or through options is checked between cases;
+    it does not interrupt an already-running native solve.
     """
     if not isinstance(contract, ProductionContract):
         raise TypeError("contract must be ProductionContract")
@@ -330,6 +335,9 @@ def run_production_scenarios(contract, scenarios=(), *, backend=None, options=No
     atol, rtol = options.tolerances.feasibility, options.tolerances.feasibility_rel
     entries, errors, seen = [("baseline", {}, contract)], {}, {"baseline"}
     token = cancellation if cancellation is not None else options.cancellation
+    # The sweep owns between-case cancellation. Core LP solves must not receive
+    # this token as a promise to interrupt their native backend.
+    solve_options = replace(options, cancellation=None) if options.cancellation is not None else options
     source, input_complete = iter(scenarios), False
     while token is None or not token.cancelled:
         try:
@@ -359,7 +367,7 @@ def run_production_scenarios(contract, scenarios=(), *, backend=None, options=No
     valid = [(i, entry) for i, entry in enumerate(entries) if entry[2] is not None]
     executions = {}
     stream = scenario_sweep(contract.build_model(), [(name, updates) for _, (name, updates, _) in valid],
-                            backend=backend, options=options, cancellation=token, on_error=on_error)
+                            backend=backend, options=solve_options, cancellation=token, on_error=on_error)
     try:
         for execution in stream:
             executions[valid[execution.index][0]] = execution

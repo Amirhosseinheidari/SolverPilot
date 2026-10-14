@@ -11,6 +11,12 @@ TRACE_SCHEMA_VERSION = "0.3"
 
 @dataclass(frozen=True, slots=True)
 class PhaseTimings:
+    """Elapsed stages; ``validate_s`` includes primal and certificate work.
+
+    The keyword-only breakdown is additive. Older serialized traces default
+    these fields to zero, which does not imply their validation was free.
+    """
+
     inspect_s: float = 0.0
     plan_s: float = 0.0
     backend_build_s: float = 0.0
@@ -20,6 +26,8 @@ class PhaseTimings:
     total_s: float = 0.0
     backend_update_s: float = 0.0
     backend_total_s: float = 0.0
+    primal_validate_s: float = field(default=0.0, kw_only=True)
+    certificate_s: float = field(default=0.0, kw_only=True)
 
 
 @dataclass(frozen=True, slots=True)

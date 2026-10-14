@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Add public v2 routing admission, actual-call performance gates and test-preserving stops for unqualified leaves or failed session setup. Compare against default, production and the training-frozen single solver with full failure/setup accounting.
+- Unify conservative Netlib family aliases, reject stale/mixed executed source and record an admission-only pool audit. The remaining Netlib pool is insufficient; learned routing remains experimental and automatic activation stays disabled.
+
+- Add opt-in fixed-matrix continuous-simplex native HiGHS reuse with safe rebuilds, serialized lifecycle and independent per-call budgets.
+- Split primal/certificate timings and reuse an owned candidate's immediate primal check internally; capture configuration and mutable buffers within owned execution locks, preserve third-party lock compatibility, and keep public verification self-contained.
+- Bind experimental routing to strict serializable public settings without native handles; reject opaque, nonfinite and ambiguous mapping-key settings.
+- Qualify reuse through analytic state transitions, a separately frozen fresh-public admission set and installed-wheel comparisons; keep learned routing experimental and real participant observations pending.
+
+- Report numerical dual bounds in the original objective sense and units, including offsets and conservative outward rounding.
+- Reject contradictory recorded evidence flags, claims, objectives and budget metadata while preserving valid evidence v1 records.
+- Fix production cancellation passed through SolveOptions and retain valid scenarios when a numeric input overflows during conversion.
+- Add a seeded mutation challenge and matched-HiGHS comparisons with direct highspy, CVXPY and Pyomo, plus a prospective independent participant protocol. These development experiments do not establish general performance or productivity superiority.
+
+- Add a reproducible production pilot kit with a directly formulated SciPy reference, attributed educational data, explicit synthetic diagnostics, balanced machine timings, strict replay in two clean wheel installations and blank participant feedback forms.
+- Fix installed-wheel release qualification to validate and execute the complete contiguous public-example sequence instead of assuming exactly 24 examples.
+
 - Link execution identity across summaries, reports, history and versioned evidence exports; retain replay lineage and code-source checks, with explicit raw-statistics/model export opt-ins and legacy v1 reading.
 - Add an immutable continuous-production contract, optional minimum commitments, independent formulation/candidate checks, named scenario comparisons, scoped capacity-shortfall diagnostics, Markdown/JSON studies and checked replay.
 - Preserve completed worker identities across batch modes and record malformed scenario entries without losing later scenarios.

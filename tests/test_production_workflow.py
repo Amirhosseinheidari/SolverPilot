@@ -195,6 +195,68 @@ def test_precancelled_study_does_not_consume_scenario_source():
     assert study.scenarios[0].state == "cancelled"
 
 
+def test_options_cancellation_matches_direct_token_and_preserves_options():
+    from solverpilot.runtime.options import SolveOptions
+    from solverpilot.validate import ValidationTolerances
+    token = CancellationToken()
+    options = SolveOptions(cancellation=token, tolerances=ValidationTolerances(feasibility_rel=0))
+    direct = run_production_scenarios(contract(), [("reset", {})], cancellation=token,
+                                      backend="scipy-highs-ds")
+    through_options = run_production_scenarios(contract(), [("reset", {})], options=options,
+                                               backend="scipy-highs-ds")
+    assert all(row.accepted for row in through_options.scenarios)
+    assert [row.execution.summary.objective for row in through_options.scenarios] == [
+        row.execution.summary.objective for row in direct.scenarios]
+    assert options.cancellation is token and options.tolerances.feasibility_rel == 0
+    assert through_options.scenarios[0].semantics["rtol"] == 0
+
+
+def test_options_precancellation_does_not_consume_inputs():
+    from solverpilot.runtime.options import SolveOptions
+    token = CancellationToken()
+    token.cancel()
+    def source():
+        raise AssertionError("cancelled workflow consumed input")
+        yield {}
+    study = run_production_scenarios(contract(), source(), options=SolveOptions(cancellation=token))
+    assert not study.input_complete
+    assert study.scenarios[0].state == "cancelled"
+
+
+def test_options_cancellation_between_solves_keeps_completed_evidence(monkeypatch):
+    import solverpilot.applications.production as production
+    from solverpilot.runtime.options import SolveOptions
+    token = CancellationToken()
+    original = production.scenario_sweep
+    def cancel_after_first(*args, **kwargs):
+        for row in original(*args, **kwargs):
+            yield row
+            token.cancel()
+    monkeypatch.setattr(production, "scenario_sweep", cancel_after_first)
+    study = run_production_scenarios(contract(), [("next", {}), ("last", {})],
+        options=SolveOptions(cancellation=token), backend="scipy-highs-ds")
+    assert study.scenarios[0].accepted
+    assert [row.state for row in study.scenarios] == ["completed", "cancelled", "cancelled"]
+    assert all(row.execution is None for row in study.scenarios[1:])
+
+
+@pytest.mark.parametrize("field", ["capacity", "profit"])
+def test_conversion_overflow_records_only_bad_scenario(field):
+    updates = {field: [10**1000, 1]}
+    study = run_production_scenarios(contract(), [("bad", updates), ("reset", {})],
+        backend="scipy-highs-ds", on_error="record")
+    assert [row.state for row in study.scenarios] == ["completed", "error", "completed"]
+    assert study.scenarios[0].accepted and study.scenarios[2].accepted
+    assert "float64 range" in study.scenarios[1].error
+    with pytest.raises(ValueError, match="float64 range"):
+        run_production_scenarios(contract(), [("bad", updates)], on_error="raise")
+
+
+def test_initial_contract_conversion_overflow_is_validation_error():
+    with pytest.raises(ValueError, match="capacity.*float64 range"):
+        ProductionContract([1], [[1]], [10**1000])
+
+
 @pytest.mark.parametrize("kwargs", [
     {"profit": []}, {"resources": [[-1, 1], [2, 1]]}, {"maximum": [0, 10], "minimum": [1, 0]},
     {"product_names": ["same", "same"]}, {"objective_unit": ""},

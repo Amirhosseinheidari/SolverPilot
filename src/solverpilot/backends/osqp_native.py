@@ -161,6 +161,11 @@ class OSQPNativeBackend:
     _matrix_values: tuple | None = field(default=None, init=False, repr=False)
 
     @property
+    def _execution_lock(self):
+        """Allow the executor to own snapshots within the reentrant boundary."""
+        return self._lock
+
+    @property
     def manifest(self) -> BackendManifest:
         pkg_version = None
         if self.is_available():

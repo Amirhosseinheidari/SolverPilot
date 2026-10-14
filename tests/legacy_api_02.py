@@ -2,7 +2,7 @@ def legacy_signature(obj):
     """Project documented additive optional parameters out of historical signatures."""
     import inspect
     additions = {
-        "PhaseTimings": {"backend_update_s", "backend_total_s"},
+        "PhaseTimings": {"backend_update_s", "backend_total_s", "primal_validate_s", "certificate_s"},
         "SolveTrace": {"execution_id", "source_sha256", "replay_of"},
         "QuadraticProblem": {"_verify_convexity"},
         "ValidationTolerances": {"feasibility_rel"},
@@ -28,6 +28,8 @@ def published_04_signature(obj):
     except (ValueError, TypeError):
         return None
     additions = {"execution_id", "source_sha256", "replay_of"} if getattr(obj, "__name__", "") == "SolveTrace" else set()
+    if getattr(obj, "__name__", "") == "PhaseTimings":
+        additions = {"primal_validate_s", "certificate_s"}
     for name in additions:
         parameter = sig.parameters[name]
         assert parameter.kind is inspect.Parameter.KEYWORD_ONLY

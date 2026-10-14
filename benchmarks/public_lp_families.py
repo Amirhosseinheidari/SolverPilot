@@ -11,10 +11,33 @@ import re
 
 def family(name):
     name=name.lower()
+    # Netlib's problem notes explicitly document these aliases/relations.
+    if name in {'25fv47', 'bp', 'bp1'}:return '25fv47'
+    if name in {'fffff800', 'powell'}:return 'powell'
+    if name in {'czprob', 'gub'}:return 'czprob'
+    if name == 'perold':return 'pilot'
+    # Conservative exclusion inference: these share a contributor/model name.
+    # Netlib does not itself assert their statistical independence or identity.
+    if name in {'wood1p', 'woodw'}:return 'wood'
     if name in {'greenbea','greenbeb'}:return 'greenbe'
     if name.startswith('pilot'):return 'pilot'
     if name in {'standata','standgub','standmps'}:return 'stand'
     return re.split(r'[0-9]',name,maxsplit=1)[0].rstrip('-_.') or name
+
+
+def conservative_family(name):
+    """Shared broad admission grouping for reuse and v2 public qualification."""
+    name = str(name).strip().lower().removeprefix('netlib:')
+    for suffix in ('.gz', '.mps', '.mat', '.netlib'):
+        name = name.removesuffix(suffix)
+    name = name.removeprefix('netlib-').removeprefix('miplib-')
+    if name in {'gfrd-pnc', 'sierra'}:
+        return 'forest-helgason'
+    if re.match(r'^(sc205|scagr|scfxm|scorpion|scrs|scsd|sctap)', name):
+        return 'ho-loute-staircase'
+    if name.startswith('maros'):
+        return 'maros-conservative'
+    return family(name)
 
 
 def audit_split(training, heldout, *, prior_names=()):

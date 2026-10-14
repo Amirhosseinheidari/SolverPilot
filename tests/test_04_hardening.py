@@ -213,4 +213,4 @@ def test_release_gates_exercise_new_optional_paths():
     runner=(root/'tools/release_cell_runner.py').read_text()
     for file in ('test_04_global.py','test_04_hardening.py','test_04_pdlp.py','test_04_generalized_power.py','test_04_conic_bounds.py'):
         assert file in runner
-    assert 'expected 24 public examples' in runner
+    assert 'public_examples(ROOT / "examples")' in runner

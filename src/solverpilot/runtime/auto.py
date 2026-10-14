@@ -181,6 +181,8 @@ def solve(
         backend_total_s=old.backend_total_s,
         solve_s=old.solve_s,
         validate_s=old.validate_s + recovery_s,
+        primal_validate_s=old.primal_validate_s,
+        certificate_s=old.certificate_s + recovery_s,
         diagnose_s=old.diagnose_s + diagnose_s,
         total_s=total_s,
     )
