@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add public v2 routing admission, actual-call performance gates and test-preserving stops for unqualified leaves or failed session setup. Compare against default, production and the training-frozen single solver with full failure/setup accounting.
+- Unify conservative Netlib family aliases, reject stale/mixed executed source and record an admission-only pool audit. The remaining Netlib pool is insufficient; learned routing remains experimental and automatic activation stays disabled.
+
 - Add opt-in fixed-matrix continuous-simplex native HiGHS reuse with safe rebuilds, serialized lifecycle and independent per-call budgets.
 - Split primal/certificate timings and reuse an owned candidate's immediate primal check internally; capture configuration and mutable buffers within owned execution locks, preserve third-party lock compatibility, and keep public verification self-contained.
 - Bind experimental routing to strict serializable public settings without native handles; reject opaque, nonfinite and ambiguous mapping-key settings.

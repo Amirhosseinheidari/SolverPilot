@@ -1,0 +1,29 @@
+{
+  "scope": "Frozen development and admission-only evidence; no industrial speed claim",
+  "files": {
+    "development-corpus/box.json": "9837a49d0ee71d5d200b209548a390ceee6e21c42dc3b67e22b944053bf853f3",
+    "development-corpus/covering.json": "3a980096805e66090445393b0adebd3f7e63c7711bee4b67dead6d8f4abc3e0f",
+    "development-corpus/epigraph.json": "bcf57ed6824cc4744762dbd5c79f3cd5683668e1481307f643cbe772a5630c40",
+    "development-corpus/manifest.json": "88c6803727144be6b2f16a64eed580c9f5bc78643d512caa262afedd695fd584",
+    "development-corpus/packing.json": "e5867dc4833d65af7c7876e76cf6ee5e540d77bdf0ee8fee2b02860aaa4f322a",
+    "development-corpus/path-flow.json": "17aab8b92b880a9308f2feb8dca11f257795f36bb774a4ff1b2d34b2dc9b8a96",
+    "development-corpus/ranged-band.json": "90d10409d7d081d04b232d91941ee5ac4cef28b01707a69df7413765d4267d16",
+    "development-corpus/transport.json": "83a1e99153f9fa07813400ae23f638d46ee94278e15262406b7a19f57650dbaf",
+    "development-corpus/triangular-equality.json": "e896aac7f94e0654fe5aa728de59b212ccb100734c36604c0560109821ba86dc",
+    "development-run/calibration-observations.json": "814d5e918755af329db8cff717e9e7fa45229eb3b68060b68d9f976e880f1319",
+    "development-run/calibration-outcomes.json": "b41190bc21578291e8b021e24069deabf06715a783270022065ec2efda64e034",
+    "development-run/guard-freeze.json": "bfa586fed3e2581c29d0cb00350846abab0c8aa9ae9d0ce5eafee17314bc325f",
+    "development-run/guard.json": "bcbf74916efe222063204f9726dcb3227876b48c66169bdff8f60dc21f544f7c",
+    "development-run/manifest.json": "88c6803727144be6b2f16a64eed580c9f5bc78643d512caa262afedd695fd584",
+    "development-run/model-freeze.json": "7e39f0f666cca276418c14db37b6d9a3fbeb306fc92a008b515f0a1c2feac82a",
+    "development-run/model.json": "76342885b018e7223fc8d15fb9ab2e30c005c2803d5efc860e4c2bbc5d5f5e41",
+    "development-run/protocol.json": "ee1128ff55860c59ee793567fa7430ce4e815eaac2ef9f973073961f8f06080b",
+    "development-run/session-preparation.json": "aeaf16f9d36def9dab34c8ceee81ffd1b5161d1c1b0bf24b9148cc0d5e304ae5",
+    "development-run/summary.json": "318c7f0411d2af1a7f24adf22ec67ad995c8f836f84f6e19f55bac925c17316d",
+    "development-run/test-outcomes.json": "015531e8b594b4e263c3e9cb2d5f5e97c6afb483f1e166310f91fb07d36c78b1",
+    "development-run/train-outcomes.json": "12a046fc9746ce1dbc4eca1c2584839fd8c29c4ba3cf903705ee1d71f1eba8e5",
+    "development-run/training-observations.json": "9f49a6a70391d05ec2a8e6c04b2ab9f184927fb767c90e6ea4262f824c07d5ab",
+    "pool-audit.json": "f7ec87f3072d0b6e3a8ce4aeff26024b63e4a61ef8067b519558a3657e111919",
+    "verification.json": "071987be48944533e6dac6effda92a2572e66f72bd1ea6bc42005aa3867b2cbf"
+  }
+}
