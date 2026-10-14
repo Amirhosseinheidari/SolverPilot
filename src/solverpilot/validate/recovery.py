@@ -57,9 +57,11 @@ def checked_termination_certificate(problem, claim, *, termination, tolerances=N
     if not isinstance(claim, Mapping):
         return rejected
     kind = claim.get('kind')
-    if (kind not in {'infeasible', 'unbounded'}
+    identity = claim.get('problem_data_hash')
+    if (not isinstance(kind, str) or not isinstance(identity, str)
+            or kind not in {'infeasible', 'unbounded'}
             or termination not in {kind, 'infeasible_or_unbounded'}
-            or claim.get('problem_data_hash') != problem.data_hash):
+            or identity != problem.data_hash):
         return rejected
     try:
         certificate = LPCertificate(problem.data_hash, kind, False,

@@ -43,6 +43,11 @@ def test_backend_verified_flag_cannot_promote_invalid_witness(dual):
     assert verify_evidence_bundle(evidence_bundle(p, r))['summary']['termination_evidence'] == 'not_established'
 
 
+@pytest.mark.parametrize('claim', [None, [], {'kind': []}, {'kind': 'infeasible', 'problem_data_hash': [1, 2]}])
+def test_malformed_backend_certificate_metadata_does_not_crash_execution(claim):
+    assert execute(problem(), WitnessBackend(claim)).termination_certificate is None
+
+
 def test_valid_backend_witness_is_rechecked_without_trusting_its_flag():
     p = problem()
     r = execute(p, WitnessBackend({'problem_data_hash': p.data_hash, 'kind': 'infeasible',
