@@ -64,7 +64,12 @@ def test_sparse_operations_on_owned_storage_remain_compatible():
         assert np.isfinite(b.data).all()
         restored = pickle.loads(pickle.dumps(b))
         assert restored.dtype == b.dtype
-        restored.data[:] = 0
+        restored.copy().data[:] = 0
+    for protocol in (4,5):
+        for b in (a.copy(),a.astype(bool),a+a):
+            restored = pickle.loads(pickle.dumps(b,protocol=protocol))
+            assert restored.dtype == b.dtype
+            restored.data[:] = 0
     assert sp.solve(p,backend='scipy-highs-ds').validation.valid
 
 

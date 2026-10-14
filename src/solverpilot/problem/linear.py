@@ -68,17 +68,22 @@ class _CanonicalCSR(sparse.csr_matrix):
 
     def __reduce__(self):
         if not getattr(self, '_canonical_frozen', False):
-            return super().__reduce__()
+            return _restore_mutable_csr, (np.asarray(self.data), np.asarray(self.indices), np.asarray(self.indptr), self.shape)
         return _restore_csr, (np.asarray(self.data), np.asarray(self.indices), np.asarray(self.indptr), self.shape)
 
     def __reduce_ex__(self, protocol):
-        if not getattr(self, '_canonical_frozen', False):
-            return super().__reduce_ex__(protocol)
         return self.__reduce__()
 
 
 def _restore_csr(data, indices, indptr, shape):
     return _readonly_csr(sparse.csr_matrix((data, indices, indptr), shape=shape))
+
+
+def _restore_mutable_csr(data, indices, indptr, shape):
+    # Some derived matrices share read-only canonical views. Pickle owns its
+    # reconstructed buffers, including with Python 3.14's default protocol 5.
+    return sparse.csr_matrix((np.array(data, copy=True), np.array(indices, copy=True),
+                             np.array(indptr, copy=True)), shape=shape)
 
 
 def _readonly_csr(A: sparse.spmatrix | np.ndarray) -> sparse.csr_matrix:
