@@ -5,7 +5,7 @@ owns its solver; deadlines include process startup and cleanup. IPC is private
 to child processes created here, never an interchange format for external data.
 """
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from solverpilot._identity import new_execution_id
 import multiprocessing as mp
 import os
@@ -68,6 +68,8 @@ def _worker(connection, problem, backend, tolerances, memory_mb, solver_budget):
         result = solve(problem, backend=backend, tolerances=tolerances, budget=solver_budget)
         connection.send({'status': result.status.value,
                          'execution_id': result.execution_id,
+                         'problem_data_hash': problem.data_hash,
+                         'verified': result.optimality_evidence.independently_verified_optimal,
                          'x': None if result.x is None else result.x.tolist(),
                          'objective': result.objective, 'backend': result.trace.backend})
     except BaseException as exc:
@@ -101,9 +103,8 @@ def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
     tol = tolerances or ValidationTolerances()
     ctx = mp.get_context('spawn')
 
-    def run(pair):
+    def run_worker(pair, start):
         index, problem = pair
-        start = monotonic()
         def stopped(status, error=None):
             return BatchItem(index, status, None, None, False, None, monotonic()-start, error)
         if token.cancelled:
@@ -126,6 +127,8 @@ def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
                         return stopped('error', 'worker closed without a result')
                     if 'error' in payload:
                         return stopped('error', payload['error'])
+                    if payload.get('problem_data_hash') != problem.data_hash:
+                        return stopped('error', 'worker problem identity mismatch')
                     x = payload['x']
                     validation = None if x is None else validate_solution(problem, CandidateSolution(np.asarray(x), payload['objective']), tolerances=tol)
                     valid = validation is not None and validation.valid
@@ -133,6 +136,7 @@ def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
                     return BatchItem(index, status, None if x is None else np.asarray(x),
                                      None if validation is None else validation.objective_recomputed,
                                      valid, payload['backend'], monotonic()-start,
+                                     independently_verified_optimal=valid and payload.get('verified') is True,
                                      execution_id=payload['execution_id'])
                 if not proc.is_alive():
                     return stopped('error', f'worker exited with code {proc.exitcode}')
@@ -146,6 +150,19 @@ def _isolated_batch(problems, *, backend: str | None = None, max_workers=1,
                     proc.kill(); proc.join()
                 with _PROCESS_LIFECYCLE_LOCK:
                     proc.close()
+
+    def run(pair):
+        start = monotonic()
+        item = run_worker(pair, start)
+        # Charge parent validation and cleanup before accepting a candidate.
+        elapsed = monotonic()-start
+        within = None if timeout_s is None else elapsed <= timeout_s
+        if token.cancelled or within is False:
+            item = replace(item, status='cancelled' if token.cancelled else 'timeout',
+                           x=None, objective=None, validation_valid=False,
+                           independently_verified_optimal=False)
+        return replace(item, elapsed_s=elapsed, requested_time_s=timeout_s,
+                       within_budget=within, problem_data_hash=pair[1].data_hash)
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         return tuple(pool.map(run, enumerate(jobs)))
