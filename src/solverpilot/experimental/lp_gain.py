@@ -14,6 +14,7 @@ from pathlib import Path
 import numpy as np
 
 from .learned_lp import _choose, _digest, _validate
+from ._repeat_quality import paired_repeat_losses
 
 
 def implementation_paths():
@@ -21,6 +22,7 @@ def implementation_paths():
     names = ('experimental/learned_lp.py', 'experimental/robust_lp.py',
              'experimental/lp_gain.py', 'experimental/lp_session.py',
              'experimental/learned_lp_v2.py',
+             'experimental/_repeat_quality.py',
              'backends/highspy_native.py', 'backends/scipy_highs_lp.py',
              'experimental/lp_environment.py',
              'runtime/auto.py', 'runtime/executor.py',
@@ -103,7 +105,8 @@ def calibrate_gain_guard(model, rows, *, overhead_limit_s=.005, min_groups=4):
             return [(wall+overhead if ok and wall+overhead <= model.cutoff_s else 10*model.cutoff_s,
                      bool(ok and wall+overhead <= model.cutoff_s)) for wall, ok in row.samples[name]]
         selected, production = score(candidate, overhead_limit_s), score('production')
-        if sum(ok for _, ok in selected) < sum(ok for _, ok in production): lost.add(candidate)
+        if paired_repeat_losses([ok for _, ok in selected], [ok for _, ok in production]):
+            lost.add(candidate)
         improvement = float(np.mean([v for v, _ in production])-np.mean([v for v, _ in selected]))
         gains.setdefault(candidate, {}).setdefault(row.group, []).append(improvement)
     allowed = []
