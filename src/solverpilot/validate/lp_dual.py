@@ -24,7 +24,7 @@ def prepare_lp_dual(problem, dual):
         return None
     try:
         y = np.array(dual, dtype=float, copy=True)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return None
     lo = np.r_[problem.constraint_lower, problem.variable_lower]
     hi = np.r_[problem.constraint_upper, problem.variable_upper]
