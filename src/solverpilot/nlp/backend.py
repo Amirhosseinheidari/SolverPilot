@@ -66,7 +66,8 @@ class CasadiIpoptBackend:
         if not self.is_available(): raise RuntimeError('CasADi Ipopt plugin unavailable')
         import casadi as ca
         eng=NLPDerivativeEngine(problem)
-        nlp={'x':eng.x,'f':eng.f}
+        objective_sign = -1.0 if problem.objective_sense == 'maximize' else 1.0
+        nlp={'x':eng.x,'f':objective_sign*eng.f}
         if problem.n_constraints: nlp['g']=eng.g
         opts={'print_time':False,'ipopt.print_level':int(self.print_level),'ipopt.max_iter':int(self.max_iter),'ipopt.tol':float(self.tol)}
         if self.time_limit_s is not None:
@@ -110,7 +111,7 @@ class CasadiIpoptBackend:
                 arr=np.asarray(result['x'],dtype=float).reshape(-1)
                 if arr.shape==(problem.n_variables,) and np.all(np.isfinite(arr)): x=arr
             if 'f' in result:
-                try: obj=float(result['f'])
+                try: obj=objective_sign*float(result['f'])
                 except Exception: pass
             if 'lam_g' in result: lg=np.asarray(result['lam_g'],dtype=float).reshape(-1)
             if 'lam_x' in result: lx=np.asarray(result['lam_x'],dtype=float).reshape(-1)
@@ -122,7 +123,7 @@ class CasadiIpoptBackend:
         if x is not None and lg is not None and lx is not None:
             try:
                 grad=eng.gradient(x); jac=eng.jacobian(x)
-                stationarity=float(np.max(np.abs(grad + jac.T @ lg + lx)))
+                stationarity=float(np.max(np.abs(objective_sign*grad + jac.T @ lg + lx)))
             except Exception:
                 stationarity=None
         kkt_tol=max(1e-6,self.tol*1000)

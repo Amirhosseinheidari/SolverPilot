@@ -174,6 +174,8 @@ def solve_any(
             raise TypeError("unsupported problem type")
         from solverpilot.exceptions import BudgetNotSupportedError
 
+        if options.proof_policy is not None:
+            raise BudgetNotSupportedError('independent proof policy currently covers continuous LP/convex QP only')
         if options.progress is not None or options.cancellation is not None:
             raise BudgetNotSupportedError(
                 "CP progress/cancellation is not available in the common API"

@@ -29,6 +29,11 @@ comparisons with explicit limits on performance and user-productivity claims.
 The next [repeated-LP qualification](docs/REPEATED-LP-QUALIFICATION.md) adds opt-in
 native HiGHS model reuse, separate validation/certificate timings and broader
 analytic/public checks. Learned routing remains experimental.
+The [semantic contracts and verification guide](docs/SEMANTIC-CONTRACTS.md) covers
+the subsequent NumPy/CasADi repairs, explicit proof policies, bounded verification
+reuse, aggregate orchestration budgets, convex-QP sensitivities, vector OA,
+rigorous elementary domain bounds and risk/uncertainty helpers. These changes
+are unreleased; the published 0.4 wheel does not include them.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 

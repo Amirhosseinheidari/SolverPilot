@@ -1,10 +1,13 @@
 """Sequential lexicographic linear objectives with explicit tolerance locks."""
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, replace, field
 import numpy as np
 from scipy import sparse
 from solverpilot.problem import LinearProblem, ObjectiveSense
 from solverpilot.validate import PublicStatus
 from .auto import solve
+from .budgeting import CallBudget
+from .options import expand_options
+from solverpilot._immutability import deep_freeze
 
 
 @dataclass(frozen=True, slots=True)
@@ -13,6 +16,11 @@ class LexicographicResult:
     objective_values: tuple[float, ...]
     completed: bool
     tolerance: float
+    budget_report: object = field(default=None, kw_only=True)
+    termination_reason: str = field(default='completed', kw_only=True)
+
+    def __post_init__(self):
+        object.__setattr__(self,'budget_report',deep_freeze(self.budget_report))
 
     @property
     def x(self):
@@ -26,6 +34,8 @@ def solve_lexicographic(problem: LinearProblem, objectives, *, senses=None, tole
     validated. Earlier objectives may degrade by at most ``tolerance`` plus the
     configured numerical feasibility tolerance; no exact symbolic proof is claimed.
     """
+    solve_options=expand_options(solve_options)
+    tracker=CallBudget(solve_options.pop('budget',None))
     if not isinstance(problem, LinearProblem):
         raise TypeError('lexicographic objectives currently require LinearProblem')
     if not np.isfinite(tolerance) or tolerance < 0:
@@ -38,12 +48,15 @@ def solve_lexicographic(problem: LinearProblem, objectives, *, senses=None, tole
         raise ValueError('one sense is required per objective')
     current = problem; results = []
     for c, sense in zip(objectives, senses):
+        try: remaining=tracker.remaining_budget()
+        except TimeoutError:
+            return LexicographicResult(tuple(results), (), False, float(tolerance),budget_report=tracker.report(),termination_reason='budget_exhausted')
         current = replace(current, c=c, objective_sense=sense, objective_offset=0.)
-        result = solve(current, **solve_options); results.append(result)
+        result = solve(current, budget=remaining, **solve_options); results.append(result)
         if result.status is not PublicStatus.VALID_OPTIMAL or not result.validation.valid:
-            return LexicographicResult(tuple(results), (), False, float(tolerance))
+            return LexicographicResult(tuple(results), (), False, float(tolerance),budget_report=tracker.report(),termination_reason='stage_not_optimal')
         value = float(c@result.x)
         lower, upper = (-np.inf, value+tolerance) if sense is ObjectiveSense.MINIMIZE else (value-tolerance, np.inf)
         current = replace(current, A=sparse.vstack([current.A, sparse.csr_matrix(c.reshape(1, -1))], format='csr'),
                           constraint_lower=np.r_[current.constraint_lower, lower], constraint_upper=np.r_[current.constraint_upper, upper])
-    return LexicographicResult(tuple(results), tuple(float(c@results[-1].x) for c in objectives), True, float(tolerance))
+    return LexicographicResult(tuple(results), tuple(float(c@results[-1].x) for c in objectives), True, float(tolerance),budget_report=tracker.report())

@@ -105,10 +105,15 @@ def solve(
     diagnose_infeasible: bool = False,
     tolerances: ValidationTolerances | None = None,
     certificate_recovery: float | None = None,
+    proof_policy=None,
+    verification_workspace=None,
 ) -> SolveResult:
     """Solve a problem either with an explicit backend or the deterministic planner."""
 
     total_t0 = perf_counter()
+    from solverpilot.validate.workspace import (ProofPolicy, ProofRequirementNotMetError, verification_scope, VerificationLimit)
+    policy=proof_policy or ProofPolicy()
+    if not isinstance(policy,ProofPolicy): raise TypeError('proof_policy must be ProofPolicy')
     if certificate_recovery is not None:
         import math
         if isinstance(certificate_recovery, bool) or not math.isfinite(certificate_recovery) or certificate_recovery <= 0:
@@ -152,21 +157,35 @@ def solve(
             raise TimeoutError('solve setup exhausted the call budget')
         remaining_budget = replace(budget, wall_time_s=remaining)
     chosen = apply_budget(chosen, remaining_budget)
-    result = execute(problem, chosen, tolerances=tolerances)
+    # Enforce required proof after all authorized recovery and result decoration.
+    result = execute(problem, chosen, tolerances=tolerances, proof_policy=replace(policy,mode='standard'), verification_workspace=verification_workspace)
     recovery_s = 0.0
     if certificate_recovery is not None:
-        if isinstance(problem, LinearProblem) and not problem.has_integer_variables and result.backend_status in {"infeasible","unbounded","infeasible_or_unbounded"}:
+        if isinstance(problem, LinearProblem) and not problem.has_integer_variables and result.termination_certificate is None and result.backend_status in {"infeasible","unbounded","infeasible_or_unbounded"}:
             from solverpilot.validate.recovery import recover_lp_certificate, LPCertificate
             recovery_t0 = perf_counter()
             remaining=certificate_recovery
             if budget is not None and budget.wall_time_s is not None:
                 remaining=min(remaining,budget.wall_time_s-(perf_counter()-total_t0))
-            certificate=(recover_lp_certificate(problem,termination=result.backend_status,time_limit_s=remaining,tolerances=tolerances)
-                         if remaining>0 else LPCertificate(problem.data_hash,"unknown",False,"solve budget exhausted"))
             from solverpilot.validate.recovery import checked_termination_certificate
-            checked = checked_termination_certificate(problem, asdict(certificate),
-                termination=result.backend_status, tolerances=tolerances)
+            used=result.raw_statistics.get('verification_resources',{})
+            proof_time=None if policy.time_limit_s is None else policy.time_limit_s-used.get('elapsed_s',0.)
+            proof_terms=None if policy.max_terms is None else policy.max_terms-used.get('terms',0)
+            scope=None
+            if remaining<=0 or (proof_time is not None and proof_time<=0) or (proof_terms is not None and proof_terms<=0):
+                checked=LPCertificate(problem.data_hash,'unknown',False,'solve or verification budget exhausted')
+            else:
+                controls=replace(policy,mode='standard',time_limit_s=proof_time,max_terms=proof_terms)
+                try:
+                    with verification_scope(controls,verification_workspace) as scope:
+                        certificate=recover_lp_certificate(problem,termination=result.backend_status,
+                            time_limit_s=min(remaining,proof_time) if proof_time is not None else remaining,tolerances=tolerances)
+                        checked=checked_termination_certificate(problem,asdict(certificate),termination=result.backend_status,tolerances=tolerances)
+                except VerificationLimit as exc:
+                    checked=LPCertificate(problem.data_hash,'unknown',False,str(exc))
             raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(checked)
+            raw['verification_resources']={'terms':used.get('terms',0)+(0 if scope is None else scope.terms),
+                'elapsed_s':used.get('elapsed_s',0.)+(perf_counter()-recovery_t0)}
             result=_with_termination_certificate(replace_solve_result(result,raw_statistics=raw),
                            checked if checked.verified and result.status in {
                                PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED} else None)
@@ -207,14 +226,18 @@ def solve(
         planner_selected_backend=None if plan is None else plan.selected_backend,
         planner_evidence_level=None if plan is None else plan.evidence_level,
         planner_health_policy=None if plan is None else plan.health_policy.value,
-        parameters={**dict(result.trace.parameters), 'budget': None if budget is None else asdict(budget)},
+        parameters={**dict(result.trace.parameters), 'budget': None if budget is None else asdict(budget),'proof_policy':asdict(policy)},
     )
     raw = dict(result.raw_statistics or {})
     raw['call_budget'] = {'requested_s': None if budget is None else budget.wall_time_s,
                           'elapsed_s': total_s,
                           'within_budget': None if budget is None or budget.wall_time_s is None else total_s <= budget.wall_time_s,
                           'enforcement': 'native_soft_limit; use solve_with_deadline for process isolation'}
-    return replace_solve_result(result, trace=trace, plan=plan, raw_statistics=raw)
+    raw['proof_policy']=asdict(policy)
+    raw['proof_requirement_met']=result.optimality_evidence.independently_verified_optimal or result.termination_certificate is not None
+    final=replace_solve_result(result, trace=trace, plan=plan, raw_statistics=raw)
+    if policy.mode=='required' and not raw['proof_requirement_met']: raise ProofRequirementNotMetError(final)
+    return final
 
 
 # Backward-compatible internal alias retained for M1-M7 regression tests and callers
@@ -238,6 +261,8 @@ def solve_production(
     diagnose_infeasible: bool = False,
     tolerances: ValidationTolerances | None = None,
     certificate_recovery: float | None = None,
+    proof_policy=None,
+    verification_workspace=None,
 ) -> tuple[SolveResult, ProductionDecision]:
     """Conservative proof-safe solve plus the auditable production routing decision."""
     start = perf_counter()
@@ -260,6 +285,7 @@ def solve_production(
         budget=remaining_budget, context=context, health_reports=health_reports,
         health_policy=health_policy, diagnose_infeasible=diagnose_infeasible, tolerances=tolerances,
         certificate_recovery=certificate_recovery,
+        proof_policy=proof_policy, verification_workspace=verification_workspace,
     )
     elapsed = perf_counter()-start
     raw = dict(result.raw_statistics or {})

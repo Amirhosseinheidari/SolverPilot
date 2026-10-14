@@ -41,7 +41,7 @@ def _eval_np(node: ExprNode, x: np.ndarray, problem: NLPProblem):
     args = [_eval_np(a, x, problem) for a in node.args]
     if kind == 'index': return args[0][node.payload]
     if kind == 'transpose': return np.asarray(args[0]).T
-    if kind == 'sum': return np.sum(args[0], axis=node.payload)
+    if kind == 'sum': return np.asarray(np.sum(args[0], axis=node.payload)).reshape(node.shape)
     if kind == 'neg': return -args[0]
     if kind == 'add': return args[0] + args[1]
     if kind == 'mul': return args[0] * args[1]
@@ -79,21 +79,30 @@ def _to_ca(ca, node: ExprNode, x, problem: NLPProblem, cache: dict[int, Any]):
     else:
         args = [_to_ca(ca, a, x, problem, cache) for a in node.args]
         if kind == 'index':
-            out = args[0][node.payload]
+            shape = node.args[0].shape
+            ids = np.arange(int(np.prod(shape)) if shape else 1).reshape(shape)[node.payload]
+            flat = _flatten_row_major_ca(ca, args[0], shape)
+            out = _reshape_row_major_ca(ca, flat[np.asarray(ids).reshape(-1).tolist()], node.shape)
         elif kind == 'transpose': out = args[0].T
         elif kind == 'sum':
             if node.payload is None: out = ca.sum1(ca.sum2(args[0]))
             elif int(node.payload) == 0: out = ca.sum1(args[0])
             elif int(node.payload) == 1: out = ca.sum2(args[0])
             else: raise ValueError('P7 sum supports axes 0/1')
+            out = _reshape_row_major_ca(ca, ca.reshape(out.T, out.numel(), 1), node.shape)
         elif kind == 'neg': out = -args[0]
-        elif kind == 'add': out = args[0] + args[1]
-        elif kind == 'mul': out = args[0] * args[1]
-        elif kind == 'div': out = args[0] / args[1]
+        elif kind in {'add', 'mul', 'div'}:
+            values = []
+            for arg, source in zip(args, node.args):
+                ids = np.broadcast_to(np.arange(int(np.prod(source.shape)) if source.shape else 1).reshape(source.shape), node.shape)
+                flat = _flatten_row_major_ca(ca, arg, source.shape)
+                values.append(_reshape_row_major_ca(ca, flat[ids.reshape(-1).tolist()], node.shape))
+            out = values[0]+values[1] if kind == 'add' else values[0]*values[1] if kind == 'mul' else values[0]/values[1]
         elif kind == 'matmul':
             a0, a1 = node.args
-            left = args[0].T if len(a0.shape) == 1 and len(a1.shape) == 2 else args[0]
+            left = args[0].T if len(a0.shape) == 1 else args[0]
             out = ca.mtimes(left, args[1])
+            out = _reshape_row_major_ca(ca, ca.reshape(out.T, out.numel(), 1), node.shape)
         elif kind == 'pow': out = ca.power(args[0], int(node.payload))
         elif kind == 'sin': out = ca.sin(args[0])
         elif kind == 'cos': out = ca.cos(args[0])

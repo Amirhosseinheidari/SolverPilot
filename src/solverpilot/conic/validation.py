@@ -138,12 +138,11 @@ def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, 
         violation = max(0., norm-product, -float(np.min(heads)))
         tolerance = _scaled_tol(atol, rtol, max(norm, product))
         ok = math.isfinite(norm) and math.isfinite(tolerance) and violation <= tolerance
-        if ok and np.all(heads >= 0):
+        if math.isfinite(tolerance) and np.all(heads >= 0):
             ok = _strict_log_member(heads, weights, norm,
                 sum((rational(v)**2 for v in tail), Fraction()), tolerance)
-        if atol == rtol == 0:
-            ok = _strict_log_member(heads, weights, norm,
-                sum((rational(v)**2 for v in tail), Fraction()))
+            if _strict_log_member(heads, weights, norm, sum((rational(v)**2 for v in tail), Fraction())):
+                violation = 0.0
         if not ok and violation == 0:
             violation = float(np.nextafter(0., np.inf))
         return ConeCheck(source_id, kind, ok, violation,
@@ -174,8 +173,10 @@ def _cone_check(kind: ConeKind, value: np.ndarray, *, atol: float, rtol: float, 
         ok = math.isfinite(tol) and violation <= tol
         if ok and kind is ConeKind.EXPONENTIAL and b > 0 and c > 0:
             ok = _strict_exponential_member(a, b, c, tol)
-        elif ok and kind is ConeKind.POWER and a >= 0 and b >= 0:
+        elif math.isfinite(tol) and kind is ConeKind.POWER and a >= 0 and b >= 0:
             ok = _strict_log_member((a, b), (rational(alpha), 1-rational(alpha)), abs(c), tolerance=tol)
+            if _strict_log_member((a, b), (rational(alpha), 1-rational(alpha)), abs(c)):
+                violation = 0.0
         if atol == rtol == 0:
             ok = (_strict_exponential_member(a, b, c) if kind is ConeKind.EXPONENTIAL
                   else _strict_log_member((a, b), (rational(alpha), 1-rational(alpha)), abs(c)))

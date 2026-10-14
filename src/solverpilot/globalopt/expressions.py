@@ -102,7 +102,7 @@ def evaluate_node(problem, node, x):
         elif kind == "transpose":
             value = args[0].T
         elif kind == "sum":
-            value = np.sum(args[0], axis=node.payload)
+            value = np.asarray(np.sum(args[0], axis=node.payload)).reshape(node.shape)
         elif kind == "neg":
             value = -args[0]
         elif kind == "add":
@@ -152,7 +152,7 @@ def to_scip(problem, node, x, scip_module, cache):
         elif kind == "transpose":
             value = a[0].T
         elif kind == "sum":
-            value = np.sum(a[0], axis=node.payload)
+            value = np.asarray(np.sum(a[0], axis=node.payload)).reshape(node.shape)
         elif kind == "neg":
             value = -a[0]
         elif kind == "add":

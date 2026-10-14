@@ -3,6 +3,8 @@
 import builtins
 from dataclasses import dataclass
 from fractions import Fraction as F
+from functools import lru_cache
+from math import isqrt
 import numpy as np
 from solverpilot.model.errors import DomainError
 
@@ -63,6 +65,70 @@ class Range:
         )
 
 
+_PRECISION = 192
+_EPSILON = F(1, 1 << _PRECISION)
+
+
+def _dyadic_enclose(lo, hi):
+    scale = 1 << _PRECISION
+    lower = (lo.numerator * scale) // lo.denominator
+    upper = -((-hi.numerator * scale) // hi.denominator)
+    return Range(F(lower, scale), F(upper, scale))
+
+
+def _exp_point(x):
+    if abs(x) > 256: raise DomainError('exp interval exceeds bounded arithmetic policy')
+    if x < 0:
+        value = _exp_point(-x)
+        return _dyadic_enclose(1/value.hi, 1/value.lo)
+    reduced=x; squares=0
+    while reduced > 1: reduced/=2; squares+=1
+    term=F(1); total=F(1)
+    for n in range(1, 512):
+        term=term*reduced/n; total+=term
+        following=term*reduced/(n+1)
+        tail=following/(1-reduced/(n+2))
+        if tail <= _EPSILON:
+            value=_dyadic_enclose(total,total+tail)
+            for _ in range(squares): value=_dyadic_enclose(value.lo**2,value.hi**2)
+            return value
+    raise DomainError('exp interval work budget exceeded')
+
+
+def _log_unit(x):
+    z=(x-1)/(x+1); term=z; total=F(0)
+    for n in range(512):
+        total+=term/(2*n+1); term*=z*z
+        tail=2*term/((2*n+3)*(1-z*z))
+        if tail <= _EPSILON: return _dyadic_enclose(2*total,2*total+tail)
+    raise DomainError('log interval work budget exceeded')
+
+
+@lru_cache(maxsize=1)
+def _log_two():
+    return _log_unit(F(2))
+
+
+def _log_point(x):
+    if x <= 0: raise DomainError('log interval requires positive input')
+    if max(x.numerator.bit_length(), x.denominator.bit_length()) > 4096:
+        raise DomainError('log interval exceeds bounded arithmetic policy')
+    reduced=x; shift=0
+    while reduced >= 2: reduced/=2; shift+=1
+    while reduced < 1: reduced*=2; shift-=1
+    base=_log_unit(reduced); two=_log_two()
+    return _dyadic_enclose(base.lo+shift*(two.lo if shift>=0 else two.hi),
+                          base.hi+shift*(two.hi if shift>=0 else two.lo))
+
+
+def _sqrt_point(x):
+    if x < 0: raise DomainError('sqrt interval requires nonnegative input')
+    scale=1 << _PRECISION; square_scale=scale*scale
+    m=isqrt((x.numerator*square_scale)//x.denominator)
+    lo=F(m,scale)
+    return Range(lo,lo if lo*lo==x else F(m+1,scale))
+
+
 def bound_node(problem, node):
     p = problem.relaxation
     kind = node.kind
@@ -92,12 +158,18 @@ def bound_node(problem, node):
         return np.full(node.shape, Range(F(-1), F(1)), dtype=object)
     if any(a is None for a in args):
         return None
+    if kind in ('exp','log','sqrt'):
+        function={'exp':_exp_point,'log':_log_point,'sqrt':_sqrt_point}[kind]
+        try:
+            return np.vectorize(lambda r: Range(function(r.lo).lo,function(r.hi).hi),otypes=[object])(args[0])
+        except DomainError:
+            return None
     if kind == "index":
         return np.asarray(args[0][node.payload], dtype=object)
     if kind == "transpose":
         return args[0].T
     if kind == "sum":
-        return np.asarray(np.sum(args[0], axis=node.payload), dtype=object)
+        return np.asarray(np.sum(args[0], axis=node.payload), dtype=object).reshape(node.shape)
     if kind == "neg":
         return -args[0]
     if kind == "add":
@@ -133,6 +205,10 @@ def validate_domains(problem, node):
         validate_domains(problem, child)
     if node.kind in ("log", "sqrt", "div"):
         child = node.args[1] if node.kind == "div" else node.args[0]
+        if child.kind == 'exp':
+            # Positive for every finite real argument, even below the absolute
+            # dyadic enclosure grid. Child domains were checked recursively.
+            return
         enclosure = bound_node(problem, child)
         if enclosure is None:
             raise DomainError(f"{node.kind} domain cannot be certified from declared bounds")

@@ -187,6 +187,8 @@ def execute_portfolio(
         else:
             stopped_reason = "conflicting_terminal_statuses"
     total_s = perf_counter() - t0
+    if budget is not None and budget.wall_time_s is not None:
+        budget_exhausted = budget_exhausted or total_s >= float(budget.wall_time_s)
     if not attempts:
         stopped_reason = "no_attempts"
     return PortfolioSolveResult(

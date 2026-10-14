@@ -103,7 +103,7 @@ class AffineEvaluator:
                     destinations = np.zeros(value.constant.size, dtype=int)
                 else:
                     destinations = np.broadcast_to(
-                        np.expand_dims(np.arange(size).reshape(shape), node.payload), value.shape
+                        np.arange(size).reshape(shape) if len(shape) == len(value.shape) else np.expand_dims(np.arange(size).reshape(shape), node.payload), value.shape
                     ).reshape(-1)
                 transform = sparse.csr_matrix(
                     (np.ones(value.constant.size), (destinations, np.arange(value.constant.size))),

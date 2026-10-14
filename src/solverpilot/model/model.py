@@ -718,6 +718,9 @@ class Model:
             if node.kind.startswith('atom_'):
                 from .atoms import _atom
                 return _atom(node.kind[5:], args[0], node.payload)
+            if node.kind in {'global_abs', 'global_max', 'global_min'}:
+                from solverpilot.globalopt.expressions import _atom
+                return _atom(node.kind, args[0], args[1] if len(args) == 2 else None)
             if node.kind == "add": return args[0] + args[1]
             if node.kind == "mul": return args[0] * args[1]
             if node.kind == "div": return args[0] / args[1]
@@ -728,7 +731,7 @@ class Model:
             if node.kind == "neg": return -args[0]
             if node.kind == "index": return args[0][node.payload]
             if node.kind == "transpose": return args[0].T
-            if node.kind == "sum": return args[0].sum(axis=node.payload)
+            if node.kind == "sum": return args[0].sum(axis=node.payload, keepdims=len(node.shape) == len(node.args[0].shape) and bool(node.shape))
             if node.kind == "concat": return clone._concat(*args)
             raise DomainError(f"cannot clone unsupported expression node {node.kind!r}")
 

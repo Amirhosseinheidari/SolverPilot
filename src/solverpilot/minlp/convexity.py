@@ -46,6 +46,9 @@ def prove_curvature(node: ExprNode, parameter_values: dict[str,np.ndarray]) -> C
     if node.degree is not None and node.degree <= 1:
         return CurvatureProof('affine','polynomial degree <= 1')
     k=node.kind
+    if k in {'index', 'sum', 'transpose'}:
+        p = prove_curvature(node.args[0], parameter_values)
+        return CurvatureProof(p.curvature, f'{k} of componentwise {p.curvature}')
     if k=='neg':
         p=prove_curvature(node.args[0],parameter_values)
         return CurvatureProof({'convex':'concave','concave':'convex'}.get(p.curvature,p.curvature),f'neg({p.reason})')
@@ -70,8 +73,8 @@ def prove_curvature(node: ExprNode, parameter_values: dict[str,np.ndarray]) -> C
             if cb>0: return CurvatureProof(p.curvature,f'positive scaling {cb:g}')
             return CurvatureProof({'convex':'concave','concave':'convex'}.get(p.curvature,p.curvature),f'negative scaling {cb:g}')
         pa=prove_curvature(a,parameter_values)
-        if _same_node(a,b) and pa.curvature=='affine' and a.shape==():
-            return CurvatureProof('convex','square of scalar affine expression')
+        if _same_node(a,b) and pa.curvature=='affine':
+            return CurvatureProof('convex','componentwise square of affine expression')
         return CurvatureProof('unknown','bilinear/product term not certified')
     if k=='exp':
         p=prove_curvature(node.args[0],parameter_values)
@@ -79,7 +82,7 @@ def prove_curvature(node: ExprNode, parameter_values: dict[str,np.ndarray]) -> C
         return CurvatureProof('unknown','exp composition outside P8 certificate policy')
     if k=='pow':
         p=prove_curvature(node.args[0],parameter_values); e=int(node.payload)
-        if p.curvature=='affine' and e>=2 and e%2==0 and node.shape==():
+        if p.curvature=='affine' and e>=2 and e%2==0:
             return CurvatureProof('convex',f'even power {e} of scalar affine')
         return CurvatureProof('unknown','power outside P8 certificate policy')
     return CurvatureProof('unknown',f'atom {k!r} outside P8 convexity certificate policy')

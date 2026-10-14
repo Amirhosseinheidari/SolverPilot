@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Repair twelve semantic, ownership, validation, orchestration and exact-reference defect groups, including NumPy/CasADi shape agreement, snapshot validation, restricted binary domains, CP integrality, extreme power-cone boundaries and result/trace metadata ownership.
+- Add optional independent numerical proof policies, bounded coefficient preparation reuse, aggregate lexicographic/MINLP/scenario budgets, and evidence-preserving specialized explanations.
+- Add regular convex-QP directional sensitivity and analytic unbridged polynomial parameter-to-data directions; fail explicitly on unsupported or degenerate paths.
+- Extend exact sparse PSD checks to bounded components and verified weighted Gram witnesses; expose Clarabel chordal/repeated execution profiles.
+- Add vector convex OA, local NLP maximization, rational elementary-function domain bounds, global-atom cloning, CVaR/ellipsoid helpers and independently checked materialized LP relaxations. Keep automatic learned routing disabled and publication separate from development qualification.
+
 - Recheck backend termination witnesses in original coordinates before attaching owned proof evidence; reject contradictory infeasibility claims and preserve the public result constructor and recorded evidence consistency.
 - Reject paired-repeat quality losses in both LP calibration generations; cache immutable routing artifact identities, bind every implementation file, and charge the complete wrapper overhead against the call budget.
 - Isolate native HiGHS thread-setting conflicts in a cold owned process without resetting other handles; support explicit PDLP/cuOpt evidence replay with binding-version provenance.

@@ -6,8 +6,8 @@ def legacy_signature(obj):
         "SolveTrace": {"execution_id", "source_sha256", "replay_of"},
         "QuadraticProblem": {"_verify_convexity"},
         "ValidationTolerances": {"feasibility_rel"},
-        "execute": {"tolerances"}, "solve": {"tolerances", "certificate_recovery"},
-        "solve_production": {"tolerances", "certificate_recovery"}, "execute_portfolio": {"tolerances"},
+        "execute": {"tolerances", "proof_policy", "verification_workspace"}, "solve": {"tolerances", "certificate_recovery", "proof_policy", "verification_workspace"},
+        "solve_production": {"tolerances", "certificate_recovery", "proof_policy", "verification_workspace"}, "execute_portfolio": {"tolerances"},
     }
     try:
         sig = inspect.signature(obj)
@@ -30,6 +30,8 @@ def published_04_signature(obj):
     additions = {"execution_id", "source_sha256", "replay_of"} if getattr(obj, "__name__", "") == "SolveTrace" else set()
     if getattr(obj, "__name__", "") == "PhaseTimings":
         additions = {"primal_validate_s", "certificate_s"}
+    if getattr(obj, "__name__", "") in {"solve", "solve_production", "execute"}:
+        additions = {"proof_policy", "verification_workspace"}
     for name in additions:
         parameter = sig.parameters[name]
         assert parameter.kind is inspect.Parameter.KEYWORD_ONLY

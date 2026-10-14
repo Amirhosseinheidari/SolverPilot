@@ -194,6 +194,7 @@ class CompiledModel:
 
     def reconstruct_primal(self, x):
         import numpy as _np
+        if x is None: return None
         # P4 bridges currently add no execution variables, so primal reconstruction
         # is an identity map. The tape still records this explicitly for auditability.
         for step in self.transformation_tape:
@@ -204,6 +205,8 @@ class CompiledModel:
         return values[:count].copy()
 
     def validate_original(self, model: Model, x, *, atol: float = 1e-8):
+        if model.semantic_hash != self.semantic_hash or model.data_hash != self.data_hash:
+            raise ValueError("model differs from the compiled snapshot; refresh before validation")
         from solverpilot.globalopt.problem import FactorableProblem
         if isinstance(self.execution_ir, FactorableProblem):
             if model.data_hash != self.data_hash:
@@ -334,7 +337,7 @@ class _Evaluator:
             out = np.asarray(self.evaluate(node.args[0]).T, dtype=object)
         elif node.kind == "sum":
             a = self.evaluate(node.args[0])
-            out = np.asarray(np.sum(a, axis=node.payload), dtype=object)
+            out = np.asarray(np.sum(a, axis=node.payload), dtype=object).reshape(node.shape)
         elif node.kind == "concat":
             pieces = [np.asarray(self.evaluate(arg), dtype=object).reshape(-1) for arg in node.args]
             out = np.concatenate(pieces) if pieces else np.asarray([], dtype=object)

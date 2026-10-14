@@ -30,6 +30,8 @@ class ReoptimizationSession:
         from solverpilot.runtime import default_registry
         self._registry = default_registry() if backend is None else None
         self._closed = False
+        from solverpilot.validate.workspace import VerificationWorkspace
+        self._verification_workspace=VerificationWorkspace()
         self._solving = False
         self.revision = 0
         self.last_result = None
@@ -51,6 +53,8 @@ class ReoptimizationSession:
             for name, value in changes.items():
                 self._parameters[name].value = value
             compiled = self._model.compile()
+            if isinstance(compiled.execution_ir,(LinearProblem,QuadraticProblem)):
+                options.setdefault('verification_workspace',self._verification_workspace)
             if self._backend is not None:
                 options['backend'] = self._backend
             elif isinstance(compiled.execution_ir, (LinearProblem, QuadraticProblem)):
@@ -87,6 +91,7 @@ class ReoptimizationSession:
             if callable(close):
                 close()
             self._backend = None
+            self._verification_workspace.clear()
             self._registry = None
             self._closed = True
 

@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import Callable, Any
 from solverpilot.plan import SolveBudget
 from solverpilot.validate import ValidationTolerances
+from solverpilot.validate.workspace import ProofPolicy
 
 
 @dataclass(frozen=True, slots=True)
@@ -23,8 +24,10 @@ class SolveOptions:
     tolerances: ValidationTolerances = field(default_factory=ValidationTolerances)
     progress: Callable[[ProgressEvent], bool | None] | None = None
     cancellation: Any = None
+    proof_policy: ProofPolicy | None = None
 
     def __post_init__(self):
+        if self.proof_policy is not None and not isinstance(self.proof_policy,ProofPolicy): raise TypeError('proof_policy must be ProofPolicy')
         if self.budget is not None and not isinstance(self.budget, SolveBudget):
             raise TypeError("budget must be SolveBudget")
         if not isinstance(self.tolerances, ValidationTolerances):
@@ -41,7 +44,7 @@ def expand_options(kwargs):
     if options is not None:
         if not isinstance(options, SolveOptions):
             raise TypeError("options must be SolveOptions")
-        for name in ("budget", "tolerances", "progress", "cancellation"):
+        for name in ("budget", "tolerances", "progress", "cancellation", "proof_policy"):
             value = getattr(options, name)
             if value is not None:
                 if name in kwargs:

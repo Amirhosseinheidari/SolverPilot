@@ -29,6 +29,7 @@ class ClarabelBackend:
     threads: int = 1
     verbose: bool = False
     reuse: bool = False
+    execution_profile: str = field(default='auto', kw_only=True)
     _lock: object = field(default_factory=RLock, init=False, repr=False, compare=False)
     _solver: object = field(default=None, init=False, repr=False, compare=False)
     _signature: str | None = field(default=None, init=False, repr=False, compare=False)
@@ -83,6 +84,11 @@ class ClarabelBackend:
     def solve(self, problem: ConicProblem, *, tolerances=None, progress=None, cancellation=None) -> ConicSolveResult:
         if self._active:
             raise RuntimeError('a progress callback cannot reenter the same Clarabel backend')
+        if self.execution_profile not in {'auto','chordal','repeated'}:
+            raise ValueError('execution_profile must be auto, chordal or repeated')
+        if self.execution_profile=='chordal' and self.reuse:
+            raise ValueError('chordal decomposition and native data updates cannot be combined')
+        reuse_enabled=self.reuse or self.execution_profile=='repeated'
         import clarabel
         if problem.convexity_status is not ConvexityStatus.CONFIRMED:
             raise ValueError('Clarabel requires a confirmed convex objective')
@@ -165,7 +171,7 @@ class ClarabelBackend:
         settings.tol_gap_abs = settings.tol_gap_rel = settings.tol_feas = self.tolerance
         if self.time_limit_s is not None:
             settings.time_limit = self.time_limit_s
-        if self.reuse:
+        if reuse_enabled:
             settings.presolve_enable = False
             settings.chordal_decomposition_enable = False
         P = sparse.triu(problem.P, format='csc')
@@ -175,14 +181,14 @@ class ClarabelBackend:
         for matrix in (P, transport_A):
             digest.update(matrix.indptr.tobytes()); digest.update(matrix.indices.tobytes())
         signature = digest.hexdigest()
-        reused = self.reuse and self._solver is not None and self._signature == signature
+        reused = reuse_enabled and self._solver is not None and self._signature == signature
         if reused:
             solver = self._solver
             solver.update(P=P, q=problem.q, A=transport_A, b=transport_b)
         else:
             solver = clarabel.DefaultSolver(P, problem.q, transport_A, transport_b, cones, settings)
-        self._solver = solver if self.reuse else None
-        self._signature = signature if self.reuse else None
+        self._solver = solver if reuse_enabled else None
+        self._signature = signature if reuse_enabled else None
         callback_errors = []
         if progress is not None or cancellation is not None:
             from solverpilot.runtime.options import ProgressEvent
@@ -251,6 +257,8 @@ class ClarabelBackend:
             'primal_residual_reported': result.r_prim, 'dual_residual_reported': result.r_dual,
             'termination_evidence': 'backend_reported',
             'reuse_applied': reused, 'reuse_mode': 'same_sparsity_update' if reused else 'cold_setup',
+            'execution_profile':self.execution_profile,
+            'chordal_decomposition_enabled':bool(settings.chordal_decomposition_enable),
             'reuse_report': {'workspace': 'observed' if reused else 'not_used',
                              'primal_dual_start': 'unknown', 'symbolic_factorization': 'unknown',
                              'numeric_factorization': 'unknown',

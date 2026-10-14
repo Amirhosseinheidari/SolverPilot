@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Mapping
 import math
 from .ir import *
+from ._integers import integer
 
 @dataclass(frozen=True, slots=True)
 class CPValidationReport:
@@ -17,7 +18,7 @@ class CPValidationReport:
 def _expr(e, a): return e.constant + sum(c*a[v] for v,c in e.terms)
 
 def complete_assignment(problem,assignment):
-    a={int(k):int(v) for k,v in dict(assignment).items()}
+    a={integer(k, 'variable id'):integer(v, 'assignment') for k,v in dict(assignment).items()}
     pending=True
     while pending:
         pending=False
@@ -51,7 +52,16 @@ def _circuit_ok(c,a):
     return cur==start and seen==active
 
 def validate_cp_solution(problem:CPProblem,assignment:Mapping[int,int],objective_reported=None):
-    a=complete_assignment(problem,assignment); dviol=[]; derived=[]; cviol=[]
+    invalid = []
+    clean = {}
+    for k, v in dict(assignment).items():
+        try:
+            vid = integer(k, 'variable id')
+            clean[vid] = integer(v, 'assignment')
+        except (ValueError, TypeError, OverflowError):
+            try: invalid.append(integer(k, 'variable id'))
+            except (ValueError, TypeError, OverflowError): invalid.append(-1)
+    a=complete_assignment(problem,clean); dviol=list(invalid); derived=[]; cviol=[]
     for v in problem.variables:
         if v.var_id not in a or a[v.var_id] not in v.domain: dviol.append(v.var_id)
         if v.derived_from is not None and v.var_id in a:
@@ -79,5 +89,12 @@ def validate_cp_solution(problem:CPProblem,assignment:Mapping[int,int],objective
         except KeyError: ok=False
         if not ok: cviol.append(idx)
     obj=None if problem.objective is None or any(v not in a for v,c in problem.objective.terms) else _expr(problem.objective,a)
-    consistent=None if objective_reported is None or obj is None else int(objective_reported)==int(obj)
-    return CPValidationReport(not dviol and not derived and not cviol and consistent is not False,tuple(dviol),tuple(cviol),tuple(derived),obj,None if objective_reported is None else int(objective_reported),consistent)
+    reported = None
+    consistent = None
+    if objective_reported is not None:
+        try:
+            reported = integer(objective_reported, 'reported objective')
+            consistent = None if obj is None else reported == obj
+        except (ValueError, TypeError, OverflowError):
+            consistent = False
+    return CPValidationReport(not dviol and not derived and not cviol and consistent is not False,tuple(sorted(set(dviol))),tuple(cviol),tuple(derived),obj,reported,consistent)
