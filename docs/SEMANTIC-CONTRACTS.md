@@ -73,7 +73,8 @@ This API does not replace the separately qualified exact SCIP/VIPR API.
 
 The workspace binds preparation to exact CSR bytes, including duplicate ordering.
 It caches coefficient dyadics, never candidate validation or certificate acceptance.
-LRU entries and coefficient storage are capped; oversized matrices bypass the
+LRU entries, coefficient storage and per-entry row-pointer metadata are capped;
+oversized or mostly-empty large-row matrices bypass the
 cache. Every primal, multiplier, objective and bound check remains fresh.
 `ReoptimizationSession` owns and clears a bounded workspace. The paired
 `benchmarks/qualify_verification_workspace.py` experiment includes fresh primal

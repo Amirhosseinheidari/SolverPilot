@@ -386,3 +386,10 @@ def test_factor_witness_rejects_rounded_duplicate_representations():
     duplicate=sparse.csr_matrix(([1e16,-1.,-1e16,.5],[0,0,0,0],[0,4]),shape=(1,1))
     assert not certify_psd_factor(duplicate,[[1.]],weights=[.5]).certified
     assert not certify_psd_factor([[.25]],duplicate).certified
+
+
+def test_empty_matrix_row_metadata_cannot_exceed_workspace_storage_bound():
+    from solverpilot.validate.workspace import VerificationWorkspace
+    workspace=VerificationWorkspace(max_entries=2,max_coefficient_terms=10)
+    assert workspace.prepare(sparse.csr_matrix((1000,1))) is None
+    assert workspace.info()['entries']==0 and workspace.info()['index_entries']==0

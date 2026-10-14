@@ -54,7 +54,7 @@ class VerificationWorkspace:
     def prepare(self,matrix):
         from ._certificate_arithmetic import _dyadic
         matrix=matrix.tocsr()
-        if not self.max_entries or matrix.nnz>self.max_coefficient_terms:
+        if not self.max_entries or matrix.nnz>self.max_coefficient_terms or len(matrix.indptr)>self.max_coefficient_terms:
             self.misses+=1
             return None
         digest=hashlib.sha256()
@@ -75,7 +75,9 @@ class VerificationWorkspace:
 
     def info(self):
         with self._lock:
-            return {'entries':len(self._entries),'coefficient_terms':self._terms,'hits':self.hits,'misses':self.misses}
+            return {'entries':len(self._entries),'coefficient_terms':self._terms,
+                    'index_entries':sum(len(v[0])+len(v[1]) for v in self._entries.values()),
+                    'hits':self.hits,'misses':self.misses}
 
     def clear(self):
         with self._lock: self._entries.clear(); self._terms=0
