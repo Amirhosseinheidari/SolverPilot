@@ -154,8 +154,12 @@ def solve(
                 remaining=min(remaining,budget.wall_time_s-(perf_counter()-total_t0))
             certificate=(recover_lp_certificate(problem,termination=result.backend_status,time_limit_s=remaining,tolerances=tolerances)
                          if remaining>0 else LPCertificate(problem.data_hash,"unknown",False,"solve budget exhausted"))
-            raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(certificate)
-            result=replace(result,raw_statistics=raw)
+            from solverpilot.validate.recovery import checked_termination_certificate
+            checked = checked_termination_certificate(problem, asdict(certificate),
+                termination=result.backend_status, tolerances=tolerances)
+            raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(checked)
+            result=replace(result,raw_statistics=raw,
+                           _termination_certificate=checked if checked.verified else None)
             recovery_s = perf_counter() - recovery_t0
 
     diagnose_s = 0.0

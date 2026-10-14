@@ -182,6 +182,16 @@ def execute(
         "certificate_verified": evidence.certificate_verified,
         "independently_verified_optimal": evidence.independently_verified_optimal,
     }
+    termination_certificate = None
+    if 'termination_certificate' in raw_stats:
+        from solverpilot.validate.recovery import checked_termination_certificate
+        proof_start = perf_counter()
+        checked = checked_termination_certificate(problem, raw_stats['termination_certificate'],
+            termination=backend_result.backend_status, tolerances=tolerances)
+        raw_stats['termination_certificate'] = asdict(checked)
+        if checked.verified:
+            termination_certificate = checked
+        certificate_s += perf_counter() - proof_start
     trace = replace(trace, timings=replace(trace.timings,
                     validate_s=primal_validate_s+certificate_s,
                     primal_validate_s=primal_validate_s, certificate_s=certificate_s,
@@ -194,4 +204,5 @@ def execute(
         validation=validation,
         trace=trace,
         raw_statistics=raw_stats,
+        _termination_certificate=termination_certificate,
     )

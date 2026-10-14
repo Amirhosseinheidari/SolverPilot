@@ -172,6 +172,12 @@ def run_manifest(problem, result, *, include_model=False, include_raw_statistics
             "summary_includes_objective": True,
         },
     }
+    certificate = getattr(result, 'termination_certificate', None)
+    if certificate is not None and certificate.verified:
+        payload['termination_check'] = {
+            'problem_data_hash': certificate.problem_data_hash, 'kind': certificate.kind,
+            'verified': True, 'method': 'canonical_original_coordinate_witness',
+        }
     if include_model:
         if not isinstance(problem, (LinearProblem, QuadraticProblem)):
             raise TypeError("model replay currently supports canonical LP/QP")

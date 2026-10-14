@@ -13,6 +13,7 @@ from solverpilot.validate import PublicStatus, ValidationReport
 
 if TYPE_CHECKING:
     from solverpilot.diagnose import InfeasibilityReport
+    from solverpilot.validate.recovery import LPCertificate
 
 
 @dataclass(frozen=True, slots=True)
@@ -47,9 +48,20 @@ class SolveResult:
     plan: SolvePlan | None = None
     session_revision: int | None = None
     diagnostics: "InfeasibilityReport | None" = None
+    _termination_certificate: "LPCertificate | None" = field(default=None, kw_only=True,
+                                                              repr=False, compare=False)
     _optimality_evidence: OptimalityEvidence = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
+        if self._termination_certificate is not None:
+            from solverpilot.validate.recovery import LPCertificate
+            certificate = self._termination_certificate
+            if (not isinstance(certificate, LPCertificate)
+                    or certificate.problem_data_hash != self.trace.problem_data_hash
+                    or type(certificate.verified) is not bool
+                    or certificate.kind not in {'infeasible', 'unbounded'}
+                    or self.backend_status not in {certificate.kind, 'infeasible_or_unbounded'}):
+                raise ValueError('owned termination certificate does not match the result')
         if self.x is not None:
             object.__setattr__(self, "x", readonly_array(self.x, dtype=np.float64))
         frozen_raw = None if self.raw_statistics is None else deep_freeze(self.raw_statistics)
@@ -74,3 +86,8 @@ class SolveResult:
     @property
     def optimality_evidence(self) -> OptimalityEvidence:
         return self._optimality_evidence
+
+    @property
+    def termination_certificate(self) -> "LPCertificate | None":
+        """An executor-checked witness, separate from backend-owned raw claims."""
+        return self._termination_certificate

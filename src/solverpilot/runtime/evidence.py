@@ -90,6 +90,9 @@ def _verify_summary_types(summary):
     # copies before linking them so a resealed nested summary cannot exploit it.
     _boolean(summary["feasible"], "summary.feasible")
     _boolean(summary["within_budget"], "summary.within_budget", nullable=True)
+    if summary['termination_evidence'] not in {
+            'not_established', 'independent_numerical_termination_certificate'}:
+        raise ValueError('unsupported core termination evidence')
     _number(summary["objective"], "summary.objective", nullable=True)
     for key in ("requested_time_s", "elapsed_s"):
         _number(summary[key], f"summary.{key}", nullable=True, nonnegative=True)
@@ -246,6 +249,20 @@ def _verify_evidence_bundle(payload):
     _verify_summary_types(run["summary"])
     if payload["summary"] != run["summary"]:
         raise ValueError("evidence summaries disagree")
+    termination = run.get('termination_check')
+    independent_termination = payload['summary']['termination_evidence'] != 'not_established'
+    if independent_termination:
+        if (not isinstance(termination, dict)
+                or set(termination) != {'problem_data_hash', 'kind', 'verified', 'method'}
+                or termination['verified'] is not True
+                or termination['method'] != 'canonical_original_coordinate_witness'
+                or termination['problem_data_hash'] != payload['problem_data_hash']
+                or termination['kind'] not in {'infeasible', 'unbounded'}
+                or payload['summary']['status'] not in {termination['kind'], 'infeasible_or_unbounded'}
+                or payload['summary']['feasible']):
+            raise ValueError('independent termination claim lacks a matching recorded check')
+    elif termination is not None:
+        raise ValueError('recorded termination check disagrees with summary')
     if any(run[key] != payload["summary"][key] for key in ("status", "backend")):
         raise ValueError("evidence run disagrees with summary")
     if payload["explanation"]["runtime"]["source_sha256"] != run["code_identity"]["source_sha256"]:
