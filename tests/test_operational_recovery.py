@@ -1,5 +1,5 @@
 """Lifecycle contracts executed by the full OS/Python CI matrix."""
-import threading
+from multiprocessing.process import BaseProcess
 import pytest
 import numpy as np
 
@@ -17,13 +17,19 @@ def test_timeout_then_restart_in_same_executor():
         assert result.validation_valid and result.independently_verified_optimal
 
 
-def test_active_cancellation_then_fresh_request():
+def test_active_cancellation_then_fresh_request(monkeypatch):
     token=CancellationToken()
     with BatchExecutor(backend='scipy-highs-ds',max_workers=1,max_pending=1,timeout_s=30) as executor:
-        timer=threading.Timer(.001,token.cancel)
-        timer.start()
-        try: result=list(executor.iter([problem()],cancellation=token))[0]
-        finally: timer.join()
+        start = BaseProcess.start
+        def cancel_after_start(process):
+            returned = start(process)
+            token.cancel()
+            return returned
+        # Cancel a submitted job after its child actually starts. A 1ms timer
+        # could fire before submission and legitimately produce no stream item.
+        with monkeypatch.context() as patch:
+            patch.setattr(BaseProcess,'start',cancel_after_start)
+            result=list(executor.iter([problem()],cancellation=token))[0]
         assert result.status=='cancelled' and result.x is None
         assert list(executor.iter([problem()]))[0].independently_verified_optimal
 

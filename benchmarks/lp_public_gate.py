@@ -129,7 +129,8 @@ def evaluate_actual_routes(rows, cases, config, *, baseline, model_sha256, guard
             boot = ratio(family_cost[draws].sum(axis=1), family_base[draws].sum(axis=1))
             mean_ratio = float(ratio(family_cost.mean(), family_base.mean()))
             tail = float(np.quantile(ratio(cost, base_cost), .9))
-            lost = int(np.sum(base_success & ~successes))
+            from solverpilot.experimental._repeat_quality import paired_repeat_losses
+            lost = paired_repeat_losses(successes, base_success)
             gates = dict(three_percent_gain=mean_ratio <= POLICY['max_mean_ratio'],
                          bootstrap_upper_below_one=float(np.quantile(boot, .975)) < 1,
                          tail_slowdown_bounded=tail <= POLICY['max_p90_ratio'],

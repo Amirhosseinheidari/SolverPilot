@@ -64,6 +64,8 @@ def environment():
         "clarabel",
         "casadi",
         "ortools",
+        "cuopt-cu12",
+        "cuopt-cu13",
     ):
         try:
             packages[name] = version(name)
@@ -172,6 +174,12 @@ def run_manifest(problem, result, *, include_model=False, include_raw_statistics
             "summary_includes_objective": True,
         },
     }
+    certificate = getattr(result, 'termination_certificate', None)
+    if certificate is not None and certificate.verified:
+        payload['termination_check'] = {
+            'problem_data_hash': certificate.problem_data_hash, 'kind': certificate.kind,
+            'verified': True, 'method': 'canonical_original_coordinate_witness',
+        }
     if include_model:
         if not isinstance(problem, (LinearProblem, QuadraticProblem)):
             raise TypeError("model replay currently supports canonical LP/QP")
@@ -216,7 +224,7 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
     from solverpilot.problem import LinearProblem, QuadraticProblem
     from solverpilot.validate import ValidationTolerances
     from solverpilot.plan import SolveBudget
-    from .auto import builtin_backend_candidates, solve
+    from .auto import builtin_backend_candidates, explicit_optional_backend, solve
 
     schema = payload.get("schema")
     if schema not in {"solverpilot.run.v1", "solverpilot.run.v2"} or "model" not in payload:
@@ -252,9 +260,10 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
         raise ValueError("model data hash differs from manifest")
     parameters = payload["parameters"]
     backends = {b.manifest.name: b for b in builtin_backend_candidates()}
-    if payload["backend"] not in backends:
+    backend = explicit_optional_backend(payload['backend']) or backends.get(payload['backend'])
+    if backend is None:
         raise ValueError("replay requires an available built-in backend")
-    backend = replace(backends[payload["backend"]], **parameters.get("backend_configuration", {}))
+    backend = replace(backend, **parameters.get("backend_configuration", {}))
     budget = parameters.get("budget")
     result = solve(
         problem,
@@ -262,4 +271,5 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
         tolerances=ValidationTolerances(**parameters.get("validation_tolerances", {})),
         budget=None if budget is None else SolveBudget(**budget),
     )
-    return replace(result, trace=replace(result.trace, replay_of=payload.get("execution_id")))
+    from .result import replace_solve_result
+    return replace_solve_result(result, trace=replace(result.trace, replay_of=payload.get("execution_id")))

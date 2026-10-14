@@ -1,6 +1,7 @@
 """Bounded auxiliary-LP witness recovery, independently checked on original data."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from collections.abc import Mapping
 from time import perf_counter
 import numpy as np
 from scipy import sparse
@@ -47,6 +48,30 @@ def verify_lp_certificate(problem, certificate, *, tolerances=None):
             )
         )
     return False
+
+
+def checked_termination_certificate(problem, claim, *, termination, tolerances=None):
+    """Reconstruct and check a backend witness, ignoring its recorded verified flag."""
+    rejected = LPCertificate(problem.data_hash, 'unknown', False,
+                             'no matching independently checked termination witness')
+    if not isinstance(claim, Mapping):
+        return rejected
+    kind = claim.get('kind')
+    identity = claim.get('problem_data_hash')
+    if (not isinstance(kind, str) or not isinstance(identity, str)
+            or kind not in {'infeasible', 'unbounded'}
+            or termination not in {kind, 'infeasible_or_unbounded'}
+            or identity != problem.data_hash):
+        return rejected
+    try:
+        certificate = LPCertificate(problem.data_hash, kind, False,
+            'original-coordinate termination witness checked',
+            dual=claim.get('dual'), point=claim.get('point'), direction=claim.get('direction'))
+        verified = verify_lp_certificate(problem, certificate, tolerances=tolerances)
+    except (TypeError, ValueError, OverflowError):
+        return rejected
+    return replace(certificate, verified=bool(verified), reason=(certificate.reason if verified
+                   else 'termination witness failed independent verification'))
 
 
 def recover_lp_certificate(

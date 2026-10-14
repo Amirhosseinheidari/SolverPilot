@@ -36,7 +36,12 @@ with HighspyNativeBackend(reuse=True, solver="simplex", threads=1) as backend:
 Reuse requires an identical numerical matrix, sparsity, variable domains and
 objective sense. Costs, row bounds, variable bounds and objective offset are
 updated through the public highspy interface. Changes to matrix data, structure,
-presolve, threads or solver rebuild the native model. QP, MILP and implicit solver
+presolve, threads or solver rebuild the native model. A conflicting process-global
+HiGHS thread scheduler is detected through the native diagnostic callback and
+executes the requested configuration in a fresh, one-shot process. This path
+retains no workspace and reports `reuse_applied=False`; startup and transport
+consume its remaining allowance. The existing global scheduler is never reset.
+QP, MILP and implicit solver
 selection retain the previous stateless behavior. `reuse=False` remains default.
 The same explicitly owned backend can be used with `solve()`, `SolveOptions`,
 semantic reoptimization and production scenario sweeps.

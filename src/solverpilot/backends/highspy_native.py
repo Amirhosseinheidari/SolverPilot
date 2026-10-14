@@ -78,6 +78,9 @@ class HighspyNativeBackend:
     _pending_reason: str = field(default="first_solve", init=False, repr=False, compare=False)
     _closed: bool = field(default=False, init=False, repr=False, compare=False)
     _solving: bool = field(default=False, init=False, repr=False, compare=False)
+    _scheduler_conflict: bool = field(default=False, init=False, repr=False, compare=False)
+    _native_callback: object | None = field(default=None, init=False, repr=False, compare=False)
+    _allow_thread_isolation: bool = field(default=True, init=False, repr=False, compare=False)
 
     def __post_init__(self):
         if not isinstance(self.reuse, bool):
@@ -126,6 +129,7 @@ class HighspyNativeBackend:
                 "time_limit_policy": "mutable per-call allowance; cumulative native clock offset; removing limit restores infinity",
                 "matrix_update_policy": "rebuild even when only matrix values change",
                 "basis_reuse_evidence": "validity observations only; no factorization claim",
+                "thread_conflict_policy": "isolated cold execution; never reset the global scheduler",
             },
         )
 
@@ -149,6 +153,8 @@ class HighspyNativeBackend:
         self._previous = None
         self._matrix_hash = None
         self._configuration = None
+        self._native_callback = None
+        self._scheduler_conflict = False
         self._pending_reason = reason
 
     @serialized
@@ -201,13 +207,13 @@ class HighspyNativeBackend:
             raise TypeError("reuse must be a boolean")
         options = {"output_flag": False}
         if self.time_limit_s is not None:
-            if not np.isfinite(self.time_limit_s) or self.time_limit_s <= 0:
+            if isinstance(self.time_limit_s, bool) or not np.isfinite(self.time_limit_s) or self.time_limit_s <= 0:
                 raise ValueError("time_limit_s must be finite and positive")
             options["time_limit"] = float(self.time_limit_s)
         if self.threads is not None:
-            if self.threads <= 0:
-                raise ValueError("threads must be positive")
-            options["threads"] = int(self.threads)
+            if type(self.threads) is not int or self.threads <= 0:
+                raise ValueError("threads must be a positive integer")
+            options["threads"] = self.threads
         if self.presolve is not None:
             options["presolve"] = "on" if self.presolve else "off"
         if self.solver is not None:
@@ -222,6 +228,15 @@ class HighspyNativeBackend:
                  else self._make_lp_model(highspy, problem))
         if h.passModel(model) == highspy.HighsStatus.kError:
             raise RuntimeError("HiGHS rejected model")
+        if self.threads is not None and self._allow_thread_isolation:
+            def observe(_kind, message, _output, _input, _data):
+                if 'global scheduler has already been initialized' in message and 'threads' in message:
+                    self._scheduler_conflict = True
+            self._native_callback = observe
+            self._require_ok(highspy, h.setCallback(observe, None), 'scheduler diagnostic callback')
+            self._require_ok(highspy, h.startCallback(highspy.cb.kCallbackLogging), 'scheduler diagnostic logging')
+            self._require_ok(highspy, h.setOptionValue('log_to_console', False), 'silent diagnostic logging')
+            self._require_ok(highspy, h.setOptionValue('output_flag', True), 'scheduler diagnostic output')
         return h
 
     def _update_native(self, highspy, h, problem):
@@ -324,7 +339,12 @@ class HighspyNativeBackend:
         build_s = 0.0 if applied else prepared - build_start
         if applied:
             update_s = prepared - prepare_start
+        self._scheduler_conflict = False
         if h.run() == highspy.HighsStatus.kError:
+            if self._scheduler_conflict and self._allow_thread_isolation:
+                from ._highs_thread_transport import solve_isolated_threads
+                self._discard('isolated_thread_configuration')
+                return solve_isolated_threads(problem, self, started=prepare_start)
             raise RuntimeError("HiGHS run failed; native state discarded")
         solved = perf_counter()
         info = h.getInfo()

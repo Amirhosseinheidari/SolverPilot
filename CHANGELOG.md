@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Recheck backend termination witnesses in original coordinates before attaching owned proof evidence; reject contradictory infeasibility claims and preserve the public result constructor and recorded evidence consistency.
+- Reject paired-repeat quality losses in both LP calibration generations; cache immutable routing artifact identities, bind every implementation file, and charge the complete wrapper overhead against the call budget.
+- Isolate native HiGHS thread-setting conflicts in a cold owned process without resetting other handles; support explicit PDLP/cuOpt evidence replay with binding-version provenance.
+- Handle cancellation before deadline submission, discard isolated batch candidates that become late or cancelled during validation/cleanup, and reject overflowing certificate inputs without leaking conversion errors.
+- Validate extreme SOC/RSOC, exponential and power activities without discarding represented coordinates; reject contradictory MINLP relaxation bounds in both near-integral and iterative OA paths.
+- Freeze canonical array metadata and sparse buffers, reconstruct identities during process transport, retain mutable independent copies, and normalize direct conic objective offsets.
+- Expand optional native integration CI to all supported OS/Python combinations, test declared minimum NumPy/SciPy versions without optional solvers, and check additional typed ownership/calibration modules.
+
 - Add public v2 routing admission, actual-call performance gates and test-preserving stops for unqualified leaves or failed session setup. Compare against default, production and the training-frozen single solver with full failure/setup accounting.
 - Unify conservative Netlib family aliases, reject stale/mixed executed source and record an admission-only pool audit. The remaining Netlib pool is insufficient; learned routing remains experimental and automatic activation stays disabled.
 

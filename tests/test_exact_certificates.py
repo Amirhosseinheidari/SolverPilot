@@ -53,8 +53,12 @@ def test_valid_binding_and_no_aliasing():
     b = bind_certificate(m, CERT)
     assert b.lower == b.upper == 1
     assert m.objective(b.solutions[0]) == 11
-    p.c.flags.writeable = True
-    p.c[0] = 7
+    with pytest.raises(ValueError):
+        p.c.flags.writeable = True
+    changed = p.c.copy()
+    changed[0] = 7
+    with pytest.raises(ValueError):
+        p.c[0] = 7
     assert m.c == (1,)
 
 

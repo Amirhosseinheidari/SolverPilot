@@ -71,8 +71,9 @@ def summarize(result: Any) -> SolutionSummary:
     status = str(getattr(status, "value", status))
     proof_reason = str(raw.get("optimality_check", {}).get("reason", "independent optimality not established"))
     termination_evidence = "not_established"
-    certificate = raw.get("termination_certificate", {})
-    if certificate.get("verified") is True:
+    from .result import SolveResult
+    certificate = result.termination_certificate if isinstance(result, SolveResult) else None
+    if certificate is not None and certificate.verified:
         termination_evidence = "independent_numerical_termination_certificate"
     budget = raw.get("call_budget", {})
     requested = budget.get("requested_s", getattr(result, "requested_time_s", None))

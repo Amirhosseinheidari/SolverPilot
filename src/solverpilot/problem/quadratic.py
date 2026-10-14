@@ -117,6 +117,9 @@ class QuadraticProblem:
 
     _verify_convexity: InitVar[bool] = field(default=False, kw_only=True)
 
+    def __reduce__(self):
+        return type(self), (self.linear, self.P, self.convexity_status, self.metadata)
+
     def __post_init__(self, _verify_convexity: bool) -> None:
         if self.linear.objective_sense is not ObjectiveSense.MINIMIZE:
             raise ValueError("v0.1 QuadraticProblem currently supports convex minimization only")

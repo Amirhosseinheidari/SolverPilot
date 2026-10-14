@@ -106,7 +106,8 @@ class Session:
             context=context,
             diagnose_infeasible=diagnose_infeasible,
         )
-        result = replace(result, session_revision=self._revision)
+        from solverpilot.runtime.result import replace_solve_result
+        result = replace_solve_result(result, session_revision=self._revision)
 
         if self._last_result is not None and result.trace.backend is not None:
             since = self._mutations_since_last_solve()

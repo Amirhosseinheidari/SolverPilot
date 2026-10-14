@@ -16,13 +16,20 @@ import subprocess
 from collections import Counter
 from dataclasses import asdict
 from hashlib import sha256
-from importlib.metadata import version
+from importlib.metadata import version, PackageNotFoundError
 from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 from prepare_public_lp import crosscheck_reader, fetch
 from public_lp_families import conservative_family
+
+
+def _optional_version(name):
+    try:
+        return version(name)
+    except PackageNotFoundError:
+        return None
 
 from solverpilot import LinearProblem, read_mps
 from solverpilot.backends import HighspyNativeBackend
@@ -427,7 +434,7 @@ def run(args):
                                                 "presolve": presolve, "mode": mode})
     report = {"schema": SCHEMA, "prepared": str(args.prepared.resolve()),
               "environment": {"python": platform.python_version(), "platform": platform.platform(),
-                              "numpy": version("numpy"), "scipy": version("scipy"), "highspy": version("highspy")},
+                              "numpy": version("numpy"), "scipy": version("scipy"), "highspy": _optional_version("highspy")},
               "elapsed_s": perf_counter() - started, "protocol": protocol,
               "summary": summarize(rows, cohort, protocol), "rows": rows,
               "teardown_errors": teardown_errors}

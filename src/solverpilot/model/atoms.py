@@ -63,8 +63,8 @@ def quad_form(expression, matrix):
         raise ValueError("quadratic matrix must be finite with matching square shape")
     if not np.array_equal(value, value.T) or np.linalg.eigvalsh(value).min(initial=0.0) < 0.0:
         raise DomainError("quad_form requires a symmetric positive-semidefinite matrix")
-    value = value.copy()
-    value.flags.writeable = False
+    from solverpilot._immutability import canonical_array
+    value = canonical_array(value)
     return _atom("quad_form", expression, value)
 
 

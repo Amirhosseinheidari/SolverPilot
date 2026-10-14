@@ -19,7 +19,7 @@ from solverpilot.validate import (
 )
 
 from .manifest import backend_configuration
-from .result import OptimalityEvidence, SolveResult
+from .result import OptimalityEvidence, SolveResult, _with_termination_certificate
 
 
 def _problem_class(problem: LinearProblem | QuadraticProblem) -> str:
@@ -38,7 +38,7 @@ def _normalize_status(backend_status: str, validation_valid: bool | None) -> Pub
     if backend_status == "limit_feasible":
         return PublicStatus.FEASIBLE_LIMIT if validation_valid else PublicStatus.ERROR
     if backend_status == "infeasible":
-        return PublicStatus.INFEASIBLE
+        return PublicStatus.ERROR if validation_valid else PublicStatus.INFEASIBLE
     if backend_status == "unbounded":
         return PublicStatus.UNBOUNDED
     if backend_status == "infeasible_or_unbounded":
@@ -95,6 +95,9 @@ def execute(
         backend_result.backend_status,
         None if validation is None else validation.valid,
     )
+    contradictory_infeasibility = backend_result.backend_status == 'infeasible' and validation is not None and validation.valid
+    if contradictory_infeasibility:
+        raw_stats['termination_contradiction'] = 'backend infeasibility contradicts a canonically validated feasible candidate'
     from solverpilot._identity import process_source_sha256
     source_digest = process_source_sha256()
     total_s = perf_counter() - total_t0
@@ -128,7 +131,8 @@ def execute(
         validation_valid=None if validation is None else validation.valid,
         reuse_applied=reuse_applied,
         reuse_mode=reuse_mode,
-        warnings=() if validation is None else validation.warnings,
+        warnings=(() if validation is None else validation.warnings) +
+                 (('backend infeasibility contradicts a validated feasible candidate',) if contradictory_infeasibility else ()),
     )
 
     objective = None if validation is None else validation.objective_recomputed
@@ -182,11 +186,22 @@ def execute(
         "certificate_verified": evidence.certificate_verified,
         "independently_verified_optimal": evidence.independently_verified_optimal,
     }
+    termination_certificate = None
+    if 'termination_certificate' in raw_stats:
+        from solverpilot.validate.recovery import checked_termination_certificate
+        proof_start = perf_counter()
+        checked = checked_termination_certificate(problem, raw_stats['termination_certificate'],
+            termination=backend_result.backend_status, tolerances=tolerances)
+        raw_stats['termination_certificate'] = asdict(checked)
+        if checked.verified and not contradictory_infeasibility and public_status in {
+                PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED}:
+            termination_certificate = checked
+        certificate_s += perf_counter() - proof_start
     trace = replace(trace, timings=replace(trace.timings,
                     validate_s=primal_validate_s+certificate_s,
                     primal_validate_s=primal_validate_s, certificate_s=certificate_s,
                     total_s=perf_counter()-total_t0))
-    return SolveResult(
+    return _with_termination_certificate(SolveResult(
         status=public_status,
         x=candidate_x,
         objective=objective,
@@ -194,4 +209,4 @@ def execute(
         validation=validation,
         trace=trace,
         raw_statistics=raw_stats,
-    )
+    ), termination_certificate)

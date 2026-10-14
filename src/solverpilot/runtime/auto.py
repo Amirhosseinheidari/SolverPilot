@@ -29,7 +29,7 @@ from solverpilot.trace import PhaseTimings
 
 from .budgeting import apply_budget
 from .executor import execute
-from .result import SolveResult
+from .result import SolveResult, replace_solve_result, _with_termination_certificate
 
 
 def builtin_backend_candidates() -> tuple[Backend, ...]:
@@ -81,6 +81,17 @@ def default_registry() -> BackendRegistry:
     return registry
 
 
+def explicit_optional_backend(name):
+    """Allowlisted explicit-only adapters shared by solving and replay."""
+    if name == 'ortools-pdlp':
+        from solverpilot.backends.pdlp import PDLPBackend
+        return PDLPBackend()
+    if name == 'cuopt-gpu':
+        from solverpilot.backends.cuopt import CuOptBackend
+        return CuOptBackend()
+    return None
+
+
 def solve(
     problem: LinearProblem | QuadraticProblem,
     *,
@@ -102,12 +113,10 @@ def solve(
         import math
         if isinstance(certificate_recovery, bool) or not math.isfinite(certificate_recovery) or certificate_recovery <= 0:
             raise ValueError("certificate_recovery must be a positive time budget in seconds")
-    if registry is None and backend == "ortools-pdlp":
-        from solverpilot.backends.pdlp import PDLPBackend
-        backend = PDLPBackend()
-    if registry is None and backend == "cuopt-gpu":
-        from solverpilot.backends.cuopt import CuOptBackend
-        backend = CuOptBackend()
+    if registry is None and isinstance(backend, str):
+        explicit = explicit_optional_backend(backend)
+        if explicit is not None:
+            backend = explicit
     if registry is None and (backend is None or isinstance(backend, str)):
         registry = default_registry()
 
@@ -154,8 +163,13 @@ def solve(
                 remaining=min(remaining,budget.wall_time_s-(perf_counter()-total_t0))
             certificate=(recover_lp_certificate(problem,termination=result.backend_status,time_limit_s=remaining,tolerances=tolerances)
                          if remaining>0 else LPCertificate(problem.data_hash,"unknown",False,"solve budget exhausted"))
-            raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(certificate)
-            result=replace(result,raw_statistics=raw)
+            from solverpilot.validate.recovery import checked_termination_certificate
+            checked = checked_termination_certificate(problem, asdict(certificate),
+                termination=result.backend_status, tolerances=tolerances)
+            raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(checked)
+            result=_with_termination_certificate(replace_solve_result(result,raw_statistics=raw),
+                           checked if checked.verified and result.status in {
+                               PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED} else None)
             recovery_s = perf_counter() - recovery_t0
 
     diagnose_s = 0.0
@@ -169,7 +183,7 @@ def solve(
             time_limit_s=remaining,
         ) if remaining is None or remaining > 0 else None
         diagnose_s = perf_counter() - diagnose_t0
-        result = replace(result, diagnostics=diagnostics)
+        result = replace_solve_result(result, diagnostics=diagnostics)
 
     total_s = perf_counter() - total_t0
     old = result.trace.timings
@@ -200,7 +214,7 @@ def solve(
                           'elapsed_s': total_s,
                           'within_budget': None if budget is None or budget.wall_time_s is None else total_s <= budget.wall_time_s,
                           'enforcement': 'native_soft_limit; use solve_with_deadline for process isolation'}
-    return replace(result, trace=trace, plan=plan, raw_statistics=raw)
+    return replace_solve_result(result, trace=trace, plan=plan, raw_statistics=raw)
 
 
 # Backward-compatible internal alias retained for M1-M7 regression tests and callers
@@ -253,4 +267,4 @@ def solve_production(
                           'elapsed_s': elapsed,
                           'within_budget': None if budget is None or budget.wall_time_s is None else elapsed <= budget.wall_time_s}
     trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
-    return replace(result, plan=decision.plan, trace=trace, raw_statistics=raw), decision
+    return replace_solve_result(result, plan=decision.plan, trace=trace, raw_statistics=raw), decision

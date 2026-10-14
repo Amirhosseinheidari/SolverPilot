@@ -64,6 +64,16 @@ def _snapshot(paths):
     return tuple(result)
 
 
+def _immutable_artifact(value):
+    if value is None or isinstance(value, (str, bool, int, float, np.generic)):
+        return True
+    if isinstance(value, tuple):
+        return all(_immutable_artifact(item) for item in value)
+    if is_dataclass(value) and type(value).__dataclass_params__.frozen:
+        return all(_immutable_artifact(getattr(value, f.name)) for f in fields(value) if f.init)
+    return False
+
+
 @dataclass(frozen=True, slots=True, init=False)
 class LPRoutingSession:
     model: object
@@ -74,17 +84,28 @@ class LPRoutingSession:
     _paths: tuple
     _source_snapshot: tuple
     _backend_settings: tuple | None
+    _model_sha256: str
+    _guard_sha256: str
 
     @classmethod
     def create(cls, model, guard, *, environment_id, cutoff_s, backends=None):
         start = perf_counter()
+        from .learned_lp import LPSelector
+        from .learned_lp_v2 import LPSelectorV2, LPLeafGainGuardV2
+        from .lp_gain import LPGainGuard
+        if (type(model) not in (LPSelector, LPSelectorV2)
+                or type(guard) not in (LPGainGuard, LPLeafGainGuardV2)
+                or not _immutable_artifact(model) or not _immutable_artifact(guard)):
+            raise ValueError('bound routing requires normalized immutable artifacts')
         if (isinstance(cutoff_s, bool) or not math.isfinite(cutoff_s) or cutoff_s <= 0
                 or environment_id != model.environment_id or environment_id != guard.environment_id
                 or cutoff_s != model.cutoff_s or cutoff_s != guard.cutoff_s):
             raise ValueError('session environment/cutoff binding mismatch')
         paths = implementation_paths()
         before = _snapshot(paths)
-        if (guard.model_sha256 != model.payload()['sha256']
+        model_sha256 = model.payload()['sha256']
+        guard_sha256 = guard.payload()['sha256']
+        if (guard.model_sha256 != model_sha256
                 or guard.implementation_sha256 != implementation_id()
                 or getattr(guard, 'protocol_sha256', model.protocol_sha256) != model.protocol_sha256):
             raise ValueError('session model/implementation binding mismatch')
@@ -94,9 +115,16 @@ class LPRoutingSession:
         obj = object.__new__(cls)
         for name, value in {"model": model, "guard": guard, "environment_id": environment_id,
                 "cutoff_s": cutoff_s, "preparation_s": perf_counter()-start, "_paths": paths,
-                "_source_snapshot": before, "_backend_settings": settings}.items():
+                "_source_snapshot": before, "_backend_settings": settings,
+                "_model_sha256": model_sha256, "_guard_sha256": guard_sha256}.items():
             object.__setattr__(obj, name, value)
         return obj
+
+    def artifact_digests(self, model, guard):
+        """Cached identities apply only to the exact immutable bound artifacts."""
+        if model is self.model and guard is self.guard:
+            return self._model_sha256, self._guard_sha256
+        return None
 
     def backends_match(self, backends):
         try:

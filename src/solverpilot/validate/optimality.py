@@ -89,7 +89,7 @@ def _verify_optimality_with_primal_report(
         return bad('only continuous LP and convex QP are eligible')
     try:
         x, y = np.asarray(x, dtype=float), np.asarray(dual, dtype=float)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return bad("certificate is not numeric")
     B = sparse.vstack([linear.A, sparse.eye(linear.n_variables)], format='csr')
     lo, hi = np.r_[linear.constraint_lower, linear.variable_lower], np.r_[linear.constraint_upper, linear.variable_upper]
@@ -193,7 +193,7 @@ def verify_infeasibility(problem: LinearProblem, dual, *, atol=1e-8) -> bool:
     lo, hi = np.r_[problem.constraint_lower, problem.variable_lower], np.r_[problem.constraint_upper, problem.variable_upper]
     try:
         y = np.asarray(dual, dtype=float)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return False
     if y.shape != lo.shape or not np.isfinite(y).all() or not np.any(y):
         return False
@@ -215,7 +215,7 @@ def verify_unboundedness(problem, point, direction, *, tolerances=None) -> bool:
         return False
     try:
         x, d = np.asarray(point, dtype=float), np.asarray(direction, dtype=float)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return False
     if x.shape != (linear.n_variables,) or d.shape != x.shape or not np.isfinite(d).all() or not np.any(d):
         return False

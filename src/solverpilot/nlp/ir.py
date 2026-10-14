@@ -7,6 +7,7 @@ from typing import Any, Mapping
 import numpy as np
 
 from solverpilot.model.expression import ExprNode
+from solverpilot._immutability import canonical_array, deep_thaw
 
 
 @dataclass(frozen=True, slots=True)
@@ -23,7 +24,7 @@ class NLPConstraintBlock:
         hi = np.asarray(self.upper, dtype=float).reshape(-1).copy()
         if lo.shape != hi.shape:
             raise ValueError("constraint lower/upper shape mismatch")
-        lo.flags.writeable = False; hi.flags.writeable = False
+        lo = canonical_array(lo); hi = canonical_array(hi)
         object.__setattr__(self, "lower", lo); object.__setattr__(self, "upper", hi)
 
 
@@ -40,6 +41,11 @@ class NLPProblem:
     name: str | None = None
     metadata: Mapping[str, Any] = MappingProxyType({})
 
+    def __reduce__(self):
+        return type(self), (self.n_variables, self.variable_lower, self.variable_upper,
+            deep_thaw(self.variable_layout), deep_thaw(self.parameter_values), self.objective_node,
+            self.constraints, self.objective_sense, self.name, deep_thaw(self.metadata))
+
     def __post_init__(self) -> None:
         vl = np.asarray(self.variable_lower, dtype=float).reshape(-1).copy()
         vu = np.asarray(self.variable_upper, dtype=float).reshape(-1).copy()
@@ -47,11 +53,10 @@ class NLPProblem:
             raise ValueError("variable bound shape mismatch")
         if np.any(vl > vu):
             raise ValueError("variable lower bound exceeds upper bound")
-        vl.flags.writeable = False; vu.flags.writeable = False
+        vl = canonical_array(vl); vu = canonical_array(vu)
         object.__setattr__(self, "variable_lower", vl); object.__setattr__(self, "variable_upper", vu)
         object.__setattr__(self, "variable_layout", MappingProxyType(dict(self.variable_layout)))
-        pv = {k: np.asarray(v, dtype=float).copy() for k, v in self.parameter_values.items()}
-        for v in pv.values(): v.flags.writeable = False
+        pv = {k: canonical_array(v, dtype=float) for k, v in self.parameter_values.items()}
         object.__setattr__(self, "parameter_values", MappingProxyType(pv))
         object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
 

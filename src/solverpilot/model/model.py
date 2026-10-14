@@ -9,6 +9,8 @@ import math
 
 import numpy as np
 from scipy import sparse
+from solverpilot._immutability import canonical_array
+from solverpilot.problem.linear import _readonly_csr
 
 from solverpilot.problem import LinearProblem, ObjectiveSense, QuadraticProblem, VariableDomain
 
@@ -28,8 +30,7 @@ def _readonly_array(value: Any, shape: tuple[int, ...], *, finite: bool, name: s
         raise DomainError(f"{name} must not contain NaN")
     if finite and np.isinf(arr).any():
         raise DomainError(f"{name} must be finite")
-    arr.flags.writeable = False
-    return arr
+    return canonical_array(arr)
 
 
 def _canonical_float(x: float) -> str:
@@ -271,15 +272,13 @@ class Model:
             arr.sum_duplicates(); arr.eliminate_zeros(); arr.sort_indices()
             if not np.isfinite(arr.data).all():
                 raise DomainError('expression constants must be finite')
-            for data in (arr.data, arr.indices, arr.indptr):
-                data.flags.writeable = False
+            arr = _readonly_csr(arr)
             return Expression(self, ExprNode('constant', tuple(arr.shape), payload=arr,
                 sign=_sign_of_constant(arr.data), degree=0, curvature=Curvature.CONSTANT))
         arr = np.asarray(value, dtype=np.float64)
         if np.isnan(arr).any() or np.isinf(arr).any():
             raise DomainError("expression constants must be finite")
-        arr = np.array(arr, dtype=np.float64, copy=True)
-        arr.flags.writeable = False
+        arr = canonical_array(arr, dtype=np.float64)
         node = ExprNode("constant", tuple(arr.shape), payload=arr, sign=_sign_of_constant(arr), degree=0, curvature=Curvature.CONSTANT)
         return Expression(self, node)
 

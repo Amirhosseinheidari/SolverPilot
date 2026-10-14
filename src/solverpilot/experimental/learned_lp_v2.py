@@ -21,6 +21,7 @@ import numpy as np
 
 from .learned_lp import LPObservation, _digest, lp_features
 from .lp_gain import implementation_id
+from ._repeat_quality import paired_repeat_losses
 
 
 FEATURE_NAMES_V2 = (
@@ -184,8 +185,12 @@ def _row_payload(row):
                         for k in sorted(row.samples)}}
 
 
+def _success_mask(samples, cutoff, overhead=0.):
+    return tuple(bool(ok and wall + overhead <= cutoff) for wall, ok in samples)
+
+
 def _score(samples, cutoff, overhead=0.):
-    successes = [bool(ok and wall + overhead <= cutoff) for wall, ok in samples]
+    successes = _success_mask(samples, cutoff, overhead)
     costs = [wall + overhead if ok else 10 * cutoff
              for (wall, _), ok in zip(samples, successes)]
     return math.fsum(value / len(costs) for value in costs), sum(successes)
@@ -504,10 +509,12 @@ def calibrate_lp_guard_v2(model, rows, *, overhead_limit_s=.005, setup_charge_s=
         candidate, reason, leaf = choose_lp_v2(row.features, model, model.environment_id, model.candidates)
         if leaf is None:
             continue
-        selected, selected_ok = _score(row.samples[candidate], model.cutoff_s,
+        selected, _ = _score(row.samples[candidate], model.cutoff_s,
                                        overhead_limit_s + setup_charge_s)
-        production, production_ok = _score(row.samples["production"], model.cutoff_s)
-        if selected_ok < production_ok:
+        production, _ = _score(row.samples["production"], model.cutoff_s)
+        if paired_repeat_losses(_success_mask(row.samples[candidate], model.cutoff_s,
+                                              overhead_limit_s + setup_charge_s),
+                                _success_mask(row.samples['production'], model.cutoff_s)):
             lost.add(leaf)
         gains.setdefault((leaf, candidate), {}).setdefault(row.group, []).append(production - selected)
     allowed = []
@@ -586,12 +593,17 @@ def evaluate_lp_selector_v2(model, rows, *, decisions, guard=None, session_setup
     draws = rng.integers(0, len(families), size=(bootstrap_draws, len(families)))
     scopes = {}
     for scope, divisor in (("cold", 1), ("amortized", reuse_count)):
+        policy_masks = [_success_mask(r.samples[c], model.cutoff_s, o + session_setup_s / divisor)
+                        for r, c, o in zip(rows, selected, overheads)]
         policy_cost, policy_success = zip(*[_score(r.samples[c], model.cutoff_s, o + session_setup_s / divisor)
                                             for r, c, o in zip(rows, selected, overheads)])
         policy_cost = np.asarray(policy_cost)
         family_policy = np.asarray([policy_cost[i].mean() for i in indices])
         comparisons = {}
         for baseline in compared:
+            baseline_masks = [_success_mask(r.samples[baseline], model.cutoff_s, setup[baseline] / divisor)
+                              for r in rows]
+            lost_repeats = paired_repeat_losses(policy_masks, baseline_masks)
             costs, successes = zip(*[_score(r.samples[baseline], model.cutoff_s, setup[baseline] / divisor)
                                      for r in rows])
             costs = np.asarray(costs)
@@ -603,11 +615,12 @@ def evaluate_lp_selector_v2(model, rows, *, decisions, guard=None, session_setup
             gates = {"three_percent_improvement": ratio <= .97,
                      "bootstrap_upper_below_one": upper < 1,
                      "p90_slowdown_at_most_25_percent": tail <= 1.25,
-                     "no_lost_verified_solves": all(a >= b for a, b in zip(policy_success, successes))}
+                     "no_lost_verified_solves": lost_repeats == 0}
             comparisons[baseline] = {"family_weighted_ratio": ratio,
                 "baseline_family_mean_par10_s": float(family_base.mean()),
                 "bootstrap_95pct": [float(np.quantile(boot, .025)), upper],
-                "p90_instance_ratio": tail, "baseline_verified_repeats": sum(successes), "gates": gates}
+                "p90_instance_ratio": tail, "baseline_verified_repeats": sum(successes),
+                "lost_verified_repeats": lost_repeats, "gates": gates}
         enough = len(families) >= min_families
         scopes[scope] = {"session_setup_charge_s": session_setup_s / divisor,
             "policy_family_mean_par10_s": float(family_policy.mean()),

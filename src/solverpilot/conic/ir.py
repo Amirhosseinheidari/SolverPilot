@@ -14,6 +14,7 @@ from solverpilot.problem import ConvexityStatus, ObjectiveSense, QuadraticProble
 from solverpilot.problem.linear import _readonly_csr, _readonly_f64, _require_bound_directions, _require_finite
 from solverpilot.problem.quadratic import _canonicalize_hessian, _check_convexity
 from solverpilot.problem.hashing import _hash_parts, hash_sparse_matrix
+from solverpilot._immutability import deep_freeze, deep_thaw
 
 
 class ConeKind(str, Enum):
@@ -77,6 +78,9 @@ class ConeAffineBlock:
     structural_hash: str = field(init=False)
     data_hash: str = field(init=False)
 
+    def __reduce__(self):
+        return type(self), (self.kind, self.F, self.g, self.output_shape, self.source_id, deep_thaw(self.metadata))
+
     def __post_init__(self) -> None:
         kind = ConeKind(self.kind)
         F = _readonly_csr(self.F)
@@ -101,6 +105,7 @@ class ConeAffineBlock:
             if kind is ConeKind.POWER:
                 from solverpilot.model.sets import PowerCone
                 PowerCone(self.metadata.get('alpha', float('nan')))
+                metadata['alpha'] = float(metadata['alpha'])
         elif kind is ConeKind.SECOND_ORDER:
             if len(shape) != 1 or shape[0] < 2:
                 raise ValueError("second-order cone requires vector dimension >= 2")
@@ -116,7 +121,7 @@ class ConeAffineBlock:
         object.__setattr__(self, "F", F)
         object.__setattr__(self, "g", g)
         object.__setattr__(self, "output_shape", shape)
-        object.__setattr__(self, "metadata", MappingProxyType(metadata))
+        object.__setattr__(self, "metadata", deep_freeze(metadata))
         structural = _hash_parts([
             kind.value.encode(),
             *([repr(float(self.metadata["alpha"])).encode()] if kind is ConeKind.POWER else []),
@@ -139,7 +144,7 @@ class ConeAffineBlock:
             "g": [float(x) for x in self.g],
             "output_shape": list(self.output_shape),
             "source_id": self.source_id,
-            "metadata": dict(self.metadata),
+            "metadata": deep_thaw(self.metadata),
             "structural_hash": self.structural_hash,
             "data_hash": self.data_hash,
         }
@@ -176,6 +181,11 @@ class ConicProblem:
     convexity_status: ConvexityStatus = ConvexityStatus.UNKNOWN
     structural_hash: str = field(init=False)
     data_hash: str = field(init=False)
+
+    def __reduce__(self):
+        return type(self), (self.P, self.q, self.A, self.variable_lower, self.variable_upper,
+            self.constraint_lower, self.constraint_upper, self.cones, self.objective_sense,
+            self.objective_offset, self.name, deep_thaw(self.metadata), self.convexity_status)
 
     def __post_init__(self) -> None:
         P_raw = _readonly_csr(self.P)
@@ -225,6 +235,7 @@ class ConicProblem:
         object.__setattr__(self, "constraint_upper", cu)
         object.__setattr__(self, "cones", cones)
         object.__setattr__(self, "objective_sense", sense)
+        object.__setattr__(self, "objective_offset", float(self.objective_offset))
         object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
         object.__setattr__(self, "convexity_status", status)
         structural = _hash_parts([
