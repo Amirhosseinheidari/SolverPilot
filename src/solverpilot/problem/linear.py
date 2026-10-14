@@ -67,9 +67,13 @@ class _CanonicalCSR(sparse.csr_matrix):
         return value
 
     def __reduce__(self):
+        if not getattr(self, '_canonical_frozen', False):
+            return super().__reduce__()
         return _restore_csr, (np.asarray(self.data), np.asarray(self.indices), np.asarray(self.indptr), self.shape)
 
     def __reduce_ex__(self, protocol):
+        if not getattr(self, '_canonical_frozen', False):
+            return super().__reduce_ex__(protocol)
         return self.__reduce__()
 
 

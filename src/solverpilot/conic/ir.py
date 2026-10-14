@@ -144,7 +144,7 @@ class ConeAffineBlock:
             "g": [float(x) for x in self.g],
             "output_shape": list(self.output_shape),
             "source_id": self.source_id,
-            "metadata": dict(self.metadata),
+            "metadata": deep_thaw(self.metadata),
             "structural_hash": self.structural_hash,
             "data_hash": self.data_hash,
         }
@@ -235,6 +235,7 @@ class ConicProblem:
         object.__setattr__(self, "constraint_upper", cu)
         object.__setattr__(self, "cones", cones)
         object.__setattr__(self, "objective_sense", sense)
+        object.__setattr__(self, "objective_offset", float(self.objective_offset))
         object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
         object.__setattr__(self, "convexity_status", status)
         structural = _hash_parts([

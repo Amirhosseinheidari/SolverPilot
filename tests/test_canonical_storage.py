@@ -1,4 +1,5 @@
 import pickle
+import json
 import numpy as np
 import pytest
 from scipy import sparse
@@ -61,6 +62,9 @@ def test_sparse_operations_on_owned_storage_remain_compatible():
     np.testing.assert_array_equal(a @ [1.,2.], [5.])
     for b in (a.copy(),a.astype(bool),a.T.tocsc(),a+a, a*.5,abs(a),a[:,[1,0]],sparse.vstack([a,a])):
         assert np.isfinite(b.data).all()
+        restored = pickle.loads(pickle.dumps(b))
+        assert restored.dtype == b.dtype
+        restored.data[:] = 0
     assert sp.solve(p,backend='scipy-highs-ds').validation.valid
 
 
@@ -74,6 +78,15 @@ def test_conic_storage_and_pickle_preserve_identity():
     assert_array_frozen(restored.cones[0].g)
     assert_matrix_frozen(restored.P)
     assert_matrix_frozen(restored.cones[0].F)
+    nested = ConeAffineBlock(ConeKind.SECOND_ORDER, [[0.],[0.]], [1.,0.], (2,), metadata={'custom':{'label':'a'}})
+    assert json.loads(json.dumps(nested.to_canonical_dict()))['metadata']['custom']['label'] == 'a'
+    assert pickle.loads(pickle.dumps(nested)).data_hash == nested.data_hash
+    offset = np.array(0.)
+    from dataclasses import replace
+    direct = replace(p,objective_offset=offset)
+    identity = direct.data_hash
+    offset[...] = 100.
+    assert direct.objective_value([0.]) == 0. and direct.data_hash == identity
 
 
 def test_nlp_parameter_snapshots_cannot_change_during_a_solve():
