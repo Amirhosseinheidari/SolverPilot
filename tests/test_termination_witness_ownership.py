@@ -14,6 +14,7 @@ from solverpilot.runtime.unified import summarize
 class WitnessBackend:
     claim: object
     status: str = 'infeasible'
+    x: object = None
 
     @property
     def manifest(self):
@@ -24,7 +25,7 @@ class WitnessBackend:
         return True
 
     def solve(self, problem):
-        return BackendSolveResult(self.status, None,
+        return BackendSolveResult(self.status, self.x,
             raw_statistics={'termination_certificate': self.claim})
 
 
@@ -70,6 +71,20 @@ def test_owned_recovery_and_unbounded_witness_remain_exportable():
         'kind': 'unbounded', 'verified': False, 'point': [0.], 'direction': [1.]}, 'unbounded'))
     assert ray.termination_certificate.verified
     verify_evidence_bundle(evidence_bundle(ray_problem, ray))
+    origin = execute(ray_problem, WitnessBackend({'problem_data_hash': ray_problem.data_hash,
+        'kind': 'unbounded', 'point': [0.], 'direction': [1.]}, 'unbounded', [0.]))
+    assert origin.validation.valid and origin.termination_certificate.verified
+    assert summarize(origin).feasible
+    verify_evidence_bundle(evidence_bundle(ray_problem, origin))
+
+
+def test_feasible_candidate_contradicts_backend_infeasibility():
+    p = problem(4.)
+    r = execute(p, WitnessBackend({}, x=[3.]))
+    assert r.status.value == 'error' and r.validation.valid
+    assert r.termination_certificate is None
+    assert 'contradict' in r.trace.warnings[-1]
+    verify_evidence_bundle(evidence_bundle(p, r))
 
 
 @pytest.mark.parametrize('mutation', ['hash', 'kind', 'shape'])

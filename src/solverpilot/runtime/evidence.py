@@ -118,6 +118,8 @@ def _verify_recorded_explanation(summary, explanation):
         raise ValueError("evidence validated status disagrees with feasibility")
     if status is PublicStatus.INVALID_SOLUTION and feasible:
         raise ValueError("evidence invalid status disagrees with feasibility")
+    if status is PublicStatus.INFEASIBLE and feasible:
+        raise ValueError('evidence infeasible status contradicts a validated candidate')
 
     schema = explanation["schema_version"]
     if schema not in {REPORT_SCHEMA_VERSION, "unavailable"}:
@@ -259,7 +261,7 @@ def _verify_evidence_bundle(payload):
                 or termination['problem_data_hash'] != payload['problem_data_hash']
                 or termination['kind'] not in {'infeasible', 'unbounded'}
                 or payload['summary']['status'] not in {termination['kind'], 'infeasible_or_unbounded'}
-                or payload['summary']['feasible']):
+                or (termination['kind'] == 'infeasible' and payload['summary']['feasible'])):
             raise ValueError('independent termination claim lacks a matching recorded check')
     elif termination is not None:
         raise ValueError('recorded termination check disagrees with summary')
