@@ -10,6 +10,7 @@ from time import monotonic
 import math
 
 from .batch_stream import BatchExecutor
+from .batch import BatchItem
 
 
 def solve_with_deadline(problem, *, timeout_s, backend=None, tolerances=None, cancellation=None):
@@ -21,9 +22,20 @@ def solve_with_deadline(problem, *, timeout_s, backend=None, tolerances=None, ca
         raise ValueError('deadline calls require a supported in-process CPU backend name')
     from solverpilot.plan import SolveBudget
     start = monotonic()
+    def cancelled_result():
+        elapsed = monotonic()-start
+        return BatchItem(0, 'cancelled', None, None, False, backend, elapsed,
+                         problem_data_hash=problem.data_hash, requested_time_s=timeout_s,
+                         within_budget=elapsed <= timeout_s)
+    if cancellation is not None and cancellation.cancelled:
+        return cancelled_result()
     with BatchExecutor(backend=backend, max_workers=1, max_pending=1, timeout_s=timeout_s,
                        tolerances=tolerances, solver_budget=SolveBudget(wall_time_s=timeout_s)) as executor:
-        result = next(executor.iter([problem], cancellation=cancellation))
+        result = next(executor.iter([problem], cancellation=cancellation), None)
+        if result is None:
+            if cancellation is not None and cancellation.cancelled:
+                return cancelled_result()
+            raise RuntimeError('deadline executor returned no result')
     elapsed = monotonic()-start
     if elapsed > timeout_s and result.status not in {'timeout', 'cancelled', 'error'}:
         return replace(result, status='timeout', x=None, objective=None, validation_valid=False,
