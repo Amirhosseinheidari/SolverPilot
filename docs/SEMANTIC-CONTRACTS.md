@@ -16,7 +16,8 @@ The October audit reproduced twelve defect groups. Regression tests now cover:
    vectors and matrices. Both vector orientations and all four 1D/2D matrix
    multiplication combinations match independent NumPy oracles. `np.sum`
    handles positional integer axes and `keepdims`; unsupported options, including
-   tuple axes, raise explicitly. Empty slices are tested.
+   tuple axes, raise explicitly. Empty slices are tested, and empty nonlinear
+   constraint blocks validate as vacuous constraints.
 4. Local NLP maximization negates the backend objective and its stationarity
    gradient, then reports the original objective. It establishes no global proof.
 5. Binary enumeration preserves original bounds and validates incumbents before

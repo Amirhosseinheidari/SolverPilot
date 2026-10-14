@@ -180,3 +180,13 @@ def test_portfolio_accounts_for_last_call_overrun(monkeypatch):
     p=LinearProblem.from_data(A=[[1.]],c=[1.],variable_lower=[0.],variable_upper=[1.],constraint_lower=[0.],constraint_upper=[1.])
     result=portfolio.execute_portfolio(p,[ScipyHighsLPBackend()],budget=SolveBudget(wall_time_s=1.))
     assert result.chosen is not None and result.budget_exhausted and result.stopped_reason=='valid_optimal_found'
+
+
+def test_nlp_empty_constraint_block_is_a_valid_noop():
+    from solverpilot.nlp import compile_nlp_model,validate_nlp_solution
+    m=Model(); x=m.variable((2,3),lower=-1,upper=1)
+    m.minimize(x.sin().sum()); m.add(x[:0]<=100.)
+    p=compile_nlp_model(m).execution_ir
+    assert p.n_constraints==0
+    report=validate_nlp_solution(p,np.zeros(6),objective_reported=0.)
+    assert report.valid and report.max_constraint_violation==0.
