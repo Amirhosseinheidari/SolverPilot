@@ -29,7 +29,7 @@ from solverpilot.trace import PhaseTimings
 
 from .budgeting import apply_budget
 from .executor import execute
-from .result import SolveResult
+from .result import SolveResult, replace_solve_result, _with_termination_certificate
 
 
 def builtin_backend_candidates() -> tuple[Backend, ...]:
@@ -167,8 +167,8 @@ def solve(
             checked = checked_termination_certificate(problem, asdict(certificate),
                 termination=result.backend_status, tolerances=tolerances)
             raw=dict(result.raw_statistics or {});raw["termination_certificate"]=asdict(checked)
-            result=replace(result,raw_statistics=raw,
-                           _termination_certificate=checked if checked.verified else None)
+            result=_with_termination_certificate(replace_solve_result(result,raw_statistics=raw),
+                           checked if checked.verified else None)
             recovery_s = perf_counter() - recovery_t0
 
     diagnose_s = 0.0
@@ -182,7 +182,7 @@ def solve(
             time_limit_s=remaining,
         ) if remaining is None or remaining > 0 else None
         diagnose_s = perf_counter() - diagnose_t0
-        result = replace(result, diagnostics=diagnostics)
+        result = replace_solve_result(result, diagnostics=diagnostics)
 
     total_s = perf_counter() - total_t0
     old = result.trace.timings
@@ -213,7 +213,7 @@ def solve(
                           'elapsed_s': total_s,
                           'within_budget': None if budget is None or budget.wall_time_s is None else total_s <= budget.wall_time_s,
                           'enforcement': 'native_soft_limit; use solve_with_deadline for process isolation'}
-    return replace(result, trace=trace, plan=plan, raw_statistics=raw)
+    return replace_solve_result(result, trace=trace, plan=plan, raw_statistics=raw)
 
 
 # Backward-compatible internal alias retained for M1-M7 regression tests and callers
@@ -266,4 +266,4 @@ def solve_production(
                           'elapsed_s': elapsed,
                           'within_budget': None if budget is None or budget.wall_time_s is None else elapsed <= budget.wall_time_s}
     trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
-    return replace(result, plan=decision.plan, trace=trace, raw_statistics=raw), decision
+    return replace_solve_result(result, plan=decision.plan, trace=trace, raw_statistics=raw), decision

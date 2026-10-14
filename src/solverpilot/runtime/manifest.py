@@ -271,4 +271,5 @@ def _replay_payload(payload, *, require_versions=True, require_source=None):
         tolerances=ValidationTolerances(**parameters.get("validation_tolerances", {})),
         budget=None if budget is None else SolveBudget(**budget),
     )
-    return replace(result, trace=replace(result.trace, replay_of=payload.get("execution_id")))
+    from .result import replace_solve_result
+    return replace_solve_result(result, trace=replace(result.trace, replay_of=payload.get("execution_id")))

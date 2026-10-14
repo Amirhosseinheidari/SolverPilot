@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -48,7 +48,7 @@ class SolveResult:
     plan: SolvePlan | None = None
     session_revision: int | None = None
     diagnostics: "InfeasibilityReport | None" = None
-    _termination_certificate: "LPCertificate | None" = field(default=None, kw_only=True,
+    _termination_certificate: "LPCertificate | None" = field(default=None, init=False,
                                                               repr=False, compare=False)
     _optimality_evidence: OptimalityEvidence = field(init=False, repr=False, compare=False)
 
@@ -91,3 +91,23 @@ class SolveResult:
     def termination_certificate(self) -> "LPCertificate | None":
         """An executor-checked witness, separate from backend-owned raw claims."""
         return self._termination_certificate
+
+
+def _with_termination_certificate(result: SolveResult, certificate: 'LPCertificate | None') -> SolveResult:
+    if certificate is not None:
+        if (certificate.problem_data_hash != result.trace.problem_data_hash
+                or certificate.verified is not True
+                or certificate.kind not in {'infeasible', 'unbounded'}
+                or result.backend_status not in {certificate.kind, 'infeasible_or_unbounded'}):
+            raise ValueError('owned termination certificate does not match the result')
+    object.__setattr__(result, '_termination_certificate', certificate)
+    return result
+
+
+def replace_solve_result(result: SolveResult, **changes) -> SolveResult:
+    """Preserve executor-owned evidence across internal result decoration."""
+    updated = replace(result, **changes)
+    certificate = result.termination_certificate
+    if certificate is not None and updated.status in {PublicStatus.INFEASIBLE, PublicStatus.UNBOUNDED, PublicStatus.INFEASIBLE_OR_UNBOUNDED}:
+        return _with_termination_certificate(updated, certificate)
+    return updated

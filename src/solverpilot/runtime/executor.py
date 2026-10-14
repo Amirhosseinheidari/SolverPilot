@@ -19,7 +19,7 @@ from solverpilot.validate import (
 )
 
 from .manifest import backend_configuration
-from .result import OptimalityEvidence, SolveResult
+from .result import OptimalityEvidence, SolveResult, _with_termination_certificate
 
 
 def _problem_class(problem: LinearProblem | QuadraticProblem) -> str:
@@ -200,7 +200,7 @@ def execute(
                     validate_s=primal_validate_s+certificate_s,
                     primal_validate_s=primal_validate_s, certificate_s=certificate_s,
                     total_s=perf_counter()-total_t0))
-    return SolveResult(
+    return _with_termination_certificate(SolveResult(
         status=public_status,
         x=candidate_x,
         objective=objective,
@@ -208,5 +208,4 @@ def execute(
         validation=validation,
         trace=trace,
         raw_statistics=raw_stats,
-        _termination_certificate=termination_certificate,
-    )
+    ), termination_certificate)

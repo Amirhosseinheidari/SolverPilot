@@ -104,4 +104,5 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
     raw['call_budget'] = {**dict(raw.get('call_budget', {})), 'requested_s': time_limit_s,
                           'elapsed_s': elapsed, 'within_budget': elapsed <= time_limit_s}
     trace = replace(result.trace, timings=replace(result.trace.timings, total_s=elapsed))
-    return replace(result, raw_statistics=raw, trace=trace)
+    from solverpilot.runtime.result import replace_solve_result
+    return replace_solve_result(result, raw_statistics=raw, trace=trace)

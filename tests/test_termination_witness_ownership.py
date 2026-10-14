@@ -8,6 +8,7 @@ from solverpilot.capabilities import BackendManifest, Capability, SupportLevel
 from solverpilot.runtime.evidence import evidence_bundle, verify_evidence_bundle
 from solverpilot.runtime.manifest import _seal
 from solverpilot.runtime.unified import summarize
+from solverpilot.runtime.result import replace_solve_result
 
 
 @dataclass
@@ -57,7 +58,8 @@ def test_valid_backend_witness_is_rechecked_without_trusting_its_flag():
     assert summarize(r).termination_evidence == 'independent_numerical_termination_certificate'
     payload = verify_evidence_bundle(evidence_bundle(p, r))
     assert payload['run']['termination_check']['problem_data_hash'] == p.data_hash
-    assert summarize(replace(r, raw_statistics={})).termination_evidence != 'not_established'
+    assert summarize(replace_solve_result(r, raw_statistics={})).termination_evidence != 'not_established'
+    assert summarize(replace(r, raw_statistics={})).termination_evidence == 'not_established'
 
 
 def test_owned_recovery_and_unbounded_witness_remain_exportable():
