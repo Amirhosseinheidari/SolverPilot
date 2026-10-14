@@ -30,3 +30,5 @@ from .convenience import indexed_variables, soft_constraint, named_values, diagn
 __all__ += ["GeneralizedPowerCone", "ExponentialCone", "PowerCone", "indexed_variables", "soft_constraint", "named_values", "diagnose_model", "SoftConstraint"]
 from .atoms import abs, norm, huber, log_sum_exp, quad_form
 __all__ += ['abs', 'norm', 'huber', 'log_sum_exp', 'quad_form']
+from .piecewise import PiecewiseLinear, PiecewiseValidation, piecewise_linear_epigraph, piecewise_linear_graph
+__all__ += ['PiecewiseLinear', 'PiecewiseValidation', 'piecewise_linear_epigraph', 'piecewise_linear_graph']

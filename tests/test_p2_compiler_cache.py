@@ -139,13 +139,19 @@ def test_structural_degree_controls_qp_target_even_when_parameter_makes_quadrati
     np.testing.assert_allclose(b.execution_ir.P.toarray(), [[2.0]])
 
 
-def test_structurally_quadratic_constraint_routes_to_p7_even_if_current_parameter_is_zero():
-    from solverpilot.nlp import NLPProblem
+def test_structurally_quadratic_constraint_relowers_zero_and_positive_snapshots():
+    from solverpilot.problem import LinearProblem
+    from solverpilot.conic import ConicProblem
     m=Model(); x=m.variable(); p=m.parameter(value=0.0)
     m.add(p*x*x <= 1); m.minimize(x)
     compiled=m.compile()
-    assert isinstance(compiled.execution_ir,NLPProblem)
-    assert compiled.schema_version == "solverpilot.compiled-model.p7.v1"
+    assert isinstance(compiled.execution_ir, LinearProblem)
+    p.value = 1.
+    positive = compiled.refresh(m)
+    assert isinstance(positive.execution_ir, ConicProblem)
+    assert positive.compilation_hash != compiled.compilation_hash
+    p.value = 0.
+    assert compiled is m.compile()
 
 
 def test_qp_parameter_update_revalidates_convexity_and_fail_closed_on_nonconvex_snapshot():

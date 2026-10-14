@@ -52,6 +52,7 @@ class Config:
     solve_limit_s: float = 5.0
     workflows: tuple[str, ...] = WORKFLOWS
     presolve: bool = False
+    common_proof: bool = False
 
     def __post_init__(self):
         if self.preset not in PRESETS:
@@ -72,6 +73,8 @@ class Config:
             raise ValueError("workflows must be a nonempty unique supported selection")
         if not isinstance(self.presolve, bool):
             raise TypeError("presolve must be boolean")
+        if not isinstance(self.common_proof, bool):
+            raise TypeError("common_proof must be boolean")
 
 
 def json_safe(value):
@@ -231,6 +234,34 @@ def counterbalanced_order(names, repeat):
     cycle, shift = divmod(repeat, len(names))
     base = names if cycle % 2 == 0 else names[::-1]
     return base[shift:] + base[:shift]
+
+
+def common_optimality_check(case, candidate):
+    """Same original-data numerical checker and analytic witness for all APIs.
+
+    The witness is supplied by the experiment, not claimed to be returned by
+    the native solver. Every actual candidate receives a fresh primal/gap check.
+    """
+    from solverpilot.problem import LinearProblem
+    from solverpilot.validate import ValidationTolerances
+    from solverpilot.validate.optimality import verify_optimality
+    problem = LinearProblem.from_data(
+        A=case.A, c=case.c, variable_lower=case.lower, variable_upper=case.upper,
+        constraint_lower=case.row_lower, constraint_upper=case.row_upper,
+    )
+    if case.family == "production":
+        dual = np.r_[case.dual_witness, np.zeros(case.c.size)]
+    elif case.family == "network":
+        residual = case.c - np.asarray(case.A.T @ case.dual_witness).reshape(-1)
+        if np.any(residual < 0) or float(residual @ case.optimum_x) != 0.:
+            raise ValueError("network analytic witness has invalid reduced costs/support")
+        dual = np.r_[-case.dual_witness, -residual]
+    else:
+        raise ValueError("no analytic dual for this family")
+    return asdict(verify_optimality(problem, candidate, dual, tolerances=ValidationTolerances(
+        feasibility=CHECK_TOLERANCES['atol'], feasibility_rel=CHECK_TOLERANCES['rtol'],
+        objective_abs=CHECK_TOLERANCES['objective_atol'], objective_rel=CHECK_TOLERANCES['objective_rtol'],
+    )))
 
 
 class DirectHighs:
@@ -481,13 +512,14 @@ def discover(config):
     return factories, availability, settings, native
 
 
-def run_sequence(factory, cases, mode, settings, deadline):
+def run_sequence(factory, cases, mode, settings, deadline, *, common_proof=False):
     adapter, rows = None, []
     for case in cases:
         row = {"case": case.name, "step": case.step, "update": case.update,
                "case_sha256": digest(case.payload()), "state": "budget_exhausted",
                "workflow_s": None, "construction_or_update_s": None, "solve_api_s": None,
-               "independent_check_s": None, "checked_total_s": None, "accepted": False}
+               "independent_check_s": None, "checked_total_s": None, "accepted": False,
+               "common_optimality_check_s": None, "proof_checked_total_s": None}
         if perf_counter() >= deadline:
             rows.append(row)
             continue
@@ -508,8 +540,11 @@ def run_sequence(factory, cases, mode, settings, deadline):
             solved = perf_counter()
             check = independent_check(case, output["x"], output["objective"])
             checked = perf_counter()
+            certificate = common_optimality_check(case, output["x"]) if common_proof else None
+            proof_checked = perf_counter()
             accepted = bool(output["optimal"] and check["passed"]
-                            and output.get("internal_candidate_valid", True))
+                            and output.get("internal_candidate_valid", True)
+                            and (certificate is None or certificate['verified']))
             row.update(state="completed", status=output["status"], objective=output["objective"],
                 candidate=output["x"], iterations=output.get("iterations"), checks=check,
                 accepted=accepted, fresh_model=fresh,
@@ -517,6 +552,10 @@ def run_sequence(factory, cases, mode, settings, deadline):
                 workflow_s=solved - start, construction_or_update_s=built - start,
                 solve_api_s=solved - built, independent_check_s=checked - solved,
                 checked_total_s=checked - start)
+            if certificate is not None:
+                row.update(common_optimality=certificate,
+                           common_optimality_check_s=proof_checked - checked,
+                           proof_checked_total_s=proof_checked - start)
             for field in ("solverpilot_phases", "solverpilot_evidence", "native_reuse_applied", "native_reuse_mode"):
                 if field in output:
                     row[field] = output[field]
@@ -547,8 +586,8 @@ def summarize(rows):
                 "accepted": sum(r["accepted"] for r in group),
                 "failures": sum(not r["accepted"] for r in group),
                 "states": dict(Counter(r["state"] for r in group))}
-        for metric in ("workflow_s", "independent_check_s", "checked_total_s"):
-            values = [r[metric] for r in group if r["accepted"] and r[metric] is not None]
+        for metric in ("workflow_s", "independent_check_s", "checked_total_s", "common_optimality_check_s", "proof_checked_total_s"):
+            values = [r[metric] for r in group if r["accepted"] and r.get(metric) is not None]
             item[metric] = {"count": len(values), "min": min(values) if values else None,
                 "median": float(np.median(values)) if values else None,
                 "p95": float(np.quantile(values, .95)) if values else None}
@@ -599,7 +638,7 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
                                "repeat": repeat, "order": list(order)})
                 for position, name in enumerate(order):
                     outcome = run_sequence(factories[name], sequence, mode, settings,
-                                           start + config.max_wall_s)
+                                           start + config.max_wall_s, common_proof=config.common_proof)
                     for row in outcome:
                         row.update(workflow=name, mode=mode, warmup=warmup, repeat=repeat,
                                    order_position=position)
@@ -610,9 +649,20 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
     complete = (len(measured) == expected and bool(measured)
                 and all(row["accepted"] for row in measured))
     dataset = [[case.payload() for case in sequence] for sequence in cases]
-    return json_safe({"schema": "solverpilot.lp-workflow-comparison.v2", "config": config_payload,
+    checker_sources = None
+    if config.common_proof:
+        import solverpilot.validate.optimality as checker_module
+        root = Path(checker_module.__file__).resolve().parents[1]
+        files = list((root / 'validate').glob('*.py')) + list((root / 'problem').glob('*.py'))
+        files += [root / name for name in ['_immutability.py', '_synchronization.py', '_identity.py']]
+        checker_sources = {str(path.relative_to(root)).replace('\\', '/'): sha256(path.read_bytes()).hexdigest()
+                           for path in sorted(files)}
+    common_checker_digest = digest(checker_sources) if checker_sources is not None else None
+    return json_safe({"schema": "solverpilot.lp-workflow-comparison.v3" if config.common_proof else "solverpilot.lp-workflow-comparison.v2", "config": config_payload,
         "config_sha256": digest(config_payload), "runner_sha256": sha256(Path(__file__).read_bytes()).hexdigest(),
         "solverpilot_source_sha256": source_digest, "packages": packages,
+        "common_checker_source_sha256": common_checker_digest,
+        "common_checker_sources": checker_sources,
         "python": platform.python_version(), "platform": platform.platform(),
         "processor": platform.processor(), "native_highs": native, "native_options": settings,
         "native_tolerances_policy": "SolverPilot native defaults read from same highspy and applied to rivals",
@@ -631,7 +681,9 @@ def run_benchmark(config, *, factories=None, availability=None, settings=None, n
             "warm": "retained wrapper, objective/RHS updates; native reuse depends on recorded workflow policy",
             "timing": "workflow_s includes construction/update and solve API, including wrapper-specific checks; checked_total_s adds common checker",
             "phase_caveat": "canonicalization/native construction can occur inside solve_api_s; phases are not identical across APIs",
-            "assurance": "SolverPilot retains actual primal/dual/gap evidence flags and split validation timings; accepted is not synonymous with an independent certificate; other wrappers' certificate work is unobserved",
+            "assurance": ("accepted requires common tolerance-qualified numerical LP proof; no exact certificate or native-returned rival certificate is implied" if config.common_proof else "SolverPilot retains actual primal/dual/gap evidence flags and split validation timings; accepted is not synonymous with an independent certificate; other wrappers' certificate work is unobserved"),
+            "common_proof": "enabled: every actual candidate checked with the same external analytic witness and tolerance-qualified numerical LP verifier; SolverPilot retains additional internal work" if config.common_proof else "disabled",
+            "proof_timing": "proof_checked_total_s adds fresh common optimality verification and canonical original-data preparation; checked_total_s retains the historical timing definition",
             "cleanup": "explicit SolverPilot native cleanup occurs outside measured calls, after each cold solve or sequence",
             "formulation": "all adapters use native column bounds; CVXPY discovery checks representative canonical A/c/b/bounds exactly and records its interface; no extra canonicalization is timed",
             "order": "cyclic positions then reversed cycles; each case and mode counterbalanced separately",
@@ -660,11 +712,12 @@ def main(argv=None):
     parser.add_argument("--solve-limit-s", type=float, default=5)
     parser.add_argument("--workflows", default=",".join(WORKFLOWS))
     parser.add_argument("--presolve", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--common-proof", action=argparse.BooleanOptionalAction, default=False)
     args = parser.parse_args(argv)
     if args.output.exists():
         parser.error("output must be a new file")
     config = Config(args.preset, args.seed, args.steps, args.repeats, args.warmups,
-                    args.max_wall_s, args.solve_limit_s, tuple(args.workflows.split(",")), args.presolve)
+                    args.max_wall_s, args.solve_limit_s, tuple(args.workflows.split(",")), args.presolve, args.common_proof)
     result = run_benchmark(config)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x", encoding="utf-8") as handle:

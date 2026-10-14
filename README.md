@@ -34,6 +34,10 @@ the subsequent NumPy/CasADi repairs, explicit proof policies, bounded verificati
 reuse, aggregate orchestration budgets, convex-QP sensitivities, vector OA,
 rigorous elementary domain bounds and risk/uncertainty helpers. These changes
 are unreleased; the published 0.4 wheel does not include them.
+The next [convex modeling package](docs/CONVEX-MODELING-NEXT.md) adds bounded exact
+QCQP-to-RSOC recognition, explicit PWL epigraph/graph helpers and a complete
+inventory/CVaR example with an independent finite oracle. Its comparison runner
+can apply common numerical optimality checks to every measured interface.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 

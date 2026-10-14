@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Automatically lower eligible continuous quadratic inequalities through bounded exact rational square/PSD decompositions to RSOCs; retain original primal validation, owned parameter snapshots and explicit execution-only certificate scope.
+- Add convex PWL epigraph and exact segment-weight graph helpers with bounded domains, constant-data ownership and a separate rational source-relation validator.
+- Add a complete synthetic advance-commitment inventory fixture combining batches, setup, lead time, convex piecewise costs and CVaR/expected-loss priorities, checked against all nine independent release plans.
+- Add opt-in common numerical optimality checking to matched-HiGHS workflow comparisons, with separate proof timing, checker hashes and complete failure accounting. No new publication or automatic learned-routing qualification is implied.
+
 - Repair twelve semantic, ownership, validation, orchestration and exact-reference defect groups, including NumPy/CasADi shape agreement, snapshot validation, restricted binary domains, CP integrality, extreme power-cone boundaries and result/trace metadata ownership.
 - Add optional independent numerical proof policies, bounded coefficient preparation reuse, aggregate lexicographic/MINLP/scenario budgets, and evidence-preserving specialized explanations.
 - Add regular convex-QP directional sensitivity and analytic unbridged polynomial parameter-to-data directions; fail explicitly on unsupported or degenerate paths.

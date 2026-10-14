@@ -32,7 +32,8 @@ def test_constrained_nlp_matches_analytic_solution():
 
 def test_nonlinear_constraint_solution_and_original_validation():
     m=Model(); x=m.variable(2,lower=[-2,-2],upper=[2,2]); m.minimize((x[0]-1)**2+(x[1]-1)**2); m.add(x[0]**2+x[1]**2 <= 1)
-    c=m.compile(); r=c.solve(x0=[0.2,0.2]); assert r.validation.valid; orig=c.validate_original(m,r.x,atol=2e-7); assert orig.valid
+    from solverpilot.nlp import compile_nlp_model
+    c=compile_nlp_model(m); r=c.solve(x0=[0.2,0.2]); assert r.validation.valid; orig=c.validate_original(m,r.x,atol=2e-7); assert orig.valid
     target=1/np.sqrt(2); assert np.allclose(r.x,[target,target],atol=5e-5)
 
 

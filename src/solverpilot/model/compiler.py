@@ -158,6 +158,15 @@ class CompiledModel:
     def solve(self, **kwargs):
         from solverpilot.runtime.options import expand_options
         kwargs = expand_options(kwargs)
+        if self.reconstruction_contract.get('source_primal') == 'bounded_rational_qcqp_v1' and 'x0' in kwargs:
+            import warnings
+            try:
+                initial = np.asarray(kwargs.pop('x0'), dtype=float).reshape(-1)
+            except (TypeError, ValueError, OverflowError) as exc:
+                raise ValueError('QCQP x0 must be a finite original-variable vector') from exc
+            if initial.size != self.reconstruction_contract['semantic_variable_count'] or not np.isfinite(initial).all():
+                raise ValueError('QCQP x0 must be a finite original-variable vector')
+            warnings.warn('The automatic QCQP path does not use x0; use compile_nlp_model for an NLP initial point.', RuntimeWarning, stacklevel=2)
         from solverpilot.globalopt.problem import FactorableProblem
         if isinstance(self.execution_ir, FactorableProblem):
             from solverpilot.globalopt.backend import solve_global
@@ -207,6 +216,9 @@ class CompiledModel:
     def validate_original(self, model: Model, x, *, atol: float = 1e-8):
         if model.semantic_hash != self.semantic_hash or model.data_hash != self.data_hash:
             raise ValueError("model differs from the compiled snapshot; refresh before validation")
+        if self.reconstruction_contract.get('source_primal') == 'bounded_rational_qcqp_v1':
+            from .qcqp import validate_qcqp_source
+            return validate_qcqp_source(model, x, compiled=self, atol=atol)
         from solverpilot.globalopt.problem import FactorableProblem
         if isinstance(self.execution_ir, FactorableProblem):
             if model.data_hash != self.data_hash:
@@ -1208,6 +1220,10 @@ def compile_model(
     bridge_policy: BridgePolicy | None = None,
     capabilities: BackendCapabilityManifestV2 | None = None,
 ) -> CompiledModel:
+    from .qcqp import try_compile_qcqp
+    quadratic_bridge = try_compile_qcqp(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)
+    if quadratic_bridge is not None:
+        return quadratic_bridge
     from .atoms import has_atoms, compile_atoms
     if (model.objective is not None and has_atoms(model.objective.expression._node)) or any(has_atoms(c.function._node) for c in model.constraints):
         return compile_atoms(model, use_cache=use_cache, bridge_policy=bridge_policy, capabilities=capabilities)

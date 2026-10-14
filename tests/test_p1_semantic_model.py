@@ -162,13 +162,13 @@ def test_nonconvex_quadratic_rejected_by_legacy_qp_boundary():
         m.compile()
 
 
-def test_quadratic_constraint_routes_to_p7_nlp_after_scope_extension():
-    from solverpilot.nlp import NLPProblem
+def test_convex_quadratic_constraint_routes_to_exact_conic_bridge():
+    from solverpilot.conic import ConicProblem
     m = Model(); x = m.variable()
     m.add(x*x <= 1); m.minimize(x)
     compiled = m.compile()
-    assert isinstance(compiled.execution_ir, NLPProblem)
-    assert compiled.schema_version == "solverpilot.compiled-model.p7.v1"
+    assert isinstance(compiled.execution_ir, ConicProblem)
+    assert compiled.reconstruction_contract['source_primal'] == 'bounded_rational_qcqp_v1'
 
 
 def test_quadratic_integer_rejected_in_p1():

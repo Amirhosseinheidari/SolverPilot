@@ -42,7 +42,7 @@ def _eval_expr(model, node, xflat: np.ndarray):
     return out
 
 
-def validate_semantic_primal(model, x: Any, *, atol: float = 1e-8) -> SemanticPrimalValidation:
+def validate_semantic_primal(model, x: Any, *, atol: float = 1e-8, _scalar_validator=None) -> SemanticPrimalValidation:
     from solverpilot.model.model import Constraint, IndicatorConstraint
     from solverpilot.model.sets import EqualTo, GreaterThan, Interval, LessThan, PositiveSemidefiniteCone, RotatedSecondOrderCone, SecondOrderCone
     from solverpilot.model.compiler import _variable_layout
@@ -79,6 +79,11 @@ def validate_semantic_primal(model, x: Any, *, atol: float = 1e-8) -> SemanticPr
 
     for constraint in model.constraints:
         if isinstance(constraint, Constraint):
+            if _scalar_validator is not None and isinstance(constraint.set, (LessThan, GreaterThan, EqualTo, Interval)):
+                checked = _scalar_validator(constraint, xx, atol)
+                max_v = max(max_v, checked.max_violation)
+                violations.extend(checked.violations)
+                continue
             arr = np.asarray(_eval_expr(model, constraint.function._node, xx), dtype=float)
             if isinstance(constraint.set, SecondOrderCone):
                 y = arr.reshape(-1); t = float(y[0]); norm = float(np.linalg.norm(y[1:])); v = max(0.0, norm - t)
