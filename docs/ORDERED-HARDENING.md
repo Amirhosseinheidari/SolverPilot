@@ -3,6 +3,11 @@
 This work follows six priorities in order. Changes are qualified separately from
 promotion of a learned model or publication of a new package.
 
+This is the historical hardening record. The subsequent
+[certificate and routing recovery](CERTIFICATE-ROUTING-RECOVERY.md) adds successful
+pilot4 recovery with numerical basis hints, validated sessions and a versioned
+small-tree experiment; historical measurements below remain unchanged.
+
 | Step | Acceptance rule | Status |
 |---|---|---|
 | 1. Verification cost and call deadlines | Exact arithmetic agrees with the Fraction reference; paired timing improves; late isolated results cannot become successes | Implemented; local regression and 12-job CI passed |

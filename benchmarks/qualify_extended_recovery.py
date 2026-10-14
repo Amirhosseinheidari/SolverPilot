@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--corpus', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--time-limit', type=float, default=30.)
     args = parser.parse_args()
     if args.output.exists():
         raise SystemExit('refusing to overwrite evidence')
@@ -24,9 +25,12 @@ def main():
         result = solve(problem, backend=HighspyNativeBackend(solver='simplex', threads=1, time_limit_s=5))
         dual = result.raw_statistics.get('canonical_dual')
         start = perf_counter()
-        check = recover_lp_optimality(problem, result.x, dual) if dual is not None and result.x is not None else None
+        check = recover_lp_optimality(problem, result.x, dual,
+            basis=result.raw_statistics.get('lp_basis'), time_limit_s=args.time_limit
+        ) if dual is not None and result.x is not None else None
         records.append(dict(instance=name, data_hash=problem.data_hash,
             default_verified=result.optimality_evidence.independently_verified_optimal,
+            basis_available=result.raw_statistics.get('lp_basis') is not None,
             extended_check=None if check is None else asdict(check), recovery_s=perf_counter()-start))
     # Nonfinite diagnostic bounds are strings, never valid JSON numeric claims.
     def clean(value):
@@ -34,7 +38,8 @@ def main():
         if isinstance(value, float) and not math.isfinite(value): return str(value)
         if isinstance(value, dict): return {k: clean(v) for k, v in value.items()}
         return value
-    payload = {'scope': __doc__, 'observations': [clean(row) for row in records]}
+    payload = {'scope': __doc__, 'recovery_budget_s': args.time_limit,
+               'observations': [clean(row) for row in records]}
     args.output.write_text(json.dumps(payload, indent=2, allow_nan=False), encoding='utf-8')
     print(json.dumps(payload, allow_nan=False))
 

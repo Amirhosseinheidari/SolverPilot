@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import inspect
+from legacy_api_02 import published_04_signature
 import json
 import re
 from pathlib import Path
@@ -13,10 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _sig(obj):
-    try:
-        return str(inspect.signature(obj))
-    except (TypeError, ValueError):
-        return None
+    return published_04_signature(obj)
 
 
 def test_rc8_identity_and_version_are_canonical():
@@ -28,7 +25,7 @@ def test_rc8_identity_and_version_are_canonical():
     assert project["maintainers"] == [{"name": "Amirhossein Heidari Rashtabad"}]
 
 
-def test_rc8_public_api_snapshot_exactly_matches_runtime():
+def test_rc8_public_api_preserved_with_documented_optional_extensions():
     payload = json.loads((ROOT / "PUBLIC-API-V0_4_0.json").read_text())
     assert payload["package_version"] == solverpilot.__version__
     assert payload["schema"] == "solverpilot.public_api.v1"

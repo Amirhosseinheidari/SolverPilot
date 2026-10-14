@@ -1,5 +1,6 @@
 """Explicit subprocess execution. Native status alone never establishes a proof."""
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, replace, field
+from solverpilot._identity import new_execution_id
 from fractions import Fraction
 from hashlib import sha256
 import math
@@ -30,6 +31,7 @@ class ExactSolveResult:
     checker_sha256: str = ""
     solver_sha256: str = ""
     evidence_directory: str | None = None
+    execution_id: str = field(default_factory=new_execution_id, kw_only=True, compare=False)
 
 
 def _executable(path):
@@ -57,6 +59,18 @@ def _budget(value):
     return float(value)
 
 
+def _output_exceeds_limit(directory):
+    # SCIP combines/removes certificate fragments while it is running. A file
+    # disappearing between enumeration and stat is normal, not a failed solve.
+    for path in directory.iterdir():
+        try:
+            if path.is_file() and path.stat().st_size > MAX_CERTIFICATE_BYTES:
+                return True
+        except FileNotFoundError:
+            continue
+    return False
+
+
 def _run(command, directory, log_name, deadline):
     """Bound runtime and output, reap children on timeout and on caller interruption."""
     if monotonic() >= deadline:
@@ -69,8 +83,7 @@ def _run(command, directory, log_name, deadline):
             while proc.poll() is None:
                 if monotonic() >= deadline:
                     raise TimeoutError("exact execution budget exhausted")
-                if any(p.stat().st_size > MAX_CERTIFICATE_BYTES
-                       for p in directory.iterdir() if p.is_file()):
+                if _output_exceeds_limit(directory):
                     raise ValueError("native output exceeds size limit")
                 sleep(min(0.02, max(0.0, deadline - monotonic())))
             if proc.returncode:

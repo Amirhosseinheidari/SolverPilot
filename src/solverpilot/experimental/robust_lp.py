@@ -8,6 +8,7 @@ import math
 from time import perf_counter
 
 from solverpilot.experimental.learned_lp import decide_lp_backend
+from solverpilot.experimental.learned_lp_v2 import LPSelectorV2, decide_lp_backend_v2
 from solverpilot.plan import SolveBudget
 
 
@@ -17,29 +18,40 @@ class RobustLPDecision:
     reason: str
     learned_reason: str
     overhead_s: float
+    leaf_id: int | None = None
 
 
 def decide_robust_lp(problem, model, *, environment_id, available, gain_guard=None,
-                     cutoff_s=None, setup_elapsed_s=0.):
+                     cutoff_s=None, setup_elapsed_s=0., session=None):
+    if isinstance(setup_elapsed_s, bool) or not math.isfinite(setup_elapsed_s) or setup_elapsed_s < 0:
+        raise ValueError('setup time must be finite and nonnegative')
+    if session is not None and gain_guard is None:
+        raise ValueError('a session requires its bound gain guard')
     start = perf_counter()
-    d = decide_lp_backend(problem, model, environment_id=environment_id, available=available)
+    decide = decide_lp_backend_v2 if isinstance(model, LPSelectorV2) else decide_lp_backend
+    d = decide(problem, model, environment_id=environment_id, available=available)
+    leaf = {'leaf_id': d.leaf_id} if isinstance(model, LPSelectorV2) else {}
     abstained = d.reason in {"environment_mismatch", "outside_training_support", "candidate_unavailable"}
     fallback = abstained or d.candidate is None
     reason = "production_fallback" if fallback else "in_support"
     if not fallback and gain_guard is not None:
-        permitted = gain_guard.permits(model, d.candidate,
-            elapsed_s=setup_elapsed_s+perf_counter()-start, cutoff_s=cutoff_s)
+        if session is None:
+            permitted = gain_guard.permits(model, d.candidate,
+                elapsed_s=setup_elapsed_s+perf_counter()-start, cutoff_s=cutoff_s, **leaf)
+        else:
+            permitted = session.permits(model, gain_guard, d.candidate, environment_id=environment_id,
+                elapsed_s=setup_elapsed_s+perf_counter()-start, cutoff_s=cutoff_s, **leaf)
         # Hashing/binding the guard is routing work too.
         permitted = permitted and setup_elapsed_s+perf_counter()-start <= gain_guard.overhead_limit_s
         if not permitted:
             fallback, reason = True, "gain_guard_fallback"
     return RobustLPDecision("production" if fallback else d.candidate,
                             reason,
-                            d.reason, perf_counter()-start)
+                            d.reason, perf_counter()-start, leaf.get('leaf_id'))
 
 
 def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.0,
-                    tolerances=None, gain_guard=None):
+                    tolerances=None, gain_guard=None, session=None):
     """Use one remaining budget, no failed-solve retry, and preserve trust checks.
 
     Caller supplies a measured environment ID (or explicit compatibility binding)
@@ -53,9 +65,12 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
         raise ValueError("production is reserved for the conservative planner")
     start = perf_counter()
     available = tuple(name for name, backend in backends.items() if backend.is_available())
+    if session is not None and not session.backends_match(backends):
+        available = ()
     guard_options = {} if gain_guard is None else dict(gain_guard=gain_guard,
         cutoff_s=time_limit_s, setup_elapsed_s=perf_counter()-start)
-    decision = decide_robust_lp(problem, model, environment_id=environment_id, available=available, **guard_options)
+    decision = decide_robust_lp(problem, model, environment_id=environment_id, available=available,
+                               session=session, **guard_options)
     remaining = time_limit_s-(perf_counter()-start)
     if remaining <= 0:
         raise TimeoutError("robust LP setup exhausted the call budget")
@@ -70,6 +85,9 @@ def solve_robust_lp(problem, model, *, environment_id, backends, time_limit_s=2.
                                      "automatic_production_routing_enabled": False}
     if gain_guard is not None:
         raw["experimental_lp_route"]["gain_guard_sha256"] = gain_guard.payload()['sha256']
+    if session is not None:
+        raw['experimental_lp_route']['session_preparation_s'] = session.preparation_s
+        raw['experimental_lp_route']['session_preparation_scope'] = 'once per explicit session; outside this call'
     elapsed = perf_counter()-start
     raw['call_budget'] = {**dict(raw.get('call_budget', {})), 'requested_s': time_limit_s,
                           'elapsed_s': elapsed, 'within_budget': elapsed <= time_limit_s}

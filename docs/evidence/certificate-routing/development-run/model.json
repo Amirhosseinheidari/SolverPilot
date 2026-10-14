@@ -1,0 +1,85 @@
+{
+  "schema": "solverpilot.experimental.lp-small-tree.v2",
+  "feature_names": [
+    "log_variables",
+    "log_rows",
+    "log_nnz",
+    "density",
+    "equality_fraction",
+    "bounded_fraction",
+    "objective_density",
+    "positive_fraction",
+    "log_mean_row_nnz",
+    "log_mean_column_nnz",
+    "free_variable_fraction",
+    "fixed_variable_fraction",
+    "log_coefficient_range"
+  ],
+  "candidates": [
+    "highs-simplex",
+    "highs-ipm"
+  ],
+  "baseline": "highs-ipm",
+  "environment_id": "cac3b4d7fe0bdb4636344159d44f890f27677d643abe4a96c2b49c6b94f02dd5",
+  "protocol_sha256": "48e432c4c8c21ffec9c873bfe409b65ac2fc976ca450b2108b42c456f4fbea7a",
+  "cutoff_s": 2.0,
+  "nodes": [
+    {
+      "feature_index": -1,
+      "threshold": 0.0,
+      "left": -1,
+      "right": -1,
+      "candidate": "highs-ipm"
+    }
+  ],
+  "lower": [
+    1.3862943611198906,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "upper": [
+    1.6094379124341003,
+    1.3862943611198906,
+    1.9459101490553132,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.6094379124341003,
+    0.9162907318741551,
+    0.0,
+    0.0,
+    1.0986122886681098
+  ],
+  "training_instances": [
+    "demo-box",
+    "demo-covering",
+    "demo-packing",
+    "demo-path-flow"
+  ],
+  "training_groups": [
+    "synthetic-template:box",
+    "synthetic-template:covering",
+    "synthetic-template:packing",
+    "synthetic-template:path-flow"
+  ],
+  "training_hashes": [
+    "3f19c5ea03659d3d3dc79c4a091eb6fe56785c554fcddfa0c32eb99d9917943e",
+    "98f2ae243761fc43221bc22b54756037abe44fe02e373e31e25049fd1bcb51c4",
+    "c5bf2396e0f2189c3bd205cb7f76c0219049551022d68e9186833fa050174ac4",
+    "349a8d665c8aecf601ae82ddf6508c587343d3771647f3afa8f3d8791fbabfed"
+  ],
+  "training_sha256": "2c19f75cc889960677bac27e0c611f1e8a964fbb7dccb7d9d30f585845b1150f",
+  "sha256": "16895a476f0889a9444c06c79eb88671eadcca50a67dc414aa9886d53c9a40c7"
+}

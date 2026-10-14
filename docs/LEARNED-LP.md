@@ -4,6 +4,10 @@ This development API trains and evaluates a small cost-sensitive selector for
 continuous LP. It does **not** change `solve()`, `solve_production()`, the default
 registry, or GPU routing. It is not in the published 0.4 wheel.
 
+The separate [v2 development follow-up](CERTIFICATE-ROUTING-RECOVERY.md) adds
+thirteen features, a depth-two tree, separate calibration families, per-leaf gain
+guards and validated repeated-call sessions. The v1 artifacts below remain intact.
+
 The subsequent [public-workload qualification](PUBLIC-LP-QUALIFICATION.md) tests
 the frozen model against actual default/production API calls and three explicit
 CPU configurations, with full process timing and separate stress cases.
@@ -120,6 +124,10 @@ and remaining qualification work. GPU is excluded from this campaign after the
 previous CPU-PDLP comparison showed no GPU benefit at these sizes.
 
 ## Production gate repairs
+
+The [v2 public gate](LP-V2-PUBLIC-GATE.md) adds mandatory admission preflight,
+test-preserving stops and comparisons of actual routed calls. Its recorded pool
+audit finds insufficient unused Netlib families; automatic routing stays disabled.
 
 `ProductionEvidence.supports_performance_ranking` now also requires corpus
 integrity, complete outcome accounting, independent validation and reference

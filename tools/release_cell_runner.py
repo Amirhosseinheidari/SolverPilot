@@ -32,10 +32,30 @@ def clean_runtime_env() -> dict[str, str]:
     return env
 
 
+def public_examples(directory: Path) -> tuple[Path, ...]:
+    """Require a nonempty, uniquely numbered public sequence from 01 through N."""
+    numbered = []
+    for path in directory.glob("[0-9]*_*.py"):
+        prefix = path.name.split("_", 1)[0]
+        if (not path.is_file() or not prefix.isdecimal()
+                or int(prefix) < 1 or prefix != f"{int(prefix):02d}"):
+            raise SystemExit(f"invalid public example filename: {path.name}")
+        numbered.append((int(prefix), path))
+    if not numbered:
+        raise SystemExit("expected a nonempty public example sequence")
+    numbered.sort()
+    numbers = [number for number, _ in numbered]
+    if len(set(numbers)) != len(numbers):
+        raise SystemExit("duplicate public example numbers")
+    if numbers != list(range(1, len(numbered) + 1)):
+        raise SystemExit("public example numbers must be contiguous from 01 through N")
+    return tuple(path for _, path in numbered)
+
+
 def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
     env = clean_runtime_env()
     rows: list[dict[str, object]] = []
-    for example in sorted((ROOT / "examples").glob("[0-9][0-9]_*.py")):
+    for example in public_examples(ROOT / "examples"):
         proc = subprocess.run(
             [str(py), str(example.resolve())],
             cwd=work,
@@ -54,8 +74,6 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
         })
         if proc.returncode != 0:
             raise SystemExit(f"installed-wheel example failed: {example.name}\n{proc.stdout}\n{proc.stderr}")
-    if len(rows) != 24:
-        raise SystemExit(f"expected 24 public examples, got {len(rows)}")
     out = work / f"{prefix}-installed-examples.json"
     out.write_text(json.dumps({
         "schema": "solverpilot.release.installed_examples.v1",

@@ -16,13 +16,22 @@ import numpy as np
 from .learned_lp import _choose, _digest, _validate
 
 
-def implementation_id():
+def implementation_paths():
     root = Path(__file__).resolve().parents[1]
     names = ('experimental/learned_lp.py', 'experimental/robust_lp.py',
-             'experimental/lp_gain.py', 'runtime/auto.py', 'runtime/executor.py',
+             'experimental/lp_gain.py', 'experimental/lp_session.py',
+             'experimental/learned_lp_v2.py',
+             'backends/highspy_native.py', 'backends/scipy_highs_lp.py',
+             'experimental/lp_environment.py',
+             'runtime/auto.py', 'runtime/executor.py',
              'validate/optimality.py', 'validate/lp_dual.py',
              'validate/_certificate_arithmetic.py')
-    return _digest({name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in names})
+    return tuple((name, root/name) for name in names)
+
+
+def implementation_id():
+    return _digest({name: hashlib.sha256(path.read_bytes()).hexdigest()
+                    for name, path in implementation_paths()})
 
 
 @dataclass(frozen=True)
@@ -37,6 +46,7 @@ class LPGainGuard:
     candidate_gains: tuple[tuple[str, float], ...]
 
     def __post_init__(self):
+        object.__setattr__(self, 'candidate_gains', tuple(tuple(p) for p in self.candidate_gains))
         for value in (self.model_sha256, self.implementation_sha256, self.calibration_sha256):
             if len(value) != 64 or any(c not in '0123456789abcdef' for c in value):
                 raise ValueError('invalid guard digest')

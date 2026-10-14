@@ -43,6 +43,12 @@ def test_reports_replay_without_native_solves(split):
     choices = {k: LPRouteDecision(**v) for k, v in read(f"{split}-decisions.json").items()}
     replay = evaluate_lp_selector(model, observations(split), decisions=choices)
     saved = read(f"{split}-report.json")
+    # Preserve the frozen historical artifact. Its cohorts have no deadline
+    # crossing, so the corrected per-repeat accounting changes only the label.
+    assert replay.pop('cost_definition') == (
+        'add measured decision cost to each repeat before cutoff; unsuccessful/late = 10*cutoff')
+    assert saved.pop('cost_definition') == (
+        'mean of all repeats; unsuccessful/late repeat = 10*cutoff; plus measured decision cost')
     assert replay == saved
     assert saved["research_gate_passed"] is True
     assert saved["production_authorized"] is False

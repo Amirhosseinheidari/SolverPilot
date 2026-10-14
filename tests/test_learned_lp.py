@@ -128,6 +128,17 @@ def test_overhead_can_veto_apparent_gain():
     assert not r["research_gate_passed"]
 
 
+def test_overhead_crossing_cutoff_is_failed_before_par10_average():
+    m = fit()
+    data = [replace(r, samples={'a': ((2.99, True),)*2, 'b': ((2.99, True),)*2})
+            for r in rows('test', 'fresh')]
+    report = evaluate_lp_selector(m, data, decisions=decisions(m, data, overhead=.02))
+    assert report['verified_repeats'] == 0
+    assert report['baseline_verified_repeats'] == 24
+    assert report['policy_par10_mean_s'] == 30.
+    assert not report['research_gate_passed']
+
+
 def test_missing_or_posthoc_decision_rejected():
     m = fit()
     data = rows("test", "held")

@@ -1,0 +1,101 @@
+{
+  "actual_v2_calls": 4,
+  "amortization_is_preregistered_scenario": true,
+  "automatic_production_routing_enabled": false,
+  "cost_scopes": {
+    "amortized": {
+      "default": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.011202149999007815,
+        "mean_par10_s": 0.011202149999007815,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "highs-ipm": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.003201300001819618,
+        "mean_par10_s": 0.003201300001819618,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "highs-simplex": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.00329894999958924,
+        "mean_par10_s": 0.00329894999958924,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "production": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.015614374999131542,
+        "mean_par10_s": 0.015614374999131542,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "v2": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.014333045001694699,
+        "mean_par10_s": 0.014333045001694699,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      }
+    },
+    "cold": {
+      "default": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.011202149999007815,
+        "mean_par10_s": 0.011202149999007815,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "highs-ipm": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.003201300001819618,
+        "mean_par10_s": 0.003201300001819618,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "highs-simplex": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.00329894999958924,
+        "mean_par10_s": 0.00329894999958924,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "production": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.015614374999131542,
+        "mean_par10_s": 0.015614374999131542,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      },
+      "v2": {
+        "failed_or_late": 0,
+        "families": 2,
+        "family_mean_par10_s": 0.01789449999705539,
+        "mean_par10_s": 0.01789449999705539,
+        "outcomes": 4,
+        "verified_within_budget": 4
+      }
+    }
+  },
+  "guard_sha256": "34134f276024d2b50f26b0634dec135239a9c8a27a39e784c5dfec578f1b71f5",
+  "implementation_sha256": "c080994d82589ce8416f1ea3f28f0d08404fd8250c5e48ecbd0526578aa5b421",
+  "model_sha256": "2b295382ba2ac881d34aa0c9c6b5d535ce58996b3ee2bfe7a692646afd014781",
+  "outcome_count": 20,
+  "preparation_s": 0.003748899995116517,
+  "production_promotion_supported": false,
+  "reuse_count": 20,
+  "scope": "development_only",
+  "test_evaluations": 1,
+  "total_api_calls": 52
+}

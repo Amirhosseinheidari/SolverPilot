@@ -45,6 +45,7 @@ def _loop(connection, backend, tolerances, memory_mb, budget):
                         "backend": result.trace.backend,
                         "verified": result.optimality_evidence.independently_verified_optimal,
                         "problem_data_hash": problem.data_hash,
+                        "execution_id": result.execution_id,
                     }
                 )
             except Exception as exc:
@@ -171,6 +172,7 @@ class _Worker:
                         problem_data_hash=problem.data_hash,
                         requested_time_s=owner.timeout_s,
                         within_budget=None if owner.timeout_s is None else True,
+                        execution_id=payload["execution_id"],
                     )
                 if not self.process.is_alive():
                     error = f"worker exited with code {self.process.exitcode}"
@@ -317,5 +319,6 @@ def iter_solve_batch(problems, *, cancellation=None, mode="process", **options):
                 monotonic() - start,
                 independently_verified_optimal=result.optimality_evidence.independently_verified_optimal,
                 problem_data_hash=problem.data_hash,
+                execution_id=result.execution_id,
             )
             index += 1

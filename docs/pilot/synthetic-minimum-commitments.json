@@ -1,0 +1,28 @@
+{
+  "schema": "solverpilot.production-pilot-input.v1",
+  "label": "SYNTHETIC derived production case: protected minimum commitments and shortage",
+  "origin": {
+    "kind": "synthetic",
+    "url": "https://jckantor.github.io/ND-Pyomo-Cookbook/notebooks/02.01-Production-Models-with-Linear-Constraints.html#production-plan-mixed-product-strategy",
+    "attribution": "Locally constructed synthetic variation of the numerical model in Jeffrey C. Kantor, ND Pyomo Cookbook, section 2.1.4. Code copyright (c) 2019 Jeffrey Kantor, MIT License; see LICENSE-ND-PYOMO-CODE.txt. Minimum commitments [10,10] and shortage capacity [5,100] were invented for a SolverPilot diagnostic test; they are not part of the source example, observed operations or human pilot feedback. Notebook prose and figures are not reproduced."
+  },
+  "contract": {
+    "schema": "solverpilot.production-contract.v1",
+    "profit": [40, 30],
+    "resources": [[1, 1], [2, 1]],
+    "capacity": [80, 100],
+    "maximum": [40, "inf"],
+    "minimum": [10, 10],
+    "product_names": ["X", "Y"],
+    "resource_names": ["Labor A", "Labor B"],
+    "objective_unit": "USD/week"
+  },
+  "scenarios": [
+    {"name": "shortage", "updates": {"capacity": [5, 100]}},
+    {"name": "reset", "updates": {}}
+  ],
+  "reference": {
+    "baseline_objective": 2600,
+    "exact_bound_explanation": "The unchanged baseline bound is 40x+30y = 20(x+y)+10(2x+y) <= 2600, attained by (20,60), which also meets the synthetic minima (10,10). In the shortage scenario, those minima imply x+y>=20 while Labor A requires x+y<=5, so the stated exact constraints are incompatible. Reset restores the baseline capacities and objective 2600. These independently written arithmetic references are specific to the synthetic input and do not change runtime proof categories."
+  }
+}

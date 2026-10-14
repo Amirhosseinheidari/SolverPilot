@@ -10,6 +10,10 @@ from .problem import constraint_key
 
 MAX_CERTIFICATE_BYTES = 32 * 1024 * 1024
 MAX_COUNT = 200_000
+MAX_INTEGER_DIGITS = 4096
+# A rational may have both a long numerator and a long denominator. Keep
+# each component below Python's default 4300-digit conversion limit.
+MAX_TOKEN_CHARS = 2*MAX_INTEGER_DIGITS+2
 
 
 @dataclass(frozen=True)
@@ -43,7 +47,7 @@ class Tokens:
         self.buffer = None
         if value is None:
             raise ValueError("truncated certificate")
-        if len(value) > 4096:
+        if len(value) > MAX_TOKEN_CHARS:
             raise ValueError("certificate token too long")
         return value
 
@@ -64,6 +68,11 @@ class Tokens:
         value = self.get() if token is None else token
         if not re.fullmatch(r"-?[0-9]+(?:/[1-9][0-9]*|\.[0-9]+)?", value):
             raise ValueError("invalid rational literal")
+        parts = re.split(r'[/\.]', value.lstrip('-'))
+        if any(len(part) > MAX_INTEGER_DIGITS for part in parts):
+            raise ValueError('certificate rational component too long')
+        if '.' in value and sum(map(len, parts)) > MAX_INTEGER_DIGITS:
+            raise ValueError('certificate decimal too long')
         return Fraction(value)
 
     def vector(self, n, first=None):

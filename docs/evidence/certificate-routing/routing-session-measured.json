@@ -1,0 +1,355 @@
+{
+  "scope": "Consumed-data decision-only replay; historical training timing reused for diagnostic calibration; environment binding assumed; no new end-to-end speed or promotion claim",
+  "setup_s": 0.06684144600000064,
+  "setup_excluded_from_warm_decision": true,
+  "summary": {
+    "stateless": {
+      "calls": 24,
+      "switches": 0,
+      "median_s": 0.03230775450000012
+    },
+    "session": {
+      "calls": 24,
+      "switches": 0,
+      "median_s": 0.0005053080000001486
+    }
+  },
+  "records": [
+    {
+      "instance": "scfxm3",
+      "mode": "stateless",
+      "elapsed_s": 0.034363754000000135,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "scfxm3",
+      "mode": "session",
+      "elapsed_s": 0.00014467699999975991,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "stair",
+      "mode": "stateless",
+      "elapsed_s": 0.03130823099999969,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "stair",
+      "mode": "session",
+      "elapsed_s": 0.014731971000000676,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "greenbeb",
+      "mode": "stateless",
+      "elapsed_s": 0.03393302699999978,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "greenbeb",
+      "mode": "session",
+      "elapsed_s": 0.00020405400000012008,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "lotfi",
+      "mode": "stateless",
+      "elapsed_s": 0.035920591,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "lotfi",
+      "mode": "session",
+      "elapsed_s": 0.015501568000000354,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "perold",
+      "mode": "stateless",
+      "elapsed_s": 0.030740907000000206,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "perold",
+      "mode": "session",
+      "elapsed_s": 0.00014920599999967976,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "bore3d",
+      "mode": "stateless",
+      "elapsed_s": 0.031378735000000546,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "bore3d",
+      "mode": "session",
+      "elapsed_s": 0.013878923000000043,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "blend",
+      "mode": "stateless",
+      "elapsed_s": 0.030924820000000075,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "blend",
+      "mode": "session",
+      "elapsed_s": 0.01685028200000005,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "scsd6",
+      "mode": "stateless",
+      "elapsed_s": 0.03414283700000009,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "scsd6",
+      "mode": "session",
+      "elapsed_s": 0.00011951100000029413,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "forplan",
+      "mode": "stateless",
+      "elapsed_s": 0.031053689000000162,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "forplan",
+      "mode": "session",
+      "elapsed_s": 0.016970665999999746,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "share2b",
+      "mode": "stateless",
+      "elapsed_s": 0.0323358960000002,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "share2b",
+      "mode": "session",
+      "elapsed_s": 0.014811598999999731,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "bandm",
+      "mode": "stateless",
+      "elapsed_s": 0.036381178999999264,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "bandm",
+      "mode": "session",
+      "elapsed_s": 0.016864030000000696,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "neos-860300",
+      "mode": "stateless",
+      "elapsed_s": 0.06475318700000088,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "neos-860300",
+      "mode": "session",
+      "elapsed_s": 0.0003953860000009968,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "supportcase18",
+      "mode": "stateless",
+      "elapsed_s": 0.03482690500000096,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "supportcase18",
+      "mode": "session",
+      "elapsed_s": 0.0003356520000004082,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "boeing2",
+      "mode": "stateless",
+      "elapsed_s": 0.03227961300000004,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "boeing2",
+      "mode": "session",
+      "elapsed_s": 0.018083143000000135,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "dano3_5",
+      "mode": "stateless",
+      "elapsed_s": 0.03344718099999966,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "dano3_5",
+      "mode": "session",
+      "elapsed_s": 0.0005312740000000815,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "neos-827175",
+      "mode": "stateless",
+      "elapsed_s": 0.000773582000000772,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "neos-827175",
+      "mode": "session",
+      "elapsed_s": 0.0005237069999992627,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "net12",
+      "mode": "stateless",
+      "elapsed_s": 0.04045332899999998,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "net12",
+      "mode": "session",
+      "elapsed_s": 0.00033203099999923325,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "neos8",
+      "mode": "stateless",
+      "elapsed_s": 0.0005924099999994326,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "neos8",
+      "mode": "session",
+      "elapsed_s": 0.00048690900000103454,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "chromaticindex512-7",
+      "mode": "stateless",
+      "elapsed_s": 0.0006986019999999371,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "chromaticindex512-7",
+      "mode": "session",
+      "elapsed_s": 0.0006730449999992061,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "comp07-2idx",
+      "mode": "stateless",
+      "elapsed_s": 0.05358646300000025,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "comp07-2idx",
+      "mode": "session",
+      "elapsed_s": 0.00044103699999986645,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "CMS750_4",
+      "mode": "stateless",
+      "elapsed_s": 0.0002486709999995895,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "CMS750_4",
+      "mode": "session",
+      "elapsed_s": 0.0002834090000014555,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "h80x6320d",
+      "mode": "stateless",
+      "elapsed_s": 0.048586149000000134,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "h80x6320d",
+      "mode": "session",
+      "elapsed_s": 0.000317029000001412,
+      "candidate": "production",
+      "reason": "gain_guard_fallback"
+    },
+    {
+      "instance": "radiationm18-12-05",
+      "mode": "stateless",
+      "elapsed_s": 0.0006979930000010626,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "radiationm18-12-05",
+      "mode": "session",
+      "elapsed_s": 0.0006438240000008477,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "neos-933966",
+      "mode": "stateless",
+      "elapsed_s": 0.0005728249999989998,
+      "candidate": "production",
+      "reason": "production_fallback"
+    },
+    {
+      "instance": "neos-933966",
+      "mode": "session",
+      "elapsed_s": 0.0004367929999986586,
+      "candidate": "production",
+      "reason": "production_fallback"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "native_tests": {
+    "tests": "10",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "7.976"
+  },
+  "runtime_build_script_sha256": "174a884aa4e4ee900fedaaf00b03895fcde6831cb2f05839cb5fca730a30b67d",
+  "native_runtime_scope": "Pinned exact SCIP/SoPlex/VIPR built and tested locally in Ubuntu-24.04 WSL",
+  "installed_wheel": {
+    "filename": "solverpilot-0.4-py3-none-any.whl",
+    "members": 257,
+    "sha256": "e4184e17067f77765268cb28a6878c2f3997cbdfa40b212f59187c6295aacbc6",
+    "size_bytes": 506094,
+    "testzip": null
+  },
+  "published_to_pypi": false,
+  "full_regression": {
+    "tests": "1648",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "49",
+    "time": "117.879"
+  },
+  "additional_evidence_replay_tests_passed": 3,
+  "coverage_percent": 81.61,
+  "static_correctness": "compileall, Ruff correctness rules and scoped mypy passed",
+  "installed_smoke_passed": true
+}
