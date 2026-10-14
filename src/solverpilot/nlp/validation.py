@@ -37,7 +37,7 @@ def validate_nlp_solution(problem:NLPProblem, x, *, objective_reported=None, ato
         val=np.asarray(evaluate_node(problem,c.node,x),dtype=float).reshape(-1)
         if not np.all(np.isfinite(val)): finite=False
         vals.append((val,c.lower,c.upper))
-    cv=max((float(np.max(_violation(v,l,u))) for v,l,u in vals), default=0.0) if finite else np.inf
+    cv=max((float(np.max(_violation(v,l,u),initial=0.0)) for v,l,u in vals), default=0.0) if finite else np.inf
     obj_arr=np.asarray(evaluate_node(problem,problem.objective_node,x),dtype=float).reshape(-1)
     obj=float(obj_arr[0]) if obj_arr.size==1 and np.isfinite(obj_arr[0]) else None
     if obj is None:
