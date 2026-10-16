@@ -130,7 +130,7 @@ jobs:
       - name: Install comparison interfaces
         run: python -m pip install ".[test,highs]" "cvxpy==1.9.3" "pyomo==6.10.1"
       - name: Validate challenge and comparison protocols
-        run: python -m pytest -q tests/test_production_challenge.py tests/test_compare_lp_workflows.py tests/test_highs_reuse_qualification.py tests/test_public_reuse_qualification.py
+        run: python -m pytest -q tests/test_production_challenge.py tests/test_compare_lp_workflows.py tests/test_highs_reuse_qualification.py tests/test_public_reuse_qualification.py tests/test_lp_certificate_performance.py tests/test_fixed_certificate_replay.py
       - name: Exercise scoped mutations and all comparison adapters
         run: |
           python benchmarks/challenge_production_evidence.py --output challenge.json

@@ -38,6 +38,9 @@ The next [convex modeling package](docs/CONVEX-MODELING-NEXT.md) adds bounded ex
 QCQP-to-RSOC recognition, explicit PWL epigraph/graph helpers and a complete
 inventory/CVaR example with an independent finite oracle. Its comparison runner
 can apply common numerical optimality checks to every measured interface.
+The [LP certificate performance follow-up](docs/LP-CERTIFICATE-PERFORMANCE.md)
+removes redundant bound multipliers from LP lower bounds, accelerates exact box
+propagation and adds capped equality recovery with unchanged numerical tolerances.
 
 SolverPilot is a **trust-aware optimization runtime and modeling layer for Python**. It combines a small matrix-first solve API for LP/MILP/convex QP with a higher-level semantic modeling system that can compile into conic, smooth nonlinear, certified convex binary MINLP, and constraint-programming execution paths.
 
