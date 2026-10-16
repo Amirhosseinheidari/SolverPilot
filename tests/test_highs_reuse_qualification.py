@@ -262,7 +262,7 @@ for case, row in zip(cases, rows):
 assert len(rows) == len(q.STEPS)
 assert not failures, failures
 """
-    env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
+    env = dict(os.environ, PYTHONPATH=str(Path(__import__("solverpilot").__file__).resolve().parent.parent))
     completed = subprocess.run([sys.executable, "-c", script], cwd=ROOT, env=env,
                                text=True, capture_output=True, timeout=60)
     assert completed.returncode == 0, completed.stdout + completed.stderr

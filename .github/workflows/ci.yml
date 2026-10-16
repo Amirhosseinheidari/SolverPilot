@@ -32,7 +32,10 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: pip
       - name: Install test environment
-        run: python -m pip install ".[ci]"
+        run: |
+          python -m pip install ".[ci]"
+          python -m pip wheel --no-deps . --wheel-dir ci-dist
+          python tools/release_import_guard.py install --wheel ci-dist --install-wheel --receipts installed-imports
       - name: Run regression
         run: python -m pytest -ra --junitxml=test-results.xml
       - name: Run public examples
@@ -46,6 +49,9 @@ jobs:
         run: |
           python -m pip install "psutil>=7,<8"
           python benchmarks/qualify_operations.py --output operations.json
+      - name: Require installed artifact identity in every importing process
+        if: always()
+        run: python tools/release_import_guard.py report --receipts installed-imports --output installed-import-identity.json
       - name: Preserve regression results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -54,6 +60,8 @@ jobs:
           path: |
             test-results.xml
             operations.json
+            installed-import-identity.json
+            installed-imports/
           if-no-files-found: warn
           retention-days: 14
 
