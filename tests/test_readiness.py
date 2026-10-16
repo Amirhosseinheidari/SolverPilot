@@ -19,4 +19,4 @@ def test_passive_identity_never_claims_execution_qualification(monkeypatch):
 def test_doctor_cli(capsys):
     assert main(['--compact'])==0
     report=json.loads(capsys.readouterr().out)
-    assert report['code_lineage']=='development after published 0.4'
+    assert report['code_lineage']=='release 0.4.1; includes post-0.4 hardening'

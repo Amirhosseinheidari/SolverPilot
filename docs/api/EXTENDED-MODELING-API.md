@@ -1,6 +1,6 @@
-# SolverPilot Extended Modeling API — 0.4
+# SolverPilot Extended Modeling API — 0.4.1
 
-Version 0.4 adds explicit global QP/MIQP/MINLP, generalized power cones, CPU PDLP, conservative conic bounds, LP witness recovery and reuse observations. See the current [0.4 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for guarantees and scope limits.
+Version 0.4.1 includes semantic correctness repairs, explicit proof policies, bounded verification preparation reuse, QCQP lowering and PWL helpers. See the [0.4.1 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.4.1.md) for guarantees and the historical [0.4 guide](../release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) for the original scope.
 
 Track P P0–P9 is merged into SolverPilot under explicit submodule namespaces. These APIs are available in version 0.2 but are **not** added to the M30-frozen 78-symbol `solverpilot.__all__` compatibility surface yet.
 

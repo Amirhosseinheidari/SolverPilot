@@ -1,5 +1,9 @@
 # Audit repairs and comparative evaluation
 
+> Release inclusion: the implementation described here is included in 0.4.1.
+> The original development measurements and artifact versions below are historical
+> evidence, not measurements of the new 0.4.1 distribution.
+
 Development after published 0.4. This work repairs the audit findings at source
 commit `736fafc`; it does not publish a new PyPI version or enable learned routing.
 The observations below were recorded for development commit `11c4aeb`. Subsequent

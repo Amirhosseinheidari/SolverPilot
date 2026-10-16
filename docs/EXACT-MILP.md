@@ -1,4 +1,7 @@
-# Exact LP/MILP certificates (development)
+# Exact LP/MILP certificates (explicit optional integration)
+
+Included in SolverPilot 0.4.1. Historical qualification artifacts below keep their
+original versions and hashes; installing the package does not qualify external tools.
 
 `solverpilot.exact.solve_exact` is an explicit optional API. It runs a caller-selected
 exact SCIP executable, binds the emitted VIPR 1.0 model to the original `LinearProblem`,

@@ -1,6 +1,6 @@
-# Explicit cuOpt GPU LP integration (unreleased)
+# Explicit cuOpt GPU LP integration (experimental)
 
-This development adapter is separate from the published SolverPilot 0.4 wheel.
+This experimental adapter is included in SolverPilot 0.4.1; it was absent from 0.4.
 It accepts continuous `LinearProblem` models and explicitly selects cuOpt PDLP.
 It is absent from automatic/production routing. Installing a package or detecting
 a GPU is not qualification, and one laptop does not establish a speed advantage

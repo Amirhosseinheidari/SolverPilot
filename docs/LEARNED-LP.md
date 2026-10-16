@@ -2,7 +2,8 @@
 
 This development API trains and evaluates a small cost-sensitive selector for
 continuous LP. It does **not** change `solve()`, `solve_production()`, the default
-registry, or GPU routing. It is not in the published 0.4 wheel.
+registry, or GPU routing. It is included as an experimental API in 0.4.1 and
+was absent from the published 0.4 wheel.
 
 The separate [v2 development follow-up](CERTIFICATE-ROUTING-RECOVERY.md) adds
 thirteen features, a depth-two tree, separate calibration families, per-leaf gain

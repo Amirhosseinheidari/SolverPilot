@@ -1,7 +1,7 @@
 # Convex quadratic constraints, piecewise costs and inventory planning
 
-This is unreleased development after 0.4. Installing the published 0.4 wheel does
-not provide these additions. No new release/tag/upload is implied by this guide.
+These additions are included in version 0.4.1. The earlier published 0.4 wheel
+does not contain them. Their mathematical and execution boundaries remain below.
 
 ## Automatic continuous QCQP lowering
 

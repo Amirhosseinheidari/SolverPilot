@@ -1,5 +1,9 @@
 # LP certificate cost and the 68 incomplete public checks
 
+> Release inclusion: the implementation described here is included in 0.4.1.
+> The original development measurements and artifact versions below are historical
+> evidence, not measurements of the new 0.4.1 distribution.
+
 Unreleased development after 0.4, based on main commit `43118b4`. The earlier
 [repeated-LP qualification](REPEATED-LP-QUALIFICATION.md) remains a historical
 record, not a measurement of this implementation. No version bump or learned

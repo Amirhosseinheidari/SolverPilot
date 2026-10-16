@@ -1,6 +1,6 @@
 # Production contracts and execution evidence
 
-This is unreleased development after published 0.4. It completes a scoped
+Included in version 0.4.1, this workflow completes a scoped
 continuous-production workflow using the existing semantic template, scenario
 sweep, owned session, core solver, explanation and history APIs. It does not
 enable learned routing, change solver proof categories or add a cloud service.

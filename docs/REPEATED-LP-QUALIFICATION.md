@@ -1,5 +1,9 @@
 # Opt-in HiGHS reuse and measured validation cost
 
+> Release inclusion: the implementation described here is included in 0.4.1.
+> The original development measurements and artifact versions below are historical
+> evidence, not measurements of the new 0.4.1 distribution.
+
 Development after published 0.4. This work extends the [September audit](AUDIT-REMEDIATION.md).
 Historical measurements remain unchanged and learned routing remains experimental.
 
