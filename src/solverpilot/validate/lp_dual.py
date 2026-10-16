@@ -11,7 +11,21 @@ from time import perf_counter
 import numpy as np
 
 from solverpilot.problem import LinearProblem
-from ._certificate_arithmetic import rational, bounded_float, box_min
+from ._certificate_arithmetic import rational, bounded_float, box_min, _dyadic
+
+
+def _outward_ratio(numerator, denominator, *, upper):
+    """Round an exact integer quotient outward, without intermediate floats."""
+    from fractions import Fraction
+    exact = Fraction(numerator, denominator)
+    rounded = bounded_float(exact)
+    if not math.isfinite(rounded):
+        return None
+    num, den = rounded.as_integer_ratio()
+    difference = num*exact.denominator-exact.numerator*den
+    if (upper and difference < 0) or (not upper and difference > 0):
+        rounded = math.nextafter(rounded, math.inf if upper else -math.inf)
+    return rounded
 
 
 def prepare_lp_dual(problem, dual):
@@ -45,48 +59,78 @@ def implied_lp_box(problem, *, max_visits=50000, max_passes=3):
     """
     lower, upper = problem.variable_lower.copy(), problem.variable_upper.copy()
     a = problem.A.tocsr()
+    data, columns, pointers = a.data, a.indices, a.indptr
+    # All stored inputs are binary64. Integer products with aligned powers of
+    # two are exactly the same rationals as Fraction multiplication/addition,
+    # without allocating a Fraction for every term on every propagation pass.
+    from .workspace import _CURRENT
+    call = _CURRENT.get()
+    if call is not None: call.tick(2*len(lower))
+    coefficient_rows = {}
+    # Prepare only visited endpoints: a very wide sparse model must not create
+    # Python dyadic objects for every variable despite a small visit cap.
+    lower_exact, upper_exact = {}, {}
+    row_bounds = {}
+    row_lower, row_upper = problem.constraint_lower, problem.constraint_upper
     visits = 0
     for _ in range(max_passes):
         changed = False
         for i in range(a.shape[0]):
-            start, end = a.indptr[i:i+2]
+            start, end = pointers[i:i+2]
             width = end-start
             if visits + width > max_visits:
                 return lower, upper
             visits += width
-            indices = a.indices[start:end]
-            coefs = [rational(v) for v in a.data[start:end]]
+            if call is not None: call.tick(1+int(width))
+            if not width:
+                continue
+            indices = columns[start:end]
+            if i not in coefficient_rows:
+                coefficient_rows[i] = [_dyadic(v) for v in data[start:end]]
+                hi, lo = row_upper[i], row_lower[i]
+                row_bounds[i] = (_dyadic(hi) if math.isfinite(hi) else None,
+                                 _dyadic(lo) if math.isfinite(lo) else None)
+            coefs = coefficient_rows[i]
             if not coefs:
                 continue
             # Snapshot the row: every update below follows from this same box.
-            for row_bound, is_upper in ((problem.constraint_upper[i], True),
-                                        (problem.constraint_lower[i], False)):
-                if not np.isfinite(row_bound):
+            for row_bound, is_upper in zip(row_bounds[i], (True, False)):
+                if row_bound is None:
                     continue
                 terms = []
-                for j, c in zip(indices, coefs):
-                    endpoint = (lower[j] if c > 0 else upper[j]) if is_upper else (
-                        upper[j] if c > 0 else lower[j])
-                    terms.append(None if not np.isfinite(endpoint) else c*rational(endpoint))
-                total = sum((v for v in terms if v is not None), rational(0))
+                exponent = row_bound[1]
+                for j, (c, ce) in zip(indices, coefs):
+                    use_lower = is_upper == (c > 0)
+                    cache, bounds = (lower_exact, lower) if use_lower else (upper_exact, upper)
+                    if j not in cache:
+                        cache[j] = _dyadic(bounds[j]) if math.isfinite(bounds[j]) else None
+                    endpoint = cache[j]
+                    term = None if endpoint is None else (c*endpoint[0], ce+endpoint[1])
+                    terms.append(term)
+                    if term is not None and term[0]: exponent = max(exponent, term[1])
                 missing = sum(v is None for v in terms)
-                for j, c, term in zip(indices, coefs, terms):
+                if missing > 1:
+                    continue
+                scaled = [None if v is None else (v[0] << (exponent-v[1]) if v[0] else 0)
+                          for v in terms]
+                total = sum(v for v in scaled if v is not None)
+                rhs = row_bound[0] << (exponent-row_bound[1])
+                for j, (c, ce), term in zip(indices, coefs, scaled):
                     if not c or missing - (term is None):
                         continue
-                    exact = (rational(row_bound) - total + (term or 0))/c
                     toward_upper = is_upper == (c > 0)
-                    rounded = bounded_float(exact)
-                    if not np.isfinite(rounded):
+                    numerator = rhs-total+(term or 0)
+                    rounded = _outward_ratio(numerator << max(0, ce-exponent),
+                        c << max(0, exponent-ce), upper=toward_upper)
+                    if rounded is None:
                         continue
-                    if toward_upper and rational(rounded) < exact:
-                        rounded = np.nextafter(rounded, np.inf)
-                    elif not toward_upper and rational(rounded) > exact:
-                        rounded = np.nextafter(rounded, -np.inf)
                     if toward_upper and rounded < upper[j]:
                         upper[j] = rounded
+                        upper_exact[j] = _dyadic(rounded) if math.isfinite(rounded) else None
                         changed = True
                     elif not toward_upper and rounded > lower[j]:
                         lower[j] = rounded
+                        lower_exact[j] = _dyadic(rounded) if math.isfinite(rounded) else None
                         changed = True
                     if lower[j] > upper[j]:
                         return problem.variable_lower.copy(), problem.variable_upper.copy()
@@ -105,6 +149,8 @@ def row_residual_lower_bound(problem, coefficients, lower, upper, *, max_visits=
     A failure to finish simply returns None, with no relaxed feasibility test.
     """
     a = problem.A.tocsr(); columns = a.tocsc()
+    from .workspace import _CURRENT
+    call = _CURRENT.get()
     residual = list(coefficients)
     constant = rational(0)
     eliminated, attempted = set(), set()
@@ -122,6 +168,7 @@ def row_residual_lower_bound(problem, coefficients, lower, upper, *, max_visits=
             visits += end-begin
             if visits > max_visits:
                 return None
+            if call is not None: call.tick(1+int(end-begin))
             indices = a.indices[begin:end]
             if any(k in eliminated for k in indices):
                 continue
@@ -159,6 +206,8 @@ def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pi
     not evidence of infeasibility or nonoptimality.
     """
     start = perf_counter()
+    from .workspace import _CURRENT
+    call = _CURRENT.get()
     if any(type(v) is not int or v < 0 for v in (max_pivots, max_visits, max_bits)):
         raise ValueError('recovery work limits must be nonnegative integers')
     if time_limit_s is not None and (isinstance(time_limit_s, bool)
@@ -178,6 +227,7 @@ def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pi
         return value
 
     def expired():
+        if call is not None: call.tick()
         return time_limit_s is not None and perf_counter()-start >= time_limit_s
 
     def small(values):
@@ -190,7 +240,10 @@ def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pi
         begin, end = a.indptr[i:i+2]
         visits += int(end-begin)
         if visits > max_visits: return finish('work_limit')
+        if call is not None: call.tick(1+int(end-begin))
         if expired(): return finish('time_limit')
+        if begin == end:
+            continue
         row = {int(a.indices[k]): rational(a.data[k]) for k in range(begin, end) if a.data[k]}
         rhs = rational(problem.constraint_lower[i])
         if not small([rhs, *row.values()]): return finish('bit_limit')
@@ -217,6 +270,7 @@ def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pi
         constant += multiplier*rhs
         visits += len(row)
         if visits > max_visits: return finish('work_limit')
+        if call is not None: call.tick(len(row))
         for k, value in row.items():
             updated = residual.get(k, rational(0))-multiplier*value
             if updated: residual[k] = updated
@@ -230,6 +284,7 @@ def equality_residual_lower_bound(problem, coefficients, lower, upper, *, max_pi
             multiplier = target[j]
             visits += len(row)
             if visits > max_visits: return finish('work_limit')
+            if call is not None: call.tick(len(row))
             bounds[other] -= multiplier*rhs
             for k, value in row.items():
                 updated = target.get(k, rational(0))-multiplier*value

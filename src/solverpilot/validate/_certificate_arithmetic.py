@@ -36,9 +36,10 @@ def _sum_products(pairs):
     call=_CURRENT.get()
     total, exponent = 0, 0
     count=0
+    limited = call is not None and (call.policy.max_terms is not None or call.policy.time_limit_s is not None)
     for (a, ae), (b, be) in pairs:
         count+=1
-        if call is not None and count%256==0: call.tick(256)
+        if limited and count%256==0: call.tick(256)
         product = a*b
         if not product:
             continue
@@ -47,12 +48,13 @@ def _sum_products(pairs):
             total <<= power-exponent
             exponent = power
         total += product << (exponent-power)
-    if call is not None: call.tick(count%256)
+    if call is not None: call.tick(count%256 if limited else count)
     return Fraction(total, 1 << exponent)
 
 
 def matvec(matrix, vector):
     matrix = matrix.tocsr()
+    data, indices, pointers = matrix.data, matrix.indices, matrix.indptr
     from .workspace import _CURRENT
     call=_CURRENT.get()
     if call is not None: call.tick(len(vector)+matrix.nnz)
@@ -64,8 +66,8 @@ def matvec(matrix, vector):
     return [
         _sum_products(
             (
-                (_dyadic(matrix.data[k]), values[matrix.indices[k]])
-                for k in range(matrix.indptr[i], matrix.indptr[i + 1])
+                (_dyadic(data[k]), values[indices[k]])
+                for k in range(pointers[i], pointers[i + 1])
             ),
         )
         for i in range(matrix.shape[0])
@@ -84,5 +86,7 @@ def box_min(coefficients, lower, upper):
         bound = lo if coefficient > 0 else hi
         if not np.isfinite(bound):
             return None
+        if bound == 0:
+            continue  # Exact zero support term; retain the same work accounting.
         result += coefficient * rational(bound)
     return result

@@ -140,9 +140,27 @@ def _verify_optimality_with_primal_report(
         # The tangent Lagrangian gives a valid lower bound after minimizing
         # this residual over the variable domain. Exact binary64 arithmetic
         # avoids losing a residual through cancellation in the sparse product.
-        exact_px = matvec(problem.P, x) if isinstance(problem, QuadraticProblem) else [rational(0)] * len(x)
-        exact_bty = matvec(B.T, y)
-        residual = [p + rational(sign*c) + b for p, c, b in zip(exact_px, linear.c, exact_bty)]
+        if isinstance(problem, QuadraticProblem):
+            exact_px = matvec(problem.P, x)
+            residual = [p + rational(sign*c) + b
+                        for p, c, b in zip(exact_px, linear.c, matvec(B.T, y))]
+            half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
+            bound_dual, bound_values = y[active], bound[active]
+        else:
+            # Keep variable bounds in the domain, not also in the Lagrangian.
+            # A rounded bound multiplier can turn an exactly nonnegative
+            # reduced cost into a tiny negative residual on a half-infinite
+            # variable. That needlessly makes the full-dual box bound infinite.
+            # For every feasible z, y_bound*(z-bound) <= 0, so omitting these
+            # terms gives a valid, at least as strong lower bound. The supplied
+            # full dual still undergoes all sign/KKT/complementarity checks.
+            row_dual = y[:linear.n_constraints]
+            row_active = row_dual != 0
+            residual = [rational(sign*c) + b
+                        for c, b in zip(linear.c, matvec(linear.A.T, row_dual))]
+            half_xpx = rational(0)
+            bound_dual = row_dual[row_active]
+            bound_values = bound[:linear.n_constraints][row_active]
         correction = box_min(residual, linear.variable_lower, linear.variable_upper)
         domain_refined = False
         recovery_diagnostics = None
@@ -152,24 +170,33 @@ def _verify_optimality_with_primal_report(
             correction = box_min(residual, lower, upper)
             if correction is None:
                 correction = row_residual_lower_bound(problem, residual, lower, upper)
-            if correction is None and extended_recovery:
+            if correction is None:
                 from .lp_dual import dual_slack_residual_lower_bound, equality_residual_lower_bound
-                basis = options.pop('basis', None)
-                options['time_limit_s'] = None if limit is None else max(1e-12, limit-(perf_counter()-call_start))
-                recovery_diagnostics = {'equality': {}}
+                basis = options.pop('basis', None) if extended_recovery else None
+                if extended_recovery:
+                    options['time_limit_s'] = None if limit is None else max(1e-12, limit-(perf_counter()-call_start))
+                else:
+                    # A bounded equality-only stage closes coupled residuals
+                    # without invoking another solver or treating inequalities
+                    # as equations. Larger/slack recovery remains opt-in.
+                    options = dict(max_pivots=256, max_visits=50000, max_bits=8192)
+                recovery_diagnostics = {'mode': 'extended' if extended_recovery else 'bounded_equality', 'equality': {}}
                 correction = equality_residual_lower_bound(problem, residual, lower, upper,
                     diagnostics=recovery_diagnostics['equality'], **options)
-                if correction is None:
+                if correction is None and extended_recovery:
                     remaining = None if limit is None else limit-(perf_counter()-call_start)
                     if remaining is None or remaining > 0:
                         options['time_limit_s'] = remaining
                         recovery_diagnostics['dual_slack'] = {}
-                        correction = dual_slack_residual_lower_bound(problem, residual, lower, upper, y, x=x, basis=basis,
+                        # Residual/base above omit bound multipliers. Recovery
+                        # must use that same Lagrangian, including zero penalties
+                        # for the variable-bound rows it adds to its slack model.
+                        recovery_dual = np.r_[y[:linear.n_constraints], np.zeros(linear.n_variables)]
+                        correction = dual_slack_residual_lower_bound(problem, residual, lower, upper, recovery_dual, x=x, basis=basis,
                             diagnostics=recovery_diagnostics['dual_slack'], **options)
             domain_refined = correction is not None
-        half_xpx = sum((rational(v)*p for v, p in zip(x, exact_px)), rational(0))/2
         exact_primal = half_xpx + dot(sign*linear.c, x)
-        exact_dual = None if correction is None else -half_xpx-dot(y[active], bound[active])+correction
+        exact_dual = None if correction is None else -half_xpx-dot(bound_dual, bound_values)+correction
         if isinstance(problem, QuadraticProblem):
             # Gershgorin gives a conservative strong-convexity bound without
             # a dense eigendecomposition. It can bound free-variable residuals.
