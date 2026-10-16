@@ -73,6 +73,7 @@ def test_rc8_live_tools_only_contain_current_release_helpers():
         "qualify_cuopt.py",
         "release_cell_runner.py",
         "release_dist_manifest.py",
+        "release_import_guard.py",
         "release_repro_build_compare.py",
         "release_resolver_report.py",
         "release_runtime_requirements.py",
