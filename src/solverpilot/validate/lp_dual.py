@@ -66,6 +66,14 @@ def implied_lp_box(problem, *, max_visits=50000, max_passes=3):
     from .workspace import _CURRENT
     call = _CURRENT.get()
     if call is not None: call.tick(2*len(lower))
+    # Reuse only matrix coefficients; row/variable endpoints belong to this
+    # call. Content hashing in prepare() invalidates changed matrix values.
+    # Budgeted calls retain lazy preparation so a small work cap never causes
+    # a whole-matrix conversion before the first visited row is charged.
+    prepared = None
+    if (call is not None and call.workspace is not None and a.nnz <= max_visits
+            and call.policy.max_terms is None and call.policy.time_limit_s is None):
+        prepared = call.workspace.prepare(a)
     coefficient_rows = {}
     # Prepare only visited endpoints: a very wide sparse model must not create
     # Python dyadic objects for every variable despite a small visit cap.
@@ -86,7 +94,8 @@ def implied_lp_box(problem, *, max_visits=50000, max_passes=3):
                 continue
             indices = columns[start:end]
             if i not in coefficient_rows:
-                coefficient_rows[i] = [_dyadic(v) for v in data[start:end]]
+                coefficient_rows[i] = ([_dyadic(v) for v in data[start:end]] if prepared is None
+                                       else prepared[2][start:end])
                 hi, lo = row_upper[i], row_lower[i]
                 row_bounds[i] = (_dyadic(hi) if math.isfinite(hi) else None,
                                  _dyadic(lo) if math.isfinite(lo) else None)
@@ -120,8 +129,24 @@ def implied_lp_box(problem, *, max_visits=50000, max_passes=3):
                         continue
                     toward_upper = is_upper == (c > 0)
                     numerator = rhs-total+(term or 0)
-                    rounded = _outward_ratio(numerator << max(0, ce-exponent),
-                        c << max(0, exponent-ce), upper=toward_upper)
+                    numerator <<= max(0, ce-exponent)
+                    denominator = c << max(0, exponent-ce)
+                    if denominator < 0:
+                        numerator, denominator = -numerator, -denominator
+                    # Most row candidates cannot tighten the current box.
+                    # Compare exact integers before constructing a Fraction:
+                    # sign(N/D - B/2**e) == sign((N<<e) - B*D), D>0.
+                    # Outward rounding cannot make a non-improving exact bound
+                    # improve it. No small residual or tolerance is discarded.
+                    cache, bounds = (upper_exact, upper) if toward_upper else (lower_exact, lower)
+                    if j not in cache:
+                        cache[j] = _dyadic(bounds[j]) if math.isfinite(bounds[j]) else None
+                    current = cache[j]
+                    if current is not None:
+                        difference = (numerator << current[1])-current[0]*denominator
+                        if (toward_upper and difference >= 0) or (not toward_upper and difference <= 0):
+                            continue
+                    rounded = _outward_ratio(numerator, denominator, upper=toward_upper)
                     if rounded is None:
                         continue
                     if toward_upper and rounded < upper[j]:
