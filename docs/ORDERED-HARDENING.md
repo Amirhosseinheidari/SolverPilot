@@ -1,5 +1,9 @@
 # Ordered hardening after the public LP qualifications
 
+> Release inclusion: the implementation described here is included in 0.4.1.
+> The original development measurements and artifact versions below are historical
+> evidence, not measurements of the new 0.4.1 distribution.
+
 This work follows six priorities in order. Changes are qualified separately from
 promotion of a learned model or publication of a new package.
 

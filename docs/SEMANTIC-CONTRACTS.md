@@ -1,7 +1,6 @@
 # Semantic contracts and verification
 
-This is unreleased development after 0.4. No new PyPI version is implied by the
-checkout's version string. The historical published API remains available; new
+These post-0.4 changes are included in version 0.4.1. The historical published API remains available; new
 controls are optional keywords and features use submodule namespaces.
 
 ## Correctness repairs

@@ -1,4 +1,4 @@
-# Owner publication decisions — current prerelease
+# Owner publication decisions
 
 ## Resolved
 
@@ -11,11 +11,14 @@
 - Public maintainer email: intentionally omitted for now
 - Owner-confirmed repository: https://github.com/Amirhosseinheidari/SolverPilot
 - Issues: https://github.com/Amirhosseinheidari/SolverPilot/issues
-- Repository visibility: private; GitHub integration does not authorize public/PyPI publication
+- Repository visibility: public (verified during the 0.4.1 release work).
+- Current authorization: the owner explicitly requested merging PR #27 and publishing
+  the corrected version to PyPI, followed by installation/execution checks.
+- Release number: 0.4.1, preserving all previously published versions and artifacts.
 
 The historical codename `OptiMind` remains only in archived milestone evidence. The current source and distribution intentionally ship no `optimind` compatibility package or exception alias, avoiding duplicate module/class identities before the first public release.
 
-## Still unresolved before public release
+## Optional project fields and external checks
 
 - documentation URL
 - optional project homepage/custom domain

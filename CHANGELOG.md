@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.4.1 — 2026-10-16
+
+This release includes the accumulated changes below since published 0.4. Historical benchmark wheel identities and qualification records retain their original versions.
+
+- Reduce exact LP implied-box propagation overhead with dyadic arithmetic and invocation-local caches.
+- Remove redundant bound multipliers from LP lower bounds while retaining full-dual KKT/sign checks; add capped equality recovery with shared proof-budget accounting.
+- Recover all 68 previously unverified public observations without changing tolerances: 256/256 fixed historical candidates now verify, with zero losses. Preserve individual timing regressions and numerical-proof limitations in the performance report.
+- Freeze a complete 0.4.1 API snapshot including additive proof controls and trace fields; retain the historical 0.4 compatibility projection.
+
 - Automatically lower eligible continuous quadratic inequalities through bounded exact rational square/PSD decompositions to RSOCs; retain original primal validation, owned parameter snapshots and explicit execution-only certificate scope.
 - Add convex PWL epigraph and exact segment-weight graph helpers with bounded domains, constant-data ownership and a separate rational source-relation validator.
 - Add a complete synthetic advance-commitment inventory fixture combining batches, setup, lead time, convex piecewise costs and CVaR/expected-loss priorities, checked against all nine independent release plans.
@@ -51,7 +60,7 @@
 - Tighten built-in OSQP solve tolerances after cold-start failures found by repeated-call qualification; preserve explicit adapter settings.
 - Exercise repeated LP/QP solves, cancellation, worker-crash recovery and memory observations on the CI platform matrix.
 - Separate feasibility, proof scope/reason and deadline compliance in common summaries, including owned batch and exact-certificate results.
-- Add a passive `solverpilot-doctor` with imported-code fingerprint, distribution ownership and feature maturity. This development code is not the published 0.4 artifact.
+- Add a passive `solverpilot-doctor` with imported-code fingerprint, distribution ownership and feature maturity. The imported code fingerprint distinguishes these changes from the earlier 0.4 artifact.
 
 
 

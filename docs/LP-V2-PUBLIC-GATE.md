@@ -1,5 +1,9 @@
 # Public LP routing admission and actual-call gates
 
+> Release inclusion: the implementation described here is included in 0.4.1.
+> The original development measurements and artifact versions below are historical
+> evidence, not measurements of the new 0.4.1 distribution.
+
 Development after published 0.4. These changes make a failed or insufficient study
 explicit; they do not enable automatic learned routing or publish a package.
 
