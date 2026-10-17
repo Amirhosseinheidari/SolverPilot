@@ -54,7 +54,7 @@ jobs:
         run: python tools/release_import_guard.py report --receipts installed-imports --output installed-import-identity.json
       - name: Preserve regression results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: tests-${{ matrix.os }}-py${{ matrix.python }}
           path: |
@@ -90,7 +90,7 @@ jobs:
           python -m pytest -ra --cov=solverpilot --cov-branch --cov-report=xml:coverage.xml --cov-fail-under=80 --junitxml=optional-results.xml
       - name: Preserve optional integration results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: optional-integration-results-${{ matrix.platform }}-py${{ matrix.python }}
           path: |
@@ -117,7 +117,7 @@ jobs:
         run: python -m pytest -ra --junitxml=minimum-results.xml
       - name: Preserve minimum dependency results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: minimum-dependency-results
           path: minimum-results.xml
@@ -146,7 +146,7 @@ jobs:
           python benchmarks/qualify_highs_reuse.py --sizes 2 4 --scales 1 100 --output reuse-challenge
       - name: Preserve functional comparison observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: workflow-comparison-observations
           path: |
@@ -192,7 +192,7 @@ jobs:
         run: python benchmarks/qualify_production_install.py --wheel dist/solverpilot-*.whl --output pilot-install --repeats 2 --include-model
       - name: Preserve build and audit evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: verified-distribution
           path: |
@@ -237,7 +237,7 @@ jobs:
           PYTHONPATH: src
         run: python benchmarks/qualify_verification_workspace.py --output verification-workspace.json
       - name: Preserve verification observations
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: verification-workspace
           path: verification-workspace.json
