@@ -26,7 +26,7 @@ def _sig(obj):
 
 def test_current_version_and_build_backend_are_exactly_frozen():
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    assert pyproject["project"]["version"] == solverpilot.__version__ == "0.4.1"
+    assert pyproject["project"]["version"] == solverpilot.__version__ == "0.4.2"
     assert Version(solverpilot.__version__).pre is None
     assert pyproject["build-system"]["requires"] == ["setuptools==84.0.0", "wheel==0.48.0"]
 
@@ -44,7 +44,7 @@ def test_published_api_preserved_with_documented_optional_extensions():
 
 
 def test_current_backend_contract_matches_runtime_and_keeps_learning_off():
-    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_4_1.json").read_text(encoding="utf-8"))
+    payload = json.loads((ROOT / "BACKEND-CONTRACT-V0_4_2.json").read_text(encoding="utf-8"))
     expected = {name for names in payload["stable_backend_ids"].values() for name in names}
     assert expected == {backend.manifest.name for backend in builtin_backend_candidates()}
     assert set(payload["stable_backend_ids"]["verification_only"]).isdisjoint(default_registry().names())

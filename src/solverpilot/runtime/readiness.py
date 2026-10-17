@@ -39,7 +39,7 @@ def readiness_report():
         {'name':'guarded_learned_lp','maturity':'experimental','included_in_published_0_4':False},
     ]
     return {'schema':'solverpilot.readiness.v1','package_version':solverpilot.__version__,
-            'code_lineage':'release 0.4.1; includes post-0.4 hardening','source_sha256':code_id,
+            'code_lineage':'release 0.4.2; includes post-0.4 hardening','source_sha256':code_id,
             'distribution_version':distribution_version,'distribution_owns_import':matches,
             'editable_install_metadata':editable,'import_path':str(root),
             'platform':platform.platform(),'dependency_modules_found':dependencies,

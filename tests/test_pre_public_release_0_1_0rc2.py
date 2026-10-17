@@ -12,16 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_final_release_identity_is_distinct_from_historical_rc2():
     project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-    assert project["version"] == solverpilot.__version__ == "0.4.1"
+    assert project["version"] == solverpilot.__version__ == "0.4.2"
     assert Version(project["version"]).pre is None
     assert project["version"] != "0.0.40rc2"
 
 
 def test_current_release_snapshots_are_versioned_without_label_collision():
-    api = json.loads((ROOT / "PUBLIC-API-V0_4_1.json").read_text(encoding="utf-8"))
-    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_4_1.json").read_text(encoding="utf-8"))
-    assert api["package_version"] == "0.4.1"
-    assert backend["package_version"] == "0.4.1"
+    api = json.loads((ROOT / "PUBLIC-API-V0_4_2.json").read_text(encoding="utf-8"))
+    backend = json.loads((ROOT / "BACKEND-CONTRACT-V0_4_2.json").read_text(encoding="utf-8"))
+    assert api["package_version"] == "0.4.2"
+    assert backend["package_version"] == "0.4.2"
     assert len(api["symbols"]) == 78
     assert [row["name"] for row in api["symbols"]] == solverpilot.__all__
 
