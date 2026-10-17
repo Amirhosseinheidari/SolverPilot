@@ -46,7 +46,7 @@ jobs:
       - name: Freeze distribution digests
         run: python tools/release_dist_manifest.py dist --write
       - name: Upload exact distribution
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: release-dist
           path: |
@@ -93,7 +93,7 @@ jobs:
         with:
           python-version: "3.13"
           cache: pip
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -117,7 +117,7 @@ jobs:
         run: python -m pip_audit -r runtime-requirements.txt --strict --format json --output security-audit.json
       - name: Upload security evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: release-security
           path: |
@@ -138,7 +138,7 @@ jobs:
       attestations: write
       artifact-metadata: write
     steps:
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -146,7 +146,7 @@ jobs:
         shell: bash
         run: |
           if [ -d dist-download/dist ]; then mv dist-download/dist dist; else mv dist-download dist; fi
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-security
           path: security-download
@@ -188,7 +188,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -202,7 +202,7 @@ jobs:
         run: python tools/release_cell_runner.py --dist dist --prefix release-core
       - name: Upload cell evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: core-${{ matrix.os }}-py${{ matrix.python }}
           path: |
@@ -225,7 +225,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -239,7 +239,7 @@ jobs:
         run: python tools/release_cell_runner.py --dist dist --prefix release-min --minimum-deps
       - name: Upload cell evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: minimum-deps
           path: |
@@ -268,7 +268,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -282,7 +282,7 @@ jobs:
         run: python tools/release_cell_runner.py --dist dist --prefix release-native --extra "${{ matrix.extra }}" --skip-regression
       - name: Upload cell evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: native-ubuntu-py${{ matrix.python }}-${{ matrix.extra }}
           path: |
@@ -312,7 +312,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-dist
           path: dist-download
@@ -326,7 +326,7 @@ jobs:
         run: python tools/release_cell_runner.py --dist dist --prefix release-native-os --extra "${{ matrix.extra }}" --skip-regression
       - name: Upload cell evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: native-${{ matrix.os }}-py${{ matrix.python }}-${{ matrix.extra }}
           path: |
