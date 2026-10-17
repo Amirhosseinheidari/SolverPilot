@@ -16,7 +16,7 @@ Repository owners must verify external settings that source code cannot prove:
 
 ## Normal CI
 
-`.github/workflows/ci.yml` runs on pull requests and pushes to `main`. It tests the source tree on Ubuntu, Windows, and macOS/Python 3.12–3.14. It is **not** release-compatibility evidence.
+`.github/workflows/ci.yml` runs on pull requests and pushes to `main`. The nine regression cells build and install a wheel on Ubuntu, Windows, and macOS/Python 3.12–3.14, then verify installed-package identity in parent and same-environment child processes. Other CI jobs retain their specific scope. Normal CI does not replace qualification of the single final wheel/sdist pair.
 
 ## Exact-artifact release qualification
 

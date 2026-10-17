@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.4.2 — 2026-10-17
+
+- Verify installed-wheel identity in ordinary CI and release qualification, including same-environment Python children; prevent checkout-source substitution and retain process receipts.
+- Reduce LP certificate preparation work with exact non-improving endpoint comparisons, immutable coefficient reuse and direct LP residual products. Preserve tolerances, proof categories, QP formulas and per-call checks.
+- Add independent rational tiny-LP oracle, mutation, budget and extreme-endpoint tests. Retain all 256 frozen numerical certificates, including the 68 earlier repairs.
+- Preserve the 0.4.1 public API and backend contracts. Verifier-only diagnostics improved on the measured families; mixed end-to-end results do not establish an overall speedup.
+
 ## 0.4.1 — 2026-10-16
 
 This release includes the accumulated changes below since published 0.4. Historical benchmark wheel identities and qualification records retain their original versions.

@@ -1,11 +1,11 @@
-# Known limitations — 0.4.1
+# Known limitations — 0.4.2
 
-Version 0.4.1 includes post-0.4 hardening and LP verification improvements. See the [0.4.1 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.1.md) for release scope; the historical [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) remains unchanged.
+Version 0.4.2 includes post-0.4 hardening and LP verification improvements. See the [0.4.2 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.2.md) for release scope; the historical [0.4 guide](docs/release/SOLVERPILOT-PUBLIC-DOCS-0.4.md) remains unchanged.
 
-Version 0.4.1 includes an explicit [exact LP/MILP path](docs/EXACT-MILP.md).
+Version 0.4.2 includes an explicit [exact LP/MILP path](docs/EXACT-MILP.md).
 It needs separately built trusted executables and does not qualify generic MIQP/MINLP,
 unboundedness, or unsupported presolve transformations. The release-specific statements
-below remain applicable to 0.4.1 unless a narrower boundary is stated.
+below remain applicable to 0.4.2 unless a narrower boundary is stated.
 The development [cuOpt GPU adapter](docs/GPU-LP.md) is limited to explicit continuous
 LP execution, with independent numerical validation and no automatic routing or
 reuse claim. GPU qualification is separate from CPU-only GitHub CI.
