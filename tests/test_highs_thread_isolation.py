@@ -64,7 +64,7 @@ for target, objective in ((integer,19.), (qp,2.75)):
     assert r.raw_statistics['isolated_thread_configuration']
 b.close(); c.close()
 '''
-    env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]/'src'))
+    env = dict(os.environ, PYTHONPATH=str(Path(__import__("solverpilot").__file__).resolve().parent.parent))
     completed = subprocess.run([sys.executable, '-c', code], capture_output=True, text=True, env=env, timeout=30)
     assert completed.returncode == 0, completed.stderr
 

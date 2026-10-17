@@ -100,7 +100,10 @@ def _verify_optimality_with_primal_report(
         x, y = np.asarray(x, dtype=float), np.asarray(dual, dtype=float)
     except (TypeError, ValueError, OverflowError):
         return bad("certificate is not numeric")
-    B = sparse.vstack([linear.A, sparse.eye(linear.n_variables)], format='csr')
+    # LP bounds need the same products as [A; I], but do not need a new sparse
+    # identity/stack/transpose on every call. Keep the QP certificate path intact.
+    B = (sparse.vstack([linear.A, sparse.eye(linear.n_variables)], format='csr')
+         if isinstance(problem, QuadraticProblem) else None)
     lo, hi = np.r_[linear.constraint_lower, linear.variable_lower], np.r_[linear.constraint_upper, linear.variable_upper]
     if x.shape != (linear.n_variables,) or y.shape != lo.shape or not np.isfinite(x).all() or not np.isfinite(y).all():
         return bad('certificate shape or finite-value check failed')
@@ -126,12 +129,20 @@ def _verify_optimality_with_primal_report(
         return bad('dual multiplier points toward an infinite bound')
     with np.errstate(over='ignore', invalid='ignore'):
         terms = np.zeros_like(y); terms[active] = y[active]*bound[active]
-        stationarity = px + sign*linear.c + B.T@y
-        comp = np.zeros_like(y); comp[active] = y[active]*(bound[active]-(B@x)[active])
+        if B is None:
+            row_y, bound_y = y[:linear.n_constraints], y[linear.n_constraints:]
+            dual_activity = linear.A.T@row_y + bound_y
+            activity = np.r_[linear.A@x, x]
+            dual_scale = abs(linear.A.T)@abs(row_y) + abs(bound_y)
+        else:
+            dual_activity, activity = B.T@y, B@x
+            dual_scale = abs(B.T)@abs(y)
+        stationarity = px + sign*linear.c + dual_activity
+        comp = np.zeros_like(y); comp[active] = y[active]*(bound[active]-activity[active])
         primal_value = float(.5*x@px + sign*linear.c@x)
         st = float(np.max(np.abs(stationarity), initial=0))
         cp = float(np.max(np.abs(comp), initial=0))
-        scale = np.maximum(1., np.abs(px)+np.abs(linear.c)+abs(B.T)@abs(y))
+        scale = np.maximum(1., np.abs(px)+np.abs(linear.c)+dual_scale)
         st_ok = bool(np.all(np.abs(stationarity) <= tol.feasibility+tol.feasibility_rel*scale))
         if fast_reject and (not np.isfinite([st, cp]).all() or not np.isfinite(scale).all() or not st_ok):
             return OptimalityCheck(False, True, False, st, cp, np.inf,

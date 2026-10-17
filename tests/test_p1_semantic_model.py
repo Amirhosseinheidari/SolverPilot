@@ -243,7 +243,7 @@ def test_semantic_hash_ignores_names_and_parameter_values_but_includes_fixed_lit
 
 def test_semantic_hash_is_process_deterministic(tmp_path):
     code = '''\nfrom solverpilot.model import Model\nimport numpy as np\nm=Model(); x=m.variable(2,lower=0); p=m.parameter(2,value=[1,2]); m.add(np.array([1.,2.])@x>=p[0]); m.minimize(x[0]+3*x[1]); print(m.semantic_hash)\n'''
-    env = dict(__import__('os').environ); env['PYTHONPATH'] = str(Path(__file__).parents[1]/'src')
+    env = dict(__import__('os').environ); env['PYTHONPATH'] = str(Path(__import__("solverpilot").__file__).resolve().parent.parent)
     h1 = subprocess.check_output([sys.executable, "-c", code], env=env, text=True).strip()
     h2 = subprocess.check_output([sys.executable, "-c", code], env=env, text=True).strip()
     assert h1 == h2

@@ -15,7 +15,11 @@ def calibration():
     return p, model, rows
 
 
-def test_positive_gain_requires_all_binding_checks():
+def test_positive_gain_requires_all_binding_checks(monkeypatch):
+    # This exercises binding decisions, not the host's disk/hash speed. Real
+    # hashing can legitimately exceed the guard budget on a busy CI runner.
+    from solverpilot.experimental import robust_lp
+    monkeypatch.setattr(robust_lp, 'perf_counter', lambda: 0.)
     p, model, rows = calibration()
     guard = calibrate_gain_guard(model, rows, overhead_limit_s=.1)
     assert guard.candidate_gains[0][0] == 'a'
@@ -26,6 +30,22 @@ def test_positive_gain_requires_all_binding_checks():
     assert decision(cutoff_s=2., setup_elapsed_s=.2).candidate == 'production'
     for wrong in (replace(guard, model_sha256='0'*64), replace(guard, implementation_sha256='0'*64)):
         assert not wrong.permits(model, 'a', elapsed_s=0., cutoff_s=2.)
+
+
+def test_slow_implementation_binding_still_forces_fallback(monkeypatch):
+    from solverpilot.experimental import lp_gain, robust_lp
+    p, model, rows = calibration()
+    guard = calibrate_gain_guard(model, rows, overhead_limit_s=.1)
+    clock = [0.]
+    monkeypatch.setattr(robust_lp, 'perf_counter', lambda: clock[0])
+    original = lp_gain.implementation_id
+    def slow_binding():
+        clock[0] += .2
+        return original()
+    monkeypatch.setattr(lp_gain, 'implementation_id', slow_binding)
+    decision = decide_robust_lp(p, model, environment_id='env', available=('a', 'b'),
+                                gain_guard=guard, cutoff_s=2.)
+    assert decision.candidate == 'production' and decision.reason == 'gain_guard_fallback'
 
 
 @pytest.mark.parametrize('kind', ['late', 'failure', 'slower', 'too_few'])

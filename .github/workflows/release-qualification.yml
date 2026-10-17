@@ -208,6 +208,7 @@ jobs:
           path: |
             release-core-*.json
             release-core-*.txt
+            release-core-imports/
             release-core-pytest.xml
           if-no-files-found: warn
 
@@ -244,6 +245,7 @@ jobs:
           path: |
             release-min-*.json
             release-min-*.txt
+            release-min-imports/
             release-min-*.xml
           if-no-files-found: warn
           retention-days: 14
@@ -286,6 +288,7 @@ jobs:
           path: |
             release-native-*.json
             release-native-*.txt
+            release-native-imports/
             release-native-*.xml
           if-no-files-found: warn
           retention-days: 14
@@ -329,6 +332,7 @@ jobs:
           path: |
             release-native-os-*.json
             release-native-os-*.txt
+            release-native-os-imports/
             release-native-os-*.xml
           if-no-files-found: warn
           retention-days: 14

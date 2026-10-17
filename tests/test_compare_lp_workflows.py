@@ -230,7 +230,7 @@ for name in set(b['AVAILABLE_WORKFLOWS']) - factories.keys():
     assert not availability[name]['available'] and availability[name]['reason']
 """
     environment = dict(os.environ)
-    environment["PYTHONPATH"] = str(PATH.parents[1] / "src") + os.pathsep + environment.get("PYTHONPATH", "")
+    environment["PYTHONPATH"] = str(Path(__import__("solverpilot").__file__).resolve().parent.parent) + os.pathsep + environment.get("PYTHONPATH", "")
     result = subprocess.run([sys.executable, "-c", code], env=environment,
                             capture_output=True, text=True, timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr

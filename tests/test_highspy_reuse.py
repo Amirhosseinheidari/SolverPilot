@@ -388,7 +388,7 @@ def test_native_reuse_in_fresh_process(scenario):
     # with other optional native backends in the full suite.
     code = f"import runpy; m=runpy.run_path({str(path)!r}); m['scenario_{scenario}']()"
     env = dict(os.environ)
-    env["PYTHONPATH"] = str(path.parents[1] / "src") + os.pathsep + env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = str(Path(__import__("solverpilot").__file__).resolve().parent.parent) + os.pathsep + env.get("PYTHONPATH", "")
     result = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True,
                             text=True, timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr

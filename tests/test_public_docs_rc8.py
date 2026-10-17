@@ -101,9 +101,9 @@ def test_expected_public_examples_exist():
     assert (EXAMPLES / "README.md").is_file()
 
 
-def test_all_public_examples_execute_against_current_source():
+def test_all_public_examples_execute_against_current_package():
     env = os.environ.copy()
-    src = str(ROOT / "src")
+    src = str(Path(__import__("solverpilot").__file__).resolve().parent.parent)
     env["PYTHONPATH"] = src + (os.pathsep + env["PYTHONPATH"] if env.get("PYTHONPATH") else "")
     for path in sorted(EXAMPLES.glob("[0-9][0-9]_*.py")):
         completed = subprocess.run(

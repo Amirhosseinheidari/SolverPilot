@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import os
 import tempfile
@@ -28,6 +29,7 @@ def run(cmd: list[str], *, stdout=None, stderr=None, cwd: Path | None = None, en
 def clean_runtime_env() -> dict[str, str]:
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
+    env.pop("PYTHONHOME", None)
     env["PYTHONNOUSERSITE"] = "1"
     return env
 
@@ -85,6 +87,8 @@ def run_installed_public_examples(py: Path, *, work: Path, prefix: str) -> Path:
 
 
 EXTRA_FOCUSED_TESTS = {
+    "highs": ["tests/test_highspy_reuse.py", "tests/test_highs_reuse_qualification.py", "tests/test_highs_thread_isolation.py", "tests/test_lp_certificate_performance.py"],
+    "osqp": ["tests/test_osqp_native_integration.py"],
     "clarabel": ["tests/test_upgrade_02.py", "tests/test_02_numerical.py", "tests/test_03_modeling.py", "tests/test_03_runtime.py", "tests/test_03_edge_cases.py", "tests/test_04_generalized_power.py", "tests/test_04_conic_bounds.py"],
     "scip": ["tests/test_pyscipopt_native_integration.py", "tests/test_04_global.py", "tests/test_04_hardening.py"],
     "conic": ["tests/test_p6_conic_ir.py", "tests/test_p6_semantic_cones.py", "tests/test_p6_conformance_and_schema.py"],
@@ -128,6 +132,12 @@ def main() -> int:
     if ns.extra:
         install_args.extend(project["optional-dependencies"][ns.extra])
     run([str(py), "-m", "pip", "install", *install_args])
+
+    spec = importlib.util.spec_from_file_location("release_import_guard", ROOT / "tools/release_import_guard.py")
+    guard = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(guard)
+    identity_receipts = work / f"{ns.prefix}-imports"
+    guard.install(py, wheel, identity_receipts)
 
     # Dependency consistency / environment evidence.
     resolver_path = work / f"{ns.prefix}-resolver.json"
@@ -189,6 +199,8 @@ def main() -> int:
         run([str(py), "-m", "pytest", f"--junitxml={junit}"], cwd=ROOT, env=clean_runtime_env())
 
     installed_examples = run_installed_public_examples(py, work=work, prefix=ns.prefix)
+    identity_report = work / f"{ns.prefix}-import-identity.json"
+    guard.report(identity_receipts, identity_report, minimum_imports=2)
 
     summary = {
         "schema": "solverpilot.release.cell_runner.v1",
@@ -197,6 +209,7 @@ def main() -> int:
         "minimum_deps": ns.minimum_deps,
         "wheel": wheel.name,
         "installed_examples": installed_examples.name,
+        "import_identity": identity_report.name,
         "passed": True,
     }
     (work / f"{ns.prefix}-cell-summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
